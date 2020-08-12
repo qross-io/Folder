@@ -1,0 +1,83 @@
+# Sharp表达式 - 数据表操作
+数据表是一种比较特殊的集合类型，概念上是一个二维表格。数据表与关系型数据库的数据表概念一致，也包含列、字段、行等。数据表的某一行的数据类型是“数据行”，数据表某一列的数据列表是“数组”，数据表某一个单元格的数据类型按照数据表对应列的数据类型确定。注意：下面涉及Json对象中的字符串一定要用双引号。
+
+#### 获取数据表的行、列及单元格
+* **`FIRST ROW`** 返回表格的第一行，表格为空时抛出异常。
+* **`FIRST ROW row`** 返回表格的第一行，如果表格为空则返回数据行`row`，`row`用Json对象表示。
+  ```
+  SELECT * FROM table1 -> FIRST ROW { "name": "Tom", "age": 18 }
+  ```
+* **`LAST ROW`** 返回表格的最后一行，表格为空时抛出异常。
+* **`LAST ROW row`** 返回表格的最后一行，如果表格为空则返回数据行`row`，`row`用Json对象表示，同`FIRST ROW`。	
+* **`ROW n`** 得到第n行，索引从1开始，如果不存在则抛出异常。
+* **`FIRST COLUMN`** 得到第一列的所有值，返回数组。如果数据表为空，则抛出异常。
+* **`FIRST COLUMN array`** 得到表格的第一列的所有值，返回数组。如果数据表为空则返回数组`array`，`array`用Json数组表示。
+  ```
+  SELECT * FROM table1 -> FIRST COLUMN [1, 2];
+  ```
+* **`LAST COLUMN`** 得到表格的最后一列的所有值，返回数组。如果不存在则抛出异常。
+* **`LAST COLUMN array`** 得到表格的最后一列的所有值，返回数组。如果数据表为空则返回数组`array`，`array`用Json数组表示，同`FIRST COLUMN`。
+* **`COLUMN 'column'`** 根据字段名`column`返回此列的所有值，不存在则抛出异常。
+* **`FIRST CELL'`** 返回第一行第一列的值，数据类型根据第一列的数据类型确定，经常用于返回单值。数据表为空时抛出异常。
+* **`LAST CELL'`** 返回最后一行最后一列的值，数据类型根据最后一列的数据类型确定。数据表为空时抛出异常。
+* **`FIRST ROW CELL 'column'`** 返回第一行列名为`column`列的值。不存在时则抛出异常。
+* **`LAST ROW CELL 'column'`** 返回最后一行列名为`column`列的值。不存在时则抛出异常。
+* **`RANDOM n`** 从数据表随机取`n`个数据行，结果类型仍是数据表，`n`大于等于`1`且`n`小于等于数据表的记录数，`n`为`1`时返回`1`行的数据表而不是数据行。这个Link会把数据行的顺序打乱，哪怕设置`n`等于数据表的记录数。这个Link一般用于数据表的随机取样。
+  
+#### 数据表操作
+* **`INSERT row`** 在数据表中插入一行。还用上面的例子，
+  ```
+  SELECT * FROM table1 -> INSERT { "name": "Tom", "age": 18 };
+  ```
+* **`INSERT (column1, column2) VALUES (value1, value2)`** 在数据表中插入一行，用SQL中INSERT语句的类似的语法。
+  ```
+  SELECT * FROM table1 -> INSERT (name, age) VALUES ('Tom', 18};
+  ```
+* **`INSERT IF EMPTY row`** 如果数据表为空时才插入一行。例子见`INSERT row`。
+* **`INSERT IF EMPTY (column1, column2) VALUES (value1, value2)`** 如果数据表为空时才插入一行。
+* **`TURN column1 AND column2 TO ROW` 或 **`TURN (column1, column2) TO ROW`** 将数据表中的`column1`和`column2`两列数据转成数据行, 列`column1`的值做为数据行的字段名，列`column2`的值作为数据行对应字段的值。
+  ```
+  SELECT name, age FROM students -> TURN (name, age) TO ROW;
+  ```
+* **`TURN TO ROW`** 将数据表第一列和第二列的数据转成数据行，第一列的值作为数据行的字段名，第二列的值作为数据对应字段的值。
+* **`SELECT column1, column2`** 选择数据表中的一列或多列，生成新的数据表，支持`*`和`AS`。几种用法见下例：
+  ```
+  $table SELECT name -- 选择其中一列
+  $table SELECT name, age AS years -- 选择其中两列，并重命名其中一列
+  $table SELECT * -- 选择全部列，生成的数据表和原数据相同，无意义
+  $table SELECT *, name AS title -- 选择全有的全部列，并将其中一列另存为新列。因为数据表中不能存在重名的列，所以新列必须用`AS`重新命名。
+
+  ```
+* **`TO NESTED MAP 'column'`** 将数据表转化为一个嵌套的Map结构。如此非主流的操作来自于前端工程师的变态需求。数据表可以理解本身是一个数据行的数组，而数据行可以理解为是一个Map结构。现在前端工程师说数组不好处理，需要一个Map，Map每一项的值就是整个数据行。这个Link需要指定一列，前端工程师要的Map结构的Key就是这列的值（一般来说这列的每个值都是唯一的），然后数据表中每一行的其他值就构成了这个Map每一项的Value。
+  ```
+  SELECT name, age, score FROM students -> TO NESTED MAP;
+  ```
+  这个接口的返回值是这样的：
+  ```json
+  {
+      "Tom": { "age": 18， "score": 89},
+      "Jerry": { "age": 17， "score": 77},
+  }
+  ```
+* **`TO HTML TABLE`** 将数据表转化为HTML表格`<table>`字符串，用于Voyager邮件模板。
+
+#### 其他Link
+* **`COUNT`** 获取数据表的行数，返回一个整数。
+* **`FIELDS`** 获得数据表的所有字段名的数组。
+* **`LABELS`** 获得数据表中所有字段名标签的数组。
+* **`HEADERS`** 获得数据表中的所有字段和标签对应表，返回数据行。
+（以上3个Link的详细说明待后补全）
+
+数据表还有未实现的Link如`UPDATE`、`WHERE`、`DELETE`等将在未来版本中支持。
+
+---
+参考链接
+* [更优雅的数据操作方法 Sharp表达式](/doc/pql/sharp)
+* [Sharp表达式操作 - 文本和字符串 TEXT](/doc/pql/sharp-text)
+* [Sharp表达式操作 - 日期时间 DATETIME](/doc/pql/sharp-datetime)
+* [Sharp表达式操作 - 数字 INTEGER/DECIMAL](/doc/pql/sharp-numeric)
+* [Sharp表达式操作 - 正则表达式 REGEX](/doc/pql/sharp-regex)
+* [Sharp表达式操作 - 数组 ARRAY](/doc/pql/sharp-array)
+* [Sharp表达式操作 - 数据行 ROW](/doc/pql/sharp-row)
+* [Sharp表达式操作 - 数据判断](/doc/pql/sharp-if)
+* [Sharp表达式操作 - Json字符串](/doc/pql/sharp-json)
