@@ -1,6 +1,6 @@
 # 变量声明 VAR语句
 除了SET语句外，VAR语句也用来声明变量，也可以为变量赋值，作为SET语句的补充，可以提供SET语句实现不了的功能。VAR的赋值符号也使用`:=`。
-```
+```sql
 VAR $a;
 VAR $a, $b := 1, $c := 2;
 VAR $table := SELECT * FROM table1;
@@ -17,13 +17,13 @@ VAR $array := SELECT name FROM table1 -> FIRST COLUMN;
 * 一般的作法是声明变量用VAR和SET，更新变量用SET
 
 再看一个例子
-```
+```sql
 SET $a, $b, $c := [1, 2, 3]; -- 结果 $a = 1, $b = 2, $c = 3;
 VAR $a, $b, $c := [1, 2, 3]; -- 结果 $a = null, $b = null, $c = [1, 2, 3];
 ```
 
 ---
 参考链接
-* [数据类型](/doc/pql/datatype)
-* [变量声明 SET](/doc/pql/set)
-* [循环控制 FOR](/doc/pql/for)
+* [数据类型](/pql/datatype.md)
+* [变量声明 SET](/pql/set.md)
+* [循环控制 FOR](/pql/for.md)

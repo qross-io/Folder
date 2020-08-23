@@ -1,7 +1,7 @@
 # 设置对所有请求者开放的接口
 
-在OneApi服务中，有时不是所有的接口都需要安全验证，可以用[全局设置](/doc/oneapi/setup)项`oneapi.access.open`来设置哪些接口不需要安全验证。例如：
-```
+在OneApi服务中，有时不是所有的接口都需要安全验证，可以用[全局设置](/oneapi/setup.md)项`oneapi.access.open`来设置哪些接口不需要安全验证。例如：
+```s
 oneapi.access.open=
 oneapi.access.open=*
 oneapi.access.open=/api/*;/api/example/test
@@ -18,10 +18,10 @@ oneapi.access.open=GET:/api/*;GET,DELETE:/api/example/*
 * 规则验证模式是单个接口优先匹配，子目录优先匹配。
 
 
-设置每个请求者的接口访问权限，逻辑类似，请参照[OneApi接口安全控制](/doc/oneapi/permit)。
+设置每个请求者的接口访问权限，逻辑类似，请参照[OneApi接口安全控制](/oneapi/permit.md)。
 
 ---
 参考链接
-* [OneApi全局设置](/doc/oneapi/setup)
-* [OneApi访问安全验证](/doc/oneapi/token)
-* [OneApi访问安全控制](/doc/oneapi/permit)
+* [OneApi全局设置](/oneapi/setup.md)
+* [OneApi访问安全验证](/oneapi/token.md)
+* [OneApi访问安全控制](/oneapi/permit.md)

@@ -1,6 +1,6 @@
-# 条件判断 IF语句
-在数据开发过程中，控制语句用得相对比较少，因为SQL中的`WHERE`条件已经完成了大部分的工作。PQL提供了与PL/SQL一样条件判断语句IF和[CASE](/doc/pql/case)，这里先看IF语句。
-```
+# 条件控制 IF语句
+在数据开发过程中，控制语句用得相对比较少，因为SQL中的`WHERE`条件已经完成了大部分的工作。PQL提供了与PL/SQL一样条件判断语句IF和[CASE](/pql/case.md)，这里先看IF语句。
+```sql
 SET $where := '';
 
 IF $key <> '' THEN
@@ -22,12 +22,12 @@ SELECT * FROM students WHERE $where!;
 * `END IF`后面必须加分号，表示IF语句结束。
 * `ELSE`可以有可以没有。
 * `ELSIF`可以有可以没有。
-* `IF`和`THEN`之间是条件判断的内容，详见[条件表达式](/doc/pql/condition)。
+* `IF`和`THEN`之间是条件判断的内容，详见[条件表达式](/pql/condition.md)。
 
 
-#### IF短语句
+### IF短语句
 除了上述的完整的IF语句之外，IF语句还有另一种形态，称为 **IF短语句**。IF短语句不能独立存在，必须集成在语句中，比如SET语句的右侧赋值表达式，或嵌入Sharp表达式等。
-```
+```sql
 SET $rate := 
     IF $score >= 90 THEN 
         'A' 
@@ -40,7 +40,7 @@ SET $rate :=
     END; 
 ```
 再如：
-```
+```sql
 UPDATE students SET rate=${ IF $score >= 90 THEN 'A' ELSIF $score >= 75 THEN 'B' ELSIF $score >= 60 THEN 'C' ELSE 'D' END } WHERE name='Tom';   
 ```
 
@@ -50,7 +50,7 @@ UPDATE students SET rate=${ IF $score >= 90 THEN 'A' ELSIF $score >= 75 THEN 'B'
 * IF短语句`THEN`或`ELSE`后面不是语句，是单个值，而且后面不能加分号。
 * IF短语句必须有返回值，即`ELSE`部分必须有。
 * IF短语句`THEN`或`ELSE`后面可以写一条语句，但必须用小括号括起来，且不能加分号。
-```
+```sql
 VAR $scores := 
     IF $rate == 'A' THEN
         (SELECT name, score FROM students WHERE score>=90)
@@ -61,8 +61,8 @@ VAR $scores :=
 如上例，IF短语句运算完成后返回一个数据表，而且可以继续通过Sharp表达式继续运算。
 
 参考链接
-* [条件表达式](/doc/pql/condition)
-* [变量声明 SET](/doc/pql/set)
-* [变量声明 VAR](/doc/pql/var)
-* [条件判断 CASE](/doc/pql/case)
-* [Sharp表达式](/doc/pql/sharp)
+* [条件表达式](/pql/condition.md)
+* [变量声明 SET](/pql/set.md)
+* [变量声明 VAR](/pql/var.md)
+* [条件控制 CASE](/pql/case.md)
+* [Sharp表达式](/pql/sharp.md)

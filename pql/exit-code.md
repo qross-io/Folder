@@ -1,6 +1,6 @@
 # 退出程序 EXIT CODE语句
 EXIT CODE语句用于退出当前进程，中断整个PQL过程的执行。
-```
+```sql
 EXIT CODE 0;
 EXIT CODE -1;
 ```
@@ -11,6 +11,7 @@ EXIT CODE -1;
 
 ---
 参考链接
-* [中断循环 EXIT](/doc/pql/exit)
-* [统一接口 OneApi](/doc/oneapi/overview)
-* [调度工具 Keeper](/doc/keeper/overview)
+* [中断循环 EXIT](/pql/exit.md)
+* [休息一下 SLEEP](/pql/sleep.md)
+* [统一接口 OneApi](/oneapi/overview.md)
+* [调度工具 Keeper](/keeper/overview.md)

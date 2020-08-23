@@ -1,5 +1,5 @@
 # Sharp表达式 - Json字符串操作
-虽然在PQL中很多地方可以直接写Json格式的参数和数据，但有时也需要对Json字符串进行处理。Sharp表达式中提供了处理Json字符串的方法，原理和[PARSE语句](/doc/pql/parse)类似。
+虽然在PQL中很多地方可以直接写Json格式的参数和数据，但有时也需要对Json字符串进行处理。Sharp表达式中提供了处理Json字符串的方法，原理和[PARSE语句](/pql/parse.md)类似。
 
 * **`FIND path AS TABLE`** 将Json字符串中路径path下的数据解析成一个数据表。
 * **`FIND path AS ROW`** 将Json字符串中路径path下的数据解析成一个数据行。
@@ -7,7 +7,7 @@
 * **`FIND path AS VALUE`** 将Json字符串中路径path下的数据解析成一个数值。
 
 其中`path`需传递标准的JsonPath，其中`/`代表根目录。下面看例子：
-```
+```sql
     '[{
         "name": "Tom",
         "age": 18
@@ -53,7 +53,7 @@
 
 在PQL中建议用数据表、数据行或数组中的Link处理Json数据，除非Json必须是字符串类型。看下面的例子，已经去掉了Json字符串两端的单引号：
 
-```
+```sql
     {
         "name": "Tom",
         "age": 18
@@ -79,7 +79,7 @@
 ```
 
 如果Json字符串在变量中，比如从数据库中取出的Json数据：
-```
+```sql
     SET $json := '{ "name": "Tom", "age": 18 }';
     OUTPUT # $json! GET 'name';  -- 结果是数据`Tom`
 ```
@@ -87,14 +87,14 @@
 
 ---
 参考链接
-* [PQL中的变量](/doc/pql/variable) 
-* [解析接口返回的数据 PARSE](/doc/pql/parse)
-* [更优雅的数据操作方法 Sharp表达式](/doc/pql/sharp)
-* [Sharp表达式操作 - 文本和字符串 TEXT](/doc/pql/sharp-text)
-* [Sharp表达式操作 - 日期时间 DATETIME](/doc/pql/sharp-datetime)
-* [Sharp表达式操作 - 数字 INTEGER/DECIMAL](/doc/pql/sharp-numeric)
-* [Sharp表达式操作 - 正则表达式 REGEX](/doc/pql/sharp-regex)
-* [Sharp表达式操作 - 数组 ARRAY](/doc/pql/sharp-array)
-* [Sharp表达式操作 - 数据行 ROW](/doc/pql/sharp-row)
-* [Sharp表达式操作 - 数据表 TABLE](/doc/pql/sharp-table)
-* [Sharp表达式操作 - 数据判断](/doc/pql/sharp-if)
+* [PQL中的变量](/pql/variable.md) 
+* [解析接口返回的数据 PARSE](/pql/parse.md)
+* [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)
+* [Sharp表达式操作 - 文本和字符串 TEXT](/pql/sharp-text.md)
+* [Sharp表达式操作 - 日期时间 DATETIME](/pql/sharp-datetime.md)
+* [Sharp表达式操作 - 数字 INTEGER/DECIMAL](/pql/sharp-numeric.md)
+* [Sharp表达式操作 - 正则表达式 REGEX](/pql/sharp-regex.md)
+* [Sharp表达式操作 - 数组 ARRAY](/pql/sharp-array.md)
+* [Sharp表达式操作 - 数据行 ROW](/pql/sharp-row.md)
+* [Sharp表达式操作 - 数据表 TABLE](/pql/sharp-table.md)
+* [Sharp表达式操作 - 数据判断](/pql/sharp-if.md)

@@ -1,16 +1,16 @@
 # PQL 全局变量
 与用户变量不同，用户变量的作用域仅在当前PQL过程或者控制语句内部，全局变量作用域是整个PQL环境，可以在同一个系统的任何PQL过程中使用。
-```
+```sql
 PRINT @NOW; -- 打印当前时间，如 '2020-08-04 09:31:22'
 ```
 **全局变量以`@`符号开头，全名规则与用户变量相同，变量名也不区分大小写，但字母建议全部大写。**
 
-#### 全局变量列表
+### 全局变量列表
 * `@NOW` 当前时间，包含时分秒及毫秒等信息
 * `@TODAY` 今天的日期，时分秒均为`0`
 * `@YESTERDAY` 昨天的日期，时分秒均为`0`
 * `@TOMORROW` 明天的日期，时分秒均为`0`
-* `@ROWS` 最后一个`SELECT`语句返回的记录数
+* `@ROWS` 最后一个`SELECT`语句返回的记录数，包括[GET语句](/pql/get.md)和[PASS语句](/pql/pass.md)中的SELECT查询也会更新这个值
 * `@COUNT_OF_LAST_SELECT` `@ROWS`的完整写法
 * `@AFFECTED_ROWS` 最后一个非查询语句影响数据库的行数
 * `@AFFECTED_ROWS_OF_LAST_NON_QUERY` `@AFFECTED_ROWS`的完整写法 
@@ -25,16 +25,16 @@ PRINT @NOW; -- 打印当前时间，如 '2020-08-04 09:31:22'
 * `@USERID` 登录模式下可以获得用户ID
 * `@USERNAME` 登录模式下可以获得用户名
 * `@ROLE` 登录模式下可以获得用户的角色
-* `@USER` 登录模式下用户的所有鉴权信息，是一个数据行。也可以通过属性名直接访问，如鉴权信息中包含`email`字段，则可以通过`@EMAIL`访问这个字段。
-* `@COOKIES` 可以访问Cookie，详见[OneApi Cookies](/doc/oneapi/cookies)
-* `@SESSION` 可以访问Session，详见[OneApi Session](/doc/oneapi/session)
+* `@USER` 登录模式下用户的所有鉴权信息，是一个数据行。也可以通过属性名直接访问，如鉴权信息中包含`email`字段，则可以通过`@EMAIL`访问这个字段
+* `@COOKIES` 可以访问Cookie，详见[OneApi Cookies](/oneapi/cookies.md)
+* `@SESSION` 可以访问Session，详见[OneApi Session](/oneapi/session.md)
 * `@LANGUAGE` 获得当前用户的默认界面语句，适用于多语言环境
 
-除了以上全局变量外，PQL的全局设置的每一项都对应一个全局变量，如 `@QROSS_HOME`，`@KEEPER_HTTP_ADDRESS`等，详见[PQL全局设置](/doc/pql/setup)。
+除了以上全局变量外，PQL的全局设置的每一项都对应一个全局变量，如 `@QROSS_HOME`，`@KEEPER_HTTP_ADDRESS`等，详见[PQL全局设置](/pql/setup.md)。
 
-#### 自定义全局变量
+### 自定义全局变量
 有时我们需要在不同的PQL过程之间使用相同的全局变量，但PQL内置的全局变量远远不能满足需求，PQL提供了自定义全局变量的途径。
-```
+```sql
 IF @LAST_UPDATE_TIME IS UNDEFINED THEN
     SET @LAST_UPDATE_TIME = '2020-01-01 00:00:00';
 END IF;
@@ -46,13 +46,13 @@ PUT # INSERT INTO table2 (name, score) VALUES (?, ?);
 
 **用户自定义的全局变量会有归属权问题：** 在登录状态下，定义的全局变量归属当前登录用户，即不同的用户可以使用相同名称的全局变量; 在默认状态下，定义的全局变量归属整个系统，任何人都可访问。用户定义的全局变量优先于系统全局变量。
 
-#### 全局变量嵌入到语句中
+### 全局变量嵌入到语句中
 与用户变量不同，已嵌入到语句中的未声明的全局变量在计算时如找不到定义，将忽略，仅警告。与用户变量的规则一样：如果遇到变量名与语句冲突不能正确识别时，可在变量名两端加上小括号，如`@(NOW)`; 如果不希望字符串变量有默认的引号时，可以变量末尾加上叹号，如`@NOW!`。 
 
 
 ---
 参考链接
-* [数据类型](/doc/pql/datatype)
-* [用户变量 $](/doc/pql/variable)
-* [变量声明 SET](/doc/pql/set)
-* [变量声明 VAR](/doc/pql/var)
+* [数据类型](/pql/datatype.md)
+* [用户变量 $](/pql/variable.md)
+* [变量声明 SET](/pql/set.md)
+* [变量声明 VAR](/pql/var.md)

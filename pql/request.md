@@ -1,7 +1,7 @@
 # 请求Json数据接口 REQUEST语句
 无论是在数据开发中还是后端开发中，请求其他服务的接口是经常的操作。PQL提供了请求接口的语句REQUEST及解析接口内容的语句PARSE用来解决开发过程中的接口访问问题。
 
-```
+```sql
 REQUEST JSON API 'http://domain.com/api?id=1'
     USE METHOD "POST"
     SEND DATA {"data": "value"}
@@ -18,4 +18,4 @@ REQUEST语句负责请求接口并把返回的数据保存在缓冲区当中，�
 
 ---
 参考链接
-* [解析Json接口返回的数据 PARSE](/doc/pql/parse)
+* [解析Json接口返回的数据 PARSE](/pql/parse.md)

@@ -1,9 +1,9 @@
 # 自定义函数 FUNCTION语句
 有开发过程中，有时需要定义一个可重复调用的语句块，以减少代码量且可以让代码逻辑清晰。这个语句块可以使用PQL用户函数来定义，使用FUNCTION语句进行函数声明。
-```
-FUNCTION $func_name ($a, $b DEFAULT 'hello’)
+```sql
+FUNCTION $func_name ($a, $b DEFAULT 'hello')
      BEGIN
-           -- statement …
+           -- statements …
            RETURN $a + $b;
      END;
 ```
@@ -16,16 +16,17 @@ FUNCTION $func_name ($a, $b DEFAULT 'hello’)
 * 不需要声明函数的返回值。
 * 函数体以`BEGIN`关键字开始，并以`END`关键字结束。
 * `END`关键字后面的分号不能省略，表示FUNCTION语句的结束。
-* 在函数中使用`RETURN`关键字返回结果，可以是PQL支持的数据类型。
+* 在函数中使用`RETURN`语句返回结果，可以是PQL支持的数据类型。参见[RETURN语句](/pql/return.md)。
 * RETURN语句仅在函数体内使用，RETURN语句返回函数的结果并中断函数的执行。
 * 函数可以没有RETURN语句，就是可以没有返回值。没有RETURN语句的函数返回`NULL`。
-* 函数不能嵌套函数！
+* 函数可以嵌套函数，如`$x(2, $p(3, 4))`。
 
-定义完成的函数如何调用，请参阅[CALL语句](/doc/pql/call)。
-如果想定义作用于所有PQL过程的函数，请参照[全局函数](/doc/pql/global-function)
+定义完成的函数如何调用，请参阅[CALL语句](/pql/call.md)。
+如果想定义作用于所有PQL过程的函数，请参照[全局函数](/pql/global-function.md)
 
 
 ---
 参考链接
-* [函数调用 CALL](/doc/pql/call)
-* [全局函数 FUNCTION](/doc/pql/global-function)
+* [函数调用 CALL](/pql/call.md)
+* [中断数据并返回值 RETURN](/pql/return.md)
+* [全局函数 FUNCTION](/pql/global-function.md)

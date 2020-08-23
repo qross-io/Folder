@@ -1,6 +1,6 @@
 # Sharp表达式 - 整数和小数操作
 相对于字符串和日期时间，Sharp表达式中数字的操作要少很多。
-#### 数字运算
+### 数字运算
 * **`PLUS n`** 将给定数字加上另一个数字，效果同`m + n`，但运算优先级低于加号。
 * **`MINUS n`** 将给定数字减去另一个数字，效果同`m - n`，但运算优先级低于减号。
 * **`MULTIPLY n`** 将给定数字乘以另一个数字，效果同`m * n`，但运算优先级低于乘号。
@@ -9,16 +9,27 @@
 * **`POW`** 将给定的数字进行平方运算。`3 POW`的结果是`9`。
 * **`POW n`** 将给定的数字进行幂运算。`3 POW 3`的结果是`27`。
 * **`ABS`** 取给定数字的绝对值。`-2 ABS`的结果是`2`
+* **`MIN`** 将左右两边的数字进行比较，返回较小的数字。`1 MIN 2`的结果是`1`
+* **`MAX`** 将左右两边的数字进行比较，返回较大的数字。`1 MAX 2`的结果是`2`
 
 Sharp表达式中的数学运算和传统的数字运算运算方式不一样，对比`x + y * z` 和 `x PLUS y MULTIPLY z`：一式中先计算乘再计算加，二式中会顺序运算，先计算加再计算乘。关于优先级的问题也简单说明一下，如`x PLUS y * z`：传统数学运算优先级高于Sharp Link，会先计算乘再计算加。
 
-#### 数字格式化（转化）
+由于PQL定位是数据处理，而非数学计算，所以很多的数学运算方法没有直接支持，如开方`sqrt`，不过PQL提供了另一种方式解决这个问题。在PQL，可以直接使用 **Javascript** 的对象和方法：
+```sql
+PRINT Math.E;
+PRINT 2 POW 2 MULTIPLY Math.PI;
+SELECT * FROM table1 WHERE id=${ Math.sqrt(4) };
+```
+打开浏览器，按F12键，切换到“控制台”标签，输入`Math.`之后，在提示中的所有的数学方法都可使用。注意 Javascript 区分大小写。
+
+
+### 数字格式化（转化）
 * **`FLOOR`** 移除给定数字的小数部分，不考虑四舍五入。`3.57 FLOOR`结果是`3`
 * **`FLOOR n`** 保留给定数字的n位小数部分，不考虑四舍五入。`3.1415926 FLOOR 4`结果是`3.1415`
 * **`ROUND`** 移除给定数字的小数部分，考虑四舍五入。`3.57 ROUND`结果是`4`
 * **`ROUND n`** 保留给定数字的n位小数部分，考虑四舍五入。`3.1415926 ROUND 4`结果是`3.1416`
 * **`TO n`** 生成一个从给定整数到`n`的整数数组，包括`n`，一般用于FOR循环中。`1 TO 4`结果是`[1, 2, 3, 4]`
-* **`UNITIL n`** 生成一个从给定整数到`n`的整数数组，不包括`n`，一般用于循环中。`1 TO 4`结果是`[1, 2, 3]`。更多示例可以参阅[FOR语句](/doc/pql/for)。
+* **`UNITIL n`** 生成一个从给定整数到`n`的整数数组，不包括`n`，一般用于循环中。`1 TO 4`结果是`[1, 2, 3]`。更多示例可以参阅[FOR语句](/pql/for.md)。
 * **`TO PERCENT`** 将给定数字转化为百分数字符串。`0.3124 TO PERCENT`的结果是`'31.24%'`。`TO PERCENT`不会对小数的精度进行控制，如果想得到期望小数位数的百分数，可先用`FLOOR`或`ROUND`处理一下。
 * **`TO CAPACITY`** 将给定的整数按计算机容量单位转换成易读的容量单位字符串，把给定数字当作字节（Byte），保留两位小数，最大单位`P`。`122842 TO CAPACITY`结果是`'119.96K'`
 * **`TO SECONDS`** 将毫秒数转化为秒，返回小数，一般与`SPAN`连用
@@ -27,22 +38,22 @@ Sharp表达式中的数学运算和传统的数字运算运算方式不一样，
 * **`TO DAYS`** 将毫秒数转化为天，返回小数，一般与`SPAN`连用
 * **`TO TIMESPAN 'units'`** 将毫秒数转化易读的字符串，一般与`SPAN`连用。如果不设置`units`参数，默认的单位为`'d,h,m,s,ms'`，返回值的格式为`'1d2h'`，最多有两个时间单位。可以设置时间单位，如`'天,小时,分钟,秒,毫秒'`，前面的返回值就会变成`'1天2小时'`。
 
-#### 数字判断
+### 数字判断
 * **`IF ZERO m`** 如果给定的数字为`0`则赋值为`m`。
 * **`IF NOT ZERO m`**  如果不为`0`则赋值为`m`。
 这两个Link的应用场景有些怪异，但确实有时会用到。
-```
+```sql
 DELETE FROM table1 WHERE id=1 -> IF ZERO 0;
 ```
 
 ---
 参考链接
-* [更优雅的数据操作方法 Sharp表达式](/doc/pql/sharp)
-* [Sharp表达式操作 - 文本和字符串 TEXT](/doc/pql/sharp-text)
-* [Sharp表达式操作 - 日期时间 DATETIME](/doc/pql/sharp-datetime)
-* [Sharp表达式操作 - 正则表达式 REGEX](/doc/pql/sharp-regex)
-* [Sharp表达式操作 - 数组 ARRAY](/doc/pql/sharp-array)
-* [Sharp表达式操作 - 数据行 ROW](/doc/pql/sharp-row)
-* [Sharp表达式操作 - 数据表 TABLE](/doc/pql/sharp-table)
-* [Sharp表达式操作 - 数据判断](/doc/pql/sharp-if)
-* [Sharp表达式操作 - Json字符串](/doc/pql/sharp-json)
+* [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)
+* [Sharp表达式操作 - 文本和字符串 TEXT](/pql/sharp-text.md)
+* [Sharp表达式操作 - 日期时间 DATETIME](/pql/sharp-datetime.md)
+* [Sharp表达式操作 - 正则表达式 REGEX](/pql/sharp-regex.md)
+* [Sharp表达式操作 - 数组 ARRAY](/pql/sharp-array.md)
+* [Sharp表达式操作 - 数据行 ROW](/pql/sharp-row.md)
+* [Sharp表达式操作 - 数据表 TABLE](/pql/sharp-table.md)
+* [Sharp表达式操作 - 数据判断](/pql/sharp-if.md)
+* [Sharp表达式操作 - Json字符串](/pql/sharp-json.md)

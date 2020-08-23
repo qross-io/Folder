@@ -1,16 +1,16 @@
 # 基本数据库操作 OPEN
 在PQL中，可以在配置文件中配置多个数据源连接，作者曾经所在的数据部门，需要在上百个不同的数据源之间进行数据流转操作。可以通过OPEN语句进行数据源的连接和切换操作。
-```
+```sql
 OPEN DEFAULT;
 ```
 或
-```
+```sql
 OPEN 'hive.prime';
 ```
 默认数据源是默认连接的，但在切换数据源时仍需要使用OPEN语句。  
 在OPEN语句中，连接名的引号可以省略。
-打开数据源后，可以对数据库进行操作，直接写数据源对应的SQL语句即可。请参见[PQL中的SQL语句](/doc/pql/sql)
-```
+打开数据源后，可以对数据库进行操作，直接写数据源对应的SQL语句即可。请参见[PQL中的SQL语句](/pql/sql.md)
+```sql
 OPEN mysql.classes;
     UPDATE table1 SET update_time=create_time WHERE id=1;
     SELECT * FROM table1 WHERE id=1;
@@ -24,18 +24,18 @@ OPEN mysql.school;
 4. 在数据处理过程中，直接的SELECT语句没有太大意义，但经常用在接口开发中，用来返回数据。
 
 OPEN语句在使用时还可以切换默认数据库。
-```
+```sql
 OPEN mysql.school USE 'grade3';
 ```
 上例表示打开数据的同时将默认数据库切换到`grade3`，这个场景用得很少，一般会在SQL里指定数据库名。
 
-OPEN语句在跨数据流转中经常用到，由OPEN+GET+SAVE+PUT构成一个超强组合。见[SAVE语句](/doc/pql/save)。  
+OPEN语句在跨数据流转中经常用到，由OPEN+GET+SAVE+PUT构成一个超强组合。见[SAVE语句](/pql/save.md)。  
 OPEN语句还有其他用途，如打开Redis或者以数据表的形式打开一个文件，将在对应的章节进行介绍。
 
 ---
 参考链接
-* [PQL數据源配置](/doc/pql/properties)
-* [跨数据源数据流转 SAVE](/doc/pql/save)
-* [将数据保存在缓冲区 GET](/doc/pql/get)
-* [将缓冲区的数据保存到数据库 PUT](/doc/pql/put)
-* [PQL中的SQL语句](/doc/pql/sql) 
+* [PQL數据源配置](/pql/properties.md)
+* [跨数据源数据流转 SAVE](/pql/save.md)
+* [将数据保存在缓冲区 GET](/pql/get.md)
+* [将缓冲区的数据保存到数据库 PUT](/pql/put.md)
+* [PQL中的SQL语句](/pql/sql.md) 

@@ -1,6 +1,6 @@
-# 条件判断 CASE语句
+# 条件控制 CASE语句
 作为IF语句的补充，PQL也提供了CASE语句用于条件判断，功能和其他SQL语句中相同。
-```
+```sql
 SET $score := SELECT score FROM students WHERE name='Tom';
 SET $rate := '';
 CASE true
@@ -15,7 +15,7 @@ CASE true
     END CASE;
 ```
 上例中的`true`可省略，这种形态的CASE语句提供了跟IF语句一样的功能。CASE语句的比较形态如下例：
-```
+```sql
 SET $rate := SELECT rate FROM students WHERE name='Tom';
 CASE $rate
     WHEN 'A' THEN
@@ -35,9 +35,9 @@ CASE $rate
 * `END CASE`后面必须加分号。
 * `THEN`和`ELSE`后面必须有至少一条语句，每条语句都以分号结束。如果真的什么都没有，那么请用`ECHO;`占位。
 
-#### CASE短语句
+### CASE短语句
 像IF语句一样，CASE也有条件式，规则基本与IF短语句相同。
-```
+```sql
 SET $rate := 
     CASE 
         WHEN $score >= 90 THEN 
@@ -51,7 +51,7 @@ SET $rate :=
         END; 
 ```
 再如：
-```
+```sql
 UPDATE students SET score=${ CASE $rate WHEN 'A' THEN 90 WHEN 'B' THEN  75 WHEN 'C' THEN 60 ELSE 60 END } WHERE name='Tom';   
 ```
 与CASE语句的不同点有：
@@ -60,7 +60,7 @@ UPDATE students SET score=${ CASE $rate WHEN 'A' THEN 90 WHEN 'B' THEN  75 WHEN 
 * CASE短语句`THEN`或`ELSE`后面不是语句，是单个值，而且后面不能加分号。
 * CASE短语句必须有返回值，即`ELSE`部分必须有。
 * CASE短语句`THEN`或`ELSE`后面可以写一条语句，但必须用小括号括起来，且不能加分号。
-```
+```sql
 VAR $scores := 
     CASE $rate 
         WHEN 'A' THEN
@@ -75,7 +75,7 @@ VAR $scores :=
 ```
 
 参考链接
-* [条件表达式](/doc/pql/condition)
-* [变量声明 SET](/doc/pql/set)
-* [变量声明 VAR](/doc/pql/var)
-* [条件判断 IF](/doc/pql/if)
+* [条件表达式](/pql/condition.md)
+* [变量声明 SET](/pql/set.md)
+* [变量声明 VAR](/pql/var.md)
+* [条件控制 IF](/pql/if.md)
