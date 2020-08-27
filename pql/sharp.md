@@ -13,6 +13,7 @@ Sharp表达式可以进行多步链式操作，就像函数可以嵌套多层一
 上面示例打印`WORLD`。
 
 如果你已经看过其他语句的文档，应该看到过Sharp表达式的例子。下面是Sharp表达式的基本概念和注意事项：
+
 * SHARP表达式中的每一次操作的名称称为“连接”（Link）。
     + 每一个Link由一个多个英文单词组成，有时会包含数字。
     + Link的左右两端必须有空白字符或单词边界。
@@ -24,6 +25,7 @@ Sharp表达式可以进行多步链式操作，就像函数可以嵌套多层一
 * 在语句之后Sharp表达式会在语句执行完成之后再进行Link计算。
 
 Sharp表达式为每种数据类型都提供了丰富的处理方法，详情点击下面的分链接。
+
 * [字符串 TEXT](/pql/sharp-text.md)
 * [数字 INTEGER/DECIMAL](/pql/sharp-numeric.md)
 * [日期时间 DATETIME](/pql/sharp-datetime.md)
@@ -52,6 +54,7 @@ SET $content := $content REPLACE $m TO ${ $m REPLACE "/doc" TO "" CONCAT ".md" }
 
 ---
 参考链接
+
 * [嵌入式查询表达式](/pql/query.md)
 * [集合类型数据编辑 LET](/pql/let.md)
 * [Sharp表达式操作 - 字符串 TEXT](/pql/sharp-text.md)

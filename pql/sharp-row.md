@@ -1,5 +1,6 @@
 # Sharp表达式 - 数据行操作
 数据行类似于Json中的对象或其他语句中的Map，操作数据行的Link比较少。
+
 * **`GET 'column'`** 获取数据行中名为`column`字段的值。
   ```sql
 	VAR $row := SELECT name, age FROM table1 WHERE id=1 -> FIRST ROW;
@@ -68,6 +69,7 @@
 
 ---
 参考链接
+
 * [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)
 * [Sharp表达式操作 - 文本和字符串 TEXT](/pql/sharp-text.md)
 * [Sharp表达式操作 - 日期时间 DATETIME](/pql/sharp-datetime.md)

@@ -4,46 +4,61 @@
 OneApi基于Spring Boot框架运行，通过依赖的方式引入到Java Web项目中。和其他方式开发的接口一样通过HTTP方式调取，OneApi只是一种新的接口内容的开发方式，并不改变Spring Boot的任何东西。
 
 ## 从示例项目快速开始
-你可以在[网站](http://www.qross.cn/pql)上下载一个简单的示例项目。示例项目的环境要求如下：
-* JDK 1.8或以上版本
-* Gradle 4.9或以上版本
 
-作者建议使用Intellij Idea作为PQL的开发环境，需要`Intellij Idea 2018`或以上版本。
+示例项目源码地址：
+
+<https://github.com/qross-io/OneApi>
+
+示例项目的环境要求如下：
+
+* JDK 1.8或以上版本
+* Gradle 4.9或以上版本（可修改为Maven，见下面的说明）
+
+作者建议使用`Intellij Idea`作为PQL的开发环境，需要`Intellij Idea 2018`或以上版本。
+
+示例项目中已经预先添加了一些文件和配置：
+
+* `ApiController` 包含OneApi的所有地址设置，可自己修改地址映射或添加Controller逻辑。
+* `conf.properties` 包含所的有OneApi设置项，需要根据业务场景进行修改。
+* `example.sql`和`hello.sql` 两个简单的接口示例文件。
 
 ## 将OneApi加入到已有的项目中
 在已有的Spring Boot项目中使用OneApi非常容易，只需要两步操作，然后就可以开发接口了。
+
 ### 引入OneApi依赖
 OneApi的依赖和PQL是同一个依赖。
-* **Maven配置如下**
+
+#### Maven配置如下
+
 1. settings.xml中配置凭证
     ```xml
     <servers>
-      <server>
+    <server>
         <id>rdc-releases</id>
         <username>PtbpNI</username>
         <password>kwCz3C0wHx</password>
-      </server>
-      <server>
+    </server>
+    <server>
         <id>rdc-snapshots</id>
         <username>PtbpNI</username>
         <password>kwCz3C0wHx</password>
-      </server>
+    </server>
     </servers>
     ```
-    2. porn.xml仓库配置
+2. porn.xml仓库配置
     ```xml
     <distributionManagement>
-      <repository>
+    <repository>
         <id>rdc-releases</id>
         <url>https://packages.aliyun.com/maven/repository/2011186-release-Aa5YmC/</url>
-      </repository>
-      <snapshotRepository>
+    </repository>
+    <snapshotRepository>
         <id>rdc-snapshots</id>
         <url>https://packages.aliyun.com/maven/repository/2011186-snapshot-FSoDsK/</url>
-      </snapshotRepository>
+    </snapshotRepository>
     </distributionManagement>
     ```
-    3. porn.xml依赖配置
+3. porn.xml依赖配置
     ```xml
     <dependencies>
         <dependency>
@@ -54,22 +69,22 @@ OneApi的依赖和PQL是同一个依赖。
     </dependencies>
     ```
 
-* **Gradle配置如下**
-    ```groovy
-    repositories {
-        maven{
-        credentials {
-          username 'PtbpNI'
-          password 'kwCz3C0wHx'
-        }
-        url "https://packages.aliyun.com/maven/repository/2011186-snapshot-FSoDsK/"
-        //url "https://packages.aliyun.com/maven/repository/2011186-release-Aa5YmC/"
-        }
+#### Gradle配置如下
+```groovy
+repositories {
+    maven{
+    credentials {
+        username 'PtbpNI'
+        password 'kwCz3C0wHx'
     }
+    url "https://packages.aliyun.com/maven/repository/2011186-snapshot-FSoDsK/"
+    //url "https://packages.aliyun.com/maven/repository/2011186-release-Aa5YmC/"
+    }
+}
 
-    dependencies {
-        compile (group: 'io.qross', name: 'pql', version: '0.6.3-68-SNAPSHOT')
-    }
+dependencies {
+    compile (group: 'io.qross', name: 'pql', version: '0.6.4-34-SNAPSHOT')
+}
     ```
 
 ### 添加RestController

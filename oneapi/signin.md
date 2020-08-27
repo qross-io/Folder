@@ -29,7 +29,8 @@ OneApi会把用户登录信息保存下来，保存在全局变量中，可以�
     "mobile": "42883256"
 }
 ```
-那么就有以下全局变量可用
+那么就有以下全局变量可用：
+
 * `@userid` 值为 2
 * `@username` 值为 "sam"
 * `@role` 值为 "monitor"
@@ -44,6 +45,7 @@ OneApi会把用户登录信息保存下来，保存在全局变量中，可以�
 
 ---
 参考链接
+
 * [OneApi全局设置](/oneapi/setup.md)
 * [OneApi访问控制](/oneapi/token.md)
 * [OneApi访问控制](/oneapi/permit.md)

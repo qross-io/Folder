@@ -112,9 +112,21 @@ SEND EMAIL "test mail"
 * `SET PERSONAL` 设置发件人署名，`SET`关键词可省略。也可用来修改系统默认设置的署名。
 * `SET LANGUAGE` 设置模板中内容的交互语言，邮箱模板已支持多语言，需要自定义。详见[Voyager模板引擎国际化](/voyager/language.md)
 
+### SEND语句的返回信息
+SEND语句是一个有[返回值的语句](/pql/evaluate.md)，执行完成后返回一个数据行，包含以下字段：
+
+* `message` SEND语句执行情况的消息，是一段字符串文本，如正常发送的消息为`Sent.`
+* `logs` 消息发送中的日志记录，比`message`更详细，是一个字符串数组。
+* `sent` 已发送的收件人列表，是一个字符串数组。
+* `invalid` 无效的收件人地址列表，是一个字符串数组。
+
+SEND语句的返回值应用很少，一般可能在记录执行日志时用到。
+
 ---
 参考链接
+
 * [PQL系统设置](/pql/setup.md)
+* [PQL中有返回值的语句](/pql/evaluate.md)
 * [嵌入式PQL](/pql/embedded.md)
 * [Voyager模板引擎](/voyager/overview.md)
 * [Voyager国际化](/pql/language.md)

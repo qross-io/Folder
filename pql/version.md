@@ -1,8 +1,9 @@
 # 版本和更新
-作者会每周发布一个预览版本的更新，一到两个月会发布一个稳定版本。PQL的最新稳定版本为 **v0.6.3-2-RELEASE**，最新快照版本是 **v0.6.4-21-SNAPSHOT**。 
+作者会每周发布一个预览版本的更新，一到两个月会发布一个稳定版本。PQL的最新稳定版本为 **v0.6.3-2-RELEASE**，最新快照版本是 **v0.6.4-34-SNAPSHOT**。 
 
 ## v0.6.4（开发中）
-1. [自定义用户函数](/pql/function.md)升级，现在已不仅作为语句复用目的。
+1. PQL和OneApi文档已完成，可又在Master平台或官网找到。
+2. [自定义用户函数](/pql/function.md)升级，现在已不仅作为语句复用目的。
     * 自定义函数现在可以返回值了。
         ```sql
         FUNCTION $plus($a, $b)
@@ -15,13 +16,36 @@
         ```sql
         SELECT * FROM table WHERE socre>=$pass(60);
         ```    
-2. [集合对象的属性和索引访问](/pql/collection.md)支持升级，现在不仅数据行支持属性访问，数组和数据表也已支持。如`$list[2]`、`$table.first['id']`等。
-3. Sharp表达式更新。
-4. 多条语句优化。
+3. [有返回值的语句](/pql/evaluate.md)重新整理，这些语句可以用在很多地方。
+    * [INVOKE语句](/pql/invoke.md)不仅可以返回值，而且可以访问Java静态属性了。
+    * [RUN语句](/pql/run.md)现在可以获取运行日志和错误日志。
+    * [SEND语句](/pql/send.md)现在返回发送日志。
+    * [EXEC语句](/pql/exec.md)逻辑整理。
+    
+4. [集合对象的属性和索引访问](/pql/collection.md)支持升级，现在不仅数据行支持属性访问，数组和数据表也已支持。如`$list[2]`、`$table.first['id']`等。
+6. [用户自定义函数](/pql/function.md)现在可以使用[RETURN语句](/pql/return.md)返回值了，并且可以将用户函数嵌入到语句中。[RETURN语句](/pql/return.md)现在也可以和[OUTPUT语句](/pql/output.md)一样返回整个PQL过程的结果。
+7. Sharp表达式更新。
+    * 新增[正则表达式](/pql/sharp-regex.md)的多个操作，如`FIND FIRST IN`等。
+    * [日期时间](/pql/sharp-datetime.md)单位新增`NANO`、`MICRO`、`NANOS`、`MICROS`。
+    * [数学运算](/pql/sharp-numeric.md)新增取余`MOD`、`MIN`、`MAX`。
+    * [数组操作](/pql/sharp-array.md)中`ADD`可以一次添加多个值，如`ADD 1,2,3`; 排序操作`SORT`、`ASC`、`DESC`已加入。
+    * [数据行操作](/pql/sharp-row.md)和[数据表操作](/pql/sharp-table.md)加入`HAS`，用来判断是否包含某个字段。
+8. Marker应用加入，可又将Markdown文档转成HTML文档。
+9. 多条语句优化。
 
+本次不兼容修改主要涉及[Sharp表达式](/pql/sharp.md)
+
+* 中时间单位`MILLISECONDS`已移除，使用`MILLI`或`MILLIS`代替
+* 数字操作`PERCENT`修改为`TO PERCENT`
+* 字符中操作`WHOLE MATCHES`移除
+* 字符串操作`TAKE BEFORE FIRST`和`TAKE AFTER FIRST`移除 
+* 字符串操作`SUBSTRING`移除，保留`SUBSTR`
+* 数据表操作`TO MAP`修改为`TO NESTED MAP`
+* 数组操作`HEAD`修改为`FIRST`
 
 ## v0.6.3
 `0.6.3`版本相比`0.6.2`除了Bug和优化之外，主要更新内容如下：
+
 1. 增加了对[Redis支持](/pql/redis.md)。
    * 示例：`REDIS GET keyname;`
    * 使用 `OPEN REDIS 'host'` 语句连接一个Redis服务器。
@@ -38,35 +62,37 @@
 4. [FILE语句](/pql/file.md)新增READ和WRITE功能，用于读取整个文件或附加内容。
 5. 原生SHOW语句已支持。
 6. [IF](/pql/if.md)和[CASE](/pql/case.md)短语句已经像FOR语句一样支持查询语句。如
-```sql
+    ```sql
     VAR $table := 
         IF $i == 1 THEN
             (SELECT * FROM table1)
         ELSE
             (SELECT * FROM table2)
         END;
-```
+    ```
 7. 非查询语句现在也支持数据结果再加工。如
-```sql
+    ```sql
     SET $count := UPDATE table SET a=1 -> IF ZERO 1;
-```
+    ```
 8. 更强大的[GET语句](/pql/get.md)，现在可以在GET语句添加任何类型的数据，如：
-```sql
+    ```sql
     GET # [1, 2, 3, 4, 5];
     PUT # INSERT INTO table1 (score) VALUES (#item);
-```
+    ```
 9. 由于数据处理过程中有的值是Json字符串，新增了[操作Json字符串](/pql/sharp-json.md)的方法。
-```sql
-SET $json := '{ "id": 1, "name": "Tom" }';
-PRINT ${ $json FIND '/name' AS VALUE }; 
-```
+    ```sql
+    SET $json := '{ "id": 1, "name": "Tom" }';
+    PRINT ${ $json FIND '/name' AS VALUE }; 
+    ```
 10. [Sharp表达式](/pql/sharp.md)新增多个处理方法。
 
 以下内容不再向下兼容
+
 * Sharp表达式中字符串操作`INIT CAP`修改为`CAPITALIZE`
 
 ---
 参考链接
+
 * [Redis语句](/pql/redis.md)
 * [Sharp表达式](/pql/sharp.md)
 * [OneApi统一接口](/oneapi/overview.md)

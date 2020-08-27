@@ -19,6 +19,7 @@ PRINT ${ $datetime FORMAT 'yyyyMMddHHmmss' }; -- 值为 20190415132705
 
 ### 获取日期时间的某一部分
 以下Link的返回值为整数。
+
 * **`GET YEAR`** 返回年份，结果为`2019`
 * **`GET MONTH`** 返回月份，结果为`4`
 * **`GET DAY`** 返回日期，结果为`15`
@@ -33,6 +34,7 @@ PRINT ${ $datetime FORMAT 'yyyyMMddHHmmss' }; -- 值为 20190415132705
 
 ### 设置日期时间的某一部分
 以下Link的参数均为整数，返回值均为新的日期时间。
+
 * **`SET YEAR  n`** 设置年份，接受4位整数。
 * **`SET MONTH n`** 设置月份，接受`1`到`12`之间的整数。
 * **`SET DAY n`** 设置日期，接受`1`到`31`之间的整数，但不能设置不存在的日期，比如`2月30日`。
@@ -46,6 +48,7 @@ PRINT ${ $datetime FORMAT 'yyyyMMddHHmmss' }; -- 值为 20190415132705
 
 ### 增加或减少日期时间的某一单位
 以下Link的参数均为整数，且均支持负值，返回值均为新的日期时间。
+
 * **`PLUS n`** 在当前日期时间上增加n毫秒。
 * **`PLUS n [UNIT]`** 在当前日期时间上增加n个时间单位。`[UNIT]`代表时间单位，可选值见下面的说明。
 * **`PLUS YEARS n`** ** 在当前日期时间上增加n年。
@@ -71,6 +74,7 @@ PRINT ${ $datetime FORMAT 'yyyyMMddHHmmss' }; -- 值为 20190415132705
 * **`MINUS NANOS n`** 在当前日期时间上减去n纳秒。
 
 上面有两个Link用到了时间单位，时间单位也属于Sharp表达式的Link，作用是将整数的时间单位转成毫秒值，如`$datetime PLUS 20 MINUTES`或`$datetime MINUS 1 HOUR`。所有支持的单位如下：
+
 * **`YEAR`** 或 **`YEARS`** 年
 * **`MONTH`** 或 **`MONTHS`** 月
 * **`DAY`** 或 **`DAYS`** 天
@@ -91,6 +95,7 @@ $datetime MINUS 1 DAY;
 ```
 #### 快速编辑日期时间
 除上面提供了PLUS和MINUS外，Sharp表达式中还提供了额外的设置日期时间的方法。
+
 * **`EXPRESS 'expression'`** 通过时间表达式快速设置日期时间。举个例子，使用上面介绍的方法将日期设置到本月最后一天的`0`点`0`分`0`秒：
     ```sql
     $datetime PLUS MONTHS 1 SET DAY 1 MINUS DAYS 1 SET HOUR 0 SET MINUTE 0 SET SECOND 0 SET NANO 0
@@ -113,6 +118,7 @@ $datetime MINUS 1 DAY;
 
 ### 日期时间比较、转换和其他
 日期时间比较和数字的比较类似，一般比较两个时间的早晚或者差值。
+
 * **`AFTER 'otherTime'`** 判断指定的日期时间是否晚于另一个日期时间，基本等效于`>`。
 * **`AFTER OR EQUALS 'otherTime'`** 判断指定的日期时间是否晚于或等于另一个日期时间，基本等效于`>=`。
 * **`BEFORE 'otherTime'` 判断指定的日期时间是否早于另一个日期时间，基本等效于`<`。
@@ -132,6 +138,7 @@ $datetime MINUS 1 DAY;
 
 ### 其他与日期时间相关的表达式
 这些Link要编辑的数据都不是日期时间，最后一个是字符串，其他是整数。但这些Link都与日期时间有关。
+
 * **`TO SECONDS`** 将毫秒数转化为秒，返回小数，一般与`SPAN`连用
 * **`TO MINUTES`** 将毫秒数转化为分钟，返回小数，一般与`SPAN`连用
 * **`TO HOURS`** 将毫秒数转化为小时，返回小数，一般与`SPAN`连用
@@ -142,6 +149,7 @@ $datetime MINUS 1 DAY;
 
 ### 日期时间的自动转化规则
 Sharp表达式在执行时会根据Link名称自动将要操作的值转成相应的类型，下面是可转成日期的格式列表。
+
 * `'yyyyMMdd'` 如`'20200815'`转成`'2020-08-15 00:00:00'`
 * `'HH:mm:ss'` 如`'16:31:25'`转成`'2020-08-17 16:31:25'`，即加上今天（2020年8月17日）的日期。
 * `'yyyy-MM-dd'`
@@ -164,6 +172,7 @@ Sharp表达式在执行时会根据Link名称自动将要操作的值转成相�
 
 ---
 参考链接
+
 * [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)
 * [Sharp表达式操作 - 文本和字符串 TEXT](/pql/sharp-text.md)
 * [Sharp表达式操作 - 数字 INTEGER/DECIMAL](/pql/sharp-numeric.md)

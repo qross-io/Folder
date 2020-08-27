@@ -52,6 +52,7 @@ PUT # INSERT INTO table2 (name, score) VALUES (?, ?);
 
 ---
 参考链接
+
 * [数据类型](/pql/datatype.md)
 * [用户变量 $](/pql/variable.md)
 * [变量声明 SET](/pql/set.md)

@@ -7,6 +7,7 @@ SELECT * FROM users WHERE name $rich!;
 ```
 
 富字符串不仅方便串接，而且还包含各种功能。
+
 * 富字符串可以像普通字符串一样嵌入到其他语句中，解释器会计算并恢复成正常的字符串结果。
 * 富字符串中不支持反斜杠转义，在普通字符串需要输入两次的反斜杠也只需要输入一次即可。如'''c:\io.Qross\Home'''。富字符串中再出现相同类型的单引号或双引号无需再进行转义。
 * 富字符中可以嵌入任何PQL支持的占位符类型，如变量、函数、Sharp表达式和富字符串的查询表达式。
@@ -39,6 +40,7 @@ UPDATE table1 SET description='Update time is 2020-08-08 17:02:33' WHERE id=1;
 
 ---
 参考链接
+
 * [PQL数据类型](/pql/datatype.md)
 * [PQL中的变量](/pql/variable.md)
 * [数据输出 OUTPUT语句](/pql/output.md)

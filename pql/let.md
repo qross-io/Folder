@@ -20,6 +20,7 @@ LET $row SET column1=1, column2=2, column3=3  REMOVE column1;
 
 ---
 参考链接
+
 * [更优雅的数据操作 - Sharp表达式](/pql/sharp.md)
 * [变量声明 SET](/pql/set.md)
 * [变量声明 VAR](/pql/var.md)

@@ -18,6 +18,7 @@ PRINT @SESSION.username;
 
 ---
 参考链接
+
 * [PQL全局变量](/pql/global.md)
-* [向OneApi传递参数](/oneapi/params.md)
+* [向OneApi的接口传递参数](/oneapi/params.md)
 * [在OneApi中获取URL地址等信息](/oneapi/request.md)

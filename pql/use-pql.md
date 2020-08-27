@@ -82,6 +82,7 @@ io.qross.pql.PQL.run("PRINT 'HELLO WORLD!'");
 
 ## 配置数据源
 PQL主要用于数据查询和计算，所以在使用之前，需要先配置数据源。PQL使用最简单的`properties`文件进行配置，数据源和配置信息可以保存在以下几个地方。
+
 1. 项目内`resources`目录下的`conf.properties`文件中。
 2. 与jar包相同目录的`qross.properties`文件中。如果是开发中的项目，以Intellij Idea为例，放在项目的`/out/production`目录下。
 3. 如果是已存在的`properties`文件，可以通过 `io.qross.setting.Properties.loadLocalFile('file.properties');` 手动加载。
@@ -131,6 +132,7 @@ OPEN REDIS qross;
 
 ### 编写PQL文件
 上面的备工作做好之后，下面我们开始编写我们的第一个PQL程序。
+
 1. 在项目的`resources`目录下，创建名字的文件夹进行组织，如`pql`。
 2. 在文件夹下创建扩展名为`sql`的文件，如`test.sql`（PQL本质上还是SQL语句的集合）。
 3. 打开刚刚创建的文件，输入以下代码：
@@ -207,6 +209,7 @@ java -jar qross-worker-0.6.3.jar --file /usr/qross/pql/test.sql
 
 ---
 参考链接
+
 * [io.qross.pql.PQL 类](/pql/class.md)
 * [统一接口 OneApi](/oneapi/overview.md)
 * [模板引擎 Voyager](/voyager/overview.md)

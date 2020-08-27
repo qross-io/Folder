@@ -7,6 +7,7 @@ OUTPUT 'Hello World';
 OUTPUT [1, 2, 3, 4, 5];  --输出Json数组
 ```
 可以把整个PQL计算过程理解为是一个函数，OUTPUT语句负责把最终结果返回给调用方。
+
 * OUTPUT语句可以输出任何值，包括常量、任意类型的变量、表达式。在输出时会自动计算结果。
 * OUTPUT关键词后面的井号`#`是可选的，但建议后面使用语句时加上井号。
 * 在接口开发中，输出值会自动转变为Json格式。PQL数组或列表类型对应Json数组，PQL数据行对应Json对象，PQL数据表对应Json对象数组。
@@ -62,6 +63,7 @@ UPDATE table1 SET name='Tom' WHERE id=3;
 
 ---
 参考链接
+
 * [简单输出 ECHO](/pql/echo.md)
 * [返回结果并中断执行 RETURN](/pql/return.md)
 * [PQL数据类型](/pql/datatype.md)

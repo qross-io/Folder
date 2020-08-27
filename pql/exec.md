@@ -14,6 +14,7 @@ EXEC $update + ' -> IF ZERO 1';
 
 ---
 参考链接
+
 * [数据类型](/pql/datatype.md)
 * [变量声明 SET](/pql/set.md)
 * [PQL中的SQL语句](/pql/sql.md) 

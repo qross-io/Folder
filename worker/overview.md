@@ -58,7 +58,7 @@ pql --file /usr/qross/pql/test.sql
     ```s
     ln -s /usr/qross/pql.sh pql
     ```
-5. 完成然后输入`pql`命令进行测试。
+5. 完成，输入`pql`命令进行测试。
 
 
 ---

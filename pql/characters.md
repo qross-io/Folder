@@ -27,11 +27,12 @@ OPEN `adb`;
 OPEN `adb`;
     GET # SELECT # ~u002f*+nested_loop_join=true*~u002f SELECT * FROM table1;
 ```
-把`/`转成`/`，这样PQL就不会把这部分当作注释了。加`SELECT #`的原因是因为这条语句不是以`SELECT`开头了，需要告诉解析器这是一条查询语句，当作SELECT语句来执行，参见[PQL中的SQL语句](/pql/sql.md)。
+把`/`转成`~u002f`，这样PQL就不会把这部分当作注释了。加`SELECT #`的原因是因为这条语句不是以`SELECT`开头了，需要告诉解析器这是一条查询语句，当作SELECT语句来执行，参见[PQL中的SQL语句](/pql/sql.md)。
 
 
 ---
 参考链接
+
 * [PQL中的注释](/pql/comment.md)
 * [PQL中的SQL语句](/pql/sql.md)
 * [打开和切换数据库 OPEN](/pql/open.md)

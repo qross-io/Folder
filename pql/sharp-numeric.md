@@ -48,6 +48,7 @@ DELETE FROM table1 WHERE id=1 -> IF ZERO 0;
 
 ---
 参考链接
+
 * [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)
 * [Sharp表达式操作 - 文本和字符串 TEXT](/pql/sharp-text.md)
 * [Sharp表达式操作 - 日期时间 DATETIME](/pql/sharp-datetime.md)

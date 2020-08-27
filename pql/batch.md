@@ -16,6 +16,7 @@ SAVE TO mysql.db3;
     BATCH # INSERT INTO table3 (id, title);
 ```
 几点说明：
+
 * BATCH语句只接收PAGE语句、BLOCK语句和PROCESS语句查询的数据。
 * 同样的，BATCH语句可以和其他语句是相同的数据源也可以是不同的数据源。
 * BATCH语句中仅支持关系型数据库的非查询语句。
@@ -34,6 +35,7 @@ GET、PUT、PAGE、BATCH等各个数据流转语句构成了一个标准的生�
 
 ---
 参考链接
+
 * [打开和切换数据源 OPEN](/pql/open.md)
 * [跨数据源数据流转 SAVE](/pql/save.md)
 * [将数据保存在缓冲区 GET](/pql/get.md)

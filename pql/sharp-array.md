@@ -12,9 +12,9 @@ PQL中的数组是变长的，可以增减元素，按索引访问数据的项�
     LET $array ADD 7, 8; -- 添加多个值
     LET $array ADD [9, 10, 11]; -- 合并另一个数组的值
   ```
-* **`GET index`** 根据索引获取数组的某一个元素，索引从1开始。`$array GET 2`结果是`2`。另一种获取数组中元素的方法是使用方括号`[]`，例如`$array[2]`，注意索引从1开始，详见[集合类型的元素访问](/pql/collection.md)。
+* **`GET index`** 根据索引获取数组的某一个元素，索引从`1`开始。`$array GET 2`结果是`2`。另一种获取数组中元素的方法是使用方括号`[]`，例如`$array[2]`，注意索引从`0`开始，详见[集合类型的元素访问](/pql/collection.md)。
 * **`HAS item`** 判断数组中是否包含元素`item`。`$array HAS 6`结果是`false`
-* **`REMOVE index`** 根据索引删除数组的某一个元素，索引从1开始，可以同时删除多个值。`$array REMOVE 2, 3`结果是`[1, 4, 5]`
+* **`REMOVE index`** 根据索引删除数组的某一个元素，索引从`1`开始，可以同时删除多个值。`$array REMOVE 2, 3`结果是`[1, 4, 5]`
 * **`FIRST`** 获取数组的第一个元素。`$array FIRST`结果是`1`。也可以用`$array.first`，优先级高于`FIRST`，详见[集合类型的元素访问](/pql/collection.md)
 * **`LAST`** 获取数组的最后一个元素。`$array LAST`结果是`5`。也可以用`$array.last`，优先级高于`LAST`，详见[集合类型的元素访问](/pql/collection.md)
 * **`LENGTH`** 获取数组的长度。`$array LENGTH`结果是`5`
@@ -41,6 +41,7 @@ PQL中的数组是变长的，可以增减元素，按索引访问数据的项�
 
 ---
 参考链接
+
 * [集合类型的元素访问](/pql/collection.md)
 * [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)
 * [Sharp表达式操作 - 文本和字符串 TEXT](/pql/sharp-text.md)

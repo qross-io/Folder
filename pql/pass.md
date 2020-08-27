@@ -10,12 +10,14 @@ SAVE AS mysql.db3;
 ```
 上面示例中，PASS语句把GET语句得到的数据当成参数再进行一次查询，然后把得到的数据再存在缓冲区，最后再PUT。数据经过一次传递，得到最终期望的结果，可以理解为缓冲区数据的再加工。  
 使用PASS语句的几点说明：
+
 * PASS语句支持的数据占位符与PUT语句一样，详见[PUT语句](/pql/put.md)中的说明。
 * PASS语句的原理是遍历缓冲区的数据，用每一条数据当作条件进行一次再查询，然后把数据`UNION ALL`在一起。由于本身是多次查询，所以不建议在大数据量下使用PASS语句。但合理的使用PASS语句能够让计算逻辑更清晰。
 * PASS语句会清空GET的数据并将自己查询的数据保存在缓冲区。
 * 与GET和PUT相同，PASS语句也有自己的多线程版本，请参见[PROCESS语句](/pql/process.md)。
 
 在PASS完成之后，有几个全局变量可用：
+
 * `@COUNT_OF_LAST_GET` 这一次查询的总数据量（表格行数），可简写为`@COUNT`
 * `@TOTAL_COUNT_OF_RECENT_GET` 这个值现在表示PASS语句和GET语句的总数量，可简写为`@TOTAL`
 * `@BUFFER` 可以通过这个全局变量访问缓冲区
@@ -23,6 +25,7 @@ SAVE AS mysql.db3;
 
 ---
 参考链接
+
 * [打开和切换数据源 OPEN](/pql/open.md)
 * [跨数据源数据流转 SAVE](/pql/save.md)
 * [将数据保存在缓冲区 GET](/pql/get.md)

@@ -24,6 +24,7 @@ oneapi.secret.key.digit=16
 * `oneapi.access.permit` 配置需要认证接口的访问权限，即使有安全控制，每个接口也不是每个请求者都可以访问，比如有的请求者只能访问服务中的几个接口。这个参数可以对访问进行批量控制，详见 [OneApi访问安全控制](/oneapi/permit.md)。
 
 如果你的系统中有多个服务，但是期望这些服务使用同样的设置，比如设置项oneapi.token.list。有几个办法可以解决这个问题：
+
 * 不在`conf.properties`文件中设置，而是将设置项放在jar包同级目录下的`qross.properties`文件中。如果想某个项目使用独立设置，那么再将设置项放在`conf.properties`文件中。
 * 使用自定义的`properties`文件进行设置，但是在启动Spring Boot项目时要手工处理一下。例如：
     ```java
@@ -41,6 +42,7 @@ oneapi.secret.key.digit=16
 
 ---
 参考链接
+
 * [数据库连接设置](/pql/properties.md)
 * [在Master中管理所有数据接口](/master/oneapi.md)
 * [OneApi管理功能](/oneapi/management.md)

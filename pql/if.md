@@ -16,6 +16,7 @@ END IF;
 SELECT * FROM students WHERE $where!;
 ```
 上例通过条件判断进行`WHERE`条件式的拼接，最后将条件式应用到SELECT语句进行查询。几点注意事项：
+
 * `THEN`后不加分号，虽然加分号也不会出错。
 * `THEN`或`ELSE`后面要有至少一条语句，如果确实什么都没有，请输入`ECHO;`占个位置。
 * `ELSIF`千万不能写成`ELSE IF`。
@@ -45,6 +46,7 @@ UPDATE students SET rate=${ IF $score >= 90 THEN 'A' ELSIF $score >= 75 THEN 'B'
 ```
 
 与IF语句的区分主要有：
+
 * IF短语句不能独立存在，只能作为其他语句的一部分。
 * IF短语句以`END`结尾。
 * IF短语句`THEN`或`ELSE`后面不是语句，是单个值，而且后面不能加分号。
@@ -61,6 +63,7 @@ VAR $scores :=
 如上例，IF短语句运算完成后返回一个数据表，而且可以继续通过Sharp表达式继续运算。
 
 参考链接
+
 * [条件表达式](/pql/condition.md)
 * [变量声明 SET](/pql/set.md)
 * [变量声明 VAR](/pql/var.md)

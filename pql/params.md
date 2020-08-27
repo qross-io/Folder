@@ -21,10 +21,10 @@
   http://yourdoman/page/test?name=Tom&age=18&score=89
   ```
 * 使用PQL类运行PQL时
-  PQL类提供了传递参数的多个重载方法，见[PQL类文档](/pql/class.md)。
+  PQL类提供了传递参数的多个重载方法，见[PQL类](/pql/class.md)。
 
 ### PQL如何接收和处理参数
-* 在PQL设置占位符，如`#{name}`，见下例：
+1. 第一种方式是在PQL设置占位符，如`#{name}`，见下例：
   ```sql
   UPDATE students SET score=#{score} WHERE name='#{name}';
   ```
@@ -52,7 +52,7 @@
   ```
   参数占位符必须由`#{`和`}`包围，大括号不可省略。占位符可以设置在PQL任意的位置，甚至是语句关键词。  
   需要注意的是，未传递变量时参数占位符不会被替换，仍保持原状态`#{name}`，很可能会导致程序运行出错或结果不正确，请一定认真检查。可以通过`IF '#{name}' IS NOT UNDEFINED THEN`判断是否传参。
-* 使用参数变量，如`$name`：
+2. 第一种方式是使用参数变量，如`$name`：
   ```sql
   UPDATE students SET score=$score! WHERE name=$name;
   ```
@@ -62,6 +62,7 @@
 
 ---
 参考链接
+
 * [io.qross.pql.PQL 类](/pql/class.md)
 * [PQL中的变量](/pql/variable.md)
 * [任务调度工具 Keeper](/keeper/overview.md)

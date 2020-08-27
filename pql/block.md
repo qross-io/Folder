@@ -7,6 +7,7 @@ BLOCK FROM $start TO $end PER 10000 # SELECT name, score FROM table1 WHERE id>@{
 BACTH # INSERT INTO table2 (name, score) VALUES (?, ?);
 ```
 BLOCK分块读取解决了[PAGE语句](/pql/page.md)越查越慢的问题，需注意几点问题：
+
 * 需要事先计算并在BLOCK语句中指定主键的起点和终点，即`FROM`和`TO`。
 * `PER`表示每次查询数据的最大数量，每次查询的具体数量由主键是否连续决定。如果不指定，则默认为`10000`行每次。
 * 上面占位符`@{id}`中的名称必须与数据表中自增主键名的一致。
@@ -22,6 +23,7 @@ BLOCK FROM $start TO $end PER 10000 # DELETE FROM table WHERE id>@{id} AND id<=@
 
 ---
 参考链接
+
 * [打开和切换数据源 OPEN](/pql/open.md)
 * [跨数据源数据流转 SAVE](/pql/save.md)
 * [将数据保存在缓冲区 GET](/pql/get.md)

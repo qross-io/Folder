@@ -24,6 +24,7 @@ VAR $a, $b, $c := [1, 2, 3]; -- 结果 $a = null, $b = null, $c = [1, 2, 3];
 
 ---
 参考链接
+
 * [数据类型](/pql/datatype.md)
 * [变量声明 SET](/pql/set.md)
 * [循环控制 FOR](/pql/for.md)

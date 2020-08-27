@@ -8,6 +8,7 @@ SAVE AS NEW EXCEL "example.xlsx"  USE TEMPLATE  "template.xlsx";
     PUT # INSERT INTO sheet1 ROW 2 (A, B, C) VALUES (id, &name, #score);
 ```
 上例的执行逻辑为：
+
 * 使用[GET语句](/pql/get.md)获取数据。
 * 使用SAVE AS EXCEL语句或SAVE TO EXCEL语句设置要保存的Excel文件。如果使用`SAVE AS`或`NEW`关键字，表示文件如果存在则删除重建。使用`SAVE TO`且不使用`NEW`关键字表示向已有的Excel文件中追加数据，如果不存在则新建。
 * 保存的文件（上例`"example.xlsx"`），只写文件名不写路径会保存在临时目录中（`%QROSS_HOME/temp/`），也可以写完整路径，如`"d:\example.xlsx"`。
@@ -29,6 +30,7 @@ SAVE AS EXCEL STREAM FILE "file.xlsx";
 
 ---
 参考链接
+
 * [打开和切换数据源 OPEN](/pql/open.md)
 * [跨数据源数据流转 SAVE](/pql/save.md)
 * [将数据保存在缓冲区 GET](/pql/get.md)

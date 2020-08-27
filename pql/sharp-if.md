@@ -30,6 +30,7 @@ SET $rate := '#{rate}' IF UNDEFINED 'C';
 
 ### 数据的特殊值判断
 下面几个Link使用场景较少。
+
 * **`IF TRUE value`** 如果值为真则赋值为`value`。
 * **`IF FALSE value`** 如果值为假则赋值为`value`。
 * **`IF ZERO m`** 如果给定的数字为`0`则赋值为`m`。
@@ -40,6 +41,7 @@ SET $rate := '#{rate}' IF UNDEFINED 'C';
 
 ---
 参考链接
+
 * [PQL中的变量](/pql/variable.md) 
 * [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)
 * [Sharp表达式操作 - 文本和字符串 TEXT](/pql/sharp-text.md)

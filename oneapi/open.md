@@ -7,7 +7,8 @@ oneapi.access.open=*
 oneapi.access.open=/api/*;/api/example/test
 oneapi.access.open=GET:/api/*;GET,DELETE:/api/example/*
 ```
-分别解释一下各个值代表的意义
+分别解释一下各个值代表的意义：
+
 * 设置为空表示所有接口都需要安全验证。
 * `*`代表所有接口，即所有接口都不需要安全验证，一般不会这么做。
 * `/api/*`代表开放`/api/`目录下的所有接口。
@@ -22,6 +23,7 @@ oneapi.access.open=GET:/api/*;GET,DELETE:/api/example/*
 
 ---
 参考链接
+
 * [OneApi全局设置](/oneapi/setup.md)
 * [OneApi访问安全验证](/oneapi/token.md)
 * [OneApi访问安全控制](/oneapi/permit.md)

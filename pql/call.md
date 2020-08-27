@@ -23,5 +23,6 @@ PQL解释器会自动判断函数的结果的数据类型，以决定是否添�
 
 ---
 参考链接
+
 * [函数声明 FUNCTION](/pql/function.md)
 * [全局函数 FUNCTION](/pql/global-function.md)

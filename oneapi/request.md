@@ -22,4 +22,5 @@ http://localhost:8080/api/example/test?id=1&score=89
 
 ---
 参考链接
-* [向OneApi传递参数](/oneapi/params.md)
+
+* [向OneApi的接口传递参数](/oneapi/params.md)

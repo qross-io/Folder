@@ -36,6 +36,7 @@ SET $row =: SELECT name, score FROM table1 ->　FIRST ROW;
 
 ---
 参考链接
+
 * [数据类型](/pql/datatype.md)
 * [变量声明 VAR](/pql/var.md)
 * [循环控制 FOR](/pql/for.md)

@@ -8,85 +8,86 @@
 
 其中`path`需传递标准的JsonPath，其中`/`代表根目录。下面看例子：
 ```sql
-    '[{
-        "name": "Tom",
-        "age": 18
-    },
-    {
-        "name": "Jerry",
-        "age": 17
-    }]' FIND '/' AS TABLE  -- 结果是一个数据表
+'[{
+    "name": "Tom",
+    "age": 18
+},
+{
+    "name": "Jerry",
+    "age": 17
+}]' FIND '/' AS TABLE  -- 结果是一个数据表
 
-    '{
-        "name": "Tom",
-        "age": 18
-    }' FIND '/' AS ROW -- 结果是一个数据行
+'{
+    "name": "Tom",
+    "age": 18
+}' FIND '/' AS ROW -- 结果是一个数据行
 
-    '[{
-        "name": "Tom",
-        "age": 18
-    },
-    {
-        "name": "Jerry",
-        "age": 17
-    }]' FIND '/0' AS ROW  -- 结果是数据行 { "name": "Tom", "age": 18 }
+'[{
+    "name": "Tom",
+    "age": 18
+},
+{
+    "name": "Jerry",
+    "age": 17
+}]' FIND '/0' AS ROW  -- 结果是数据行 { "name": "Tom", "age": 18 }
 
-    '{
-        "name": "Tom",
-        "age": 18
-    }' FIND '/age' AS VALUE -- 结果是数值`18`
+'{
+    "name": "Tom",
+    "age": 18
+}' FIND '/age' AS VALUE -- 结果是数值`18`
 
-    '[{
-        "name": "Tom",
-        "age": 18
-    },
-    {
-        "name": "Jerry",
-        "age": 17
-    }]' FIND '/1/name' AS VALUE  -- 结果是数值`Jerry`
+'[{
+    "name": "Tom",
+    "age": 18
+},
+{
+    "name": "Jerry",
+    "age": 17
+}]' FIND '/1/name' AS VALUE  -- 结果是数值`Jerry`
 
-    '{
-        "grade": "ClassA",
-        "scores": [78, 89, 93, 65]
-    }' FIND '/scores' AS ARRAY -- 结果是数组`[78, 89, 93, 65]`
+'{
+    "grade": "ClassA",
+    "scores": [78, 89, 93, 65]
+}' FIND '/scores' AS ARRAY -- 结果是数组`[78, 89, 93, 65]`
 ```
 
 在PQL中建议用数据表、数据行或数组中的Link处理Json数据，除非Json必须是字符串类型。看下面的例子，已经去掉了Json字符串两端的单引号：
 
 ```sql
-    {
-        "name": "Tom",
-        "age": 18
-    } GET 'age' -- 结果是数值`18`
+{
+    "name": "Tom",
+    "age": 18
+} GET 'age' -- 结果是数值`18`
 
-    [{
-        "name": "Tom",
-        "age": 18
-    },
-    {
-        "name": "Jerry",
-        "age": 17
-    }] FIRST ROW -- 结果是数据行 { "name": "Tom", "age": 18 }
+[{
+    "name": "Tom",
+    "age": 18
+},
+{
+    "name": "Jerry",
+    "age": 17
+}] FIRST ROW -- 结果是数据行 { "name": "Tom", "age": 18 }
 
-    [{
-        "name": "Tom",
-        "age": 18
-    },
-    {
-        "name": "Jerry",
-        "age": 17
-    }] LAST ROW CELL 'name' -- 结果是数值`Jerry`
+[{
+    "name": "Tom",
+    "age": 18
+},
+{
+    "name": "Jerry",
+    "age": 17
+}] LAST ROW CELL 'name' -- 结果是数值`Jerry`
 ```
 
 如果Json字符串在变量中，比如从数据库中取出的Json数据：
 ```sql
-    SET $json := '{ "name": "Tom", "age": 18 }';
-    OUTPUT # $json! GET 'name';  -- 结果是数据`Tom`
+SET $json := '{ "name": "Tom", "age": 18 }';
+OUTPUT # $json! GET 'name';  -- 结果是数据`Tom`
 ```
 对，加个叹号`!`就OK了，叹号的作用是在数据中恢复变量数值时忽略引号。
 
 ---
 参考链接
+
 * [PQL中的变量](/pql/variable.md) 
 * [解析接口返回的数据 PARSE](/pql/parse.md)
 * [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)

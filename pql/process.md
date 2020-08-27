@@ -9,12 +9,14 @@ SAVE TO mysql.db3;
     BATCH # INSERT INTO table3 (id, title);
 ```
 上例中，PROCESS语句接收[PAGE语句](/pql/page.md)传递的数据进行一次再查询，然后把查询结果传递给[BATCH语句](/pql/batch.md)进行处理，三条语句构成了一个完整的“生产者->加工者->消费者”数据处理模式。
+
 * PROCESS语句只接受[PAGE语句](/pql/page.md)和[BLOCK语句](/pql/block.md)查询的数据。
 * 三条语句可以是相同的数据源也可以是不同的数据源。
 * PROCESS语句中只支持关系型数据库下的SELECT查询。
 
 ---
 参考链接
+
 * [打开和切换数据源 OPEN](/pql/open.md)
 * [跨数据源数据流转 SAVE](/pql/save.md)
 * [使用缓冲区数据再查询 PASS](/pql/pass.md)

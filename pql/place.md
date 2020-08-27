@@ -2,6 +2,7 @@
 在PQL中，有非常多的嵌入符号，用于将PQL元素嵌入到原生SQL语句或其他语句中。各种嵌入在相关章节已有介绍，现在将各嵌入规则汇总一下。
 
 除[ECHO语句](/pql/echo.md)以外，其他语句的嵌入规则和解析顺序如下：
+
 1. **PQL、OoneApi接口或Voyager模板引擎传递的参数**  
    格式 `#{name}`  
    防止SQL注入的格式 `#{'name'}` 或 `#{"name"}`
@@ -36,7 +37,8 @@
    格式`#name`或`#{name}`，不判断数据类型 
    格式`&name`或`&(name)`，判断数据类型决定是否加引号
 
-[ECHO语句]的占位符及解决顺序如下：
+[ECHO语句](/pql/echo.md)的占位符及解决顺序如下：
+
 1. **多语言符号**  
    格式为 `# holder #`，参见[Voyager多语言支持](/voyager/language.md)
 2. **嵌入式变量**  
@@ -47,6 +49,7 @@
 
 ---
 参考链接
+
 * [向PQL传递参数](/pql/params.md)
 * [简单输出 ECHO](/pql/echo.md)
 * [用户变量 $](/pql/variable.md)

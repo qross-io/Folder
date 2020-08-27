@@ -37,6 +37,7 @@ email.sender.account=test@qross.io
 email.sender.password=*******
 ```
 这些信息的设置由你的邮件服务商提供，如果你需要使用`SEND语句`或发送邮件功能，建议设置。
+
 * `email.smtp.host` SMTP服务器域名或IP地址
 * `email.smtp.port` SMTP服务器端口，一般为`25`，启用SSL时为`465`
 * `email.sender.personal` 发件人署名

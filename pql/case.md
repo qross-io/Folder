@@ -29,6 +29,7 @@ CASE $rate
     END CASE;
 ```
 几点注意事项：
+
 * 至少有一条`WHEN`。
 * `THEN`后面不加分号，当然也可以加。
 * `ELSE`可以省略。
@@ -55,6 +56,7 @@ SET $rate :=
 UPDATE students SET score=${ CASE $rate WHEN 'A' THEN 90 WHEN 'B' THEN  75 WHEN 'C' THEN 60 ELSE 60 END } WHERE name='Tom';   
 ```
 与CASE语句的不同点有：
+
 * CASE短语句不能独立存在，只能作为其他语句的一部分。
 * CASE短语句以`END`结尾。
 * CASE短语句`THEN`或`ELSE`后面不是语句，是单个值，而且后面不能加分号。
@@ -75,6 +77,7 @@ VAR $scores :=
 ```
 
 参考链接
+
 * [条件表达式](/pql/condition.md)
 * [变量声明 SET](/pql/set.md)
 * [变量声明 VAR](/pql/var.md)

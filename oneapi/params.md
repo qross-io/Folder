@@ -1,4 +1,4 @@
-# 向OneApi传递参数
+# 向OneApi的接口传递参数
 OneApi构建的接口基于HTTP协议访问，所以向OneApi传参也使用HTTP的方式，OneApi支持两种方式的传参，一种是URL中的查询字符串方式，二是Json对象方式。
 
 ### 使用查询字符串向接口传递参数
@@ -25,6 +25,7 @@ REQUEST JSON API 'http://localhost:8080/api/exapmle/test'
 
 ---
 参考链接
+
 * [创建和编辑接口](/oneapi/edit.md)
 * [OneApi安全验证](/oneapi/token.md)
 * [PQL处理参数](/pql/param.md)

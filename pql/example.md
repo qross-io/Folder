@@ -4,17 +4,17 @@
 
 PQL使用Scala和Java开发，免费使用且代码开源。项目代码保存在github上，地址为：  
 
-**[https://github.com/qross-io/PQL](https://github.com/qross-io/PQL)**
+**<https://github.com/qross-io/PQL>**
 
-欢迎广大技术爱好者交流经验心得。
 
 ## PQL示例项目
 
 作者提供了一个PQL示例项目，适用于数据脚本开发，后端接口开发见[OneApi示例项目](/oenapi/example.md)。示例项目github地址为：
 
-**[https://github.com/qross-io/PQLExample](https://github.com/qross-io/PQLExample)**
+**<https://github.com/qross-io/PQLExample>**
 
 项目开发环境要求：
+
 * Intellij Idea 2018或以上版本（强烈建议）
 * JDK 1.8或以上版本（必须）
 * Scala 2.12 或以上版本（不必须，但建议有）
@@ -27,6 +27,7 @@ PQL使用Scala和Java开发，免费使用且代码开源。项目代码保存�
 
 ---
 参考链接
+
 * [配置数据源](/pql/properties.md)
 * [PQL基本语法](/pql/basic.md)
 * [PQL执行器 Worker](/worker/overview.md)

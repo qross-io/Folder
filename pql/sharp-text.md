@@ -2,14 +2,14 @@
 Sharp表达式为处理字符串提供了大量丰富且灵活的操作方法。下面按Link的用途分组介绍。
 
 ### 字符串截取和拆分
-* **`CHAR AT n`** 返回字符串索引位置n的字符，索引从1开始。`'hello' CHAR AT 2`结果为`'e'`
+* **`CHAR AT n`** 返回字符串索引位置n的字符，索引从`1`开始。`'hello' CHAR AT 2`结果为`'e'`
 * **`DROP n`** 或 **`DROP LEFT n`**  从左向右删除n个字符。`'hello' DROP 3`结果是`lo`
 * **`DROP RIGHT n`** 从右向左删除n个字符。`'hello' DROP RIGHT 3`结果是`he`
 * **`SPLIT 'regex'`** 将字符串按指定的分隔符拆分成数组，这里的参数是正则表达式字符串。如果分隔符中含有正则表达式的保留字符，必须加反斜杠转义，如 `'\|'`。同时也支持按正则表达式进行拆分。`'1,2,3' SPLIT ','`结果是`["1", "2", "3"]` 
 * **`SPLIT 'delimiter' AND 'separater'`** 将字符串按两个分隔符分隔成一个数据行。`'a=1&b=2&c=3' SPLIT '&' AND '='`结果是`{ "a": "1", "b": "2", "c": "3"}`。这里的分隔符不支持正则表达式。
-* **`SUBSTR n`** 取第m个字符及之后的所有字符，索引从1开始。`'hello' SUBSTR 4`结果是`'lo'`
-* **`SUBSTR m TAKE n`** 从第m个字符开始取n个字符，索引从1开始。`'tomorrow' SUBSTR 4 TO 2`结果是`'or'`
-* **`SUBSTR m TO n`** 取从第m个字符到第n个字符之间的所有字符，包括m但不包括n，索引从1开始。`'tomorrow' SUBSTRING 3 TO 5`结果是`mo`
+* **`SUBSTR n`** 取第m个字符及之后的所有字符，索引从`1`开始。`'hello' SUBSTR 4`结果是`'lo'`
+* **`SUBSTR m TAKE n`** 从第m个字符开始取n个字符，索引从`1`开始。`'tomorrow' SUBSTR 4 TO 2`结果是`'or'`
+* **`SUBSTR m TO n`** 取从第m个字符到第n个字符之间的所有字符，包括m但不包括n，索引从`1`开始。`'tomorrow' SUBSTRING 3 TO 5`结果是`mo`
 * **`TAKE AFTER 'str'`** 或 **`TAKE AFTER FIRST 'str'`** 取第一个字符串`str`之后的所有字符。`'tomorrow' TAKE AFTER 'o'`结果是`'morrow'`
 * **`TAKE AFTER LAST 'str'`** 取最后一个字符串`str`之后的所有字符。`'tomorrow' TAKE AFTER LAST 'o'`结果是`'w'`
 * **`TAKE BEFORE 'str'`** 或 **`TAKE BEFORE FIRST 'str'`**  取第一个字符串`str`之前的所有字符。`'tomorrow' TAKE BEFORE 'mor'`结果是`'to'`
@@ -30,8 +30,8 @@ Sharp表达式为处理字符串提供了大量丰富且灵活的操作方法。
 * **`REPLACE LAST 'str1' TO 'str2'`** 将字符串中的最后一个子字符`str1`替换为字符串`str2`。`'tomorrow' REPLACE LAST 'o' TO 'e'`结果为`'tomorrew'`
 
 #### 字符串查找和匹配
-* **`INDEX OF 'str'`**  在字符串中从前向后查找子字符串`str`所在的位置，索引从`1`开始，找不到返回`0`。`'tomorrow' INDEX OF 'o'`结果为`2`
-* **`LAST INDEX OF 'str'`** 在字符串中从后向前查找子字符`str`所在的位置，索引从`1`开始，找不到返回`0`。`'tomorrow' LAST INDEX OF 'o'`结果为`7`
+* **`INDEX OF 'str'`**  在字符串中从前向后查找子字符串`str`所在的位置，索引从`1`开始，找不到返回`-1`。`'tomorrow' INDEX OF 'o'`结果为`2`
+* **`LAST INDEX OF 'str'`** 在字符串中从后向前查找子字符`str`所在的位置，索引从`1`开始，找不到返回`-1`。`'tomorrow' LAST INDEX OF 'o'`结果为`7`
 * **`LIKE '%a%'`** 规则同SQL中的`LIKE`，判断一个字符串是否与给定的表达式相似，支持通配符`%`和`?`。`'hello' LIKE '%e%'`结果是`true`
 * **`NOT LIKE '%a%'`** 规则同SQL中的`LIKE`，判断一个字符串是否与给定的表达式不相似，支持通配符`%`和`?`。`'hello' NOT LIKE '%e%'`结果是`false`
 * **`MATCHES 'regex'`** 字符串是否匹配正则表达式`regex`。`'Hello' MATCHES "(?i)^h"`结果是`true`
@@ -75,6 +75,7 @@ Sharp表达式为处理字符串提供了大量丰富且灵活的操作方法。
 
 ---
 参考链接
+
 * [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)
 * [Sharp表达式操作 - 数字 INTEGER/DECIMAL](/pql/sharp-numeric.md)
 * [Sharp表达式操作 - 日期时间 DATETIME](/pql/sharp-datetime.md)

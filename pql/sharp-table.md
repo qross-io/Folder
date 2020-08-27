@@ -9,7 +9,7 @@
   ```
 * **`LAST ROW`** 返回表格的最后一行，表格为空时抛出异常。
 * **`LAST ROW row`** 返回表格的最后一行，如果表格为空则返回数据行`row`，`row`用Json对象表示，同`FIRST ROW`。	
-* **`ROW n`** 得到第n行，索引从1开始，如果不存在则抛出异常。
+* **`ROW n`** 得到第n行，索引从`1`开始，如果不存在则抛出异常。
 * **`FIRST COLUMN`** 得到第一列的所有值，返回数组。如果数据表为空，则抛出异常。
 * **`FIRST COLUMN array`** 得到表格的第一列的所有值，返回数组。如果数据表为空则返回数组`array`，`array`用Json数组表示。
   ```sql
@@ -75,6 +75,7 @@
 
 ---
 参考链接
+
 * [集合类型的元素访问](/pql/collection.md)
 * [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)
 * [Sharp表达式操作 - 文本和字符串 TEXT](/pql/sharp-text.md)

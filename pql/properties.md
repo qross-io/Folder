@@ -1,5 +1,6 @@
 # 数据源配置
 PQL主要用于数据查询和计算，所以在使用之前，需要先配置数据源。PQL使用最简单的`properties`文件进行配置，数据源和配置信息可以保存在以下几个地方。
+
 1. 项目内`resources`目录下的`conf.properties`文件中。
 2. 与jar包相同目录（一般为Qross系统家目录）的`qross.properties`文件中。如果是开发中的项目，以Intellij Idea为例，放在项目的`/out/production`目录下。
 3. 如果是已存在的`properties`文件，可以通过 `io.qross.setting.Properties.loadLocalFile('file.properties');` 手动加载。
@@ -52,6 +53,7 @@ OPEN REDIS qross;
 
 ---
 参考链接
+
 * [PQL全局设置](/pql/setup.md)
 * [打开和切换数据源 OPEN](/pql/open.md)
 * [使用PQL](/pql/use-pql.md)

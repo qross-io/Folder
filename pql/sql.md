@@ -8,6 +8,7 @@ OPEN DEFAULT;
     PUT # INSERT INTO scores (rate, amount) VALUES (?, ?);  
 ```
 我们来看一下上面的示例做了哪些工作。
+
 * 打开默认数据源。
 * 更新了一行数据。
 * 查询了两次数据。
@@ -16,15 +17,17 @@ OPEN DEFAULT;
 上面示例中，只有`OPEN`语句、两个`GET #`和一个`PUT #`是PQL的元素，其他的都是原生SQL语句。PQL就是通过这些附加在SQL之上的元素将多个SQL语句组织起来。这些元素书写简单，但功能强大。  
 
 PQL对原生的SQL语句不做任何解析，会将恢复后（有时会在SQL中嵌入一些内容，如变量）提交到对应的数据源执行，再将结果保存输出。在PQL中，可以在SQL中嵌入的常用元素如下：
-* [变量](/pql/set.md)，包含用户变量和全局变量
-* [函数](/pql/function.md)，包含用户函数和全局函数
+
+* 变量，包含[用户变量](/pql/variable.md)和[全局变量](/pql/global.md)
+* 函数，包含[用户函数](/pql/function.md)和[全局函数](/pql/global-function.md)
 * [富字符串](/pql/rich.md)
 * [Sharp表达式](/pql/sharp.md)
 * [查询表达式](/pql/query.md)
 
 详见见附录：[完整的嵌入规则表](/pql/place.md)，也会在对应章节进行详细介绍。
 
-在PQL中，SQL语句被分成两类，一类是查询语句，比如`SELECT`，执行结果一个二维表格; 另一类是非查询语句，比如`INSERT`、`UPDATE`、`DELETE`等，执行结果是一个整数，表示数据库受影响的行数。SQL执行的结果会被保存在全局变量或者缓冲区中，以供再计算或者输出。涉及到的全局变量如下：
+在PQL中，SQL语句被分成两类，一类是查询语句，比如`SELECT`和`SHOW`，执行结果一个二维表格; 另一类是非查询语句，比如`INSERT`、`UPDATE`、`DELETE`等，执行结果是一个整数，表示数据库受影响的行数。SQL执行的结果会被保存在全局变量或者缓冲区中，以供再计算或者输出。涉及到的全局变量如下：
+
 * `@COUNT_OF_LAST_SELECT` 最后一次SELECT语句的结果集数量，简写为`@ROWS`。
 * `@AFFECTED_OF_LAST_NON_QUERY` 最后一次非查询语句影响数据库的行数，简写为`@AFFECTED_ROWS`。
 其他全局变量见对应章节。
@@ -38,8 +41,11 @@ GET # SELECT # FROM table1 FROM table2 SELECT * WHERE ....;
 ```
 是什么类型的语句就加什么前缀就好，其中的井号`#`不能省略。  
 
+无论是查询语句还是非查询语句都属于“有返回值的语句”，这类语句有很多其他应用方式，详见[PQL中有返回值的语句](/pql/evaluate.md)。
+
 ---
 参考链接
+
 * [打开和切换数据源 OPEN](/pql/open.md)
 * [跨数据源数据流转 SAVE](/pql/save.md)
 * [将数据保存在缓冲区 GET](/pql/get.md)
