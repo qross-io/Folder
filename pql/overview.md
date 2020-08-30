@@ -5,17 +5,20 @@ PQL不仅可应用于数据开发（特别是多数据源场景下数据流转�
 PQL看起来很像存储过程。每条语句使用分号`;`结尾，更多语法规则见[PQL基本语法](/pql/basic.md)
 
 1. PQL的 `Hello World`：
+
     ```sql
-        PRINT 'Hello World!';
+    PRINT 'Hello World!';
     ```
 2. PQL支持[连接任意JDBC数据源](/pql/properties.md)并顺序[执行SQL语句](/pql/sql.md)，例如:
+
     ```sql
     OPEN mysql.qross;
-    INSERT INTO scores (name, score) VALUES ('Tom', 89);
-    UPDATE students SET age=18 WHERE id=1;
-    SELECT * FROM scores ORDER BY score LIMIT 10;
+        INSERT INTO scores (name, score) VALUES ('Tom', 89);
+        UPDATE students SET age=18 WHERE id=1;
+        SELECT * FROM scores ORDER BY score LIMIT 10;
     ```
 3. [跨数据源数据流转](/pql/save.md)非常轻松：
+
     ```sql
     OPEN hive.cluster1;
         GET # SELECT name, COUNT(0) AS amount FROM table1 GROUP BY name;
@@ -23,6 +26,7 @@ PQL看起来很像存储过程。每条语句使用分号`;`结尾，更多语�
         PUT # INSERT INTO table2 (name, amount) VALUES (&name, #amount);
     ```
 4. 提供[中间数据库](/pql/cache.md)缓存处理过程中的数据：
+
     ```sql
     OPEN mysql.db1;
         CACHE 'table1' # SELECT id, name FROM table1;
@@ -32,6 +36,7 @@ PQL看起来很像存储过程。每条语句使用分号`;`结尾，更多语�
         SELECT A.id, A.name, B.score FROM table1 A INNER JOIN table2 B ON A.id=B.id;       
     ```
 5. 可无障碍[使用JSON数据](/pql/json.md)：
+
     ```sql
     OUTPUT {
         "data": ${{ SELECT * FROM table1 }},
@@ -39,12 +44,14 @@ PQL看起来很像存储过程。每条语句使用分号`;`结尾，更多语�
     };
     ```
 6. 支持各种形式的[变量](/pql/variable.md)和[表达式](/pql/sharp.md)嵌入以对数据进行再加工：
+
     ```sql
     SET $name := SELECT name FROM table1 WHERE id=#{id};
     SELECT * FROM table2 WHERE name=$name AND create_time>=${ @NOW MINUS 1 DAY }
         -> INSERT IF EMPTY (name, score) VALUES ('N/A', 0);　
     ```
 7. 支持条件控制语句[IF](/pql/if.md)和[CASE](/pql/case.md)：
+
     ```sql
     IF $i > 1 THEN
         PRINT 'greater than 1.';
@@ -55,6 +62,7 @@ PQL看起来很像存储过程。每条语句使用分号`;`结尾，更多语�
     END IF;
     ```
 8. 支持[FOR](/pql/for.md)和[WHILE](/pql/while.md)循环：
+
     ```sql
     FOR $id, $name IN (SELECT id, name FROM table3) LOOP
         PRINT $id;
@@ -63,6 +71,7 @@ PQL看起来很像存储过程。每条语句使用分号`;`结尾，更多语�
     END LOOP;
     ```
 9. 支持[请求数据接口](/pql/request.md)和[发送邮件](/pql/send.md)：
+
     ```sql
     REQUEST JSON API 'http://www.domain.com/api?id=1'
         PARSE '/data' AS TABLE;
@@ -72,6 +81,7 @@ PQL看起来很像存储过程。每条语句使用分号`;`结尾，更多语�
         TO "user@domain.com";
     ```
 10. 支持[Excel](/pql/excel.md)、[CSV](/pql/csv.md)、[TXT](/pql/txt.md)等文件的读写操作：
+
     ```sql
     OPEN mysql.db1;
         GET # SELECT * FROM table1;

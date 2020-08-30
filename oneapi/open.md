@@ -1,7 +1,7 @@
 # 设置对所有请求者开放的接口
 
 在OneApi服务中，有时不是所有的接口都需要安全验证，可以用[全局设置](/oneapi/setup.md)项`oneapi.access.open`来设置哪些接口不需要安全验证。例如：
-```s
+```properties
 oneapi.access.open=
 oneapi.access.open=*
 oneapi.access.open=/api/*;/api/example/test

@@ -8,13 +8,19 @@
 
 [https://github.com/qross-io/Worker](https://github.com/qross-io/Worker)
 
-项目只有一个文件，使用 Scala 开发，环境要求如下：
+### 项目文件
+
+项目核心只有一个文件，在项目中分别使用 Java 和 Scala 实现。Java文件路径为`io.qross.worker.Main`，Scala文件路径为`io.qross.worker.Worker`，是项目的入口文件。
+
+
+### 环境要求
+
 * Intellij Idea 2018或以上版本（强烈建议）
 * JDK 1.8或以上版本（必须）
 * Scala 2.12 或以上版本
 * Gradle 4.9 或以上版本（可自行修改成Maven）
 
-如果你不会Java或Scala开发，或者改变环境非常烦琐，可[联系作者](/contact.md)进行打包。
+如果你不会Java或Scala开发，或者改变环境非常烦琐，可联系作者进行打包。
 
 ## Worker参数列表
 
@@ -40,7 +46,7 @@ PQL语句的入参, 格式同URL地址参数规则, 参数名和参数值之间�
 ## 更简单的方式使用Worker
 
 因为Worker是一个jar包，如果你需要在服务器上经常输入命令执行会相当麻烦。可以将Worker修改成一个Shell命令，如
-```s
+```sh
 pql --file /usr/qross/pql/test.sql
 ```
 操作步骤如下：
@@ -49,13 +55,13 @@ pql --file /usr/qross/pql/test.sql
     vim pql.sh
     ```
 2. 在打开的编辑器中，按`I`键输入下面的命令并按`ESC`然后输入`:wq`保存并退出。
-    ```s
+    ```sh
     /usr/java/jdk1.8.0_251/bin/java -jar /usr/qross/qross-worker-0.6.4.jar $*
     ```
     其中java目录根据你的安装确定，使用`which java`命令可以查看。Worker目录修改成Worker jar包的保存位置。
 3. 输入`cd /usr/local/bin`切换目录。
 4. 在`/usr/local/bin`目录下创建软链接。
-    ```s
+    ```sh
     ln -s /usr/qross/pql.sh pql
     ```
 5. 完成，输入`pql`命令进行测试。
@@ -63,6 +69,7 @@ pql --file /usr/qross/pql/test.sql
 
 ---
 参考链接
+
 * [PQL概览](/pql/overview.md)
 * [任务调度工具 Keeper](/keeper/overview.md)
 * [数据管理平台 Master](/master/overview.md)

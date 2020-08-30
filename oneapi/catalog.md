@@ -3,11 +3,12 @@
 * [OneApi概览](/oneapi/overview.md)
 * [OneApi快速入门](/oneapi/quick.md)
 
+* [OneApi中的Controller设置](/oneapi/controller.md)
 * [用目录组织接口文件](/oneapi/file.md)
 * [创建和编辑接口](/oneapi/edit.md)
 
-* [OneApi访问控制](/oneapi/token.md)
-* [OneApi设置安全验证例外](/oneapi/open.md)
+* [OneApi基于Token的安全认证](/oneapi/token.md)
+* [OneApi设置安全认证例外](/oneapi/open.md)
 * [OneApi访问安全控制](/oneapi/permit.md)
 * [OneApi登录用户](/oneapi/signin.md)
 

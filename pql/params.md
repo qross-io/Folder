@@ -2,12 +2,12 @@
 任何程序都可以接受外部参数以确定执行不同的操作，PQL过程一样也可以接受外部传递的参数。
 
 * 在[Keeper调度工具]中执行PQL命令时：
-  ```s
+  ```sh
   PQL /usr/qross/pql/test.sql --args name=Tom&age=18&score=89
   ```
 * 手工执行PQL文件时
   命令可以在本地开发环境和服务器上运行。
-  ```s
+  ```sh
   java -jar qross-worker-0.6.3.jar --file /usr/qross/pql/test.sql --args name=Tom&age=18&score=89
   ```
 * OneApi传递参数

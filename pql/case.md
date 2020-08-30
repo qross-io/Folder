@@ -1,5 +1,5 @@
 # 条件控制 CASE语句
-作为IF语句的补充，PQL也提供了CASE语句用于条件判断，功能和其他SQL语句中相同。
+作为[IF语句](/pql/if.md)的补充，PQL也提供了CASE语句用于条件判断，功能和其他SQL语句中的CASE语句相同。
 ```sql
 SET $score := SELECT score FROM students WHERE name='Tom';
 SET $rate := '';

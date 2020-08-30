@@ -35,7 +35,7 @@ http://localhost:8080/api/example/test?secret=xnjmiqt
 ```
 
 建议使用Redis保存动态Token，特别是在负载均衡模式下，只需在配置文件中配置名称为`qross`的Redis数据源连接即可，可参见[PQL数据源配置](/pql/properties.md)。例如
-```s
+```properties
 redis.qross.host=localhost
 redis.qross.port=6379
 redis.qross.password=

@@ -1,7 +1,7 @@
 # 版本和更新
-作者会每周发布一个预览版本的更新，一到两个月会发布一个稳定版本。PQL的最新稳定版本为 **v0.6.3-2-RELEASE**，最新快照版本是 **v0.6.4-34-SNAPSHOT**。 
+作者会每周发布一个预览版本的更新，一到两个月会发布一个稳定版本。PQL的最新稳定版本为 **v0.6.3-2-RELEASE**，最新快照版本是 **v0.6.4-40-SNAPSHOT**。 
 
-## v0.6.4（开发中）
+## v0.6.4
 1. PQL和OneApi文档已完成，可又在Master平台或官网找到。
 2. [自定义用户函数](/pql/function.md)升级，现在已不仅作为语句复用目的。
     * 自定义函数现在可以返回值了。
@@ -30,7 +30,7 @@
     * [数学运算](/pql/sharp-numeric.md)新增取余`MOD`、`MIN`、`MAX`。
     * [数组操作](/pql/sharp-array.md)中`ADD`可以一次添加多个值，如`ADD 1,2,3`; 排序操作`SORT`、`ASC`、`DESC`已加入。
     * [数据行操作](/pql/sharp-row.md)和[数据表操作](/pql/sharp-table.md)加入`HAS`，用来判断是否包含某个字段。
-8. Marker应用加入，可又将Markdown文档转成HTML文档。
+8. Marker应用加入，可以将Markdown文档转成HTML。
 9. 多条语句优化。
 
 本次不兼容修改主要涉及[Sharp表达式](/pql/sharp.md)

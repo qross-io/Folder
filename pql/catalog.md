@@ -91,9 +91,9 @@
     + [文件夹操作 DIR](/pql/dir.md)
 
 * 其他语言相关
-    + [在PQL中调用Java方法 INVOKE](/pql/invoke.md)
+    + [在PQL中调用 Java 方法 INVOKE](/pql/invoke.md)
     + [在PQL中运行Shell命令 RUN](/pql/run.md)
-    + [PQL中的Javascript](/pql/javascript.md)    
+    + [PQL中的 Javascript](/pql/javascript.md)    
     
 * PQL相关应用
     + [统一接口 OneApi](/oneapi/overview.md)
@@ -107,3 +107,4 @@
     + [特殊字符表](/pql/characters.md)
     + [io.qross.pql.PQL 类](/pql/class.md)
     + [PQL全局设置](/pql/setup.md)
+    + [PQL执行器 - Worker](/pql/worker.md)

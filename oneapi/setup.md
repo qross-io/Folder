@@ -1,6 +1,6 @@
 # OneApi 设置
 OneApi使用`conf.properties`文件保存全局设置，`conf.properties`必须放在项目的`resources`目录下。OneApi的所有相关设置项如下：
-```s
+```properties
 oneapi.service.name=example
 oneapi.management.key=1234567
 oneapi.resources.dirs=/api/
@@ -34,7 +34,7 @@ oneapi.secret.key.digit=16
 	SpringApplication.run(OneApiApplication.class, args);
     ```
     启动命令修改为
-    ```s
+    ```sh
     java -jar qross-oneapi-0.6.3.jar --properties /usr/qross/your.properties
     ```
     这样可以控制哪些服务使用全局配置，哪些服务不使用全局配置，更加灵活。

@@ -32,7 +32,7 @@ PRINT ERROR "exception";
 PRINT HELLO "WORLD";
 ```
 输出结果为
-```s
+```sh
 2020-08-04 16:45:01 [HELLO] WORLD
 ```
 

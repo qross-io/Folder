@@ -64,7 +64,7 @@ OneApi的依赖和PQL是同一个依赖。
         <dependency>
             <groupId>io.qross</groupId>
             <artifactId>pql</artifactId>
-            <version>0.6.3-68-SNAPSHOT</version>
+            <version>0.6.4-40-SNAPSHOT</version>
         </dependency> 
     </dependencies>
     ```
@@ -83,7 +83,7 @@ repositories {
 }
 
 dependencies {
-    compile (group: 'io.qross', name: 'pql', version: '0.6.4-34-SNAPSHOT')
+    compile (group: 'io.qross', name: 'pql', version: '0.6.4-40-SNAPSHOT')
 }
     ```
 
@@ -111,11 +111,10 @@ OUTPUT "HELLO WORLD!";
 ```
 这个接口就完成了，运行项目，可以浏览器中输入接口地址`http://localhost:8080/api/example/test`（端口根据你的项目设置确定）查看结果。在示例项目中已经有这个接口。
 
-
 ### 获取更多信息
 * 添加数据源配置，请参阅[数据源配置](/pql/properties.md)
 * OneApi全局配置，请参阅[OneApi设置](/oneapi/setup.md)
-* 关于接口文件存放目录与地址映射的对应关系，请参阅[接口文件组织](/oneapi/file.md)
+* 每个接口都有一个唯一的路径，关于接口文件存放目录与地址映射的对应关系，请参阅[接口文件组织](/oneapi/file.md)
 * 关于接口的返回值问题，请参阅[接口创建与编辑](/oneapi/edit.md)和[OUTPUT语句](/pql/output.md)
 * 接口访问的鉴权问题，请参阅[配置Token](/oneapi/token.md)
 * OneApi接口与登录用户问题，请参阅[OneApi登录用户](/oneapi/signin.md)

@@ -1,6 +1,6 @@
 # OneApi类
 
-这里汇总一下OneApi类中的方法，方便查阅。
+OneApi类所在的包为`io.qross.app.OneApi`。这里汇总一下OneApi类中的方法，方便查阅。
 ```java
 public static boolean OneApi.authenticateManagementKey(key);
 public static boolean contains(String path);

@@ -4,32 +4,32 @@
 另外，全局设置的每一项都对应一个[全局变量](/pql/global.md)。下面对这些设置项分别介绍一下。
 
 ### Qross系统家目录
-```s
+```properties
 qross.home=/usr/qross/
 ```
 一般在Qross家目录下保存Qross系统所有的程序和相关文件，如`qross-keeper-0.6.3.jar`、`qross.properties`等。PQL临时目录和Excel模板、Email模板等都在Qross家目录下。请参阅[Qross系统家目录](/qross/home.md)获取更多信息。对应的全局变量为`@QROSS_HOME`。
 
 ### 默认字符编码
-```s
+```properties
 charset=utf-8
 ```
 默认值是`utf-8`，一般不需要设置。这个值影响运行环境相关的所有地方，如文件读写、jar包运行环境等。对应的全局变量为`@CHARSET`。
 
 ### 时区
-```s
+```properties
 timezone=GMT+8
 ```
 默认值是系统时区，除非获得的时间不正常，一般不需要设置。对应的全局变量为`@TIMEZONE`。
 
 ### 全局调试
-```s
+```properties
 pql.debug=on
 ```
 默认关闭`off`，开启时能够输出更多的调试日志。这个设置可以由[DEBUG语句](/pql/debug.md)临时开启或关闭。对应的全局变量为`@DEBUG`。这个设置同时影响[DataHub开发框架](/datahub/overview.md)。
 
 ### 系统邮件发送账户
 这个设置为[SEND语句](/pql/send.md)提供默认的发件人，同时影响Qross系统的其他工具软件，如[Keeper调度工具](/keeper/overview.md)也是使用的这个设置。
-```s
+```properties
 email.smtp.host=smtp.exmail.qq.com
 email.smtp.port=465
 email.sender.personal=PQL

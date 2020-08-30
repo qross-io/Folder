@@ -52,7 +52,7 @@ PQL可以在任何Java和Scala项目里使用，包括Spring Boot项目，只要
     <dependency>
         <groupId>io.qross</groupId>
         <artifactId>pql</artifactId>
-        <version>0.6.3-68-SNAPSHOT</version>
+        <version>0.6.4-40-SNAPSHOT</version>
     </dependency> 
 </dependencies>
 ```
@@ -71,7 +71,7 @@ repositories {
 }
 
 dependencies {
-    compile (group: 'io.qross', name: 'pql', version: '0.6.3-68-SNAPSHOT')
+    compile (group: 'io.qross', name: 'pql', version: '0.6.4-40-SNAPSHOT')
 }
 ```
 
@@ -102,14 +102,14 @@ OPEN mysql.qross;
 ```
 系统会自动识别该使用哪种驱动程序，但是要求在项目中必须事先引入了相应的依赖。PQL默认引用了MySQL和Redis依赖。数据源名字前面的数据类型前缀`mysql.`不强制使用，但是在多类型数据源系统中建议使用以进行区分。
 有的数据源连接串不能写成一行的形式，如Oracle，这样可以使用完整的格式进行配置。
-```s
+```properties
 oracle.test.url=jdbc:oracle:thin:@127.0.0.1:1521:test
 oracle.test.username=sys
 oracle.test.password=diablo
 oracle.test.driver=oracle.jdbc.driver.OracleDriver
 ```
 特别的，连接名`jdbc.default`用来设置当前项目默认的连接名，意义和MyBatis中的默认连接一样，建议设置。如果已经在MyBatis中设置，则不需要重复设置。
-```s
+```sh
 jdbc.default=jdbc:mysql://localhost:3306/qross?user=root&password=diablo&useUnicode=true
 ```
 默认连接在OPEN和SAVE语句中使用，如`OPEN DEFAULT;`或`SAVE TO DEFAULT;`。 
@@ -117,7 +117,7 @@ jdbc.default=jdbc:mysql://localhost:3306/qross?user=root&password=diablo&useUnic
 另外一个保留名称是`mysql.qross`，如果你的项目用到了Qross系统，那么必须配置这个连接。在OPEN语句中这样使用：`OPEN QROSS;`。  
 
 Redis也可以使用类似的方式进行配置。
-```s
+```properties
 redis.qross.host=localhost
 redis.qross.port=6379
 redis.qross.password=
@@ -147,7 +147,7 @@ OPEN REDIS qross;
       io.qross.pql.PQL.runFile("/pql/test.sql");
    }   
    ```
-   Scala代码如下：
+   Scala代码：
    ```scala
    def main(Array[String] args): Unit = {
       io.qross.pql.PQL.runFile("/pql/test.sql")
@@ -155,31 +155,32 @@ OPEN REDIS qross;
    ```
 5. 运行主类查看结果。 
 
-io.qross.pql.PQL类还有很多重载和方法用于应对各种场景，请参阅[PQL类文档](/pql/class.md)。这种方式特别适合于数据计算脚本的开发，甚至不需要写Java和Scala代码。脚本开发调试完成之后，直接将PQL文件部署到服务器上即可，甚至不需要编译和构建。在服务器上可以通过命令直接运行或者通过[Keeper调度工具](/keeper/overview.md)运行。作者之前的数据部门采用这种开发方式，非常方便。
+io.qross.pql.PQL类还有很多重载和方法用于应对各种场景，请参阅[PQL类文档](/pql/class.md)。这种方式特别适合于数据计算脚本的开发，甚至不需要写Java和Scala代码。脚本开发调试完成之后，直接将PQL文件部署到服务器上即可，不需要编译和构建。在服务器上可以通过命令直接运行或者通过[Keeper调度工具](/keeper/overview.md)运行。作者之前的数据部门采用这种开发方式，非常方便。
 
 
 ### 直接运行PQL过程字符串
 除了将PQL保存为文件外，也可以直接运行PQL过程字符串。
+Scala代码：
 ```java
-    public static void main(String[] args) {
-        String pql = "DEBUG ON;";
-        pql += "OPEN mysql.qross;";
-        pql += "SELECT * FROM table1;";
+public static void main(String[] args) {
+    String pql = "DEBUG ON;";
+    pql += "OPEN mysql.qross;";
+    pql += "SELECT * FROM table1;";
 
-        io.qross.pql.PQL.run(pql);
-    }
+    io.qross.pql.PQL.run(pql);
+}
 ```
-Scala代码如下：
+Scala代码：
 ```scala
-    def main(Array[String] args): Unit = {
-        val pql = 
-          """
-            DEBUG ON;
-            OPEN mysql.qross;
-            SELECT * WFROM table1;
-          """
-        io.qross.pql.PQL.run(pql);
-    }
+def main(Array[String] args): Unit = {
+    val pql = 
+      """
+        DEBUG ON;
+        OPEN mysql.qross;
+        SELECT * WFROM table1;
+      """
+    io.qross.pql.PQL.run(pql);
+}
 ```
 
 这种方式就和运行SQL语句的方式一样，不过这种方式采用的不多，因为每个PQL过程都是一个完整的处理逻辑，不是某个程序的一部分。
@@ -188,7 +189,7 @@ Scala代码如下：
 可以通过 **Jenkins** 或 **FTP** 方式将脚本上传到服务器，然后有几种方式运行你的PQL脚本。服务器上需要安装`JDK 1.8`或以上版本。
 
 PQL提供了 **Worker** 执行器运行PQL脚本文件，本身是一个jar包，可以从[官网](http://www.qross.cn/worker)上下载，也可以自己下载源代码添加自己需要的依赖后自己打包。
-```s
+```sh
 java -jar qross-worker-0.6.3.jar --file /usr/qross/pql/test.sql
 ```
 在本地也可以通过这种方式运行，需要指定文件的绝对路径。可参阅[Worker文档](/worker/overview.md)获取更多信息。
