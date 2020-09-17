@@ -8,6 +8,7 @@ ECHO <div># description #</div>;
 * [OUTPUT语句](/pql/output.md)支持完整的规则，后面的表达式和语句都会被计算。ECHO语句只计算嵌入式变量（上例`${name}`）和多语句言占位符（上例`# description #`），其他内容不作处理，直接返回。
 * ECHO语句后面忽略数据类型，均为字符串。
 * ECHO语句属于显示输出，结果都会被输出和返回。
+* ECHO语句会去掉`ECHO`关键字后的第一个空白字符，其他空白字符不做处理。
 * ECHO语句是嵌入式PQL的基础，应用于模板引擎Voyager。
 
 

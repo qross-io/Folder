@@ -10,11 +10,11 @@ Sharp表达式为处理字符串提供了大量丰富且灵活的操作方法。
 * **`SUBSTR n`** 取第m个字符及之后的所有字符，索引从`1`开始。`'hello' SUBSTR 4`结果是`'lo'`
 * **`SUBSTR m TAKE n`** 从第m个字符开始取n个字符，索引从`1`开始。`'tomorrow' SUBSTR 4 TO 2`结果是`'or'`
 * **`SUBSTR m TO n`** 取从第m个字符到第n个字符之间的所有字符，包括m但不包括n，索引从`1`开始。`'tomorrow' SUBSTRING 3 TO 5`结果是`mo`
-* **`TAKE AFTER 'str'`** 或 **`TAKE AFTER FIRST 'str'`** 取第一个字符串`str`之后的所有字符。`'tomorrow' TAKE AFTER 'o'`结果是`'morrow'`
-* **`TAKE AFTER LAST 'str'`** 取最后一个字符串`str`之后的所有字符。`'tomorrow' TAKE AFTER LAST 'o'`结果是`'w'`
-* **`TAKE BEFORE 'str'`** 或 **`TAKE BEFORE FIRST 'str'`**  取第一个字符串`str`之前的所有字符。`'tomorrow' TAKE BEFORE 'mor'`结果是`'to'`
-* **`TAKE BEFORE LAST 'str'`** 取最后一个字符串`str`之前的所有字符。`'tomorrow' TAKE BEFORE LAST 'o'`结果是`'w'`
-* **`TAKE BETWEEN 'str1' AND 'str2'`** 取第一个字符串`str1`和最后一个字符串`str2`之间的所有字符。`'tomorrow' TAKE BETWEEN 'o' AND 'o'`结果是`'morr'`
+* **`TAKE AFTER 'str'`** 或 **`TAKE AFTER FIRST 'str'`** 取第一个字符串`str`之后的所有字符。`'tomorrow' TAKE AFTER 'o'`结果是`'morrow'`。如果找不到`str`，则返回整个字符串
+* **`TAKE AFTER LAST 'str'`** 取最后一个字符串`str`之后的所有字符。`'tomorrow' TAKE AFTER LAST 'o'`结果是`'w'`。如果找不到`str`，则返回整个字符串
+* **`TAKE BEFORE 'str'`** 或 **`TAKE BEFORE FIRST 'str'`**  取第一个字符串`str`之前的所有字符。`'tomorrow' TAKE BEFORE 'mor'`结果是`'to'`。如果找不到`str`，则结果为空
+* **`TAKE BEFORE LAST 'str'`** 取最后一个字符串`str`之前的所有字符。`'tomorrow' TAKE BEFORE LAST 'o'`结果是`'w'`。如果找不到`str`，则结果为空
+* **`TAKE BETWEEN 'str1' AND 'str2'`** 取第一个字符串`str1`和最后一个字符串`str2`之间的所有字符。`'tomorrow' TAKE BETWEEN 'o' AND 'o'`结果是`'morr'`。如果找不到`str1`，则返回最后一个`str2`之前的所有字符；如果找不到`str2`，则返回第一个`str1`之后的所有字符；如果`str1`和`str2`都找不到，则返回整个字符串
 * **`TAKE n`** 或 **`TAKE LEFT n`** 从左向右取n个字符。`'hello' TAKE 2`结果是`'he'`
 * **`TAKE RIGHT n`** 从右向左取n个字符。 `'hello' TAKE RIGHT 2`结果是`'lo'`
 * **`TRIM`** 去掉字符串两边的空白字符，空白字符包含空格`' '`、制表符`'\t'`、回车符`'\r'`和换行符`'\n'`。

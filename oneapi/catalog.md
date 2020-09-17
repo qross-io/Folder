@@ -3,7 +3,6 @@
 * [OneApi概览](/oneapi/overview.md)
 * [OneApi快速入门](/oneapi/quick.md)
 
-* [OneApi中的Controller设置](/oneapi/controller.md)
 * [用目录组织接口文件](/oneapi/file.md)
 * [创建和编辑接口](/oneapi/edit.md)
 

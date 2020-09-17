@@ -49,7 +49,9 @@ PQL语句的入参, 格式同URL地址参数规则, 参数名和参数值之间�
 ```sh
 pql --file /usr/qross/pql/test.sql
 ```
+
 操作步骤如下：
+
 1. 创建名为`pql.sh`的文件，Qross系统中已经有这个文件。
     ```
     vim pql.sh
