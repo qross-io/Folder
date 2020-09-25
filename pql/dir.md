@@ -4,9 +4,9 @@ DIR语句和FILE语句一样，也是一个名词语句，主要用于文件的�
     DIR "path";
     DIR LIST "path";
     DIR DELETE "path";
-    DIR MOVE "path" TO "new path";
     DIR RENAME "path" TO "new path";
-    DIR COPY "path" TO "new path";
+    DIR MOVE "path" TO "new path" REPLACE EXISTING;
+    DIR COPY "path" TO "new path" REPLACE EXISTING;
     DIR MAKE "path";
     DIR LENGTH "path";
     DIR SPACE "path";
@@ -32,11 +32,15 @@ DIR语句和FILE语句一样，也是一个名词语句，主要用于文件的�
 
 ### 文件夹的重命名、移动和复制
 ```sql
-    DIR RENAME "d:\\temp" TO "d:\\work";
-    DIR MOVE "d:\\temp" TO "d:\\work";
-    DIR COPY "d:\\temp" TO "d:\\work";
+    DIR RENAME "d:\\temp" TO "work";
+    DIR MOVE "d:\\temp" TO "d:\\work" REPLACE EXISTSING;
+    DIR COPY "d:\\temp" TO "d:\\work" REPLACE EXISTSING;
 ```
-文件夹的重命名、移动和复制逻辑预计在版本`0.6.6`实现。
+
+* `RENAME`操作可以为文件夹改名，注意不能指定与源文件夹不同父级目录的路径。返回布尔值。
+* `MOVE`操作将整个文件夹及其文件夹下的所有子文件夹移动到目标目录下，源文件夹会删除。`REPLACE EXISTING`选项表示如果目标文件（注意是文件）已存在，则覆盖。返回布尔值。
+* `COPY`操作将整个文件夹及其文件夹下的所有子文件夹复制到目标目录下，源文件夹会保留。`REPLACE EXISTING`选项表示如果目标文件（注意是文件）已存在，则覆盖。返回布尔值。
+
 
 ### 获取文件夹的大小或占用空间
 ```sql

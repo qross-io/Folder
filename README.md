@@ -18,7 +18,7 @@
 * 支持[自定义函数](/pql/function.md)。
 * 丰富的[嵌入功能](/pql/place.md)与原生SQL语句完美结合。
 
-PQL最新版本为`0.6.4-40-SNAPSHOT`，文档已同步。PQL的源码地址为：<https://github.com/qross-io/PQL>
+PQL文档已是最新。PQL的源码地址为：<https://github.com/qross-io/PQL>
 
 ## # [数据管理平台 Master](/master/overview.md)
 
@@ -34,12 +34,12 @@ PQL最新版本为`0.6.4-40-SNAPSHOT`，文档已同步。PQL的源码地址为�
 * 支持不同任务状态下触发事件，可实现多种预警功能。
 * 支持超时或失败重试和延时自动重启。
 * 支持立即运行任务、中断任务、重启任务。
-* 支持已扩展的多`Cron表达式`设置和自动启停调度。
+* 支持已扩展的`Cron表达式`设置和自动启停调度。
 * 多角色设置，精细的权限控制。
 * 丰富的统计图表，随时掌握任务运行状态。
 * 超强的自定义功能：自定义依赖、自定义事件、自定义触发器。
 
-Keeper基于Akka和DataHub框架开发，最新版本为`0.6.3-RELEASE`，文档待补全。源码地址为：<https://github.com/qross-io/Keeper>
+Keeper基于Akka和DataHub框架开发，文档待补全。源码地址为：<https://github.com/qross-io/Keeper>
 
 ## # [统一接口管理 OneApi](/oneapi/overview.md)
 
@@ -54,16 +54,16 @@ Keeper基于Akka和DataHub框架开发，最新版本为`0.6.3-RELEASE`，文档
 * 通过PQL，可快速访问任意关系型数据库和其他数据源如`Redis`等。
 * 通过PQL，可快速将输出各种文件并实现文件下载功能。
 
-OneApi的页面管理功能正在开发中，可更方便直观的管理项目和接口。示例项目地址为：<https://github.com/qross-io/>
+OneApi的页面管理功能正在开发中，可更方便直观的管理项目和接口。示例项目地址为：<https://github.com/qross-io/OneApi>
 
 
-## # DataHub
+## # [DataHub 数据开发框架](/datahub/overview.md)
 
-**DataHub** 是一个简单易用的数据处理框架，整合了多个资源库，PQL和Keeper都是基于DataHub开发。文档待补全。
+**DataHub** 是一个简单易用的数据处理框架，整合了多个资源库，PQL和Keeper都是基于DataHub框架开发。文档正在逐渐补全。
 
-## # root.js
+## # [root.js 前端组件库](/root.js/overview.md)
 
-**DataHub** 是一个简单易用的前端组件库，包含很多个组件用于实现各种交互功能，Master前端页面使用root.js库支持开发。文档待补全。
+**root.js** 是一个简单易用的前端组件库，包含很多个自定义组件用于实现各种交互功能，Master前端页面使用root.js库进行开发。多个组件文档待补全。
 
 ---
 技术支持

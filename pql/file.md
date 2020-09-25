@@ -3,15 +3,17 @@ FILE语句是一个名词语句，用于文件操作，实现文件新建、删�
 ```sql
     FILE "path";
     FILE DELETE "path";
-    FILE MOVE "path" TO "new Path";
     FILE RENAME "path" TO "new path";
-    FILE COPY "path" TO "new path";
+    FILE MOVE "path" TO "new Path" REPLACE EXISTING;
+    FILE COPY "path" TO "new path" REPLACE EXISTING;
     FILE MAKE "path";
     FILE LENGTH "path";
     FILE SIZE "path";
     FILE LIST "dir";
     FILE WRITE "path" APPEND "content";
     FILE READ "path";
+
+    FILE DOWNLOAD "path";
 ```
 FILE语句通过路径`path`来定位文件，必须使用完整的路径。
 
@@ -54,10 +56,13 @@ FILE DELETE "c:/io.Qross/Home/1.txt";
 ### 文件重全名、移动和复制。
 ```sql
 FILE RENAME "c:/io.Qross/Home/1.txt" TO "2.txt";
-FILE MOVE "c:/io.Qross/Home/1.txt" TO "d:/temp/2.txt";
-FILE COPY "c:/io.Qross/Home/1.txt" TO "d:/temp/2.txt";
+FILE MOVE "c:/io.Qross/Home/1.txt" TO "d:/temp/2.txt" REPLACE EXISTING;
+FILE COPY "c:/io.Qross/Home/1.txt" TO "d:/temp/" REPLACE EXISTING;
 ```
-逻辑预计在版本`0.6.5`实现。
+
+* `RENAME`操作对文件进行重命名，如果源文件不存在或目标文件存在，则返回`false`，重命名失败。重命名可以指定另一个目录，实现与`MOVE`类似的操作，但不建议这么做。
+* `MOVE`操作可以将一个文件从一个目录移动到另一个目录，或者执行重命名操作。`TO`可以指定一个目录，或使用包含文件名的全路径。`REPLACE EXISTING`选项表示如果目录文件，则覆盖。返回布尔值。
+* `COPY`操作可以将一个文件从一个目录复制到另一个目录，`TO`可以指定一个目录，或者使用包含文件名的全路径，即可以在复制的同时重命名。`REPLACE EXISTING`选项表示如果目录文件，则覆盖。返回布尔值。
 
 ### 判断文件是否存在
 ```sql
@@ -102,8 +107,14 @@ FILE WRITE "d:/temp/2.txt" APPEND $content;
 * `WRITE`向文件中附加文本内容，附加的内容放在文件末尾。如果文件不存在则新建。
 * `READ`和`WRITE`适合一次性读取和一性次写入，还有就是读写不规则文件的场景。读取按行分隔的规则文本可以[使用OPEN语句将文件读成数据表](/pql/file-table.md)，写入规则数据可以[用SAVE语句保存为文本文件](/pql/txt.md)。
 
-
 在PQL中，FILE语句和SQL语句、PARSE语句一样归为查询语句的范畴，每条语句都有返回值，所以SQL语句和PARSE语句的特性FILE语句均支持。比如用做赋值语句、在[FOR循环](/pql/for.md)中使用，使用[Sharp表达式](/pql/sharp.md)再编辑，当做[查询表达式](/pql/query.md)的一部分等。
+
+### 文件下载
+```sql
+FILE DOWNLOAD "/usr/qross/data.csv";
+```
+
+这个操作需要`Spring Boot`环境支持，一般在 [**OneApi**](/oneapi/overview.md) 中使用。这个功能会使`Spring Boot`抛出一个异常，但不影响正常使用。
 
 ---
 参考链接

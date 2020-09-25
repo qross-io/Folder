@@ -19,7 +19,7 @@
 4. 其他的一些非功能更新。
 
 ## v0.6.3
-当前 **Keeper** 稳定版本为 0.6.3-RELEASE，这个版本主要是Shell命令和事件相关的升级。
+这个版本主要是Shell命令和事件相关的升级。
 
 1. [DAG](/keeper/dag.md) 中的Shell命令优化。现在已支持双引号、管道符和分号，多行Shell命令也已支持！
 2. 在[事件](/keeper/event.md)中可以执行 **Python** 和 **Shell** 脚本了。
@@ -31,7 +31,7 @@
 
 不再兼容旧版本的更新
 
-1. Shell命令中的全局变量 %JAVA_BIN_HOME 不再支持，直接去掉即可。
+1. Shell命令中的全局变量`%JAVA_BIN_HOME`不再支持，直接去掉即可。
 2. 在实时生成任务的[Restful接口](/keeper/restful.md)和[Message功能](/keeper/message.md)中，参数占位符由`${param}`变为`#{param}`。
 
 
