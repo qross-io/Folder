@@ -148,14 +148,14 @@ $calendar('calendar6').endDate; //返回选中的结束日期，格式`yyyy-MM-d
 ```html
 <calendar id="calendar7" mode="none" lunar="yes" holiday="yes" title-format="yyyy年"
  days-of-other-month="hidden" week-names="一,二,三,四,五,六,日" this-year-text="今年"
-  month-names="一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月" corner-names="班,休" 
+  month-names="一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月" corner-names="休,班" 
   extension-api="/api/system/calendar?year=" months="12"></calendar>
 ```
 <br/>
 <div>
 <calendar id="calendar7" mode="none" lunar="yes" holiday="yes" title-format="yyyy年"
  days-of-other-month="hidden" week-names="一,二,三,四,五,六,日" this-year-text="今年"
-  month-names="一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月" corner-names="班,休" 
+  month-names="一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月" corner-names="休,班" 
   extension-api="/api/system/calendar?year=" months="12"></calendar>
 </div>
 ### 与其他组件组合
