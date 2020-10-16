@@ -17,14 +17,14 @@
 需要有专门的目录保存Qross系统的所有文件，如`/usr/qross`。将压缩包解压之后把所有相关文件放在这个专用目录下。Qross系统的文件清单如下：
 
 * `qross-master-x.x.x.jar` Master管理平台，是一个`Spring Boot`项目。
-* `qross-keeper-x.x.x.jar` Keeper任务调度工具，如果生产中用到了除了`MySQL`之外的数据库，建议[下载源码](https://github.com/qross-io/Keeper)然后添加相关依赖重新打包或联系作者。
-* `qross-worker-x.x.x.jar` Worker执行器，如果生产中用到了除了`MySQL`之外的数据库，需要[下载源码](https://github.com/qross-io/Worker)然后添加相关依赖重新打包或联系作者。
+* `qross-keeper-x.x.x.jar` Keeper任务调度工具。如果生产中用到了除了`MySQL`之外的数据库，建议[下载源码](https://github.com/qross-io/Keeper)然后添加相关依赖重新打包或联系作者。
+* `qross-worker-x.x.x.jar` PQL执行器。如果生产中用到了除了`MySQL`之外的数据库，需要[下载源码](https://github.com/qross-io/Worker)然后添加相关依赖重新打包或联系作者。
 * `qross.properties` 配置文件，主要保存数据连接和其他配置项，**非常重要**!
 * `pql` 目录，保存系统任务需要的脚本。
 * `data` 目录，保存需要初始化的数据文件，系统初始化后可删除。
 * `qross-keeper-start.sh` Shell脚本，在`crontab`配置时使用。
 
-其中的`x.x.x`使用时记得替换成对应的版本号，如`0.6.4`。
+其中的`x.x.x`表示版本号，如`0.6.4`。
 
 ## 配置数据源
 
@@ -77,6 +77,8 @@ Master是Spring Boot项目，可以为其分配相应的域名和端口，默认
 ```
 
 配置完成后Keeper会在下一分钟后自动启动。Windows环境因为没有`crontab`，可忽略此步骤，使用`java -cp qross-keeper-x.x.x.jar io.qross.keeper.Protector`启动Keeper。注意修改对应的版本号。
+
+上面的`x.x.x`部分记得替换成相应的版本号。
 
 自此，Qross系统安装并启动完成。
 

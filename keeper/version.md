@@ -1,6 +1,15 @@
 # 版本及更新
 
+## v0.6.5
+
+这个版本主要是文档补全工作，增加了多个[基础文档](/keeper/catalog.md)。
+
+其他功能修改如下：
+* 所有的`yyyyMMddHHmmss`时间格式都修改为`yyyy-MM-dd HH:mm:ss`，以增加可读性并简化处理逻辑。
+* `Messenger`组件移除，所有交互使用`Restful`接口。
+
 ## v0.6.4
+
 这个版本主要是对[Cron表达式](/keeper/cron.md)进行了升级和扩展。
 
 1. [Cron表达式](/keeper/cron.md)现在更加强大，已经可以满足任何时间相关的调度计划。
@@ -41,9 +50,5 @@
 * [Cron表达式](/keeper/cron.md)
 * [Keeper中的DAG](/keeper/dag.md)
 * [任务事件](/keeper/event.md)
-* [自定义事件](/keeper/custom.md)
-* [在Keeper中调度Shell命令](/keeper/shell.md)
+* [自定义事件](/keeper/custom-event.md)
 * [Keeper API - Restful接口](/keeper/restful.md)
-* [Keeper API - Message功能](/keeper/restful.md)
-* [邮件模板](/keeper/template.md)
-* [任务运行日志](/keeper/logs.md)

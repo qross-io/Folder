@@ -21,7 +21,7 @@ public static Object request(String path);
 public static Object request(String path, Map<String, String> params);
 ```
 
-* `authenticateManagementKey`方法用来验证指定的管理密码是否正确。
+* `authenticateManagementKey`方法用来验证指定的管理密钥是否正确。
 * `contains`方法用来判断某个接口是否已经定义。
 * `count`方法返回所有接口数量。
 * `get`方法返回接口内容，不含Method参数的`get`方法返回Methd和对应接口内容的HashMap。

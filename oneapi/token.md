@@ -5,7 +5,7 @@ OneApi安全控制主要通过 **Token** 来实现，Token分为两种，第一�
 基于文件的接口管理方式中，Token在配置文件中设置，且Token的应用范围仅限当前项目; 基于数据库的接口管理方式中，Token在数据为中设置，应用范围是由数据库管理的所有项目。
 
 ### 使用静态Token
-当设置项`oneapi.security.option`的值为`token`时，启用Token验证模式。静态Token类似于普通用户登录的的用户名和密码，需要在请求接口时提供额外的参数`token`。例如
+当设置项`oneapi.security.mode`的值为`token`时，启用Token验证模式。静态Token类似于普通用户登录的的用户名和密码，需要在请求接口时提供额外的参数`token`。例如
 ```
 http://localhost:8080/api/example/test?token=npeiwxl
 ```
@@ -14,7 +14,7 @@ http://localhost:8080/api/example/test?token=npeiwxl
 
 ### 使用动态Token
 
-当设置项`oneapi.security.option`的值为`secret`时，启用动态Token验证模式。动态Token需要先请求一个接口获取动态Token，再用这个动态Token请求需要的接口，需要两步操作。但是动态Token有过期时间，在过期时间之内，可以不用再次获取动态Token。
+当设置项`oneapi.security.mode`的值为`secret`时，启用动态Token验证模式。动态Token需要先请求一个接口获取动态Token，再用这个动态Token请求需要的接口，需要两步操作。但是动态Token有过期时间，在过期时间之内，可以不用再次获取动态Token。
 
 动态Token的获取接口示例如下，返回值是一个字符串：
 ```

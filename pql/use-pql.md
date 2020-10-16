@@ -8,11 +8,11 @@
 
 ## 部署PQL开发环境
 ### 在Intellij Idea中开发PQL
-如果你会Java或Scala，作者建议使用Intellij Idea作为PQL的开发环境，需要Intellij Idea 2018或以上版本。   
+如果你会Java或Scala，作者建议使用Intellij Idea作为PQL的开发环境，需要 Intellij Idea 2018 或以上版本。   
 你可以在[网站](http://www.qross.cn/pql)上下载一个示例项目。示例项目的环境要求如下：
 * JDK 1.8或以上版本
 * Scala 2.10或以上版本（可选）
-* Gradle 4.9或以上版本
+* Gradle 4.9或以上版本（可自行修改为Maven）
 
 ### 引入PQL依赖
 PQL可以在任何Java和Scala项目里使用，包括Spring Boot项目，只要引入一个依赖即可。[OneApi统一接口](/oneapi/overview.md)和[Voyager模板引擎](/voyager/overview.md)也一样引用这个依赖。PQL项目暂时使用阿里云私有仓库保存，未来会迁移到Maven中央仓库。
