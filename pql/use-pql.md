@@ -10,6 +10,7 @@
 ### 在Intellij Idea中开发PQL
 如果你会Java或Scala，作者建议使用Intellij Idea作为PQL的开发环境，需要 Intellij Idea 2018 或以上版本。   
 你可以在[网站](http://www.qross.cn/pql)上下载一个示例项目。示例项目的环境要求如下：
+
 * JDK 1.8或以上版本
 * Scala 2.10或以上版本（可选）
 * Gradle 4.9或以上版本（可自行修改为Maven）

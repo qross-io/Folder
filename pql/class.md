@@ -53,15 +53,17 @@ def place(args: (String, String)*): PQL
 def place(map: java.util.Map[String, String]): PQL
 def place(args: Map[String, String]): PQL
 def place(queryString: String): PQL
+def placeDefault(defaultValue: String): PQL
 ```
 Java代码：
 ```java
 public PQL place(String name, String value);
 public PQL place(Map<String, String> map);
 public PQL place(String queryString);
+public PQL placeDefault(String defaultValue);
 ```
 
-要执行的PQL过程可以接受外部传参，见 [向PQL过程传递参数](/pql/params.md)，就是通过这个方法向PQL过程传递参数。分别可以接受单个值、Map键值对、或者查询字符串（格式 name=Tom&age=18&score=89）。
+要执行的PQL过程可以接受外部传参，见 [向PQL过程传递参数](/pql/params.md)，就是通过这个方法向PQL过程传递参数。分别可以接受单个值、Map键值对、或者查询字符串（格式 name=Tom&age=18&score=89）。`placeDefault`方法的作业时当变量不存在时才赋值，主要用于 OneApi 中的传参。
 
 ### 设置PQL过程的变量并赋值
 Scala代码：

@@ -7,6 +7,7 @@
 其他功能修改如下：
 * 所有的`yyyyMMddHHmmss`时间格式都修改为`yyyy-MM-dd HH:mm:ss`，以增加可读性并简化处理逻辑。
 * `Messenger`组件移除，所有交互使用`Restful`接口。
+* 系统清理后不再保存清理记录。
 
 ## v0.6.4
 

@@ -2,6 +2,12 @@
 
 **root.js** 库一般跟随[Qross Master](/master/overview.md)的功能进行更新。相关文档会慢慢补全。
 
+## v0.6.5
+
+* `cogo.js` 已开始设计。
+* `calender.js` 已禁用的日期不再可以设置特殊工作日和休息日。
+* `coder.js` 现在在 PC 端也默认回行。
+
 ## v0.6.4
 
 * [Calendar日历组件](/root.js/calendar.md)大幅更新，增加了大量功能。
