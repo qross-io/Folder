@@ -47,9 +47,9 @@ SET $name := 'Tom';
 * 条件语句或循环语句的条件体或循环体语句中可以使用 HTML 语句块，类似上面的 [IF 语句](/pql/if.md)和 [FOR 语句](/pql/for.md)
 * `<%`和`%>`可以嵌入到 HTML 中，也可以嵌入到 Javascript 代码中，即页面的任何部分都可以嵌入。
 
-## 服务器端`include`
+## 服务器端包含
 
-Voyager支持在页面中包含其他页面碎片或SQL文件，包含进来后作为整个页面的一部分。例如：
+Voyager 支持在页面中包含其他页面碎片或 SQL 文件，包含进来后作为整个页面的一部分。例如：
 
 ```html
 <#include file="/bar.html"/>
@@ -57,13 +57,22 @@ Voyager支持在页面中包含其他页面碎片或SQL文件，包含进来后�
 
 引入文件的路径相对于当前站点，即`resources/templates`目录，引于的页面碎片文件不需要添加对应的`Controller`。
 
-可以引入`.sql`扩展名的PQL文件，比如公用的逻辑可以单独放在一个文件中。例如：
+可以引入`.sql`扩展名的 PQL 文件，比如公用的逻辑可以单独放在一个文件中。例如：
 
 ```html
 <#include file="/job/rules.sql"/>
 ```
 
 另外一种语言配置文件的引入在[多语言支持](/voyager/language.md)中介绍。
+
+## 使用母版页
+
+```html
+<#page template="/master/form.html?name=Tom&age=18"/>
+```
+
+母版页的路径也相对于当前站点，格式为`.html`，上例中`/master/form.html`为母版文件。母版页支持传递参数，上例中问号后面的部分为参数，格式同 URL 传参一样。参数会自动替换母版页中的参数占位符。详细信息见 [Voyager 母版页](/voyager/master.md)。
+
 
 ## 用`#`和`#`包围的多语言标签
 

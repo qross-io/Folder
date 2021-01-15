@@ -39,16 +39,16 @@ Keeper基于Akka和DataHub框架开发，文档待补全。源码地址为：<ht
 
 ## # [统一接口管理 OneApi](/oneapi/overview.md)
 
-**OneApi** 是PQL的另一种应用，即后端接口由PQL而不是Java或者MyBatis来开发。OneApi可以极大的提高接口开发的效率，在接口中只需要编写核心逻辑，不再需要各种Java类。OneApi运行在Spring Boot环境下。
+**OneApi** 是PQL的另一种应用，即后端接口由 PQL 而不是 Java 或者 MyBatis 来开发。OneApi 可以极大的提高接口开发的效率，在接口中只需要编写核心逻辑，不再需要各种 Java 类。OneApi 运行在 Spring Boot 环境下。
 
-* 在Spring Boot项目中，[Controller只需要配置一次](/oneapi/controller.md)。
-* OneApi的接口可以写在`Spring Boot`项目的文件中，与项目一起受源代码管理。
-* OneApi的接口不需要会`Java`即可进行接口开发。
-* OneApi提供基于[静态Token和动态Token的权限验证](/oneapi/token.md)。
-* 通过PQL，可以输出任意`Json`格式的数据接口。
-* 通过PQL，可以方便的进行列转行等常用操作，满足前端开发需求。
-* 通过PQL，可快速访问任意关系型数据库和其他数据源如`Redis`等。
-* 通过PQL，可快速将输出各种文件并实现文件下载功能。
+* 在 Spring Boot 项目中，[Controller 只需要配置一次](/oneapi/controller.md)。
+* OneApi 的接口可以写在 Spring Boot 项目的文件中，与项目一起受源代码管理。
+* OneApi 的接口不需要会 Java 即可进行接口开发。
+* OneApi 提供基于[静态 Token 和动态 Token 的权限验证](/oneapi/token.md)。
+* 通过 PQL，可以输出任意 Json 格式的数据接口。
+* 通过 PQL，可以方便的进行列转行等常用操作，满足前端开发需求。
+* 通过 PQL，可快速访问任意关系型数据库和其他数据源如 Redis 等。
+* 通过 PQL，可快速将输出各种文件并实现文件下载功能。
 
 OneApi的页面管理功能正在开发中，可更方便直观的管理项目和接口。示例项目地址为：<https://github.com/qross-io/OneApi>
 
@@ -62,19 +62,20 @@ OneApi的页面管理功能正在开发中，可更方便直观的管理项目�
 
 ## # [模板引擎 Voyager](/voyager/overview.md)
 
-**Voyager** 同样是基于Spring Boot的模板引擎，与Freemarker和Thymeleaf功能类似，但拥有更简单、直接、高效的编码方式。
+**Voyager** 同样是基于 Spring Boot 的模板引擎，基础功能与 Freemarker 和 Thymeleaf 类似，但拥有更强大的功能和更简单、直接、高效的编码方式。
 
-* 不需要再向model中添加数据，Controller里不需要有任何逻辑
-* 所有逻辑都在前端实现，像**Jsp**一样，但嵌入HTML中的不是Java而是PQL
-* 不需要再记各种语法规则，直接通过SQL在页面上查询数据
-* 通过PQL的条件和循环在页面上控制逻辑
-* 支持国际化
+* 不需要再向 Model 中添加数据，Controller 里不需要有任何逻辑
+* 所有逻辑都在前端实现，像 **Jsp** 一样，但嵌入 HTML 中的不是 Java 而是 PQL
+* 不需要再记各种语法规则，直接通过 SQL 在页面上查询数据
+* 通过 PQL 的条件和循环在页面上控制逻辑
+* 支持[母版页](/voyager/master.md)
+* 不仅支持 HTML 格式，还支持 [Markdown 格式](/voyager/markdown.md)
+* 支持[国际化](/voyager/language.md)
 * 支持邮件模板
-
 
 ## # [root.js 前端组件库](/root.js/overview.md)
 
-**root.js** 是一个简单易用的前端组件库，包含很多个自定义组件用于实现各种交互功能，Master前端页面使用root.js库进行开发。多个组件文档待补全。
+**root.js** 是一个简单易用的前端组件库，包含很多个自定义组件用于实现各种交互功能，Qross 系统前端页面使用 root.js 库进行开发。多个组件文档待补全。
 
 ---
 技术支持

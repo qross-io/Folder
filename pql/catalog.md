@@ -83,17 +83,18 @@
     + [函数调用 CALL](/pql/call.md)    
 
 * 扩展操作
-    + [请求Json数据接口 REQUEST](/pql/request.md)
-    + [解析Json接口返回的数据 PARSE](/pql/parse.md)
-    + [访问Redis](/pql/redis.md)
+    + [请求 Json 数据接口 REQUEST](/pql/request.md)
+    + [解析 Json 接口返回的数据 PARSE](/pql/parse.md)
+    + [访问 Redis](/pql/redis.md)
     + [发送邮件 SEND](/pql/send.md)
     + [文件操作 FILE](/pql/file.md)
     + [文件夹操作 DIR](/pql/dir.md)
+    + [多线程并行执行 PAR](/pql/par.md)
 
 * 其他语言相关
-    + [在PQL中调用 Java 方法 INVOKE](/pql/invoke.md)
-    + [在PQL中运行Shell命令 RUN](/pql/run.md)
-    + [PQL中的 Javascript](/pql/javascript.md)    
+    + [在 PQL 中调用 Java 方法 INVOKE](/pql/invoke.md)
+    + [在 PQL 中运行 PQL 文件或 Shell 命令 RUN](/pql/run.md)
+    + [PQL 中的 Javascript](/pql/javascript.md)    
     
 * PQL相关应用
     + [统一接口 OneApi](/oneapi/overview.md)

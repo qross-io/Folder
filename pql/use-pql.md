@@ -104,7 +104,7 @@ OPEN mysql.qross;
 系统会自动识别该使用哪种驱动程序，但是要求在项目中必须事先引入了相应的依赖。PQL默认引用了MySQL和Redis依赖。数据源名字前面的数据类型前缀`mysql.`不强制使用，但是在多类型数据源系统中建议使用以进行区分。
 有的数据源连接串不能写成一行的形式，如Oracle，这样可以使用完整的格式进行配置。
 ```properties
-oracle.test.url=jdbc:oracle:thin:@127.0.0.1:1521:test
+oracle.test.url=jdbc:oracle:thin:@127.0.0.1:1521/test
 oracle.test.username=sys
 oracle.test.password=diablo
 oracle.test.driver=oracle.jdbc.driver.OracleDriver

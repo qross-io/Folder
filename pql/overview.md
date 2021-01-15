@@ -87,7 +87,7 @@ PQL看起来很像存储过程。每条语句使用分号`;`结尾，更多语�
         GET # SELECT * FROM table1;
     SAVE AS NEW EXCEL "example.xlsx"  USE TEMPLATE  "template.xlsx";
         PREP # INSERT INTO sheet1 (A, B, C) VALUES ('姓名', '年龄', '分数');
-        PUT # INSERT INTO sheet1 ROW 2 (A, B, C) VALUES (id, ‘#name’, &title);
+        PUT # INSERT INTO sheet1 ROW 2 (A, B, C) VALUES (id, '#name', &title);
     ``` 
 
 

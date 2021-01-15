@@ -35,7 +35,7 @@
 
 其他数据源配置可根据需要添加，建议名称前带数据库类型前缀，如`hive.default`、`oracle.prod`等。不能写成一行的数据库连接串，可以这样写：
 ```properties
-oracle.test.url=jdbc:oracle:thin:@127.0.0.1:1521:test
+oracle.test.url=jdbc:oracle:thin:@127.0.0.1:1521/test
 oracle.test.username=sys
 oracle.test.password=diablo
 oracle.test.driver=oracle.jdbc.driver.OracleDriver

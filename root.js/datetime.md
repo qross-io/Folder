@@ -3,9 +3,11 @@
 **DateTime** 不是组件，是对Javascript原生日期时间类 **Date** 的扩展，因为`Date`类实在太难用了。
 
 ## 构造函数
+
 ```javascript
 new DateTime(value);
 ```
+
 参数`value`接受的数据类型如下：
 
 * `null`即不传值，默认当前时间
@@ -28,7 +30,7 @@ new DateTime(value);
     + `yyyy/MM/dd HH:mm`
     + `yyyy/MM/dd HH:mm:ss`
 
-上面使用了时间格式符号，除了上面涉及到的外，还有毫秒，用大写`S`表示，区别于小写`s`是秒。
+上面使用了时间格式符号，除了上面涉及到的外，还有毫秒，用大写`S`表示，区别于小写`s`的秒。
 
 ## 静态方法
 
@@ -110,7 +112,7 @@ today = today.plusMonths(1).setDayOfMonth(1).plusDays(-1);
 ## 字符串扩展
 
 * `toDateTime()` 将一个字符串时间转成日期时间类型，如`'2020-09-18'.toDateTime()`，等同于`new DateTime('2020-09-18')`
-* `toDateInt(format = 'yyyy-MM-dd')` 将一个字符串格式的日期时间转成整数
+* `toDateInt(format = 'yyyy-MM-dd')` 将一个字符串格式的日期时间转成整数，需要指定日期时间的格式
 * `isDateTime()` 是不是标准的日期时间字符串，如`'2020-09-18 15:21:00'.isDateTime()`返回`true`
 * `isDate()` 是不是标准的日期字符串，如`'2020-09-18'.isDate()` 返回`true`
 * `isTime()` 是不是标准的时间字符串，如`'12:55'.isTime()` 返回`true`

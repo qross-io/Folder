@@ -28,6 +28,11 @@
 另一种快速获取数据表中内容的方式使用属性规则和索引规则，如`$table.first.field`，详见[集合类型的元素访问](/pql/collection.md)。
   
 ### 数据表操作
+
+* **`DELETE`** 通过条件删除数据，条件支持`AND`和`OR`及使用小括号分组，但不支持函数。与`WHERE`操作效果相反。
+  ```sql
+  SELECT item, COUNT(0) AS amount FROM table1 -> DELETE 'amount = 0';
+  ```
 * **`INSERT row`** 在数据表中插入一行。还用上面的例子，
   ```sql
   SELECT * FROM table1 -> INSERT { "name": "Tom", "age": 18 };
@@ -38,18 +43,12 @@
   ```
 * **`INSERT IF EMPTY row`** 如果数据表为空时才插入一行。例子见`INSERT row`。
 * **`INSERT IF EMPTY (column1, column2) VALUES (value1, value2)`** 如果数据表为空时才插入一行。
-* **`TURN column1 AND column2 TO ROW` 或 **`TURN (column1, column2) TO ROW`** 将数据表中的`column1`和`column2`两列数据转成数据行, 列`column1`的值做为数据行的字段名，列`column2`的值作为数据行对应字段的值。
-  ```sql
-  SELECT name, age FROM students -> TURN (name, age) TO ROW;
-  ```
-* **`TURN TO ROW`** 将数据表第一列和第二列的数据转成数据行，第一列的值作为数据行的字段名，第二列的值作为数据对应字段的值。
 * **`SELECT column1, column2`** 选择数据表中的一列或多列，生成新的数据表，支持`*`和`AS`。几种用法见下例：
   ```sql
   $table SELECT name -- 选择其中一列
   $table SELECT name, age AS years -- 选择其中两列，并重命名其中一列
   $table SELECT * -- 选择全部列，生成的数据表和原数据相同，无意义
   $table SELECT *, name AS title -- 选择全有的全部列，并将其中一列另存为新列。因为数据表中不能存在重名的列，所以新列必须用`AS`重新命名。
-
   ```
 * **`TO NESTED MAP 'column'`** 将数据表转化为一个嵌套的Map结构。如此非主流的操作来自于前端工程师的变态需求。数据表可以理解本身是一个数据行的数组，而数据行可以理解为是一个Map结构。现在前端工程师说数组不好处理，需要一个Map，Map每一项的值就是整个数据行。这个Link需要指定一列，前端工程师要的Map结构的Key就是这列的值（一般来说这列的每个值都是唯一的），然后数据表中每一行的其他值就构成了这个Map每一项的Value。
   ```sql
@@ -63,6 +62,15 @@
   }
   ```
 * **`TO HTML TABLE`** 将数据表转化为HTML表格`<table>`字符串，用于Voyager邮件模板。
+* **`TURN column1 AND column2 TO ROW` 或 **`TURN (column1, column2) TO ROW`** 将数据表中的`column1`和`column2`两列数据转成数据行, 列`column1`的值做为数据行的字段名，列`column2`的值作为数据行对应字段的值。
+  ```sql
+  SELECT name, age FROM students -> TURN (name, age) TO ROW;
+  ```
+* **`TURN TO ROW`** 将数据表第一列和第二列的数据转成数据行，第一列的值作为数据行的字段名，第二列的值作为数据对应字段的值。
+* **`WHERE`** 通过条件筛选数据，条件支持`AND`和`OR`及使用小括号分组，但不支持函数。与`DELETE`操作效果相反。
+  ```sql
+  SELECT item, COUNT(0) AS amount FROM table1 -> WHERE 'amount > 0';
+  ```
 
 ### 其他Link
 * **`COUNT`** 获取数据表的行数，返回一个整数。

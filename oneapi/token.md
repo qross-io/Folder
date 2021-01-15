@@ -44,6 +44,7 @@ redis.qross.database=0
 **需要在项目中引入依赖`jedis 3.0`或以上版本**
 
 与动态Token相关的设置项有两个：
+
 * `oneapi.secret.key.ttl` 可以设置动态Token的过期时间，默认时间为`3600`秒。
 * `oneapi.secret.key.digit` 动态Token的位数，默认值是`16`位。
 

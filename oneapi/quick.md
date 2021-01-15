@@ -85,7 +85,7 @@ repositories {
 dependencies {
     compile (group: 'io.qross', name: 'pql', version: '0.6.4-40-SNAPSHOT')
 }
-    ```
+```
 
 ### 添加RestController
 新建一个类并添加`@RestController`注解，也可以使用现有的RestController类。在类中添加一个方法：

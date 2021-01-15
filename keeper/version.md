@@ -5,6 +5,7 @@
 这个版本主要是文档补全工作，增加了多个[基础文档](/keeper/catalog.md)。
 
 其他功能修改如下：
+
 * 所有的`yyyyMMddHHmmss`时间格式都修改为`yyyy-MM-dd HH:mm:ss`，以增加可读性并简化处理逻辑。
 * `Messenger`组件移除，所有交互使用`Restful`接口。
 * 系统清理后不再保存清理记录。

@@ -28,10 +28,20 @@ OPEN语句在使用时还可以切换默认数据库。
 ```sql
 OPEN mysql.school USE 'grade3';
 ```
-上例表示打开数据的同时将默认数据库切换到`grade3`，这个场景用得很少，一般会在SQL里指定数据库名。
+上例表示打开数据的同时将默认数据库切换到`grade3`，这个场景用得很少，一般会在SQL里指定数据库名。另外注意有的数据库不支持`USE`语句。
 
 OPEN语句在[跨数据流转](/pql/dataflow.md)中经常用到，由`OPEN+GET+SAVE+PUT`构成一个超强组合。见[SAVE语句](/pql/save.md)。  
 OPEN语句还有其他用途，如打开Redis或者以数据表的形式打开一个文件，将在对应的章节进行介绍。
+
+OPEN 语句可以直接通过连接串打开数据库。
+```sql
+OPEN DATABASE 'mysql.qross=jdbc:mysql://localhost:3306/qross?user=root&password=diablo&useUnicode=true&characterEncoding=utf-8&useSSL=false' AS 'mysql.temp';
+OPEN DATABASE 'jdbc:sqlserver://47.92.224.122:31443;DatabaseName=master' DRIVER 'com.microsoft.sqlserver.jdbc.SQLServerDriver' USERNAME 'sa' PASSWORD '123' AS 'sqlserver.temp';
+.....
+OPEN mysql.temp;
+SAVE TO sqlserver.temp;
+```
+可以用`AS`设置别名，在当前脚本后面的操作中使用。
 
 ---
 参考链接

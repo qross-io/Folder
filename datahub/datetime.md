@@ -1,6 +1,6 @@
 # DateTime 日期时间类
 
-封装这个类的原因是因为Java原生的日期时间类太难用了，后来虽然有了`LocalDateTime`类，也是各种不习惯。平时开发中时常要用到日期时间，特别是数据开发时更会频繁用到。DateTime类封装了`LocalDateTime`类并提供了大量常用的方法进行相关的操作。
+封装这个类的原因是因为Java原生的日期时间类太难用了，后来虽然有了`LocalDateTime`类，也是各种不习惯。平时开发中时常要用到日期时间，特别是数据开发时更会频繁用到。DateTime 类封装了`LocalDateTime`类并提供了大量常用的方法进行相关的操作。
 
 
 ## 构造函数
@@ -12,9 +12,10 @@
 * `DateTime(dateTime: Any, formatStyle: String, mode: Int)`
 
 相关参数解释如下：
-`dateTime` 任何格式的日期时间值，如字符串`2020-09-12 12:00:00`或纪元秒等，系统会自动判断类型并尝试转化为正确的日期时间。
-`formatStyle` 当系统不能将`dateTime`参数正常识别或转换时，可辅助`formatStyle`参数，如`new DateTime("2019年9月20日", "yyyy年M月d日")`
-`mode` 日期时间类型参数，可选`DateTime.DATE`、`DateTime.TIME`、`DateTime.FULL`、`DateTime.TIMESTAMP`，分别代表仅日期、仅时间、完整格式和时间戳。
+
+* `dateTime` 任何格式的日期时间值，如字符串`2020-09-12 12:00:00`或纪元秒等，系统会自动判断类型并尝试转化为正确的日期时间。
+* `formatStyle` 当系统不能将`dateTime`参数正常识别或转换时，可辅助`formatStyle`参数，如`new DateTime("2019年9月20日", "yyyy年M月d日")`
+* `mode` 日期时间类型参数，可选`DateTime.DATE`、`DateTime.TIME`、`DateTime.FULL`、`DateTime.TIMESTAMP`，分别代表仅日期、仅时间、完整格式和时间戳。
 
 ## 静态方法
 

@@ -47,6 +47,18 @@ SAVE TO mysql.db4;
 * 可以将GET到的数据再次进行查询而非更新，详见[PASS语句](/pql/pass.md)
 * 大数据量下，PUT语句性能会受到限制，PQL提供了多线程下PUT的方法，请参见[BATCH语句](/pql/batch.md)
 * SAVE语句还有更多的功能，如[保存Excel](/pql/excel.md)等，详见相应的功能模块。
+
+### 直接通过连接串打开数据库
+
+除了可以使用在配置文件或配置表中预设好的数据连接外，还可以直接通过连接串打开数据库。
+```sql
+SAVE TO DATABASE 'mysql.qross=jdbc:mysql://localhost:3306/qross?user=root&password=diablo&useUnicode=true&characterEncoding=utf-8&useSSL=false' AS 'mysql.temp';
+SAVE TO DATABASE 'jdbc:sqlserver://47.92.224.122:31443;DatabaseName=master' DRIVER 'com.microsoft.sqlserver.jdbc.SQLServerDriver' USERNAME 'sa' PASSWORD '123' AS 'sqlserver.temp';
+.....
+OPEN mysql.temp;
+SAVE TO sqlserver.temp;
+```
+可以用`AS`设置别名，在当前脚本后面的操作中使用。
     
 ---
 参考链接

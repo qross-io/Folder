@@ -1,17 +1,44 @@
 # 版本和更新
-作者会每周发布一个预览版本的更新，一到两个月会发布一个稳定版本。PQL的最新稳定版本为 **v0.6.4-2-RELEASE**。 
+
+作者会一般每周发布一个预览版本的更新，一个月发布一个稳定版本。PQL的最新稳定版本为 **v0.6.5-RELEASE**。 
+
+## v1.1.0
+
+本次升级使用新的版本号规则：第1位数字代表年份，`1`表示`2021年`；第2位数字代表月份，`1`表示`1月`。第3位数字表示开发过程中的小版本号。本次升级内容如下：
+
+1. Voyager 现在支持 [Markdown 文件](/voyager/markdown.md)，扩展名为`.md`。
+2. Voyager 增加[母版页](/voyager/master.md)，使用`<# page template="/template/form.html?key=value" />` 引入母版页。
+2. OPEN 语句现在可以直接通过连接串打开数据库，见 [OPEN DATABASE](/pql/open.md)。
+3. SAVE 语句现在也可以直接通过连接串打开数据库，见 [SAVE AS/TO DATABASE](/pql/save.md)。
+4. [RUN 语句](/pql/run.md)现在支持运行 PQL 文件，格式
+    ```sql
+    RUN PQL '/abc/test.sql' 'a=1&b=2&c=3';
+    ```
+    可将参数附在地址后面，中间使用空格隔开，地址和参数两边的引号可省略，但不可包含空格。
+5. 新增 [PAR 语句](/pql/par.md)，用于多线程并行运算。
+    ```sql
+    PAR # RUN COMMAND 'java -jar 123.jar';
+    ```
+6. 新增 [LOAD 语句](/pql/load.md)，用于在程序运行时手动加载数据连接配置。
+    ```sql
+    LOAD YML FROM NACOS 'localhost:8848:io.qross.config:connections';
+    ```
+7. [数据源配置](/pql/properties.md)不仅只支持`properties`文件，也支持从 Yaml 文件、Nacos 配置中心或从其他服务的 URL 接口获取。
+8. [Sharp 表达式](/pql/sharp-table.md)新增`WHERE`和`DELETE`用于表格数据过滤或删除。
+9. [Marker 应用](/pql/marker.md)现在支持文字样式，如`/green,16:绿色标准字体/`。
+10. `%`现在也是特殊字符，用`~u0025代替`。
 
 ## v0.6.5
 
 本次版本升级较少，主要是修复 Bug。
 
 1. FILE 和 DIR 的重命名、复制和移动操作逻辑已实现。
-2. Voyager 增加文档。
+2. [Voyager 模板引擎](/voyager/overview.md) 增加文档。
 3. PQL 类一些方法更新。
 
 ## v0.6.4
-1. PQL和OneApi文档已完成，可以在Master平台或官网找到。
-2. Marker应用加入，可以将 **Markdown** 文档转成 **HTML**。
+1. PQL 和 OneApi 文档已完成，可以在Master平台或官网找到。
+2. [Marker 应用](/pql/marker.md)加入，可以将 **Markdown** 文档转成 **HTML**。
 3. [自定义用户函数](/pql/function.md)升级，现在已不仅作为语句复用目的。
     * 自定义函数现在可以返回值了。
         ```sql
@@ -62,14 +89,14 @@
    * 基本上支持SELECT语句的地方都支持REDIS语句，如[SET](/pql/set.md)、[FOR](/pql/for.md)、[OUTPUT](/pql/output.md)等。
    * 可以像其他语句一样嵌入变量和表达式。
    * 支持[GET](/pql/get.md)和[PUT](/pql/put.md)操作，但不支持多线程操作，如[PAGE](/pql/page.md)、[BATCH](/pql/batch.md)等。
-2. [OneApi](/oneapi/overview.md)升级，支持身份认证
-   * 支持[Token认证](/oneapi/token.md)、用户认证和[动态Token认证](/oneapi/token.md)。
-   * 可通过配置文件或Qross系统进行[相关设置](/oneapi/setup.md)。
+2. [OneApi](/oneapi/overview.md) 升级，支持身份认证
+   * 支持[Token 认证](/oneapi/token.md)、用户认证和[动态Token认证](/oneapi/token.md)。
+   * 可通过配置文件或 Qross 系统进行[相关设置](/oneapi/setup.md)。
    * 新增[管理功能](/oneapi/management.md)相关的方法，可自己实现接口。
 3. [RUN SHELL](/pql/run.md)语句升级，现在已支持分号、管道符和引号。
-4. [FILE语句](/pql/file.md)新增READ和WRITE功能，用于读取整个文件或附加内容。
-5. 原生SHOW语句已支持。
-6. [IF](/pql/if.md)和[CASE](/pql/case.md)短语句已经像FOR语句一样支持查询语句。如
+4. [FILE 语句](/pql/file.md)新增READ和WRITE功能，用于读取整个文件或附加内容。
+5. 原生 SHOW 语句已支持。
+6. [IF](/pql/if.md) 和 [CASE](/pql/case.md) 短语句已经像 FOR 语句一样支持查询语句。如
     ```sql
     VAR $table := 
         IF $i == 1 THEN
@@ -82,32 +109,28 @@
     ```sql
     SET $count := UPDATE table SET a=1 -> IF ZERO 1;
     ```
-8. 更强大的[GET语句](/pql/get.md)，现在可以在GET语句添加任何类型的数据，如：
+8. 更强大的 [GET 语句](/pql/get.md)，现在可以在GET语句添加任何类型的数据，如：
     ```sql
     GET # [1, 2, 3, 4, 5];
     PUT # INSERT INTO table1 (score) VALUES (#item);
     ```
-9. 由于数据处理过程中有的值是Json字符串，新增了[操作Json字符串](/pql/sharp-json.md)的方法。
+9. 由于数据处理过程中有的值是 Json 字符串，新增了[操作 Json 字符串](/pql/sharp-json.md)的方法。
     ```sql
     SET $json := '{ "id": 1, "name": "Tom" }';
     PRINT ${ $json FIND '/name' AS VALUE }; 
     ```
-10. [Sharp表达式](/pql/sharp.md)新增多个处理方法。
+10. [Sharp 表达式](/pql/sharp.md)新增多个处理方法。
 
 以下内容不再向下兼容
 
-* Sharp表达式中字符串操作`INIT CAP`修改为`CAPITALIZE`
+* Sharp 表达式中字符串操作`INIT CAP`修改为`CAPITALIZE`
 
 ---
 参考链接
 
-* [Redis语句](/pql/redis.md)
-* [Sharp表达式](/pql/sharp.md)
-* [OneApi统一接口](/oneapi/overview.md)
-* [运行Shell命令 RUN](/pql/run.md)
-* [文件操作 FILE](/pql/file.md)
-* [条件控制 IF](/pql/if.md)
-* [条件控制 CASE](/pql/case.md)
-* [将数据保存到缓存区 GET](/pql/get.md)
-* [Sharp表达式](/pql/sharp.md)
-* [Sharp表达式 - Json字符串](/pql/sharp-json.md)
+* [PQL 概览](/pql/overview.md)
+* [Sharp 表达式](/pql/sharp.md)
+* [OneApi 统一接口](/oneapi/overview.md)
+* [Voyager 模板引擎](/voyager/overview.md)
+* [DataHub 数据开发框架](/datahub/overview.md)
+

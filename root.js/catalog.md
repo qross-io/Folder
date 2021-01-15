@@ -4,9 +4,16 @@
 * [root.js 概览](/root.js/overview.md)
 * [版本和更新](/root.js/version.md)
 
-* 基本库
+* 基本库    
+    + [root.js 基础库](/root.js/root.md)
+    + [自定义标签属性 data](/root.js/data.md)
+    + [Express 字符串](/root.js/express.md)
+    + [Model 数据加载模型](/root.js/model.md)
     + [DateTime 类](/root.js/datetime.md)
 
 * 组件库
     + [Calendar 多功能日历组件](/root.js/calendar.md)
     + [Clock 文件时钟组件](/root.js/clock.md)
+
+* 附录
+    + [颜色编码表](/root.js/colors.md)
