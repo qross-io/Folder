@@ -143,7 +143,7 @@ MODEL 标签可用的事件如下：
 调用示例：
 
 ```javascript
-Model$('name').on('load', function(data) {
+$listen('name').on('load', function(data) {
     //.....
 });
 
@@ -152,7 +152,13 @@ $model('name').on('refresh', function(data) {
 });
 ```
 
-注：`Model$`和`$model`的区别是前者只用于绑定事件，后者可以操作 Model 对象，且只能在加载完成后使用。对于 Model 标签来说，因为没有公开的方法，所以`$model`只在程序内部使用。上例中`data`参数是 MODEL 加载的数据。
+事件也可以直接写在标签上：
+
+```html
+<model name="test" data="/api/test" onload="tell()"></model>
+```
+
+注：`$listen`和`$model`的区别是前者只用于绑定事件，后者可以操作 Model 对象，且只能在加载完成后使用。对于 MODEL 标签来说，因为没有公开的方法，所以`$model`只在程序内部使用。上例中`data`参数是 MODEL 加载的数据。
 
 ## O 标签
 
@@ -176,10 +182,10 @@ MODEL 标签可以一次查询然后将数据显示在不同的标签（元素�
 
 ## FOR 标签
 
-FOR 标签提供了在 HTML 页面中循环显示数据的能力，一般放在 BODY 中需要的位置。
+FOR 标签提供了在 HTML 页面中循环显示 HTML 代码的能力，一般放在 BODY 中需要的位置。注意：**FOR 标签只执行一次，呈现内容后会删除自己**。
 
 ```html
-<for name="name" var="var" in="url|array|object|m to n|pql" container="selector">
+<for name="name" var="var" in="pql|url|array|object|m to n" container="selector">
     ...html code
 </for>
 ```
@@ -187,19 +193,45 @@ FOR 标签提供了在 HTML 页面中循环显示数据的能力，一般放在 
 各个属性分别说明如下：
 
 * `name` 可选，除非要使用`onload`事件，否则不需要
-* `var`或`let`，功能类似于 MODEL 标签的`name`，可以在调取`in`中的数据时使用，在嵌套循环中强烈建议使用，否则可能会发生数据混乱，其他情况下可忽略。在遍历对象时，可以同时声明两个变量名，如`let="k,v"`.如果只声明一个，则第二个使用默认保留字。 `key`和`value`是保留字，即可以通过`@key`来调取键数据，通过`@value`调取值数据。在遍历单值数组时，`item`是保留字，可以通过`@item`调取单值数据
+* `var`或`let`，功能类似于 MODEL 标签的`name`，可以在调取`in`中的数据时使用，在嵌套循环中强烈建议使用，否则可能会发生数据混乱，其他情况下可忽略。在遍历对象时，可以同时声明两个变量名，如`let="k,v"`。如果只声明一个，则第二个使用默认保留字。 `key`和`value`是保留字，即可以通过`@key`来调取键数据，通过`@value`调取值数据。在遍历单值数组时，`item`是保留字，可以通过`@item`调取单值数据。使用叹号`!`结尾以防止字符冲突。
 * `in`类似于[`data`属性](/root.js/data.md)，但支持数字区间，如`0 to 9`。详见下面的说明。
 * `container` 展示数据的容器，一般不需要设置。在特殊情况下，如要在 SELECT 标签中列表 OPTION，FOR 标签不会被浏览器识别，需要在 SELECT 标签之外设置 FOR。
+* 在属性中如果遇到双引号冲突时，可以用`&quot;`代替
 
 ## 使用 FOR 标签获取数据
+
+### 数字区间
+
+数字区间的格式是`m to n`，其中`m`和`n`表示整数数字。可使用`item`保留字获取每个数字，也可以使用`var`或`let`属性声明自己的变量名。
+
+```html
+<for in="1 to 10">
+    <span>@item</span>
+</for>
+或
+<for var="i" in="1 to 10">
+    <span>@i</span>
+</for>
+
+<for var="num" in="[1, 2, 3, 4, 5]">
+    <span>@num</span>
+</for>
+```
 
 ### 遍历单值数组
 
 * 建议声明`var`或`let`属性，否则需要使用`item`保留字。
+* 当不声明`var`或`let`属性时，如果单个项是 Object，可以使用`@[key]`调取数据。
 * 占位符语法规则 `@var`，其中`var`代表变量名; 在不声明`var`属性时，使用`@item`调取属性的值。末尾使用`!`防止字符冲突。
 
-```
-<for var="student" in="select name FROM students -> FIRST COLUMN">
+```html
+<for in="select name FROM students -> FIRST COLUMN">
+    <span>@item</span>
+</for>
+
+<for let="student" in="select name FROM students -> FIRST COLUMN">
+    <span>Hello, @student!!</span> <!--只会输出 1 个叹号-->
+</for>
 ```
 
 ### 遍历对象
@@ -215,17 +247,64 @@ FOR 标签提供了在 HTML 页面中循环显示数据的能力，一般放在 
 
 调取值的方法：
 
-* 在声明变量名时, 使用`@var2`或`@var2!`, 其中var2为变量名;
+* 在声明变量名时, 使用`@var2`或`@var2!`, 其中var2为变量名。
 * 在不声明 value 变量名时，使用`@value`，其中`value`为保留字。
 * 嵌套结构中，有需要进一步获取 value 中下层某项的值。在声明变量名时，使用`@var.path`或`@var[1]`等，在不声明变量名时，使用`@value.path`
+
+```html
+<for in="/api/student">
+    <span>@key: @value</span>
+</for>
+
+<for let="col" in="/api/student">
+    <span>@col: @value</span>
+</for>
+
+<for let="k, v" in="/api/student">
+    <span>@k: @v</span>
+</for>
+
+<for var="name,age" in='{ "name": "Tom", "age": 5, "score": }'>
+    <div>@name - @age</div>
+</for>
+```
 
 ### 遍历对象数组
 
 * 在不声明 var 属性时，使用`@[name]`可得到数组中某一个对象的一项指定的值。
 * 在声明 var 属性时，使用 `@var1.name`，其中`var1`为 var 属性的名字。
 
+```html
+<!--下面 3 个示例效果完全相同-->
+<for in="select name, age from students">
+    <div>@item.name!! @item.age!. </div>
+</for>
+
+<for in="select name, age from students">
+    <div>@[name]! @[age]. </div>
+</for>
+
+<for var="student" in="select name, age from students">
+    <div>@student.name!! @student.age!. </div> <!--只会输出 1 个叹号-->
+</for>
+
+<!--下面 2 个调取 Model 中的数据-->
+<for in="@children.data">
+    <div>@[name] - @[age]</div>
+</for>
+
+<for var="child" in="@children.data">
+    <div>@child.name! - @child.age!</div>
+</for>
+```
 
 FOR 标签占位符也支持默认值，即`?(defaultValue)`
+
+```html
+<for var="field, value" in="select * from students -> first row">
+    <span>@field: @value?(N/A)</span>
+</for>
+```
 
 ### 特殊情况
 
@@ -257,38 +336,27 @@ SELECT 标签的 OPTION 标签和 TABLE 标签的 TR 标签不支持循环，即
 </for>
 ```
 
-也可以使用 TEMPLATE 标签代替 FOR 标签。
+也可以使用 TEMPLATE 标签代替 FOR 标签。TABLE 标签现在可以使用 [DATATABLE 组件](/root.js/datatable.md)来遍历数据源的数据，[SELECT 标签](/root.js/select.md)现在也已支持 [data 属性](/root.js/data.md)。
 
 ### FOR 标签事件
 
-FOR 标签只有一个事件 `onload` 只在加载完成后执行一次。下面还有一些相关说明。
+FOR 标签只有一个事件 `onload` 只在加载完成后执行一次。下面还有一些相关说明。事件可以直接也在标签上。
 
-### 完整示例
+```javascript
+$listen('name').on('load', function() {
+    //...
+});
+```
 
 ```html
-<for var="num" in="[1, 2, 3, 4, 5]">
-    <span>@num</span>
-</for>
-
-<for var="name,age" in='{ "name": "Tom", "age": 5 }'>
-    <div>@name - @age</div>
-</for>
-
-<for in="@children.data">
-    <div>@[name] - @[age]</div>
-</for>
-
-<for var="child" in="@children.data">
-    <div>@child.name! - @child.age!</div>
+<for in="/api/test" onload="tell()">
+    ...
 </for>
 ```
 
-在属性中如果遇到双引号冲突时，可以用`&quot;`代替
-
-
 ## IF 标签
 
-IF 标签用于逻辑判断，逻辑成立时才显示标签中的内容。
+IF 标签用于逻辑判断，逻辑成立时才显示标签中的内容。注意：**IF 标签只执行一次，呈现内容后会删除自己**。
 
 ```html
 <if test="boolean expression">
@@ -301,11 +369,38 @@ IF 标签用于逻辑判断，逻辑成立时才显示标签中的内容。
 ```
 
 * `name` 可选，除非要使用事件。
-* `test` 必须有，没有则默认结果为`false`。接受 MODEL、FOR、[地址参数和 DOM 占位符](/root.js/express.md)。
+* `test` 必须有，没有则默认结果为`false`。这本质是一个 Javascript 表达式，接受 MODEL、FOR、[地址参数和 DOM 占位符](/root.js/express.md)。
+* `elsif` 标签可以有多个，**注意拼写**。
+* `else` 标签只能有一个，如果设置了多个，则只有第一个生效。
+
+```html
+<for in="select * from students">
+    @[name]: 
+    <if test="@[score] > 90">
+        Excellent!
+    <elsif test="@[score] > 75">
+        Good Job!
+    <elsif test="@[score] > 60">
+        Keep studing.
+    <else>
+        Are you OK?
+    </if>
+</for>
+
+<if test="$(#A) != ''">
+    ...
+<elsif test="&(A) != null">
+    ...
+<elsif test="">
+    ...
+</if>
+```
 
 ### 特殊情况下的 IF 处理
 
-SELECT 标签的 OPTION 标签和 TABLE 标签的 TR 标签不仅不支持 FOR 标签，也不支持 IF 标签，这种情况下可以通过设置`if`属性来确定是否呈现，如：
+SELECT 标签的 OPTION 标签和 TABLE 标签的 TR 标签不仅不支持 FOR 标签作为它们的父级，也不支持 IF 标签，这种情况下可以通过设置`if`属性来确定是否呈现，如：
+
+```html
 <table>
     <template as="list">
         <tr if="@[age] >= 18">
@@ -313,13 +408,12 @@ SELECT 标签的 OPTION 标签和 TABLE 标签的 TR 标签不仅不支持 FOR �
         </tr>
     </template>
 </table>
+```
 
+补充说明:
 
-补充:
-* `elsif` 标签可以有多个，**注意拼写**。
-* `else` 标签只能有一个，如果设置了多个，则只有第一个生效。
-* 语句块的 HTML 代码中支持 FOR、地址参数和 DOM 占位符，不支持 Model 占位符。
-* 如果非要向 FOR 和 IF 语句块中传递 MODEL 的值，可使用 FOR 标签的`in`属性向下传递。另一种方法是在 FOR 和 IF 的语句块中使用 Model 标签支持的扩展属性。
+* FOR 和 IF 语句块的 HTML 代码中支持 FOR、地址参数和 DOM 占位符，不支持 MODEL 的占位符。
+* 如果非要向 FOR 和 IF 语句块中传递 MODEL 的值，可使用 FOR 标签的`in`属性向下传递。另一种方法是在 FOR 和 IF 的语句块中使用 MODEL 标签支持的扩展属性。
 
 ### IF事件
 
@@ -327,38 +421,55 @@ SELECT 标签的 OPTION 标签和 TABLE 标签的 TR 标签不仅不支持 FOR �
 * `onreturntrue` 所有 IF 或 ELSIF 条件有一条成功时触发。
 * `onreturnfalse` 所有 IF 或 ELSIF 条件都失败时触发。
 
-## TEMPLATE 标签
 
-**TEMPLATE** 标签可以理解为局部的 MODEL 标签，同时支持重新加载。TEMPLATE 不支持再嵌套 TEMPLATE 标签，但 TEMPLATE 里面可以嵌套 FOR 和 IF。TEMPLATE 更不能嵌套 MODEL 标签, 也没有任何必要。TEMPLATE 标签支持更多功能。
+IF 标签事件可以直接也在标签上，也可以给 IF 标签命名然后使用`$listen`或`on`方法。
 
-TEMPLATE 标签也应用到其他自定义标签中，如[TreeView 标签](/root.js/treeview.md)和[DataTable 标签](/root.js/datatable.md)。
+```javascript
+$listen('name').on('load', function() {
+    //...
+});
+
+$if('name').on('returntrue', function() {
+    //...
+})
+```
 
 ```html
-<template name="name" var="variable name" data="url|array|object" path="jsonPath" as="array|list|for|loop|collection|object" page="int" increment="primary key" offset="0" 
-auto-refresh="yes|no" interval="second" terminal="boolean expression">
+<if test="false" onreturnfalse="execute()">
+    ...
+</if>
+```
+
+
+## TEMPLATE 标签
+
+**TEMPLATE** 标签可以理解为局部的 MODEL 标签，同时支持重新加载。TEMPLATE 不支持再嵌套 TEMPLATE 标签，但 TEMPLATE 里面可以嵌套 FOR 和 IF。TEMPLATE 更不能嵌套 MODEL 标签, 也没有任何必要。TEMPLATE 标签比 MODEL 支持的功能更多，比如懒加载、自动刷新等功能。
+
+TEMPLATE 标签也可应用到其他自定义组件中，如 [TreeView 标签](/root.js/treeview.md)和 [DataTable 标签](/root.js/datatable.md)。
+
+## TEMPLATE 属性
+
+```html
+<template name="name" var="variable name" data="url|array|object" path="jsonPath" as="array|list|for|loop|collection|object" page="int" increment="primary key" offset="0" auto-refresh="yes|no" interval="second" terminal="boolean expression">
     html code...
 </template>
 ```
 
-* `as` 将数据做为列表还是对象，对应值分别是`array`和`object`，`array`别名有还有`list`、`for`、`loop`、`collection`，`object`为默认值。此属性为一次声明，不支持事后修改。
-* `var` 当作为列表或者循环使用时，指定循环的变量名，就和 FOR 标签一样。
+* `name` 名称或 ID
+* `as` 将数据做为列表还是对象，对应值分别是`array`和`object`，`array`别名还有`list`、`for`、`loop`、`collection`，`object`为默认值。此属性为一次声明，不支持事后修改。
+* `var`或`let` 当作为列表或者循环使用时，指定循环的变量名，就和 FOR 标签一样。
 * `page` 按页码进行分页时的初始值，一般为`0`或`1`，默认为`0`，分页时自动更新，可以通过`$:page`占位符传递给`data`属性
 * `increment` 按主键进行分页时需要通过这个属性设置主键名，跟返回的数据里的名称相同
 * `offset` 按主键进行分页时主键的起始值，可以通过`$:offset`占位符传递给data属性
-* `lazy-load` 滚动增量加载
-* `clear-on-load` 是否在加载数据前先清空原有数据
+* `lazy-load` 是否滚动增量加载，可选`yes`、`no`、`1`、`0`、`true`、`false`等布尔值
+* `clear-on-refresh` 是否在重新加载数据前先清空原有数据
 * `auto-refresh` 是否支持自动更新
-* `interval` 自动更新的间隔时间，单位“秒”
+* `interval` 自动更新的间隔时间，单位“秒”，支持小数，默认`2`秒。
 * `terminal` 自动更新的终止条件，可使用`@:`得到当前数据。
 
 占位符语法规则为 `@:keyOrPath?(defaultValue)`
 
-与 MODEL 不同的是, MODEL 必须声明`name`属性, 并需要使用`name`来调取值; TEMPLATE 在调取数据时不使用`name`，而使用`:`，表示当前TEMPLATE，如`@:data[0].name`。使用 @:/ 调取template的所有数据。
-
-### As Array / List
-
-作为列表使用时，程序会自动为内容增加`<for in="@:/"> ... </for>`包围，循环体内部必须使用与 FOR 相同的点位符语法。
-
+与 MODEL 不同的是, MODEL 必须声明`name`属性, 并需要使用`name`来调取值; TEMPLATE 在调取数据时不使用`name`，而使用`:`，表示当前TEMPLATE，如`@:data[0].name`。使用`@:/`调取TEMPLATE 的所有数据。
 
 ## TEMPLATE 方法
 
@@ -371,55 +482,137 @@ $tempalte('name').load(data, path).asArray().clear().append(func);
 
 * `$template` 为固定选择器方法，如`$template('name')`，需要在页面加载完成之后才能使用，见下面的`$finish`全局方法。
 * `load(data)` 如果要加载和第一次不同的数据，则通过这个方法再次指定。
-* `asArray()` 功能同 `as="array"` 属性。
-* `asList()` 或 `asLoop()` 功能同 `asArray()`。
+* `asArray()` `asList()` `asLoop()` 功能同 `as="array"` 属性。
+* `setContainer(container)` 设定呈现 HTML 的容器元素。
+* `setPosition(position)` 设置 HTML 在容器中呈现的位置，可选项有：`befeoreEnd` 容器的结束标签之前，这是默认值；`afterEnd` 容器的结束标签之后；`beforeBegin` 容器的开始标签之前；`afterBegin`容器的开始标签之后。
 * `setPage(page)` 手工设置页码, 按页码分页时使用。
 * `setOffset(offset)` 设置分页偏移量，按主键分页时使用。
 * `clear()` 在重新加载内容时先清空。
-* `keep()` 在重新加载内容时不清空。
-* `on('load', func)` 添加onload事件。
-* `append(func)` 将内容添加到页面上, 设置`func`可以指定在添加完成后执行的函数，独立于`onload`事件，即如果同时设置了`onload`并传递了`func`函数，会同时执行。
+* `append(func)` 将内容添加到页面上, 设置`func`可以指定在添加完成后执行的函数，独立于`onload`事件，即如果同时设置了`onload`并传递了`func`函数，都会执行。
     ```javascript
-    $template('name').load(data, path).append(func);
+    $template('name').load(data).append(func);
     ```
 
-### TEMPLATE事件
+### TEMPLATE 事件
 
 * `onload` 每次加载完成时触发，包括增量加载。
 * `ondone` 增量加载完成之后触发。
 * `onlazyload` 增量加载完成时触发，不包括第一次。
 
-## 标签事件
-
-MODEL、FOR 和 IF 标签均支持`onload`事件，调用必须声明`name`属性，在数据加载完成之后触发。
-
 ```javascript
-Model$('name').on('load', function() { ... });
-For$('name').on('load', function() { ... });
-If$('name').on('load', function() { ... });
-Template$('name').on('load', function() { ... });
+$listen('name').on('load', function(data) {
+    // data 是返回的数据集
+})
+
+$template('name').on('lazyload', function(data) {
+    // ...
+})
+
+$t('name').ondone = function() {
+    //...
+}
 ```
 
-也可以直接写在标签属性中，像这样：
+第一种方式无段等待页面加载完成，仅用于事件绑定。第二和第种方式需要在 TEMPLATE 组件加载完成之后调用。`$template`只能选择 TEMPLATE 标签，`$t`可以选择任意自定义标签。
+
+### 简单示例
 
 ```html
-<for onload="alert('I am fine.')"></for>
+<tempalte name="students" data="/api/students">
+    <div>Scores of all Students</div>
+    <for in="@:data">
+        <div>@[name]: @[score]</div>
+    </for>    
+</tempate>
 ```
 
-第一种方法类似于元素上的事件绑定，可以指定多个，并且与第二种不冲突。
+假如上例接口返回结果为:
 
+```json
+{
+    "data": [
+        {
+            "name": "Tom",
+            "score": 78
+        },
+        {
+            "name": "Jerry",
+            "score": 85
+        },
+        ...
+    ],
+    "message": "ok"
+}
+```
+
+其中`@:data`定位到返回结果的`data`属性项，`@[name]`和`@[score]`定位到每数据行的`name`和`score`属性项。
+
+### As Array / List
+
+作为列表使用时，需要在标签上增加`as`属性或使用`asList()`方法。在解析时程序会自动为内容增加`<for in="@:/"> ... </for>`包围，循环体内部必须使用与 FOR 标签相同的占位符语法。上一节的示例可以修改为：
+
+```html
+<div>Scores of all Students</div>
+<tempalte name="students" as="list" data="/api/students -> data">
+    <div>@[name]: @[score]</div>
+</tempate>
+```
+
+### 数据懒加载
+
+TEMPLATE 标签可以很方便的实现数据懒加载，支持移动端。TEMPLATE 标签支持两种懒加载方式：
+
+```html
+<template as="loop" page="1" lazy-load="yes" data="/api/list?page=$:[page]">
+    <div>@[title]</div>
+    <diV>@[description]</div>
+</template>
+
+<template as="list" lazy-load="yes" data="select title, description from projects limit ~{ $:[page] * 100 }, 100">
+    <div>@[title]</div>
+    <diV>@[description]</div>
+</template>
+```
+
+上面两个示例中，实现逻辑一致，其中`data`属性取数据的方式不同。`as`属性`loop`和`list`效果相同，它们都是`array`的别名。`$:[page]`用来获取当前页码，如果不显式设置`page`属性，则默认值为`0`。
+
+```html
+<template as="list" lazy-load="yes" increment="id" offset="15434" data="select id, title, description from projects where id>$:[offset] limit 100">
+    <div>@[title]</div>
+    <diV>@[description]</div>
+</template>
+```
+
+上例为另一种懒加载方式，需要指定`increment`属性，属性名对应返回结果集的主键字段名，系统会自动记录`offset`，即每次查询主键的最大值，并在下次查询时自动使用新值。`offset`如果不设置则默认为`0`。
+
+### 自动刷新
+
+TEMPLATE 标签还支持自动刷新操作，见下例：
+
+```html
+    <template name="abc" as="loop" auto-refresh="yes" interval="2" clear-on-refresh="no" data="select id, task_time from qross_tasks limit ~{ $random(2, 10) }" interval="2">
+        <div class="f24">@[id]</div>
+        <diV class="space">@[task_time]</div>
+    </template>
+```
+
+上例中`auto-refresh`必须设置为`true`或其他可用真值。`interval`指自动刷新的间隔时间，单位“秒”，默认值为`2`秒。`clear-on-refresh`设置为真值表示每次都清空，如果不清空则表示增加增加，默认为真值。
 
 ## 全局事件
 
+与全局方法`$ready`类似，在页面加载完成之后执行函数。区别是`$ready`文档准备好时执行，而`$finish`是在所有 MODEL 相关的标签解析完成之后再执行给定的函数。`$finish`和`$ready`一样，可使用多次。在执行时按函数的添加顺序执行。
+
 ```javascript
 $finish(function() {
-
+    //...
 });
 ```
 
+特别注意：
+
 * 在所有模板标签加载完成之后触发！
 * 各标签的加载顺序：MODEL -> TEMPLATE -> FOR 或 IF -> O -> $finish()
-* MODEL并行加载，所有MODEL加载完成之后。FOR 和 IF 按文档出现的位置顺序加载，谁在前谁先加载。
+* 所有 MODEL 标签并行加载，所有 MODEL 加载完成之后，FOR 和 IF 按标签在文档出现中的位置顺序加载，谁在前谁先加载。
 
 ## 对嵌入数据进行再加工
 
@@ -441,6 +634,7 @@ $finish(function() {
 ```
 
 极端情况下，业务逻辑有可能更复杂，短句也不能满足需求了，还可以使用
+
 **Javascript 语句占位符**，格式为 `~{{ javascript statement... }}`
 
 语句类似于一个函数内的所有语句，可以对数据进行任何操作，但必须有返回值。如：
@@ -462,7 +656,7 @@ $finish(function() {
 </if>
 ```
 
-注意：`@` 符号在 Javascript 占位符表达式中为特殊字符，非要输出`@`字符的情况下，请使用`~u0040`代替。
+注意：`@` 符号在 Javascript 占位符表达式中为特殊字符，在必须要输出`@`字符且遇到冲突时，请使用`~u0040`代替。
 
 
 ---
