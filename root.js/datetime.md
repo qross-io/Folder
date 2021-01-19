@@ -1,6 +1,6 @@
 # DateTime 类
 
-**DateTime** 不是组件，是对Javascript原生日期时间类 **Date** 的扩展，因为`Date`类实在太难用了。
+**DateTime** 不是组件，是对 Javascript 原生日期时间类 **Date** 的扩展，因为`Date`类实在太难用了。
 
 ## 构造函数
 

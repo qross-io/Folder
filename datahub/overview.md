@@ -1,6 +1,6 @@
 # DataHub 概览
 
-DataHub是一个跨数据源的数据处理框架，提供了丰富的数据输入输出功能，是[PQL语言](/pql/overview.md)的底层支持。DataHub 极大的简化了各种数据处理操作，最小化数据处理过程中的附加代码编写，基于 DataHub 开发的[Keeper调度工具](/keeper/overview.md)只有3000行代码。DataHub 同时整合了大量的公共基础类，方便在各业务场景中使用。
+**DataHub** 是一个跨数据源的数据处理框架，提供了丰富的数据输入输出功能，是[PQL语言](/pql/overview.md)的底层支持。DataHub 极大的简化了各种数据处理操作，最小化数据处理过程中的附加代码编写，基于 DataHub 开发的[Keeper调度工具](/keeper/overview.md)只有3000行代码。DataHub 同时整合了大量的公共基础类，方便在各业务场景中使用。
 
 DataHub 框架主要使用 **Scala** 语言编写，Scala 项目可以无障碍使用，为了能与 Java 项目通用，一些关键类作者也会提供 **Java** 编程接口。
 
@@ -18,6 +18,6 @@ DataHub 主要功能包列表如下：
 * io.qross.time 日期时间相关操作，如Cron表达式等。
 
 
-DataHub 跟[PQL语言](/pql/overview.md)同属于一个依赖包，引用依赖的方法见[使用PQL](/pql/use-pql.md)。即只要引用同一个依赖，可同时使用 DataHub 和 PQL。
+DataHub 跟 [PQL 语言](/pql/overview.md)同属于一个依赖包，引用依赖的方法见[使用 PQL](/pql/use-pql.md)。即只要引用同一个依赖，可同时使用 DataHub 和 PQL。
 
 DataHub 免费开源，与 PQL 同属一个开源项目，源码地址为：<https://github.com/qross-io/PQL>
