@@ -1,7 +1,7 @@
 # PQL 全局设置
 相对于其他的开发框架来说，PQL的全局设置比较少。除了数据源连接设置以外，PQL还有一些其他的一些简单的设置。这些设置和数据源连接设置一样，都可以放在项目资源目录的`conf.properties`文件中，或项目运行环境jar包同级目录（在运行环境下，一般为Qross系统家目录）的`qross.properties`文件中。如果使用了Qross系统，“全局设置”可以系统管理里在[Master平台](/master/overview.md)中的“系统”中进行设置。配置的优先级顺序：数据库配置优先于`conf.properties`文件，`conf.properties`文件优先于`qross.properties`文件。
 
-另外，全局设置的每一项都对应一个[全局变量](/pql/global.md)。下面对这些设置项分别介绍一下。
+另外，全局设置的每一项都对应一个[全局变量](/pql/global-variable.md)。下面对这些设置项分别介绍一下。
 
 ### Qross系统家目录
 ```properties

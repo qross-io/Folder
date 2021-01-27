@@ -1,6 +1,7 @@
 # 运行文件和命令 RUN
 
 RUN 语句可以用来运行 Shell 命令，属于 PQL 跟其他语言交互的一部分。示例：
+
 ```sql
 SET $ls := RUN SHELL "ls";
 FOR $line IN $ls.logs LOOP
@@ -17,20 +18,20 @@ RUN 语句功能比较简单，运行 Shell 命令并且返回运行日志。RUN
 RUN 语句还可以用来执行 PQL 文件。
 
 ```sql
-RUN PQL '/sql/test.sql' 'id=1';
+RUN PQL '/sql/test.sql?id=1';
 ```
 
-PQL 文件需要完整的路径，参数可以放在命令后面，需要用至少一个空白字符隔开，参数可以省略。
+PQL 文件需要完整的路径，参数可以放在命令后面，使用问题`?`隔开，参数部分可以省略。
 
-RUN语句和其他[有返回值的语句](/pql/evaluate.md)一样，除可以单独执行外，可以用来赋值、通过Sharp表达式再编辑、用循环遍历日志或嵌入到其他语句中。
+RUN 语句和其他[有返回值的语句](/pql/evaluate.md)一样，除可以单独执行外，可以用来赋值、通过 Sharp 表达式再编辑、用循环遍历日志或嵌入到其他语句中。
 
-另外，使用 [PAR 语句](/pql/par.md) 可以并行执行 PQL文件或 Shell 命令。
+另外，使用 [PAR 语句](/pql/par.md) 可以并行执行 PQL 文件或 Shell 命令。
 
 ---
 参考链接
 
-* [PQL中有返回值的语句](/pql/evaluate.md)
-* [在PQL中与Java交互](/pql/invoke.md)
-* [PQL基本语法](/pql/basic.md)
-* [PQL中的Javascript](/pql/javascript.md)
+* [PQL 中有返回值的语句](/pql/evaluate.md)
+* [在 PQL 中与 Java 交互](/pql/invoke.md)
+* [PQL 基本语法](/pql/basic.md)
+* [PQL 中的 Javascript](/pql/javascript.md)
 * [多线程并行运算 PAR](/pql/par.md)

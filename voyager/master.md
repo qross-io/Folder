@@ -12,9 +12,9 @@
 <head>
     <meta charset="UTF-8">
     <title>#{title}</title>
-    <script type="text/javascript" src="/root/root.js"></script>
-    <link href="/root/root.css" rel="stylesheet" type="text/css" />
-    <link href="/root/iconfont.css" rel="stylesheet" type="text/css" />
+    <script type="text/javascript" src="@/root.js"></script>
+    <link href="@/root.css" rel="stylesheet" type="text/css" />
+    <link href="@/iconfont.css" rel="stylesheet" type="text/css" />
     <#include file="/bar.html"/>
     #{scripts}
 </head>

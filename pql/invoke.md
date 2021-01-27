@@ -3,7 +3,7 @@
 通过INVOKE语句，可以在PQL中调用Java中的静态方法和属性。示例如下：
 ```sql
 SET $key := "VERSION";
-SET $value := "0.6.4";
+SET $value := "1.1.0";
 INVOKE io.qross.setting.Configurations.set($key, Object $value);
 
 SET $version := INVOKE io.qross.setting.Global.VERSION;

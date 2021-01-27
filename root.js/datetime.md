@@ -99,14 +99,18 @@ new DateTime(value);
 * `copy()` 复制差生成一个新的日期时间实例。
 
 特别说明，`set`和`plus`操作返回对象本身，所以可以对多个方法进行链式编写，如`DateTime.now().setHour(0).setMinute(0).plusDays(1)`。再有实例对象变更时不需要再重新赋值，如下例：
+
 ```javascript
 let today = DateTime.today();
 today.plusMonths(1).setDayOfMonth(1).plusDays(-1);
+
 ```
 而不是
+
 ```
 today = today.plusMonths(1).setDayOfMonth(1).plusDays(-1);
 ```
+
 这一点与基本类型不同，在使用中尤其注意。如果不希望在操作过程中更改原来的对象，可用`copy()`方法生成一个新实例。
 
 ## 字符串扩展

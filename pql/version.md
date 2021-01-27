@@ -1,43 +1,49 @@
 # 版本和更新
 
-作者会一般每周发布一个预览版本的更新，一个月发布一个稳定版本。PQL的最新稳定版本为 **v0.6.5-RELEASE**。 
+作者会一个月发布一个稳定版本。PQL的最新稳定版本为 **v0.6.5-RELEASE**。 
 
 ## v1.1.0
 
-本次升级使用新的版本号规则：第1位数字代表年份，`1`表示`2021年`；第2位数字代表月份，`1`表示`1月`。第3位数字表示开发过程中的小版本号。本次升级内容如下：
+本次升级使用新的版本号规则：第 1 位数字代表年份，`1`表示`2021年`；第 2 位数字代表月份，`1`表示`1月`。第 3 位数字表示开发过程中的小版本号。本次升级内容如下：
 
-1. Voyager 现在支持 [Markdown 文件](/voyager/markdown.md)，扩展名为`.md`。
-2. Voyager 增加[母版页](/voyager/master.md)，使用`<# page template="/template/form.html?key=value" />` 引入母版页。
-2. OPEN 语句现在可以直接通过连接串打开数据库，见 [OPEN DATABASE](/pql/open.md)。
-3. SAVE 语句现在也可以直接通过连接串打开数据库，见 [SAVE AS/TO DATABASE](/pql/save.md)。
-4. [RUN 语句](/pql/run.md)现在支持运行 PQL 文件，格式
+1. [全局函数](/pql/gloabl-function.md)逻辑已加入，第一版只增加了几个函数。
+2. Voyager 现在支持 [Markdown 文件](/voyager/markdown.md)，扩展名为`.md`。
+3. Voyager 增加[母版页](/voyager/master.md)，使用`<# page template="/template/form.html?key=value" />` 引入母版页。
+4. Voyager 增加[设置项](/voyager/setup.md)：静态站点`voyager.static.site`和图库站点`voyager.gallery.site`，默认空值，即当前站点。
+5. OPEN 语句现在可以直接通过连接串打开数据库，见 [OPEN DATABASE](/pql/open.md)。
+6. SAVE 语句现在也可以直接通过连接串打开数据库，见 [SAVE AS/TO DATABASE](/pql/save.md)。
+7. [RUN 语句](/pql/run.md)现在支持运行 PQL 文件，格式
     ```sql
-    RUN PQL '/abc/test.sql' 'a=1&b=2&c=3';
+    RUN PQL '/abc/test.sql?a=1&b=2&c=3';
     ```
     可将参数附在地址后面，中间使用空格隔开，地址和参数两边的引号可省略，但不可包含空格。
-5. 新增 [PAR 语句](/pql/par.md)，用于多线程并行运算。
+8. 新增 [PAR 语句](/pql/par.md)，用于多线程并行运算。
     ```sql
-    PAR # RUN COMMAND 'java -jar 123.jar';
+    PAR # RUN COMMAND 'java -jar test.jar';
     ```
-6. 新增 [LOAD 语句](/pql/load.md)，用于在程序运行时手动加载数据连接配置。
+9. 新增 [LOAD 语句](/pql/load.md)，用于在程序运行时手动加载数据连接配置。
     ```sql
     LOAD YML FROM NACOS 'localhost:8848:io.qross.config:connections';
     ```
-7. [数据源配置](/pql/properties.md)不仅只支持`properties`文件，也支持从 Yaml 文件、Nacos 配置中心或从其他服务的 URL 接口获取。
-8. [Sharp 表达式](/pql/sharp-table.md)新增`WHERE`和`DELETE`用于表格数据过滤或删除。
-9. [Marker 应用](/pql/marker.md)现在支持文字样式，如`/green,16:绿色标准字体/`。
-10. `%`现在也是特殊字符，用`~u0025代替`。
+10. [数据源配置](/pql/properties.md)现在不仅只支持`properties`文件，也支持从 Yaml 文件、Nacos 配置中心或从其他服务的 URL 接口获取。
+11. [Sharp 表达式](/pql/sharp-table.md)新增`WHERE`和`DELETE`用于表格数据过滤或删除。
+12. [Marker 应用](/pql/marker.md)现在支持文字样式，如`/green,16:绿色标准字体/`。
+13. `%`现在也是特殊字符，如遇到字符冲突时使用用`~u0025`代替，一般情况下不需要使用。
+14. [Worker 执行器](/pql/worker.md)现在支持将参数写在`--file`参数指定的文件名后面。
 
 ## v0.6.5
 
 本次版本升级较少，主要是修复 Bug。
 
-1. FILE 和 DIR 的重命名、复制和移动操作逻辑已实现。
-2. [Voyager 模板引擎](/voyager/overview.md) 增加文档。
+1. [FILE](/pql/file.md) 和 [DIR](/pql/dir.md) 的重命名、复制和移动操作逻辑已实现。
+2. [Voyager 模板引擎](/voyager/overview.md) 增加说明文档。
 3. PQL 类一些方法更新。
 
 ## v0.6.4
-1. PQL 和 OneApi 文档已完成，可以在Master平台或官网找到。
+
+从这个版本起，开始补充各个产品的文档。
+
+1. PQL 和 OneApi 文档已完成，可以在官网找到。
 2. [Marker 应用](/pql/marker.md)加入，可以将 **Markdown** 文档转成 **HTML**。
 3. [自定义用户函数](/pql/function.md)升级，现在已不仅作为语句复用目的。
     * 自定义函数现在可以返回值了。
@@ -47,7 +53,7 @@
                 RETURN $a + $b;
             END;
         ```
-    * [RETURN语句](/pql/return.md)可以将函数的结果返回，也可以中断并返回整个PQL过程的结果。
+    * [RETURN 语句](/pql/return.md)可以将函数的结果返回，也可以中断并返回整个PQL过程的结果。
     * 自定义函数已支持嵌入到语句中。
         ```sql
         SELECT * FROM table WHERE socre>=$pass(60);
@@ -59,7 +65,7 @@
     * [EXEC语句](/pql/exec.md)逻辑重新整理。
     
 5. [集合对象的属性和索引访问](/pql/collection.md)支持升级，现在不仅数据行支持属性访问，数组和数据表也已支持。如`$list[2]`、`$table.first['id']`等。
-6. Sharp表达式更新。
+6. Sharp 表达式更新。
     * 新增[正则表达式](/pql/sharp-regex.md)的多个操作，如`FIND FIRST IN`等。
     * [日期时间](/pql/sharp-datetime.md)单位新增`NANO`、`MICRO`、`NANOS`、`MICROS`。
     * [数学运算](/pql/sharp-numeric.md)新增取余`MOD`、`MIN`、`MAX`。
@@ -68,7 +74,7 @@
     * [比较操作](/pql/sharp-if.md)加入：`LESS THAN`、`LESS THAN OF EQUALS`、`GREATER THAN`、`GREATER THAN OR EQUALS`。
 7. 多条语句优化。
 
-本次不兼容修改主要涉及[Sharp表达式](/pql/sharp.md)
+本次不兼容修改主要涉及 [Sharp 表达式](/pql/sharp.md)
 
 * 时间单位`MILLISECONDS`已移除，使用`MILLI`或`MILLIS`代替
 * 数字操作`PERCENT`修改为`TO PERCENT`
@@ -79,6 +85,7 @@
 * 数组操作`HEAD`修改为`FIRST`
 
 ## v0.6.3
+
 `0.6.3`版本除了Bug和优化之外，主要更新内容如下：
 
 1. 增加了对[Redis支持](/pql/redis.md)。

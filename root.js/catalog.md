@@ -11,8 +11,10 @@
     + [DateTime 类](/root.js/datetime.md)
 
 * 组件库
-    + [Calendar 多功能日历组件](/root.js/calendar.md)
-    + [Clock 文件时钟组件](/root.js/clock.md)
+    + [BackTop 返回页面顶部](/root.js/backtop.md)
+    + [Calendar 多功能日历](/root.js/calendar.md)
+    + [Clock 文件时钟](/root.js/clock.md)
+    + [Select 选择器](/root.js/select.md)
 
 * 附录
     + [颜色编码表](/root.js/colors.md)

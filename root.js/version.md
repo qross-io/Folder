@@ -1,24 +1,31 @@
 # 版本和更新
 
-**root.js** 库一般跟随[Qross Master](/master/overview.md)项目的功能进行更新。相关文档会慢慢补全。
+**root.js** 库一般跟随 [Qross Master](/master/overview.md) 项目的功能进行更新。相关文档会慢慢补全。
 
 ## v1.1.0
 
-* `root.js` 重新整理，文档已补全。
+* **root.js 项目** 从 Master 项目中分离，独立成项目。
+* [**root.js 基础库**](/root.js/root.md) 重新整理，文档已补全。
     + 增加新的选择器`$t`，可选择单个自定义标签
     + 增加新的选择器`$c`，可选择多个自定义标签
+    + `TAKE` 方法移除`path`属性，整合进`data`属性中。
+    + `ajax.fill(el)` 方法移除。
+    + `String`扩展增加`fill`方法，可以将字符串填充到元素中。
+    + 移除所有组件的`Tag$(name)`方法，统一使用`$listen(name)`。
     + 修正多个 bug，一些不常用方法移除
-* `model.js` 所有占位符已重新设计，文档已补全。
-* 移除所有组件的`Tag$(name)`方法，统一使用`$listen(name)`
-* [自定义标签属性`data`](/root.js/data.md)现在支持直接写 PQL 语句
-* `model.js` 现在已经支持`<O>`标签。
-    ```html
-    <o>select title from table where id=#{id} -> frist cell</o>
-    ```
-* `model.js` 所有`path`属性移除
-* `root.js` `TAKE` 方法移除`path`属性，整合进`data`属性中
-* `root.js` `ajax.fill(el)` 方法移除
-* `cogo.js` 移除，核心功能整合进`root.js`
+* [**Model 数据加载模型**](/root.js/model.md) 所有占位符已重新设计，文档已补全。
+    + `model.js` 现在已经支持`<O>`标签。
+        ```html
+        <o>select title from table where id=#{id} -> frist cell</o>
+        ```
+    * `model.js` 所有`path`属性移除。
+* [自定义标签属性`data`](/root.js/data.md)现在支持直接写 PQL 语句。
+* 新增 [Select 选择器](/root.js/select.md)，扩展了原生的 SELECT 标签。
+* [**BackTop**](/root.js/backtop.md) 增加自定义元素功能和事件，文档已补全。
+* **TreeView** 显示引导线`lines`逻辑调试通过，移除`$path`属性。
+* **Button** 多个无用属性移除，`setText`方法修改为属性。
+* **SelectButton** 选项类 ButtonOption 增加`show`和`hide`属性，用于在切换时显示或隐藏元素。
+* `cogo.js` 移除，核心功能整合进`root.js`。
 
 ## v0.6.5
 

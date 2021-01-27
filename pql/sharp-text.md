@@ -1,7 +1,9 @@
-# Sharp表达式 - 字符串操作
-Sharp表达式为处理字符串提供了大量丰富且灵活的操作方法。下面按Link的用途分组介绍。
+# Sharp 表达式 - 字符串操作
+
+Sharp 表达式为处理字符串提供了大量丰富且灵活的操作方法。下面按 Link 的用途分组介绍。
 
 ### 字符串截取和拆分
+
 * **`CHAR AT n`** 返回字符串索引位置n的字符，索引从`1`开始。`'hello' CHAR AT 2`结果为`'e'`
 * **`DROP n`** 或 **`DROP LEFT n`**  从左向右删除n个字符。`'hello' DROP 3`结果是`lo`
 * **`DROP RIGHT n`** 从右向左删除n个字符。`'hello' DROP RIGHT 3`结果是`he`

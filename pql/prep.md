@@ -27,5 +27,5 @@ PREP语句执行之后，会将这次更新影响数据库的行数保存在全�
 * [跨数据源数据流转 SAVE](/pql/save.md)
 * [将数据保存在缓冲区 GET](/pql/get.md)
 * [将缓冲区的数据保存到数据库 PUT](/pql/put.md)
-* [全局变量 @](/pql/global.md)
+* [全局变量 @](/pql/global-variable.md)
 * [PQL中的SQL语句](/pql/sql.md) 

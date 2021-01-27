@@ -22,5 +22,5 @@ PQL的基本语法规则如下：
 * [变量声明 VAR](/pql/var.md)
 * [PQL中的SQL语句](/pql/sql.md) 
 * [用户变量 $](/pql/var.mdiable)
-* [全局变量 @](/pql/global.md)
+* [全局变量 @](/pql/global-variable.md)
 * [特殊字符表](/pql/characters.md)

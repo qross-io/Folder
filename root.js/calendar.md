@@ -4,11 +4,11 @@
 
 ## 下载
 
-[点击下载Calendar组件及相关依赖文件](http://www.qross.cn/download?file=calendar.zip)
+[点击下载 Calendar 组件及相关依赖文件](http://www.qross.cn/download?file=calendar.zip)
 
 ## 使用
 
-Calendar组件及其依赖库或组件列表如下：
+Calendar 组件及其依赖库或组件列表如下：
 
 * [root.js 基本库](/root.js/root.md)
 * [Animation 动画库 root.animation.js](/root.js/animation.md)
@@ -17,22 +17,25 @@ Calendar组件及其依赖库或组件列表如下：
 * 需要两个`iconfont`图标，在`root.calendar.iconfont.css`中。
 * 如果要显示农历，还需要自己做一个农历数据接口，农历数据文件为`calendar.csv`
 
-引用代码示例如下，可放在页面的任何地方，建议放在`<head></head>`中：
+引用代码示例如下，可放在页面的任何地方，建议放在 HEAD 标签中：
+
 ```html
-<script type="text/javascript" src="/root/root.js"></script>
-<script type="text/javascript" src="/root/root.animation.js"></script>
-<script type="text/javascript" src="/root/root.datetime.js"></script>
-<script type="text/javascript" src="/root/root.calendar.js"></script>
-<link href="/root/root.calendar.css" rel="stylesheet" type="text/css" />
-<link href="/root/root.calendar.iconfont.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/root.js"></script>
+<script type="text/javascript" src="/root.animation.js"></script>
+<script type="text/javascript" src="/root.datetime.js"></script>
+<script type="text/javascript" src="/root.calendar.js"></script>
+<link href="/root.calendar.css" rel="stylesheet" type="text/css" />
+<link href="/root.calendar.iconfont.css" rel="stylesheet" type="text/css" />
 ```
 
 如果需要显示农历和特殊工作日/休息日，还需要把日历数据放到数据库中，实现一个`GET`接口，核心语句如下：
+
 ```sql
 SELECT concat(solar_year, '-', IF(solar_month < 10, '0', ''), solar_month, '-', IF(solar_day < 10, '0', ''), solar_day) AS solar, lunar_day, solar_term, festival, workday FROM qross_calendar WHERE solar_year IN (#{year}) -> TO NESTED MAP 'solar';
 ```
 
 数据结构为：
+
 ```json
 {
     "2020-09-20": {
@@ -45,20 +48,19 @@ SELECT concat(solar_year, '-', IF(solar_month < 10, '0', ''), solar_month, '-', 
 }
 ```
 
-特殊工作日和休息日的管理设置参见[Master管理平台](http://www.qross.cn:8080/)中的“系统”->“Keeper监控”->“工作日历”。
+特殊工作日和休息日的管理设置参见 [Master 管理平台](http://m.qross.cn)中的“系统” -> “Keeper 监控” -> “工作日历”。
 
 ## 示例
 
-<script type="text/javascript" src="/root/root.js"></script>
-<script type="text/javascript" src="/root/root.animation.js"></script>
-<script type="text/javascript" src="/root/root.datetime.js"></script>
-<script type="text/javascript" src="/root/root.calendar.js"></script>
-<script type="text/javascript" src="/root/root.clock.js"></script>
-<script type="text/javascript" src="/root/root.popup.js"></script>
-<link href="/root/root.popup.css" rel="stylesheet" type="text/css" />
-<link href="/root/root.calendar.css" rel="stylesheet" type="text/css" />
-<link href="/root/root.calendar.iconfont.css" rel="stylesheet" type="text/css" />
-<link href="/root/root.clock.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="@/root.animation.js"></script>
+<script type="text/javascript" src="@/root.datetime.js"></script>
+<script type="text/javascript" src="@/root.calendar.js"></script>
+<script type="text/javascript" src="@/root.clock.js"></script>
+<script type="text/javascript" src="@/root.popup.js"></script>
+<link href="@/root.popup.css" rel="stylesheet" type="text/css" />
+<link href="@/root.calendar.css" rel="stylesheet" type="text/css" />
+<link href="@/root.calendar.iconfont.css" rel="stylesheet" type="text/css" />
+<link href="@/root.clock.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 input { font-size: 1rem; }
 </style>
@@ -70,6 +72,7 @@ input { font-size: 1rem; }
 ```html
 <calendar id="calendar1"></calendar>
 ```
+
 注意是 `<calendar></calendar>` 而不是 `<calendar />`，虽然标签之间没有任何东西。
 
 <calendar id="calendar1"></calendar>
@@ -77,9 +80,11 @@ input { font-size: 1rem; }
 日历中各个部分的文字如星期的文字均可设置，见下面属性说明。
 
 ### INPUT 单选模式
+
 ```html
 <input type="calendar" name="calendar2" week-names="一,二,三,四,五,六,日" />
 ```
+
 注意`type`属性一定要设置为`calendar`。
 
 <input type="calendar" name="calendar2" week-names="一,二,三,四,五,六,日" />
@@ -97,6 +102,7 @@ input { font-size: 1rem; }
 可通过日历属性获取已选中周的各项值，如第几周、开始日期、结束日期等。
 
 ### INPUT 周选模式
+
 ```html
 <input type="calendar" name="calendar4" size="30" mode="week" />
 ```
@@ -104,7 +110,7 @@ input { font-size: 1rem; }
 <input type="calendar" id="calendar4" size="25" mode="week" months="2" /> &nbsp; &nbsp; 选中的周：<code id="SelectedWeek"></code> &nbsp; 开始日期：<code id="WeekStartDate"></code> &nbsp; 结束日期：<code id="WeekEndDate"></code>
 
 <script type="text/javascript">
-Calendar$('calendar4').on('WeekSelected', function(year, weekOfYear, startDate, endDate) {
+$listen('calendar4').on('WeekSelected', function(year, weekOfYear, startDate, endDate) {
     let input = document.querySelector('#calendar4');
     $x('#SelectedWeek').html(this.week);
     $x('#WeekStartDate').html(startDate);
@@ -113,8 +119,9 @@ Calendar$('calendar4').on('WeekSelected', function(year, weekOfYear, startDate, 
 </script>
 
 可以通过事件参数或Calendar选择器获取选中的周、开始日期和结束日期。如
+
 ```javascript
-Calendar$('calendar4').on('WeekSelected', function(year, weekOfYear, startDate, endDate) {
+$listen('calendar4').on('WeekSelected', function(year, weekOfYear, startDate, endDate) {
     let input = document.querySelector('#calendar4');
     $x('#SelectedWeek').html(this.week); //返回选中的年和周，格式 yyyy-ww
     $x('#WeekStartDate').html(input.getAttribute('start')); //返回选中周的开始日期，格式 yyyy-MM-dd
@@ -124,6 +131,7 @@ Calendar$('calendar4').on('WeekSelected', function(year, weekOfYear, startDate, 
 ```
 
 ### 三月多选模式
+
 ```html
 <calendar id="calendar5" mode="range" days-of-other-month="hidden" months="3"></calendar>
 ```
@@ -131,13 +139,15 @@ Calendar$('calendar4').on('WeekSelected', function(year, weekOfYear, startDate, 
 <calendar id="calendar5" mode="range" days-of-other-month="hidden" months="3"></calendar>
 
 ### INPUT 多选模式
+
 ```html
 <input type="calendar" name="calendar6" size="40" mode="range" months="2" days-of-other-month="hidden" init="0" />
 ```
 
 <input type="calendar" name="calendar6" size="40" mode="range" months="2" days-of-other-month="hidden" init="0" />
 
-可以通过Calendar的`startDate`和`endDate`属性获取选中的开始日期和结束日期。如
+可以通过 Calendar 的`startDate`和`endDate`属性获取选中的开始日期和结束日期。如
+
 ```javascript
 $calendar('calendar6').startDate; //返回选中的开始日期，格式`yyyy-MM-dd`
 $calendar('calendar6').endDate; //返回选中的结束日期，格式`yyyy-MM-dd`
@@ -158,9 +168,10 @@ $calendar('calendar6').endDate; //返回选中的结束日期，格式`yyyy-MM-d
   month-names="一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月" corner-names="休,班" 
   extension-api="/api/system/calendar?year=" months="12"></calendar>
 </div>
+
 ### 与其他组件组合
 
-可以和[Popup组件](/root.js/popup.md)和[Clock组件](/root.js/clock.md)一起合成一个日期时间选择控件。
+可以和 [Popup 组件](/root.js/popup.md)和 [Clock 组件](/root.js/clock.md)一起合成一个日期时间选择控件。
 
 <input id="DateTime" type="text" size="30" placeholder="yyyy-MM-dd HH:mm:00" /><a id="DateTimePicker_OpenButton" href="javascript:void(0)" style="margin-left: -24px"><i class="iconfont icon-calendar"></i></a>
 
@@ -176,7 +187,7 @@ $calendar('calendar6').endDate; //返回选中的结束日期，格式`yyyy-MM-d
 </div>
 
 <script type="text/javascript">
-Popup$('DateTimePicker').on('confirm', function() {
+$listen('DateTimePicker').on('confirm', function() {
     $x('#DateTime').value($calendar('Calendar').date + ' ' + $clock('Clock').time);
 });
 </script>
@@ -184,10 +195,10 @@ Popup$('DateTimePicker').on('confirm', function() {
 代码如下：
 
 ```html
-<script type="text/javascript" src="/root/root.clock.js"></script>
-<script type="text/javascript" src="/root/root.popup.js"></script>
-<link href="/root/root.clock.css" rel="stylesheet" type="text/css" />
-<link href="/root/root.popup.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/root.clock.js"></script>
+<script type="text/javascript" src="/root.popup.js"></script>
+<link href="/root.clock.css" rel="stylesheet" type="text/css" />
+<link href="/root.popup.css" rel="stylesheet" type="text/css" />
 
 <input id="DateTime" type="text" size="30" placeholder="yyyy-MM-dd HH:mm:00" /><a id="DateTimePicker_OpenButton" href="javascript:void(0)" style="margin-left: -24px"><i class="iconfont icon-calendar"></i></a>
 
@@ -203,7 +214,7 @@ Popup$('DateTimePicker').on('confirm', function() {
 </div>
 
 <script type="text/javascript">
-Popup$('DateTimePicker').on('confirm', function() {
+$listen('DateTimePicker').on('confirm', function() {
     $x('#DateTime').value($calendar('Calendar').date + ' ' + $clock('Clock').time);
 });
 </script>
@@ -229,7 +240,7 @@ Popup$('DateTimePicker').on('confirm', function() {
 * `holiday` 是否显示特殊工作日和特殊休息日（如法定节假日），默认`false`，需要扩展接口支持。
 * `extension-api` 扩展接口地址，仅支持`GET`方式获取。接口数据已在压缩包中。
 
-* `icon` 在`INPUT`模式下，会在输入框右侧显示一个图标，这个属性用来自定义图片地址或`iconfont`类名，如`/root/images/calendar.png`或`icon-calendar`。
+* `icon` 在`INPUT`模式下，会在输入框右侧显示一个图标，这个属性用来自定义图片地址或`iconfont`类名，如`/images/calendar.png`或`icon-calendar`。
 * `align` 在`INPUT`模式下，日历弹出框的对齐方式，可选`LEFT`或`RIGHT`，即与输入框左侧对齐还是右侧对齐。没有居中对齐选项，真的不好看。
 
 #### 初始值
@@ -297,7 +308,7 @@ Popup$('DateTimePicker').on('confirm', function() {
 
 ### 选择器
 
-因为`<Calendar>`属于自定义标签，不能通过原生的选择器如`document.querySelector`来操作这个标签。Calendar对象提供了两种格式的选择器：
+因为`<calendar>`属于自定义标签，不能通过原生的选择器如`document.querySelector`来操作这个标签。Calendar对象提供了两种格式的选择器：
 
 * `$calendar('name')` 这个选择器返回`Calendar`对象本身，然后可以访问`Caldendar`对象的属性、方法和事件。因为页面的加载顺序是`页面加载完成` > `解析Calendar标签` > `通过$calendar选择`，所以`$calendar`选择器要求在页面加载完成并且标签解析之后才能调用 ，一般放在`$finish`函数里面。如
     ```javascript
@@ -305,22 +316,22 @@ Popup$('DateTimePicker').on('confirm', function() {
         $calendar('name').date = '2020-09-21';
     });
     ```
-* `Calendar$('name')` 这个选择器主要用于为`Calendar`对象设置事件。
+* `$listen('name')` 这个选择器主要用于为 Calendar 对象设置事件。
     ```javascript
-    Calendar$('calendar1').on('DaySelected', function(day) { ... });
+    $listen('calendar1').on('DaySelected', function(day) { ... });
     ```
     当然也可以通过上一个选择器添加事件。
     ```javascript
     $finish(function() {
-        $calendar$('calendar1').on('DaySelected', function(day) { ... });
-        $calendar$('calendar1').onDaySelected = function(day) { ... };
+        $calendar('calendar1').on('DaySelected', function(day) { ... });
+        $calendar('calendar1').onDaySelected = function(day) { ... };
     });
     ```
-    二者的区别是`$Calendar`无需要考虑页面是否加载完成，而`$calendar`必须在标签解析之后才能调用。
+    二者的区别是`$listen`无需要考虑页面是否加载完成，而`$calendar`必须在标签解析之后才能调用。
 
 ### 属性
 
-在标签属性中已经介绍了很多属性，这些标签属性除了可以进行预设置外，都可以通过`Calendar`对象进行调用，不过标签属性在`Calenar对象`中大部分都是只读的。另外还有一些不是标签属性的`Calendar`对象属性。
+在标签属性中已经介绍了很多属性，这些标签属性除了可以进行预设置外，都可以通过 Calendar 对象进行调用，不过标签属性在 Calenar 对象中大部分都是只读的。另外还有一些不是标签属性的 Calendar 对象属性。
 
 几个重要的属性有：
 
@@ -386,16 +397,18 @@ Popup$('DateTimePicker').on('confirm', function() {
 * `onRangeCanceled` 范围选择模式下，取消选择开始日期和结束日期时触发，无参数传递
 
 事件使用示例：
+
 ```javascript
-Calendar$('calendar1').on('WeekSelected', function(year, weekOfYear, startDate, endDate) {
+$listen('calendar1').on('WeekSelected', function(year, weekOfYear, startDate, endDate) {
     console.log(this.week);
 });
 ```
-在事件函数中，`this`关键字指向当前`Calendar`对象
+
+在事件函数中，`this`关键字指向当前 Calendar 对象
 
 ### CalendarCell 类
 
-**CalendarCell** 类主要用于操作每个日期项，比如设置角标、设置样式等，这个类的成员主要是属性。上面介绍过，通过Calendar对象的`getCell(date)`方法获取某个日期单元格，然后可以访问或设置这个单元格的各种属性。
+**CalendarCell** 类主要用于操作每个日期项，比如设置角标、设置样式等，这个类的成员主要是属性。上面介绍过，通过 Calendar 对象的`getCell(date)`方法获取某个日期单元格，然后可以访问或设置这个单元格的各种属性。
 
 * `date` 获取当前单元格的日期时间，DateTime类型，只读
 * `day` 获取或设置当前单元格的日期数字，可写

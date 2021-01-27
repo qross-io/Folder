@@ -90,7 +90,7 @@ OPEN REDIS qross;
 
 ## Yaml 格式
 
-有的工程师喜欢使用 Yaml 格式进行配置，系统支持 Yaml 格式配置文件。
+有的工程师喜欢使用 **Yaml** 格式进行配置，系统支持 Yaml 格式配置文件。
 
 ```
 mysql:

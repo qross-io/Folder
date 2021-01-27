@@ -18,7 +18,7 @@ OPEN DEFAULT;
 
 PQL对原生的SQL语句不做任何解析，会将恢复后（有时会在SQL中嵌入一些内容，如变量）提交到对应的数据源执行，再将结果保存输出。在PQL中，可以在SQL中嵌入的常用元素如下：
 
-* 变量，包含[用户变量](/pql/variable.md)和[全局变量](/pql/global.md)
+* 变量，包含[用户变量](/pql/variable.md)和[全局变量](/pql/global-variable.md)
 * 函数，包含[用户函数](/pql/function.md)和[全局函数](/pql/global-function.md)
 * [富字符串](/pql/rich.md)
 * [Sharp表达式](/pql/sharp.md)
@@ -50,7 +50,7 @@ GET # SELECT # FROM table1 FROM table2 SELECT * WHERE ....;
 * [跨数据源数据流转 SAVE](/pql/save.md)
 * [将数据保存在缓冲区 GET](/pql/get.md)
 * [将缓冲区的数据保存到数据库 PUT](/pql/put.md)
-* [全局变量 @](/pql/global.md)
+* [全局变量 @](/pql/global-variable.md)
 * [变量声明 SET](/pql/set.md)
 * [变量声明 VAR](/pql.md/)
 * [更优雅的数据操作方法 Shap表达式](/pql.md/)

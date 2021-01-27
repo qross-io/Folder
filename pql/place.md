@@ -53,7 +53,7 @@
 * [向PQL传递参数](/pql/params.md)
 * [简单输出 ECHO](/pql/echo.md)
 * [用户变量 $](/pql/variable.md)
-* [全局变量 @](/pql/global.md)
+* [全局变量 @](/pql/global-variable.md)
 * [Sharp表达式](/pql/sharp.md)
 * [嵌入式查询表达式](/pql/query.md)
 * [将缓冲区的数据保存到数据库 PUT](/pql/put.md)

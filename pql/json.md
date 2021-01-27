@@ -62,7 +62,7 @@ OUTPUT # {
 };
 ```
 
-上例中嵌入了[用户变量](/pql/variable.md)、[全局变量](/pql/global.md)、[Sharp表达式](/pql/sharp.md)和[查询表达式](/pql/query.md)。如果变量或表达式的计算结果为字符串或日期时间，会自动加 **双引号`"`**。
+上例中嵌入了[用户变量](/pql/variable.md)、[全局变量](/pql/global-variable.md)、[Sharp表达式](/pql/sharp.md)和[查询表达式](/pql/query.md)。如果变量或表达式的计算结果为字符串或日期时间，会自动加 **双引号`"`**。
 
 
 ## Json数据的编辑

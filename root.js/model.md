@@ -9,8 +9,8 @@ Model 相关标签的执行都在客户端，即页面呈现给用户之后再�
 ## 引用
 
 ```html
-<script type="text/javascript" src="/root/root.js"></script>
-<script type="text/javascript" src="/root/root.model.js"></script>
+<script type="text/javascript" src="@/root.js"></script>
+<script type="text/javascript" src="@/root.model.js"></script>
 ```
 
 ## MODEL 标签

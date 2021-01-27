@@ -69,4 +69,4 @@ END LOOP;
 * [大数据量下的分页查询 PAGE](/pql/page.md)
 * [大数据量下的分块查询和更新 BLOCK](/pql/block.md)
 * [大数据量下的批量更新 BATCH](/pql/batch.md)
-* [全局变量 @](/pql/global.md)
+* [全局变量 @](/pql/global-variable.md)

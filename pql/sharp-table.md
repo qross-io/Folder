@@ -1,7 +1,8 @@
 # Sharp表达式 - 数据表操作
-数据表是一种比较特殊的集合类型，概念上是一个二维表格。数据表与关系型数据库的数据表概念一致，也包含列、字段、行等。数据表的某一行的数据类型是“数据行”，数据表某一列的数据列表是“数组”，数据表某一个单元格的数据类型按照数据表对应列的数据类型确定。注意：下面涉及Json对象中的字符串一定要用双引号。
+数据表是一种比较特殊的集合类型，概念上是一个二维表格。数据表与关系型数据库的数据表概念一致，也包含列、字段、行等。数据表的某一行的数据类型是“数据行”，数据表某一列的数据列表是“数组”，数据表某一个单元格的数据类型按照数据表对应列的数据类型确定。注意：下面涉及 Json 对象中的字符串一定要用双引号。
 
 ### 获取数据表的行、列及单元格
+
 * **`FIRST ROW`** 返回表格的第一行，表格为空时抛出异常。
 * **`FIRST ROW row`** 返回表格的第一行，如果表格为空则返回数据行`row`，`row`用Json对象表示。
   ```sql
@@ -73,24 +74,22 @@
   ```
 
 ### 其他Link
+
 * **`COUNT`** 获取数据表的行数，返回一个整数。
 * **`FIELDS`** 获得数据表的所有字段名的数组。
 * **`LABELS`** 获得数据表中所有字段名标签的数组。
 * **`HEADERS`** 获得数据表中的所有字段和标签对应表，返回数据行。
-（以上3个Link的详细说明待补全）
-
-数据表还有未实现的Link如`UPDATE`、`WHERE`、`DELETE`、`ORDER`等将在未来版本中支持。
 
 ---
 参考链接
 
 * [集合类型的元素访问](/pql/collection.md)
-* [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)
-* [Sharp表达式操作 - 文本和字符串 TEXT](/pql/sharp-text.md)
-* [Sharp表达式操作 - 日期时间 DATETIME](/pql/sharp-datetime.md)
-* [Sharp表达式操作 - 数字 INTEGER/DECIMAL](/pql/sharp-numeric.md)
-* [Sharp表达式操作 - 正则表达式 REGEX](/pql/sharp-regex.md)
-* [Sharp表达式操作 - 数组 ARRAY](/pql/sharp-array.md)
-* [Sharp表达式操作 - 数据行 ROW](/pql/sharp-row.md)
-* [Sharp表达式操作 - 数据判断](/pql/sharp-if.md)
-* [Sharp表达式操作 - Json字符串](/pql/sharp-json.md)
+* [更优雅的数据操作方法 Sharp 表达式](/pql/sharp.md)
+* [Sharp 表达式操作 - 文本和字符串 TEXT](/pql/sharp-text.md)
+* [Sharp 表达式操作 - 日期时间 DATETIME](/pql/sharp-datetime.md)
+* [Sharp 表达式操作 - 数字 INTEGER/DECIMAL](/pql/sharp-numeric.md)
+* [Sharp 表达式操作 - 正则表达式 REGEX](/pql/sharp-regex.md)
+* [Sharp 表达式操作 - 数组 ARRAY](/pql/sharp-array.md)
+* [Sharp 表达式操作 - 数据行 ROW](/pql/sharp-row.md)
+* [Sharp 表达式操作 - 数据判断](/pql/sharp-if.md)
+* [Sharp 表达式操作 - Json字符串](/pql/sharp-json.md)

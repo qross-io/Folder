@@ -25,7 +25,9 @@ SET $n := $d POW 3; -- 3次方
 ```
 
 ### 变量作用域
+
 变量有自己的作用域和生命周期。如下示例：
+
 ```sql
 SET $d := 2;
 FOR $i IN 1 TO 10 LOOP
@@ -41,7 +43,7 @@ END LOOP;
 ```
 上面例子中：变量`$d`的作用域为整个PQL过程; 变量`$i`和变量`$x`的作用域在`FOR`循环中; 变量`$y`的作用域仅在`IF`语句块内，更确切点是在`THEN`和`ELSE`之间; 变量`$z`的作用域在`ELSE`和`END IF`中间。同样的，函数参数和在函数体内声明的变量作用域也仅在函数内。  
 
-用户变量的作用域最大范围是整个PQL过程，如果想使用跨脚本的变量，请参照[全局变量](/pql/global.md)。
+用户变量的作用域最大范围是整个PQL过程，如果想使用跨脚本的变量，请参照[全局变量](/pql/global-variable.md)。
 
 ### 变量的状态
 PQL使用几个关键词来表示变量的状态，可用于条件判断，使用时不区分大小写。
@@ -89,7 +91,7 @@ GET # SELECT * FROM $table! WHERE score>=60;
 * [数据类型](/pql/datatype.md)
 * [变量声明 SET](/pql/set.md)
 * [变量声明 VAR](/pql/var.md)
-* [全局变量 @](/pql/global.md)
+* [全局变量 @](/pql/global-variable.md)
 * [富字符串](/pql/rich.md)
 * [条件表达式](/pql/condition.md)
 * [条件控制 IF](/pql/if.md)
