@@ -2,6 +2,18 @@
 
 **root.js** 库一般跟随 [Qross Master](/master/overview.md) 项目的功能进行更新。相关文档会慢慢补全。
 
+## v1.2.0 （开发中）
+
+* [**SPAN** 标签](/root.js/model.md) 现在支持数据加载功能。
+* [**Button** 组件](/root.js/button.md) 现在与其他表单元素联动。
+* [**Input** 组件](/root.js/input.md) 加入，扩展了原生 INPUT 标签的功能
+* [**Select** 选择器](/root.js/select.md) 加入，扩展了原生的 SELECT 标签。
+* `root.css` 现在只包含通用性样式和常用标签样式，不常用标签样式转移到自己的样式文件中，如`root.treeview.css`。
+* [事件表达式](/root.js/event.md)加入，目的是尽可能的不写 Javascript 代码。
+* 选择器逻辑更明确，现在使用`@`符号选择扩展标签。
+    + `$s`选择器现在可以选择扩展标签，仅可使用`name`属性进行选择，如`$s('@Button1')`。
+    + `$a`选择器现在可以选择扩展标签，仅可使用`name`属性进行选择，如`$a('@Input1,@Input2,@Input3')`。
+
 ## v1.1.0
 
 * **root.js 项目** 从 Master 项目中分离，独立成项目。
@@ -20,7 +32,6 @@
         ```
     * `model.js` 所有`path`属性移除。
 * [自定义标签属性`data`](/root.js/data.md)现在支持直接写 PQL 语句。
-* 新增 [Select 选择器](/root.js/select.md)，扩展了原生的 SELECT 标签。
 * [**BackTop**](/root.js/backtop.md) 增加自定义元素功能和事件，文档已补全。
 * **TreeView** 显示引导线`lines`逻辑调试通过，移除`$path`属性。
 * **Button** 多个无用属性移除，`setText`方法修改为属性。

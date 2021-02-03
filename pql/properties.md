@@ -1,6 +1,6 @@
 # 数据源配置
 
-PQL主要用于数据查询和计算，所以在使用之前，需要先配置数据源。PQL 至少有一个基础配置和其他扩展配置。PQL 的数据源配置可以保存在配置文件中、Nacos 配置中心或从 URL 接口中获取。如果使用了 Qross 系统，管理员还可以在“系统设置”中设置哪里有数据连接或直接配置数据连接。系统支持`3`种格式的配置，分别是 Properties、Yaml 和 Json。
+因为 PQL 主要用于数据查询和计算，所以在使用之前，需要先配置数据源。PQL 至少有一个基础配置和其他扩展配置。PQL 的数据源配置可以保存在配置文件中、Nacos 配置中心或从 URL 接口中获取。如果使用了 Qross 系统，管理员还可以在“系统设置”中设置“数据源配置”或直接配置“数据连接”。系统支持`3`种格式的配置，分别是 **Properties**、**Yaml** 和 **Json**。
 
 数据连接配置的应用范围是整个 Qross 系统所有应用。
 
@@ -73,7 +73,7 @@ jdbc.default=jdbc:mysql://localhost:3306/qross?user=root&password=diablo&useUnic
  
 另外一个保留名称是`mysql.qross`，如果你的项目用到了 Qross 系统，那么必须配置这个连接。在 OPEN 语句中这样使用：`OPEN QROSS;`。  
 
-Redis也可以使用类似的方式进行配置。**还需要在项目中引入依赖`jedis 3.0`或以上版本**
+Redis 也可以使用类似的方式进行配置。**还需要在项目中引入依赖`jedis 3.0`或以上版本**
 
 ```properties
 redis.qross.host=localhost
@@ -82,7 +82,7 @@ redis.qross.password=
 redis.qross.database=0
 ```
 
-在打开Redis时这样写：
+在打开 Redis 时这样写：
 
 ```sql
 OPEN REDIS qross;
@@ -122,7 +122,7 @@ mysql:
 }
 ```
 
-上例可产生3个数据连接项，分别为`mysql.qross`、`mysql.test`、`oracle.test`。
+上例可产生 **3** 个数据连接项，分别为`mysql.qross`、`mysql.test`、`oracle.test`。
 
 ## 使用 MyBatis 的连接配置
 
@@ -132,7 +132,7 @@ mysql:
 
 如果使了 Qross 系统，则可以在“设置”中管理“数据连接文件”和“数据源连接信息”。系统用户在使用 Qross 系统时，也可以自己添加个人个人数据源连接，这些个人连接会保存在 Qross 数据库中。
 
-## 小结
+## 更多信息
 
 Qross 提供了多种获取数据连接的方式，可根据需要将数据连接保存在需要的地方。另外，也可以 PQL 运行时加载配置文件，详见 [LOAD 语句](/pql/load.md)。还可以在 PQL 运行时直接通过连接串和驱动打开数据源，详见 [OPEN 语句](/pql/open.md)。系统用到的其他配置相应的模块会介绍，完整信息见[全局设置](/pql/setup.md)。
 

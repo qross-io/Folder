@@ -27,9 +27,10 @@
     ```
 10. [数据源配置](/pql/properties.md)现在不仅只支持`properties`文件，也支持从 Yaml 文件、Nacos 配置中心或从其他服务的 URL 接口获取。
 11. [Sharp 表达式](/pql/sharp-table.md)新增`WHERE`和`DELETE`用于表格数据过滤或删除。
-12. [Marker 应用](/pql/marker.md)现在支持文字样式，如`/green,16:绿色标准字体/`。
-13. `%`现在也是特殊字符，如遇到字符冲突时使用用`~u0025`代替，一般情况下不需要使用。
-14. [Worker 执行器](/pql/worker.md)现在支持将参数写在`--file`参数指定的文件名后面。
+12. [Marker 应用](/voyager/markdown.md)现在支持文字样式，如`/green,16:绿色标准字体/`。
+13. [Marker 应用](/voyager/markdown.md)现在支持行间隔设置，如`-- 20 --`表示在上下两行之间设置一个`20`像素的间隔。
+14. `%`现在也是特殊字符，如遇到字符冲突时使用用`~u0025`代替，一般情况下不需要使用。
+15. [Worker 执行器](/pql/worker.md)现在支持将参数写在`--file`参数指定的文件名后面。
 
 ## v0.6.5
 

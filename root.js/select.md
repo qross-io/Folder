@@ -14,13 +14,14 @@ Select 组件的依赖库和组件列表如下：
 <script type="text/javascript" src="/root.js"></script>
 <script type="text/javascript" src="/root.model.js"></script>
 <script type="text/javascript" src="/root.select.js"></script>
-<link href="/root.select.css" type="text/css" />
+<link href="/root.select.css" rel="stylesheet" type="text/css" />
 ```
 
 ## 示例
 
+<script type="text/javascript" src="@/root.model.js"></script>
 <script type="text/javascript" src="@/root.select.js"></script>
-<link href="@/root.select.css" type="text/css" />
+<link href="@/root.select.css" rel="stylesheet" type="text/css" />
 
 ### 默认下拉框
 

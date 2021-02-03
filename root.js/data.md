@@ -1,11 +1,12 @@
 # 标签自定义属性 data
 
-**data** 属性是 root.js 组件库对标签属性的扩展，一般用于自定义或扩展标签中，用于异步地从数据源加载数据。data 属性是与数据相关的组件的应用基础，可以说是数据组件最关键的属性。还有另外两个属性具有与 data 属性相同的功能或处理逻辑，一个是 FOR 标签的 **in** 属性，另一个是特定标签的交互属性 **action**，属按钮等。
+**data** 属性是 root.js 组件库对标签属性的扩展，一般用于自定义或扩展标签中，用于异步地从数据源加载数据。data 属性是与数据相关的组件的应用基础，可以说是数据组件最关键的属性。还有另外两个属性具有与 data 属性相同的功能或处理逻辑，一个是 FOR 标签的 **in** 属性，另一个是特定标签的交互属性 **action**，在按钮、可编辑标签中会出现。
 
 ```html
 <table data="select * from students">...</table>
 <select data="/api/options"></select>
-<span id="name" editable="yes" action="put:/api/student/name?id=&(id)&name="></span>
+<span editable="yes" action="put:/api/student/name?id=&(id)&name="></span>
+<button id="Btn1" action="insert into table1 (name, age) values ('$(@name)', $(#age))">
 ```
 
 `data`属性支持多种数据类型，比较典型的是接口和 PQL，也可以是静态数据。
@@ -20,7 +21,7 @@
 
 示例
 ```html
-<template data="post:https://www.domain.com/api/students -> data">...</template>
+<template data="post:https://www.domain.com/api/students -> /data">...</template>
 <for in="https://www.domain.com/api/scores?grade=7">...</for>
 ```
 
@@ -35,6 +36,7 @@ FOR 标签的`in`属性也是和 data 属性一样的逻辑。
 ```html
 <model name="studens" data="select * from students">
 <table datatable="yes" data="open mysql.school; select * from students">
+<span data="select title from articles where id=7725 -> first cell">文章标题：@:[title]</span>
 ```
 
 这里的 PQL 语句 也由 [Express 字符串](/root.js/express.md)解析，可嵌入地址参数或 DOM 操作符。

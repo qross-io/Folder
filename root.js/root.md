@@ -13,17 +13,24 @@ $x('div').objects.forEach(div => ...);
 
 还有其他可用的选择器：
 
-* `$s(o)` 获取符合条件的第一个标签或元素，如`$s('a')`返回页面上的第一个链接。其中`s`表示`single`，这个方法也只可选择原生标签。
-* `$a(...o)` 获取符合条件的全部标签或元素，支持输入多个参数，如`$a('p', 'div')`返回页面上所有 P 标签和 DIV 标签。其中`a`表示`all`，这个方法只能选择原生标签。
-* `$t(o)` 选择单个自定义标签，传入标签`name`，如 TREEVIEW、CALENDAR等。其中`t`表示`tag`，这个方法只能选择自定义标签。另外每个组件中也提供了选择器方法，如`$tree(name)`。
-* `$c(...o)` 获取符合条件的全部自定义标签，支持输入多个参数，如`$t('calendar,clock')`返回页面上所有 CALENDAR 标签和 CLOCK 标签。其中`c`表示`components`，这个方法只能选择自定义标签。
-
+* `$s(o)` 获取符合条件的第一个标签或元素，如`$s('a')`返回页面上的第一个链接。其中`s`表示`single`，这个方法可选择原生标签和自定义标签，且自定义标签会被优先选择。
+* `$a(...o)` 获取符合条件的全部标签或元素，支持输入多个参数，如`$a('p', 'div')`返回页面上所有 P 标签和 DIV 标签。其中`a`表示`all`，这个方法可选择原生标签和自定义标签。
+* `$t(o)` 选择单个自定义标签，只能传入标签`name`，如 TREEVIEW、CALENDAR 等。其中`t`表示`tag`，这个方法只能选择自定义标签。另外每个组件中也提供了选择器方法，如`$tree(name)`。
+* `$c(...o)` 获取符合条件的全部自定义标签，支持输入多个参数，如`$c('calendar,clock')`返回页面上所有 CALENDAR 标签和 CLOCK 标签。其中`c`表示`components`，这个方法只能选择自定义标签。
 
 这两个选择器与`$x`选择器不同是，`$x`返回一个可继续操作元素的对象，可以使用系统的很多方法继续进行元素操作；而`$s`和`$a`选择器返回元素本身，需要使用元素本身的方法继续操作元素。
 
 ```javascript
 $x('#Title').html('HELLO WORLD!');
 $s('#Title').innerHTML = 'HELLO WORLD!';
+```
+
+自定义标签只能按照`name`属性进行选择，且名字前面必须加符号`@`，区别于原生标签的`#`号。
+
+```javascript
+$s('@tag')...
+$a('@tag1,@tag2')...
+$t('@tag') //与 $s('@tag') 效果相同
 ```
 
 上例两条语句实现的功能相同。
@@ -237,10 +244,10 @@ Json 构造函数和方法有：
 * `toFloat(defaultValue = 0)`  将字符串转化为小数，比`parseFloat`方法更智能
 * `toBoolean(defaultValue = false)` 将字符串转化为布尔值，会把`yes`, `1`, `true`, `ok`, `on`识别为`true`，会把`no`, `0`, `false`, `cancel`, `off`识别为`false`
 * `toArray(delimiter = ',')` 将字符串转化转化数组，类似于`split`方法，也可以把`'[1,2,3,4]'`解析成数组
-* `toMap(delimiter = '&', separator = '=')` 将字会串转化为 Object 结构，比较常用的是地址参数
-* `toJson()` 将字符串转成Json对象
+* `toMap(delimiter = '&', separator = '=')` 将字符串转化为 Object 结构，比较常用的是地址参数，也可转换 Json 格式的字符串
+* `toJson()` 将字符串转成 Json 对象
 * `toCamel()` 将分隔符形式的字符串转驼峰格式，如`'mine-type'.toCamel()`结果是`mineType`
-* `toPascal()` 将分隔符形式的字符串转 Pascal 格式，如`'mine-type'.toCamel()`结果是`MineType`
+* `toPascal()` 将分隔符形式的字符串转 Pascal 格式，如`'mine-type'.toPascal()`结果是`MineType`
 * `toHyphen()` 将驼峰格式的字符串转分隔符格式，如`'mineType'.toHyphen()`结果是`mine-type`
 
 一些字符串判断方法：
@@ -447,14 +454,17 @@ $t('#Tag1').onclick = function(p) {
 ```
 
 
-## 自动执行的功能
+## 自定义属性或自动执行的功能
 
 除上面介绍的所有开发者可用的方法外，还有一些自动执行的功能。
 
-* 含有`enter`属性的 INPUT 标签会自动添加回车事件，当用户按下回车时，如果文本框的值改变，得自动跳转到`enter`属性指定的地址。
+* 使用`hidden`属性隐藏页面上的元素。
+
     ```html
-    <input type="search" enter="/search?key=$:[value]">
+    <div hidden>...</div>
     ```
+
+    页面加载时会自动隐藏这个 DIV 标签，其实就是`style="display: none"`的简写形式。
 
 * 自动解析标签的特定属性值，如果这些属性值里包含 [Express 字符串]的占位符，将自动替换成对应的值。这些属性包括：
     + `-html` 任意标签
@@ -471,10 +481,23 @@ $t('#Tag1').onclick = function(p) {
     
     这几个以中线开头的属性会在页面加载时替换成解析后的值。
 
+* 如果上面几个特定的属性不够用，还可使用`p`属性。在元素标签上使用`p`属性指定要解析的属性名称，在页面加载时会自动将`p`属性指定的值进行解析。
+
+    ```html
+    <input p="size" size="&(size)" />
+    ```
+
+    上例可以根据地址参数`size`控制 INPUT 的宽度。
+
 * 自动调整页面布局 DIV 的高度以填满整个浏览器，需要在 BODY 标签中设置`self-adaption`属性。
     
     ```html
     <body self-adaption="#CatalogDiv,#WorkFrame">
+    ```
+
+* 含有`enter`属性的 INPUT 标签会自动添加回车事件，当用户按下回车时，如果文本框的值改变，得自动跳转到`enter`属性指定的地址。
+    ```html
+    <input type="search" enter="/search?key=$:[value]">
     ```
 
 * 锁定 DIV 和 TABLE，一般用于导航和表格表头固定，需要在 DIV 或 TABLE 上添加`fixed`属性。
@@ -488,7 +511,6 @@ $t('#Tag1').onclick = function(p) {
     ```html
     <body ifram="#WorkFrame">
     ```
-
 
 ---
 参考链接

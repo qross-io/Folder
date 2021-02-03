@@ -39,7 +39,7 @@ Express 字符串应用范围比较多，
 DOM 占位符标准格式为`$(selector)+-><n[attr]?(defaultValue)`，各个符号的含义分别说明如下：
 
 * `$` 必须使用
-* `(selector)` CSS标准选择器，圆括号不能省略，选择第一个满足条件的元素，功能同`document.querySelector`
+* `(selector)` 选择器，圆括号不能省略，选择第一个满足条件的元素，可以选择扩展元素，功能同`$s`
 * `$:` 表示当前元素或对象
 * `+`或字母`n` 导航符号，代表导航到下一个兄弟节点
 * `-`或字母`p` 导航符号，代表导航到上一个兄弟节点
@@ -53,7 +53,7 @@ DOM 占位符标准格式为`$(selector)+-><n[attr]?(defaultValue)`，各个符�
 
 可以多个不同或相同的导航符号进行组合，以定位到需要的元素。几个示例：
 
-* 调取 id 为`keyword`的文本框加值 `$(#keyword)`
+* 调取 name 为`keyword`的[扩展文本框](/root.js/input.md)加值 `$(@keyword)`
 * 调取 id 为`title`的节点的下一个元素的 textContent `$(#title)+`
 * 调取 id 为`link`的节点的`target`属性的值  `$(#link)[target]`
 * 调取当前元素的`sign`属性 `$:[sign]`

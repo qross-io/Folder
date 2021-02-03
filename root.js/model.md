@@ -15,7 +15,7 @@ Model 相关标签的执行都在客户端，即页面呈现给用户之后再�
 
 ## MODEL 标签
 
-MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展示在页面相应的元素中。
+MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展示在页面相应的元素中。MODEL 标签主要用于一次加载在多个地方显示数据的场景，支持自动刷新。
 
 ```html
 <model name="name" data="url|array|object|pql" auto-refresh="yes|no" terminal="boolean expression" interval="integer">
@@ -137,18 +137,18 @@ MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展�
 
 MODEL 标签可用的事件如下：
 
-* `onload` 加载完成后触发，仅执行一次
+* `onload` 第一次加载完成后触发，仅执行一次
 * `onrefresh` 每次刷新完成后触发，第一次加载不算刷新
 
 调用示例：
 
 ```javascript
-$listen('name').on('load', function(data) {
-    //.....
+$listen('name').on('load,refresh', function(data) {
+    //每次加载都执行
 });
 
 $model('name').on('refresh', function(data) {
-    //.....
+    //仅刷新后执行
 });
 ```
 
@@ -162,7 +162,7 @@ $model('name').on('refresh', function(data) {
 
 ## O 标签
 
-MODEL 标签可以一次查询然后将数据显示在不同的标签（元素）的属性中，经常我们查询只使用一次，所以框架提供了 **O 标签**用于实现一次性数据查询需求。
+MODEL 标签可以一次查询然后将数据显示在不同的标签（元素）的属性中，经常我们查询只使用一次，所以框架提供了 **O 标签**用于实现一次性数据查询需求。O 标签在 **加载完成后自动移除**，只保留加载的文本数据。
 
 ```html
 <o>SELECT title FROM table WHERE id=#{id} -> FIRST CELL</o>
@@ -178,25 +178,43 @@ MODEL 标签可以一次查询然后将数据显示在不同的标签（元素�
 
 ```html
 <o>/api/page/title?id=#{id} -> /data</o>
+<o>SELECT title FROM table1 WHERE id=$id -> FIRST CELL</o>
 ```
+
+## SPAN 标签扩展
+
+O 标签不是原生标签，不是样式控制及更多功能，为了实现更灵活的数据定制功能，组件库扩展了 SPAN 标签，也可用于输出数据。
+
+```html
+<span onload="event" onreload="event" reload-on="click:#Button1" data="SELECT title, views FROM table1 WHERE id=$id -> FIRST ROW">文章“@:title”的阅读数是 @:views!!</span>
+```
+
+* `onload` 第一次数据加载完成后触发的事件。
+* `onreload` 重新加载数据后触发的事件。
+* `reload-on` 指定重新加载数据的条件，规则详情[事件表达式](/root.js/event.md)。
+
+SPAN 标签的事件只能写在标签上，SPAN 扩展标签不提供扩展标签的选择器。SPAN 标签可以使用其他原生属性来做其他操作，比如控制样式。
+
+SPAN 标签的占位符语法规则为 `@:keyOrPath?(defaultValue)`
+
+上例中，`data`属性返回一个有两个字段的对象，如可以是`{ "title": "低代码平台简单介绍", "views": 209 }`。`@:title`可以获取`低代码平台简单介绍`，`@:views`可以获取到`209`，最后 SPAN 标题中展示`文章“低代码平台简单介绍”的阅读数是 209!`。`@:views`后面有两个叹号，前一叹号表示占位符结尾，防止字符冲突。可使用`@:/`获取 data 属性的所有数据。
 
 ## FOR 标签
 
 FOR 标签提供了在 HTML 页面中循环显示 HTML 代码的能力，一般放在 BODY 中需要的位置。注意：**FOR 标签只执行一次，呈现内容后会删除自己**。
 
 ```html
-<for name="name" var="var" in="pql|url|array|object|m to n" container="selector">
+<for var="var" in="pql|url|array|object|m to n" container="selector" onload="event">
     ...html code
 </for>
 ```
 
 各个属性分别说明如下：
 
-* `name` 可选，除非要使用`onload`事件，否则不需要
 * `var`或`let`，功能类似于 MODEL 标签的`name`，可以在调取`in`中的数据时使用，在嵌套循环中强烈建议使用，否则可能会发生数据混乱，其他情况下可忽略。在遍历对象时，可以同时声明两个变量名，如`let="k,v"`。如果只声明一个，则第二个使用默认保留字。 `key`和`value`是保留字，即可以通过`@key`来调取键数据，通过`@value`调取值数据。在遍历单值数组时，`item`是保留字，可以通过`@item`调取单值数据。使用叹号`!`结尾以防止字符冲突。
-* `in`类似于[`data`属性](/root.js/data.md)，但支持数字区间，如`0 to 9`。详见下面的说明。
+* `in`类似于 [data 属性](/root.js/data.md)，但支持数字区间，如`0 to 9`。详见下面的说明。在属性中如果遇到双引号冲突时，可以用`&quot;`代替
 * `container` 展示数据的容器，一般不需要设置。在特殊情况下，如要在 SELECT 标签中列表 OPTION，FOR 标签不会被浏览器识别，需要在 SELECT 标签之外设置 FOR。
-* 在属性中如果遇到双引号冲突时，可以用`&quot;`代替
+* `onload` 事件，加载完成后执行。事件只能写在标签之上。
 
 ## 使用 FOR 标签获取数据
 
@@ -338,28 +356,13 @@ SELECT 标签的 OPTION 标签和 TABLE 标签的 TR 标签不支持循环，即
 
 也可以使用 TEMPLATE 标签代替 FOR 标签。TABLE 标签现在可以使用 [DATATABLE 组件](/root.js/datatable.md)来遍历数据源的数据，[SELECT 标签](/root.js/select.md)现在也已支持 [data 属性](/root.js/data.md)。
 
-### FOR 标签事件
-
-FOR 标签只有一个事件 `onload` 只在加载完成后执行一次。下面还有一些相关说明。事件可以直接也在标签上。
-
-```javascript
-$listen('name').on('load', function() {
-    //...
-});
-```
-
-```html
-<for in="/api/test" onload="tell()">
-    ...
-</for>
-```
 
 ## IF 标签
 
 IF 标签用于逻辑判断，逻辑成立时才显示标签中的内容。注意：**IF 标签只执行一次，呈现内容后会删除自己**。
 
 ```html
-<if test="boolean expression">
+<if test="boolean expression" onload="event" onreturntrue="event" onreturnfalse="event">
     ...html code
 <elsif test="boolean expression">
     ...html code
@@ -368,10 +371,12 @@ IF 标签用于逻辑判断，逻辑成立时才显示标签中的内容。注�
 </if>
 ```
 
-* `name` 可选，除非要使用事件。
 * `test` 必须有，没有则默认结果为`false`。这本质是一个 Javascript 表达式，接受 MODEL、FOR、[地址参数和 DOM 占位符](/root.js/express.md)。
 * `elsif` 标签可以有多个，**注意拼写**。
 * `else` 标签只能有一个，如果设置了多个，则只有第一个生效。
+* `onload` 事件，加载完成后执行。这个事件只能写在标签上。
+* `onreturntrue` 所有 IF 或 ELSIF 条件有一条成功时触发。
+* `onreturnfalse` 所有 IF 或 ELSIF 条件都失败时触发。
 
 ```html
 <for in="select * from students">
@@ -414,31 +419,6 @@ SELECT 标签的 OPTION 标签和 TABLE 标签的 TR 标签不仅不支持 FOR �
 
 * FOR 和 IF 语句块的 HTML 代码中支持 FOR、地址参数和 DOM 占位符，不支持 MODEL 的占位符。
 * 如果非要向 FOR 和 IF 语句块中传递 MODEL 的值，可使用 FOR 标签的`in`属性向下传递。另一种方法是在 FOR 和 IF 的语句块中使用 MODEL 标签支持的扩展属性。
-
-### IF事件
-
-* `onload` 仅执行一次。
-* `onreturntrue` 所有 IF 或 ELSIF 条件有一条成功时触发。
-* `onreturnfalse` 所有 IF 或 ELSIF 条件都失败时触发。
-
-
-IF 标签事件可以直接也在标签上，也可以给 IF 标签命名然后使用`$listen`或`on`方法。
-
-```javascript
-$listen('name').on('load', function() {
-    //...
-});
-
-$if('name').on('returntrue', function() {
-    //...
-})
-```
-
-```html
-<if test="false" onreturnfalse="execute()">
-    ...
-</if>
-```
 
 
 ## TEMPLATE 标签
@@ -495,9 +475,9 @@ $tempalte('name').load(data, path).asArray().clear().append(func);
 
 ### TEMPLATE 事件
 
-* `onload` 每次加载完成时触发，包括增量加载。
-* `ondone` 增量加载完成之后触发。
-* `onlazyload` 增量加载完成时触发，不包括第一次。
+* `onload` 第一次加载完成时触发。
+* `onlazyload` 每次增量加载完成时触发，不包括第一次。
+* `ondone` 增量加载所有数据完成之后触发。
 
 ```javascript
 $listen('name').on('load', function(data) {
@@ -611,7 +591,7 @@ $finish(function() {
 特别注意：
 
 * 在所有模板标签加载完成之后触发！
-* 各标签的加载顺序：MODEL -> TEMPLATE -> FOR 或 IF -> O -> $finish()
+* 各标签的加载顺序：MODEL -> TEMPLATE -> FOR 或 IF -> $finish() -> O -> SPAN
 * 所有 MODEL 标签并行加载，所有 MODEL 加载完成之后，FOR 和 IF 按标签在文档出现中的位置顺序加载，谁在前谁先加载。
 
 ## 对嵌入数据进行再加工
