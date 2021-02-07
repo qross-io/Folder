@@ -130,7 +130,7 @@ mysql:
 
 ## 在 Qross 系统库中保存连接配置
 
-如果使了 Qross 系统，则可以在“设置”中管理“数据连接文件”和“数据源连接信息”。系统用户在使用 Qross 系统时，也可以自己添加个人个人数据源连接，这些个人连接会保存在 Qross 数据库中。
+如果使了 Qross 系统，则可以在“系统”中管理“[数据源配置](/master/system/properties.md)”和“[数据源连接](/master/system/connections.md)”。系统用户在使用 Qross 系统时，也可以自己添加个人个人数据源连接，这些个人连接会保存在 Qross 数据库中。
 
 ## 更多信息
 
@@ -139,6 +139,8 @@ Qross 提供了多种获取数据连接的方式，可根据需要将数据连�
 ---
 参考链接
 
+* [在 Qross 系统中管理数据源配置](/master/system/properties.md)
+* [在 Qross 系统中管理数据源连接](/master/system/connections.md)
 * [PQL 全局设置](/pql/setup.md)
 * [手动加载配置文件 LOAD](/pql/load.md)
 * [打开和切换数据源 OPEN](/pql/open.md)

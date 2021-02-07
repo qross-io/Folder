@@ -12,7 +12,7 @@
 <div><%=SELECT * FROM scores WHERE id=#{id} -> TO HTML TABLE %></div>
 ```
 
-另一种方法是通过PQL变量，Voyager会把所有的地址参数转成变量，例如上面地址会生成`3`个变量：
+另一种方法是通过 PQL 变量，Voyager 会把所有的地址参数转成变量，例如上面地址会生成`3`个变量：
 
 ```html
 <div>姓名：<%=$name%></div>

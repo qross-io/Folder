@@ -4,11 +4,12 @@
 
 ## 引入PQL依赖
 
-在使用前需要引用相关PQL依赖并进行相关的数据源设置，请参照[使用PQL](/pql/use-pql.md)
+在使用前需要引用相关 PQL 依赖并进行相关的数据源设置，请参照[使用 PQL](/pql/use-pql.md)
 
 ## 添加`@Bean`
 
 以 Master 项目为例，代码如下：
+
 ```java
 @SpringBootApplication
 public class MasterApplication {
@@ -23,7 +24,7 @@ public class MasterApplication {
 }
 ```
 
-上面是Master项目的入口类，在`main`方法下面的`initVoyagerResolver`方法，即Voyager模板引擎的相关代码。
+上面是 Master 项目的入口类，在`main`方法下面的`initVoyagerResolver`方法，即Voyager模板引擎的相关代码。
 
 ## Hello World
 

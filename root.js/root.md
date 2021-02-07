@@ -4,7 +4,7 @@
 
 ## 选择器和 DOM 操作
 
-最常用的选择器 `$x(...o)`，参数支持CSS选择器字符串、元素对象或元素集合，一般为CSS选择器字符串，返回一个可继续操作的对象`$root`。该方法支持传入多个参数，类似 jQuery 的选择器`$()`。`$x`是 DOM 操作的起点，后续的很多方法都需要先选择元素。
+最常用的选择器 `$x(...o)`，参数支持 CSS 选择器字符串、元素对象或元素集合，一般为 CSS 选择器字符串，返回一个可继续操作的对象`$root`。该方法支持传入多个参数，类似 jQuery 的选择器`$()`。`$x`是 DOM 操作的起点，后续的很多方法都需要先选择元素。`$x`选择器只支持原生标签，不支持 root.js 组件库的自定义标签。
 
 ```javascript
 $x('#Title').html('HELLO WORLD!');
@@ -28,9 +28,9 @@ $s('#Title').innerHTML = 'HELLO WORLD!';
 自定义标签只能按照`name`属性进行选择，且名字前面必须加符号`@`，区别于原生标签的`#`号。
 
 ```javascript
-$s('@tag')...
-$a('@tag1,@tag2')...
-$t('@tag') //与 $s('@tag') 效果相同
+$s('#tag')...
+$a('#tag1,#tag2')...
+$t('#tag') //与 $s('#tag') 效果相同
 ```
 
 上例两条语句实现的功能相同。
@@ -322,9 +322,65 @@ Json 构造函数和方法有：
 
 ## 与组件编程相关内容
 
-root.js 还包含其他与组件相关的操作，以方便开发组件。
+root.js 还包含与组件编程相关的操作，以方便开发组件。
 
-### 组件初始化
+### 扩展原生标签
+
+root.js 提供了扩展原生标签的方法。
+
+```javascript
+$enhance(HTMLButtonElement.prototype)
+    .declare({
+        enabledClass: 'normal-button blue-button',
+        disabledClass: 'normal-button optional-button',
+        actionText: '',
+        action: '' //要执行的 PQL 语句或要请求的接口
+    })
+    .geeter({
+        'actionText': function(value) {
+            return value.toLowerCase();
+        }
+    })
+    .setter({
+        'actionText': function(value) {
+            return value.toUpperCase();
+        }
+    })    
+    .describe({
+        onActionSuccess: null, // function(result) { },
+        onActionFail: null //function(result) { },
+    })
+    .define({
+        'text': {
+            get () {            
+                return this.innerHTML;
+            },
+            set (text) {
+                this.innerHTML = text;
+            }
+        }
+    });
+```
+
+以上代码中扩展了 Button 原生标签，各方法分别说明如下：
+
+* `$enhance()` 传递要扩展的标签原型对象，也可传递其他对象，这里只能是对象。
+* `declare()` 添加可在标签上定义的扩展属性，不能是原生属性。
+* `getter()` 为在`declare`方法中定义的属性添加 AOP 逻辑，当获取扩展属性时对属性值进行加工。上例中获取`actionText`时总是转变为小写。
+* `setter()` 为在`declare`方法中定义的属性添加 AOP 逻辑，当设置扩展属性时对属性值进行加工。上例中设置`actionText`时总是转变为大写。
+* `describe()` 添加即可在标签上定义也在对象实例上定义的属性，一般为事件。这里设置的属性不能添加 AOP 逻辑。
+* `define()` 如果以上两个方法定义的属性还不能满足要求，比如覆盖原生属性，需要使用这个方法添加完整的逻辑。这个方法与`Object.defineProperties()`方法效果相同。
+
+还可以通过`prototype`定义更多原型属性，不过这样定义的属性不支持`getter`和`setter`。扩展方法也可以在原型对象上定义，如下例：
+
+```javascript
+HTMLButtonElement.prototype.relatived = 0;
+HTMLButtonElement.prototype.initailize = function() {
+    //...
+};
+```
+
+### 自定义组件初始化
 
 root.js 提供了快速定义类属性的方法，这对复杂类非常好用，可简化属性定义的工作，减少大量的判断。
 

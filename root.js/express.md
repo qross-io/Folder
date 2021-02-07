@@ -53,7 +53,7 @@ DOM 占位符标准格式为`$(selector)+-><n[attr]?(defaultValue)`，各个符�
 
 可以多个不同或相同的导航符号进行组合，以定位到需要的元素。几个示例：
 
-* 调取 name 为`keyword`的[扩展文本框](/root.js/input.md)加值 `$(@keyword)`
+* 调取 name 为`keyword`的[扩展文本框](/root.js/input.md)加值 `$(#keyword)`
 * 调取 id 为`title`的节点的下一个元素的 textContent `$(#title)+`
 * 调取 id 为`link`的节点的`target`属性的值  `$(#link)[target]`
 * 调取当前元素的`sign`属性 `$:[sign]`

@@ -328,6 +328,7 @@ $listen('DateTimePicker').on('confirm', function() {
     });
     ```
     二者的区别是`$listen`无需要考虑页面是否加载完成，而`$calendar`必须在标签解析之后才能调用。
+* 仍可以使用原生的选择器，但只支持按名选择，如`$s('#Calendar1')`、`$a('#Calendar1,#Calendar2')`。
 
 ### 属性
 

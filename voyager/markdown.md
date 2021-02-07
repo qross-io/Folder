@@ -1,10 +1,6 @@
 # Voyager 支持 Markdown 文件
 
-除了 Html 格式外，Voyager 还支持 Markdown 格式的文档，扩展名使用`.md`。
-
-在使用 Markdown 作为页面文件格式时，强烈建议使用[母版页](/voyager/master.md)，以更好的控制整个页面的布局。
-
-Voyager 使用 [Marker 类](/voyager/marker.md)将 Markdown 格式转成 HTML 格式，[Marker 类](/voyager/marker.md)也可以你自己的项目中使用。
+除了 Html 格式外，Voyager 还支持 Markdown 文档格式的文件，扩展名使用`.md`。在使用 Markdown 作为页面文件格式时，强烈建议使用[母版页](/voyager/master.md)，以更好的控制整个页面的布局。Voyager 使用 [Marker 类](/voyager/marker.md)将 Markdown 格式转成 HTML 格式，[Marker 类](/voyager/marker.md)也可以在自己的项目中使用。
 
 Marker 不仅可以对标准的 Markdown 文档格式进行转换，还提供了一些扩展，可以让 Markdown 提供更多的样式和功能。
 
@@ -48,6 +44,8 @@ Markdown 本身没有提供对文字颜色、大小和斜体等样式的控制�
 -| 20 |-
 -|30|-
 ```
+
+以`-|`开始并以`|-`结束，中间支持任意数字，单位是“像素”，空格可以有可以没有。
 
 ---
 参考链接

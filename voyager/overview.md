@@ -1,6 +1,6 @@
 # Voyager 概览
 
-**Voyager** 与其他模板引擎如 FreeMarker、Thymeleaf 一样，实现动态数据在页面端的呈现，但 Voyager 更简单和直接且功能更强大。Voyager 需要运行在 Spring Boot 环境下，适用于非前后端分离的项目（前后端分离的项目可使用[OneApi统一接口](/oneapi/overview.md)提供数据）。[**Master 数据管理平台**项目](http://m.qross.cn) 所有页面都使用 Voyager 开发。
+**Voyager** 与其他模板引擎如 FreeMarker、Thymeleaf 一样，实现动态数据在页面端的呈现，但 Voyager 更简单和直接且功能更强大。Voyager 需要运行在 Spring Boot 环境下，适用于非前后端分离的项目（前后端分离的项目可使用[OneApi统一接口](/oneapi/overview.md)提供数据）。[**Master 数据管理平台**](http://m.qross.cn) 项目所有页面都使用 Voyager 开发。
 
 Voyager 基于嵌入式 PQL 实现，下面是一个简单的遍历数据的例子：
 
