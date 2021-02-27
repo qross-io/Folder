@@ -32,6 +32,8 @@ PRINT @NOW; -- 打印当前时间，如 '2020-08-04 09:31:22'
 * `@COOKIES` 可以访问 Cookie，详见[OneApi Cookies](/oneapi/cookies.md)
 * `@SESSION` 可以访问 Session，详见[OneApi Session](/oneapi/session.md)
 * `@LANGUAGE` 获得当前用户的默认界面语句，适用于多语言环境
+* `@THEME` 获取一个随机主题颜色，是一个数据行，包含 3 个颜色字段`primary`、`lighter`和`darker`。
+* `@SPOTLIGHT` 系统内部使用。
 
 除了以上全局变量外，PQL 的全局设置的每一项都对应一个全局变量，如 `@QROSS_HOME`，`@KEEPER_HTTP_ADDRESS`等，详见 [PQL 全局设置](/pql/setup.md)。
 

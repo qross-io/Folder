@@ -3,7 +3,7 @@
 为了更方便的处理表单中的用户输入，组件库对 INPUT 标签进行了扩展。
 
 ```html
-<input type="text" name="Input1" required-text="" invalid-text="" valid-text="" validator="" minlength="0" class="" focus-class="" warn-class="" valid-class="" warn-text-class="" valid-text-class="" get="" set="" prevent-injection  />
+<input type="text" name="Input1" required-text="" invalid-text="" valid-text="" validator="" minlength="0" class="" focus-class="" warn-class="" valid-class="" warn-text-class="" valid-text-class="" get="" set="" prevent-injection update-value-on="" />
 ```
 
 * `type` 文本框的类型，现在只有`text`类型。
@@ -20,7 +20,8 @@
 * `valid-text-class` 输入正确时的提醒文字的样式，默认为绿色，需设置`valid-text`才显示。
 * `get` 在获取输入值时对值进行加工，返回加工后的值，下面有详细的解释。
 * `set` 在设置输入值时对值进行加工，设置输入值为加工后的值，下面有详细的解释。
-* `prevent-injection` 自动在获取值时将单引号`'`转成两个单引号`''`以防止 SQL 注入。需使用扩展选择器，例如`$s('@TextBox1`)`。
+* `prevent-injection` 自动在获取值时将单引号`'`转成两个单引号`''`以防止 SQL 注入。需使用扩展选择器，例如`$s('@TextBox1')`。
+* `update-{attr}-on` 指定文本框的值或其他属性的更新条件，其中`{attr}`可以替换成组件支持的属性，例如`update-value-on`，下面有详细的示例。属性值规则见[事件表达式](/root.js/event.md)。
 
 ## 示例
 
@@ -43,6 +44,18 @@
 <input type="text" required-text="这个字段不能为空。" invalid-text="只能输入英文字符，且最少输入3个。" valid-text="输入正确。" validator="^[a-zA-Z]+$" minlength="3" size="40" />
  ```
 
+## 其他组件触发更新
+
+通过标签的`update-{attr}-on`属性，可以设置一个[事件表达式](/root.js/event.md)，当表达式中的组件触发相应的事件时，更新文本框的值或其他属性。这个标签需要配合相应对应的值格式属性使用，如`value:`，注意属性名中多一个冒号`:`以和原有的属性`value`区分，`value:`属性设置见 [Express 字符串](/root.js/express.md)。
+
+```html
+<select id="Select1">...</select>
+<select id="Select2">...</select>
+<input type="text" update-value-on="change:Select1" value:="$(#Select1).~{ this.value.takeAfter('.') }" update-size-on="change:#Select2" size:="$(#Select2)" />
+```
+
+上例中，当选择框`Select1`改变选项时，文本框的`value`自动更新，`value:`属性值中的`this`指向当前文本框。当选择框`Select2`选项改变时，文本框的`size`属性自动更新。
+
 ## 用`get`和`set`属性对输入值进行拦截
 
 `get`和`set`实现拦截器的功能，当获取或设置`value`属性的值时，对值进行加工，并返回加工后的值。这两个属性的属性值是一个 Javascript 短句，因为输入值是一个字符串，所以一般是字符串操作方法，使用`value`表示当前文本框的值。
@@ -55,7 +68,7 @@
 
 ## INPUT 可用的选择器
 
-可使用原生选择器获取或设置文本框的值，例如`$s('#TextBox1').value`。一般情况下用不到选择器。
+可使用原生选择器获取或设置文本框的值，例如`$s('#TextBox1').value`。
 
 ## 其他扩展属性
 

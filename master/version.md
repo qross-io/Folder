@@ -1,7 +1,7 @@
 # 版本和更新
 
 
-## v1.2.0 (开发中)
+## v1.2.0 (2021.2.28)
 
 * [系统] 增加[数据源连接管理](/master/system/connections.md)功能。
 * [系统] 增加[数据源配置管理](/master/system/properties.md)功能。

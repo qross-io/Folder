@@ -20,7 +20,7 @@ Clock 依赖库或组件列表如下：
 <script type="text/javascript" src="@/root.animation.js"></script>
 <script type="text/javascript" src="@/root.datetime.js"></script>
 <script type="text/javascript" src="@/root.clock.js"></script>
-<link href="@/root.clock.css" rel="stylesheet" type="text/css" />
+<link href="@/css/root/clock.css" rel="stylesheet" type="text/css" />
 
 ### 文字时钟
 

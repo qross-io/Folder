@@ -3,7 +3,8 @@
 为了简化页面制作，进一步消除页面上的 Javascript 代码，组件库提供了 **事件表达式**。
 
 ```html
-<span data="..." reload-on="click:#Button1">
+<span data="..." reload-on="click:#Button1">...</span>
+<input update-value-on="change:#Select1,#Select2" value:="$(#Select1).$(#Select2)" />
 ```
 
 上例中，`reload-on`属性的值`click:#Button1`即为事件表达式，表示当按钮`#Button1`执行事件`click`时，即触发 SPAN 标签的`reload`操作。其中冒号`:`前面是事件名，冒号`:`后面是触发事件的元素标签，同选择器格式。翻译为 Javascript 为：

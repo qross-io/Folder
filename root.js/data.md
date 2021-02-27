@@ -9,7 +9,7 @@
 <button id="Btn1" action="insert into table1 (name, age) values ('$(@name)', $(#age))">
 ```
 
-`data`属性支持多种数据类型，比较典型的是接口和 PQL，也可以是静态数据。
+data 属性支持多种数据类型，比较典型的是接口和 PQL，也可以是静态数据。
 
 ## 数据接口
 

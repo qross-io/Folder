@@ -16,8 +16,9 @@
     + [Button 按钮扩展](/root.js/button.md)
     + [Calendar 多功能日历](/root.js/calendar.md)
     + [Clock 文件时钟](/root.js/clock.md)
-    + [Input 输入框扩展](root.js/input.md)
-    + [Select 选择器](/root.js/select.md)
+    + [Input 输入框扩展](/root.js/input.md)
+    + [Layout 布局](/root.js/layout.md)
+    + [Select 选择器组件](/root.js/select.md)
 
 * 附录
     + [颜色编码表](/root.js/colors.md)

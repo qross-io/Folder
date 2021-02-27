@@ -1,4 +1,5 @@
 # Sharp表达式 - 数据表操作
+
 数据表是一种比较特殊的集合类型，概念上是一个二维表格。数据表与关系型数据库的数据表概念一致，也包含列、字段、行等。数据表的某一行的数据类型是“数据行”，数据表某一列的数据列表是“数组”，数据表某一个单元格的数据类型按照数据表对应列的数据类型确定。注意：下面涉及 Json 对象中的字符串一定要用双引号。
 
 ### 获取数据表的行、列及单元格
@@ -51,7 +52,7 @@
   $table SELECT * -- 选择全部列，生成的数据表和原数据相同，无意义
   $table SELECT *, name AS title -- 选择全有的全部列，并将其中一列另存为新列。因为数据表中不能存在重名的列，所以新列必须用`AS`重新命名。
   ```
-* **`TO NESTED MAP 'column'`** 将数据表转化为一个嵌套的Map结构。如此非主流的操作来自于前端工程师的变态需求。数据表可以理解本身是一个数据行的数组，而数据行可以理解为是一个Map结构。现在前端工程师说数组不好处理，需要一个Map，Map每一项的值就是整个数据行。这个Link需要指定一列，前端工程师要的Map结构的Key就是这列的值（一般来说这列的每个值都是唯一的），然后数据表中每一行的其他值就构成了这个Map每一项的Value。
+* **`TO NESTED MAP 'column'`** 将数据表转化为一个嵌套的 Map 结构。如此非主流的操作来自于前端工程师的变态需求。数据表可以理解本身是一个数据行的数组，而数据行可以理解为是一个 Map 结构。现在前端工程师说数组不好处理，需要一个 Map，Map 每一项的值就是整个数据行。这个操作需要指定一列，前端工程师要的 Map 结构的 Key 就是这列的值（一般来说这列的每个值都是唯一的），然后数据表中每一行的其他值就构成了这个 Map 每一项的 Value。
   ```sql
   SELECT name, age, score FROM students -> TO NESTED MAP;
   ```
@@ -62,7 +63,7 @@
       "Jerry": { "age": 17， "score": 77},
   }
   ```
-* **`TO HTML TABLE`** 将数据表转化为HTML表格`<table>`字符串，用于Voyager邮件模板。
+* **`TO HTML TABLE`** 将数据表转化为HTML表格`<table>`字符串，一般用于 Voyager 邮件模板。
 * **`TURN column1 AND column2 TO ROW` 或 **`TURN (column1, column2) TO ROW`** 将数据表中的`column1`和`column2`两列数据转成数据行, 列`column1`的值做为数据行的字段名，列`column2`的值作为数据行对应字段的值。
   ```sql
   SELECT name, age FROM students -> TURN (name, age) TO ROW;
@@ -73,7 +74,7 @@
   SELECT item, COUNT(0) AS amount FROM table1 -> WHERE 'amount > 0';
   ```
 
-### 其他Link
+### 其他操作
 
 * **`COUNT`** 获取数据表的行数，返回一个整数。
 * **`FIELDS`** 获得数据表的所有字段名的数组。

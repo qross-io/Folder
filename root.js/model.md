@@ -1,5 +1,5 @@
 
-# 数据加载模型 root.model.js
+# Model 数据加载模型
 
 ## 简介
 **Model** 组件提供多种非常简单的方式在页面上显示数据源（Api 接口或 PQL 语句）中的数据，并可以直接执行 PQL 语句（需要配置后端 Controller）。Model 组件通过自定义标签或属性的方式加载数据，支持循环和分支，目的是减少 Javascript 代码的编写。Model 还为其他组件提供数据加载支持。
@@ -31,9 +31,9 @@ MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展�
 * `terminal` 自动刷新时的结束条件，支持表达式，如`@:data.length == 0`，即当返回的数据为空时结束自动刷新。`@:data.length`表示返回数据的`data`键下的数组的长度；可用`@:/`表示所有数据，这种情况下`/`不可省略。其中`@:`的意义是指向当前数据，冒号不可省略。
 * `interval` 自动刷新的间隔时间，单位秒，可以为小数。
 
-### 数据呈现方式一：通过 SET 子标签更新页面上元素的数据
+### 数据呈现方式一
 
-建议使用这种方式对数据进行更新，不仅与页面耦合低，且支持自动刷新。SET 子标签属性说明如下：
+第一种方式是 **通过 SET 子标签更新页面上元素的数据**。建议使用这种方式对数据进行更新，不仅与页面耦合低，且支持自动刷新。SET 子标签属性说明如下：
 
 * `$` selector 选择器
 * `attr` 要更新的属性名, 不设置即表示`innerHTML`或`value`属性。
@@ -53,9 +53,9 @@ MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展�
 
 上例中，每`2`秒钟刷新一次标签`#Amount`的值，当`amount`值达到`100`时，停止刷新。
 
-### 数据呈现方式二：通过设置标签属性调取 MODEL 中的数据
+### 数据呈现方式二
 
-目前支持在任意元素的`innerHTML`和部分元素属性中调取 MODEL 中的数据，支持如下：
+第二种方法是 *通过设置标签属性调取 MODEL 中的数据*。目前支持在任意元素的`innerHTML`和部分元素属性中调取 MODEL 中的数据，支持如下：
 
 * 任意元素的`innerHTML`中，需要在元素中添加`-html`属性，可以为任意值
 * A 元素的`href`属性，需要在`href`属性名前加中横线 `-href`
@@ -191,7 +191,7 @@ O 标签不是原生标签，不是样式控制及更多功能，为了实现更
 
 * `onload` 第一次数据加载完成后触发的事件。
 * `onreload` 重新加载数据后触发的事件。
-* `reload-on` 指定重新加载数据的条件，规则详情[事件表达式](/root.js/event.md)。
+* `reload-on` 指定重新加载数据的条件，由其他组件触发。规则详情[事件表达式](/root.js/event.md)。
 
 SPAN 标签的事件只能写在标签上，SPAN 扩展标签不提供扩展标签的选择器。SPAN 标签可以使用其他原生属性来做其他操作，比如控制样式。
 
@@ -215,8 +215,6 @@ FOR 标签提供了在 HTML 页面中循环显示 HTML 代码的能力，一般�
 * `in`类似于 [data 属性](/root.js/data.md)，但支持数字区间，如`0 to 9`。详见下面的说明。在属性中如果遇到双引号冲突时，可以用`&quot;`代替
 * `container` 展示数据的容器，一般不需要设置。在特殊情况下，如要在 SELECT 标签中列表 OPTION，FOR 标签不会被浏览器识别，需要在 SELECT 标签之外设置 FOR。
 * `onload` 事件，加载完成后执行。事件只能写在标签之上。
-
-## 使用 FOR 标签获取数据
 
 ### 数字区间
 
@@ -427,7 +425,7 @@ SELECT 标签的 OPTION 标签和 TABLE 标签的 TR 标签不仅不支持 FOR �
 
 TEMPLATE 标签也可应用到其他自定义组件中，如 [TreeView 标签](/root.js/treeview.md)和 [DataTable 标签](/root.js/datatable.md)。
 
-## TEMPLATE 属性
+### TEMPLATE 属性
 
 ```html
 <template name="name" var="variable name" data="url|array|object" path="jsonPath" as="array|list|for|loop|collection|object" page="int" increment="primary key" offset="0" auto-refresh="yes|no" interval="second" terminal="boolean expression">
@@ -451,7 +449,7 @@ TEMPLATE 标签也可应用到其他自定义组件中，如 [TreeView 标签](/
 
 与 MODEL 不同的是, MODEL 必须声明`name`属性, 并需要使用`name`来调取值; TEMPLATE 在调取数据时不使用`name`，而使用`:`，表示当前TEMPLATE，如`@:data[0].name`。使用`@:/`调取TEMPLATE 的所有数据。
 
-## TEMPLATE 方法
+### TEMPLATE 方法
 
 TEMPLATE 与其他标签不同的是提供了方法，如：
 ```javascript

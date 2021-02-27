@@ -24,8 +24,8 @@ Calendar 组件及其依赖库或组件列表如下：
 <script type="text/javascript" src="/root.animation.js"></script>
 <script type="text/javascript" src="/root.datetime.js"></script>
 <script type="text/javascript" src="/root.calendar.js"></script>
-<link href="/root.calendar.css" rel="stylesheet" type="text/css" />
-<link href="/root.calendar.iconfont.css" rel="stylesheet" type="text/css" />
+<link href="/css/root/calendar.css" rel="stylesheet" type="text/css" />
+<link href="/css/root/iconfont.css" rel="stylesheet" type="text/css" />
 ```
 
 如果需要显示农历和特殊工作日/休息日，还需要把日历数据放到数据库中，实现一个`GET`接口，核心语句如下：
@@ -57,10 +57,9 @@ SELECT concat(solar_year, '-', IF(solar_month < 10, '0', ''), solar_month, '-', 
 <script type="text/javascript" src="@/root.calendar.js"></script>
 <script type="text/javascript" src="@/root.clock.js"></script>
 <script type="text/javascript" src="@/root.popup.js"></script>
-<link href="@/root.popup.css" rel="stylesheet" type="text/css" />
-<link href="@/root.calendar.css" rel="stylesheet" type="text/css" />
-<link href="@/root.calendar.iconfont.css" rel="stylesheet" type="text/css" />
-<link href="@/root.clock.css" rel="stylesheet" type="text/css" />
+<link href="@/css/root/calendar.css" rel="stylesheet" type="text/css" />
+<link href="@/css/root/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="@/css/root/clock.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 input { font-size: 1rem; }
 </style>
@@ -197,8 +196,7 @@ $listen('DateTimePicker').on('confirm', function() {
 ```html
 <script type="text/javascript" src="/root.clock.js"></script>
 <script type="text/javascript" src="/root.popup.js"></script>
-<link href="/root.clock.css" rel="stylesheet" type="text/css" />
-<link href="/root.popup.css" rel="stylesheet" type="text/css" />
+<link href="/css/root/clock.css" rel="stylesheet" type="text/css" />
 
 <input id="DateTime" type="text" size="30" placeholder="yyyy-MM-dd HH:mm:00" /><a id="DateTimePicker_OpenButton" href="javascript:void(0)" style="margin-left: -24px"><i class="iconfont icon-calendar"></i></a>
 
@@ -308,7 +306,7 @@ $listen('DateTimePicker').on('confirm', function() {
 
 ### 选择器
 
-因为`<calendar>`属于自定义标签，不能通过原生的选择器如`document.querySelector`来操作这个标签。Calendar对象提供了两种格式的选择器：
+因为`<calendar>`属于自定义标签，不能通过原生的选择器如`document.querySelector`来操作这个标签。Calendar 对象提供了两种格式的选择器：
 
 * `$calendar('name')` 这个选择器返回`Calendar`对象本身，然后可以访问`Caldendar`对象的属性、方法和事件。因为页面的加载顺序是`页面加载完成` > `解析Calendar标签` > `通过$calendar选择`，所以`$calendar`选择器要求在页面加载完成并且标签解析之后才能调用 ，一般放在`$finish`函数里面。如
     ```javascript

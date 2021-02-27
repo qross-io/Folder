@@ -12,9 +12,9 @@ Express 字符串应用范围比较多，
 * 任意元素的`title`属性，同样也要在属性前面加中横线`-title`
 * FOR 标签的`in`属性
 * 与数据加载有关的标签的`data`属性，如 TEMPLATE、TABLE 等
+* 一些组件的扩展属性，如`value:`
 
 另外，root.js 中与 Ajax 相关的几个方法的 URL 地址或能写 PQL 语句的地方都支持使用 Express 字符串。
-
 
 ## URL 地址参数占位符
 
@@ -60,7 +60,35 @@ DOM 占位符标准格式为`$(selector)+-><n[attr]?(defaultValue)`，各个符�
     如 `<a sign="link" -href="/hello/$:[sign].htm">`
     解析结果为 `<a sign="link" href="/hello/link.htm">`
 
-## 在 Javascript 表达式中使用地址参数和 DOM 占位符
+## Javascript 短句和语句
+
+当上面介绍的操作不能满足数值加工需求时，可使用 **Javascript 短句** 做值做进一步处理。Javascript 短句占位符格式为 `~{ javascript expression... }`。
+
+短句类似于赋值语句的右半部分，如：
+
+```html
+<input type="text" update-on="click:#Button" value:="~{ this.value.toHypen() }" />
+```
+
+极端情况下，业务逻辑有可能更复杂，短句也不能满足需求了，还可以使用 **Javascript 语句占位符**，格式为 `~{{ javascript statement... }}`
+
+语句类似于一个函数内的所有语句，可以对数据进行任何操作，但必须通过`return`返回值。如：
+
+```html
+    <a href="/page/~{{
+            if ($(age) > 18) {
+                return 'adult';
+            }
+            else if ($(age) < 12) {
+                return 'children';
+            }
+            else {
+                return 'youth';
+            }
+        }}.html">Detail</a>
+```
+
+## 在 Javascript 语句中使用地址参数和 DOM 占位符
 
 可以使用字符串的扩展方法`$p`来解析含有占位符的字符串
 

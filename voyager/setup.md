@@ -22,7 +22,7 @@ voyager.connection=mysql.qross
 voyager.language=english
 ```
 
-以上设置中，默认数据库连接名如果不设置则使用`jdbc.default`，数据连接设置详见[数据源配置](/pql/properties.md)。默认语言的名称必须与`languages`下的语言文件夹名称一致，区分大小写。
+以上设置中，默认数据库连接名如果不设置（留空）则使用`jdbc.default`，数据连接设置详见[数据源配置](/pql/properties.md)。默认语言的名称必须与`languages`下的语言文件夹名称一致，区分大小写。
 
 上面设置中提到了静态站点路径和图片站点路径，系统允许将静态文件如 javascript 文件或 CSS 文件、图片文件放在其他网站中，并且可以统一进行设置。例如
 
@@ -35,7 +35,7 @@ voyager.gallery.site=http://i.qross.cn
 
 ```html
 <script type="text/javascript" src="@/root.treeview.js"></script>
-<link href="@/root.css" rel="stylesheet" type="text/css" />
+<link href="@/css/root/main.css" rel="stylesheet" type="text/css" />
 <img src="%/qross/logo.png" />
 ```
 
