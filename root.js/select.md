@@ -25,7 +25,7 @@ Select 组件的依赖库和组件列表如下：
 像其他组件一样，Select 组件通过属性配置大部分功能。SELECT 标签下还可以包含一个或多个 OPTION 标签，下面分别介绍两个元素的属性。
 
 ```html
-<select id="Select1" mode="button"
+<select id="Select1" type="button"
      class="CSS" option-class="CSS" selected-option-class="CSS" disabled-option-class="CSS"
      multiple="boolean" data="api" action="api">
     <option value="" title="" class="CSS" selected-class="CSS" disabled-class="CSS">text</option>
@@ -35,11 +35,11 @@ Select 组件的依赖库和组件列表如下：
 
 除支持所有原生属性外，SELECT 标签增加的扩展属性如下：
 
-* `mode` 选择框的模式，现在支持`button`和`image`两种模式，以后会增加更多模式，下面会分别介绍。如果没有这个属性则保持原始模式。
+* `type` 选择框的模式，现在支持`button`和`image`两种模式，以后会增加更多模式，下面会分别介绍。如果没有这个属性则保持原始模式。
 * `class` 整个框体的 CSS 样式，不同模式下框体的标签元素不同。
-* `option-class` 每个选项的 CSS 样式，根据不同的 mode 默认值不同。
-* `selected-option-class` 被选中选项的 CSS 样式，根据不同的 mode 默认值不同。
-* `disabled-option-class` 禁用状态选项的 CSS 样式，根据不同的 mode 默认值不同。
+* `option-class` 每个选项的 CSS 样式，根据不同的 type 默认值不同。
+* `selected-option-class` 被选中选项的 CSS 样式，根据不同的 type 默认值不同。
+* `disabled-option-class` 禁用状态选项的 CSS 样式，根据不同的 type 默认值不同。
 * `multiple` 原生属性，是否支持多选，支持设置可识别为布尔值的所有字符串，如`yes`、`FALSE`、`1`等，默认`false`。
 * `data` 从其他数据源生成 OPTION 列表，暂时不可用。
 * `action` 当切换选项时执行的操作，支持接口和 PQL 语句。
@@ -60,10 +60,10 @@ Select 组件的依赖库和组件列表如下：
 按钮模式显示为一行单选或多选按钮，所有选项平铺展开。
 
 ```html
-<select mode="button" id="ButtonSelector">
+<select type="button" id="ButtonSelector">
     <option value="mysql">MySQL</option>
     <option selected value="mariadb">MariaDB</option>
-    <option value="mssql">SQL Server</option>
+    <option value="sqlserver">SQL Server</option>
     <option value="postgresql">PostgreSQL</option>
     <option value="oracle">Oracle</option>
     <option value="hive">Hive</option>
@@ -72,10 +72,10 @@ Select 组件的依赖库和组件列表如下：
 
 显示效果如下：
 
-<select mode="button" id="ButtonSelector">
+<select type="button" id="ButtonSelector">
     <option value="mysql">MySQL</option>
     <option selected value="mariadb">MariaDB</option>
-    <option value="mssql">SQL Server</option>
+    <option value="sqlserver">SQL Server</option>
     <option value="postgresql">PostgreSQL</option>
     <option value="oracle">Oracle</option>
     <option value="hive">Hive</option>
@@ -90,10 +90,10 @@ BUTTON 模式下 SELECT 标签的专有属性只有一个
 图片模式可以使用图片作为选项。
 
 ```html
-<select mode="image" id="ImageSelector">
+<select type="image" id="ImageSelector">
     <option value="mysql" src="/images/dbs/mysql.png">MySQL</option>
     <option selected value="mariadb" src="/images/dbs/mariadb.png">MariaDB</option>
-    <option value="mssql" src="/images/dbs/mssql.png">SQL Server</option>
+    <option value="sqlserver" src="/images/dbs/sqlserver.png">SQL Server</option>
     <option value="postgresql" src="/images/dbs/postgresql.png">PostgreSQL</option>
     <option value="oracle" src="/images/dbs/oracle.png">Oracle</option>
     <option value="hive" src="/images/dbs/hive.png">Hive</option>
@@ -102,10 +102,10 @@ BUTTON 模式下 SELECT 标签的专有属性只有一个
 
 显示效果如下：
 
-<select mode="image" id="ImageSelector">
+<select type="image" id="ImageSelector">
     <option value="mysql" src="@/images/dbs/mysql.png">MySQL</option>
     <option selected value="mariadb" src="@/images/dbs/mariadb.png">MariaDB</option>
-    <option value="mssql" src="@/images/dbs/mssql.png">SQL Server</option>
+    <option value="sqlserver" src="@/images/dbs/sqlserver.png">SQL Server</option>
     <option value="postgresql" src="@/images/dbs/postgresql.png">PostgreSQL</option>
     <option value="oracle" src="@/images/dbs/oracle.png">Oracle</option>
     <option value="hive" src="@/images/dbs/hive.png">Hive</option>

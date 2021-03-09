@@ -13,6 +13,7 @@ Express 字符串应用范围比较多，
 * FOR 标签的`in`属性
 * 与数据加载有关的标签的`data`属性，如 TEMPLATE、TABLE 等
 * 一些组件的扩展属性，如`value:`
+* 其他在组件中提到的属性，如`check`等
 
 另外，root.js 中与 Ajax 相关的几个方法的 URL 地址或能写 PQL 语句的地方都支持使用 Express 字符串。
 

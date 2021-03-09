@@ -1,13 +1,18 @@
 # 版本和更新
 
-作者会一个月发布一个稳定版本。PQL 的最新稳定版本为 **v1.1.0-RELEASE**，发布时间 **2021-02-03**。
+作者会一个月发布一个稳定版本。PQL 的最新稳定版本为 **v1.2.0-RELEASE**，发布时间 **2021-02-27**。
+
+## v1.3.0 (开发中)
+
+1. [自定义系统函数](/pql/global-function.md)现已可用，可以创建用于整个系统的加工或过程。
 
 ## v1.2.0 (2021-02-27)
 
 1. 新增多个[字符串函数](/pql/function-text.md)和几个[数字函数](/pql/funtion-numeric.md)。
 2. Debug 日志美化，可以在 HTML 页面上显示更美观的格式。
-3. [Markdown 扩展语法](/voyager/markdown.md)新增行内间距，例如`-| 20 |-`。
-4. 新增两个与主题样式相关的全局变量`@THEME`和`@SPOTLIGHT`。
+3. [Worker 执行器](/pql/worker.md)现在支持`--log`参数，通过指定参数值`html`来输出 HTML 格式的日志。
+4. [Markdown 扩展语法](/voyager/markdown.md)新增行内间距，例如`-| 20 |-`。
+5. 新增两个与主题样式相关的全局变量`@THEME`和`@SPOTLIGHT`。
 
 ## v1.1.0 (2021-02-03)
 

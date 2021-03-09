@@ -6,7 +6,8 @@
 <table data="select * from students">...</table>
 <select data="/api/options"></select>
 <span editable="yes" action="put:/api/student/name?id=&(id)&name="></span>
-<button id="Btn1" action="insert into table1 (name, age) values ('$(@name)', $(#age))">
+<input type="text" check="select id from users where username='{value}'" />
+<button id="Btn1" action="insert into table1 (name, age) values ('$(#name)', $(#age))">
 ```
 
 data 属性支持多种数据类型，比较典型的是接口和 PQL，也可以是静态数据。
@@ -51,6 +52,16 @@ data 属性不仅可以通过接口或 PQL 语句异步的从数据源加载数�
 
 这个场景虽然用得少，但有些情况下还有非常好用的。
 
+## 传递数据
+
+大多数情况下都需要向 data 属性中传递参数值，data 属性支持 [Express 字符串](/root.js/express.md)支持的所有参数格式。另外，有时为了获取当前标签的属性值，还支持属性参数占位符，格式为`{attr}`，目前只支持`{value}`和`{text}`，其他属性可通过 DOM 占位符获取，例如`$:[attr]`。
+
+```html
+<select action="/api/select/change?item={value}" />
+<input check="select id from users where username='{'value'}'">
+```
+
+在属性占位符中，其中`value`有特殊的意义，除表示可交互输入组件的值外，也表示其他标签的核心属性，如`innerHTML`等。两端使用单引号或双引号防止 SQL 注入，如`{'value'}`。
 
 ---
 参考链接

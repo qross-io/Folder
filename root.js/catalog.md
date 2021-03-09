@@ -15,10 +15,12 @@
     + [BackTop 返回页面顶部](/root.js/backtop.md)
     + [Button 按钮扩展](/root.js/button.md)
     + [Calendar 多功能日历](/root.js/calendar.md)
-    + [Clock 文件时钟](/root.js/clock.md)
+    + [Clock 文字时钟](/root.js/clock.md)
+    + [Coder 彩色编码](/root.js/coder.md)
     + [Input 输入框扩展](/root.js/input.md)
     + [Layout 布局](/root.js/layout.md)
-    + [Select 选择器组件](/root.js/select.md)
+    + [Select 选择列表组件](/root.js/select.md)
 
 * 附录
     + [颜色编码表](/root.js/colors.md)
+    + [KeyCode 键值对照表](/root.js/keycodes.md)

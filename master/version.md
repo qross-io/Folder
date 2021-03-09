@@ -1,7 +1,12 @@
 # 版本和更新
 
+## v1.3.0
+
+* 增加 PQL [自定义系统函数](/master/system/functions.md)管理。
 
 ## v1.2.0 (2021.2.28)
+
+这个版本主要是使用 Cogo 进行开发的尝试，更新了系统设置中的两个管理功能。
 
 * [系统] 增加[数据源连接管理](/master/system/connections.md)功能。
 * [系统] 增加[数据源配置管理](/master/system/properties.md)功能。

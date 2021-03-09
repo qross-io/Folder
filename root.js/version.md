@@ -2,7 +2,12 @@
 
 **root.js** 库一般跟随 [Qross Master](/master/overview.md) 项目的功能进行更新。相关文档会慢慢补全。
 
-## v1.2.0
+## v1.3.0
+
+* [Input 扩展](/root.js/input.md)新增扩展类型：`integer`，`password`，`idcard`，`mobile`，`name`等，以及`check`、`warning-text`、`autosize`等扩展属性。
+
+
+## v1.2.0 (2021-2-28)
 
 * [**Button** 扩展](/root.js/button.md) 现在与其他表单元素联动。
 * [**Input** 扩展](/root.js/input.md) 加入，扩展了原生 INPUT 标签的功能。
@@ -16,7 +21,7 @@
 * `$s`选择器现在可以选择扩展标签，仅可使用`name`属性进行选择，如`$s('#Button1')`。
 * `$a`选择器现在可以选择扩展标签，仅可使用`name`属性进行选择，如`$a('#Input1,#Input2,#Input3')`。
 
-## v1.1.0
+## v1.1.0 (2021-1-31)
 
 * **root.js 组件库** 从 Master 项目中分离，独立成项目。
 * [**root.js 基础库**](/root.js/root.md) 重新整理，文档已补全。
@@ -40,13 +45,13 @@
 * **SelectButton** 选项类 ButtonOption 增加`show`和`hide`属性，用于在切换时显示或隐藏元素。
 * `cogo.js` 移除，核心功能整合进`root.js`。
 
-## v0.6.5
+## v0.6.5 (2020-12-31)
 
 * `cogo.js` 已开始设计。
 * `calender.js` 已禁用的日期不再可以设置特殊工作日和休息日。
 * `coder.js` 现在在 PC 端也默认回行。
 
-## v0.6.4
+## v0.6.4 (2021-9-30)
 
 * [Calendar 日历组件](/root.js/calendar.md)大幅更新，增加了大量功能。
     * 通过`months="12"`可以设置整年模式，可切换上一年和下一年或任意选择年份。
@@ -61,7 +66,7 @@
 * 修复 [root.js 基本库](/root.js/root.md)的一些问题。
 * 修复 [Animation 动画库](/root.js/animation.md)的一些问题。
 
-## v0.6.3
+## v0.6.3 (2021-7-31)
 
 * [Coder](/root.js/coder.md) 编码器加入，封装了`CodeMirror`，实现 PQL 及其他语言的彩色编码。
 * [TreeView 树形目录组件](/root.js/treeview.md)的`TreeNode`节点类新增`expandOnRender`属性，用于确定首次加载时是否自动展开节点。
