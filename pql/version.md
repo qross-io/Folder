@@ -1,15 +1,22 @@
 # 版本和更新
 
-作者会一个月发布一个稳定版本。PQL 的最新稳定版本为 **v1.2.0-RELEASE**，发布时间 **2021-02-27**。
+作者会一个月发布一个稳定版本。PQL 的最新稳定版本为 **v1.3.0**，发布时间 **2021-03-23**。
 
-## v1.3.0 (开发中)
+## v1.3.0 (2021.3.23)
 
-1. [自定义系统函数](/pql/global-function.md)现已可用，可以创建用于整个系统的加工或过程。
+这个版本已发布的中央仓库，地址`io.qross:pql:1.3.0`。“自定义系统函数”现已支持！
+
+1. [自定义系统函数](/pql/global-function.md)现已可用，可以创建用于整个系统的函数或过程。
+2. 新增一些[全局函数](/pql/global-function.md)，LPAD, LTRIM, RPAD, LTRIM, TRIM 等。
+3. Marker 新增一些关于 [Markdown](/voyager/markdown.md) 的语法，如字体、行高等。
+4. 读 CSV 文件已支持，读写现在均支持字符串类型，而不是简单的用逗号分隔。
 
 ## v1.2.0 (2021-02-27)
 
-1. 新增多个[字符串函数](/pql/function-text.md)和几个[数字函数](/pql/funtion-numeric.md)。
-2. Debug 日志美化，可以在 HTML 页面上显示更美观的格式。
+这个版本 PQL 并不是升级重点，只是配合其他组件的更新。
+
+1. Debug 日志美化，可以在 HTML 页面上显示更美观的格式。
+2. 新增多个[字符串函数](/pql/function-text.md)和几个[数字函数](/pql/funtion-numeric.md)。
 3. [Worker 执行器](/pql/worker.md)现在支持`--log`参数，通过指定参数值`html`来输出 HTML 格式的日志。
 4. [Markdown 扩展语法](/voyager/markdown.md)新增行内间距，例如`-| 20 |-`。
 5. 新增两个与主题样式相关的全局变量`@THEME`和`@SPOTLIGHT`。
@@ -144,6 +151,10 @@
 以下内容不再向下兼容
 
 * Sharp 表达式中字符串操作`INIT CAP`修改为`CAPITALIZE`
+
+## 0.6.2 及以下
+
+旧版本更新记录已归档。
 
 ---
 参考链接

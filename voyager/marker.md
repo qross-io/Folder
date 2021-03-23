@@ -22,6 +22,7 @@ public Marker colorCodes(boolean lineNumbers); //使用彩色编码，是否显�
 public Marker transform(); //执行转换
 public String getTitle(); //获取文档大标题
 public String getContent(); //获取全部内容
+public String getSummary(); //获取文章第一自然段作为摘要。
 ```
 
 调用示例：

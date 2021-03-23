@@ -4,7 +4,7 @@
 
 ## Express 字符串应用范围
 
-Express 字符串应用范围比较多，
+Express 字符串应用范围比较多
 
 * 任意元素的 innerHTML 中，需要在元素中添加`-html`属性，可以为任意值
 * A 元素的`href`属性，需要在`href`属性名前加中横线 `-href`
@@ -15,7 +15,7 @@ Express 字符串应用范围比较多，
 * 一些组件的扩展属性，如`value:`
 * 其他在组件中提到的属性，如`check`等
 
-另外，root.js 中与 Ajax 相关的几个方法的 URL 地址或能写 PQL 语句的地方都支持使用 Express 字符串。
+另外，root.js 中与 Ajax 相关的几个方法的 URL 地址或能写 PQL 语句的地方都支持使用 Express 字符串。Express 字符串会逐渐增多。
 
 ## URL 地址参数占位符
 
@@ -63,7 +63,7 @@ DOM 占位符标准格式为`$(selector)+-><n[attr]?(defaultValue)`，各个符�
 
 ## Javascript 短句和语句
 
-当上面介绍的操作不能满足数值加工需求时，可使用 **Javascript 短句** 做值做进一步处理。Javascript 短句占位符格式为 `~{ javascript expression... }`。
+当上面介绍的操作不能满足数值加工需求时，可使用 **Javascript 短句** 做值做进一步处理。Javascript 短句占位符格式为 `~{ javascript expression... }`。一般情况下，其中的`~`可以省略。
 
 短句类似于赋值语句的右半部分，如：
 
@@ -71,9 +71,7 @@ DOM 占位符标准格式为`$(selector)+-><n[attr]?(defaultValue)`，各个符�
 <input type="text" update-on="click:#Button" value:="~{ this.value.toHypen() }" />
 ```
 
-极端情况下，业务逻辑有可能更复杂，短句也不能满足需求了，还可以使用 **Javascript 语句占位符**，格式为 `~{{ javascript statement... }}`
-
-语句类似于一个函数内的所有语句，可以对数据进行任何操作，但必须通过`return`返回值。如：
+极端情况下，业务逻辑有可能更复杂，短句也不能满足需求了，还可以使用 **Javascript 语句占位符**，格式为 `~{{ javascript statement... }}`。语句类似于一个函数内的所有语句，可以对数据进行任何操作，但必须通过`return`返回值。一般情况下，其中的`~`可以省略。如下例：
 
 ```html
     <a href="/page/~{{
@@ -100,7 +98,37 @@ let str = '&(param)-$(#title)'.$p();
 如果要传递从某个元素开始，可以把元素当参数传递进去
 
 ```javascript
-let str = '&(param)-$:title'.$p(span);
+let str = '&(param)-$:[title]'.$p(span);
+```
+
+## Javascript 表达式中的默认变量
+
+在 Javascript 两种占位符中，可以使用三个预设的变量，分别为`value`、`text`和`data`，指定当前组件的属性或回调函数的变量。分别解释如下：
+
+* `value` 指向当前组件的`value`属性值，如 Input、Select等组件都有`value`属性。
+    ```html
+    <input id="Username" check="/api/check-username?name={value}">
+    ```
+* `text` 指向当前组件的`text`属性值，如 Select 组件都`text`属性（表示当前选中项的文本）。
+    ```html
+    <select action="/api/options?title={text}&id={value}">
+    ```
+* `data` 指向请求接口或执行 PQL 语句返回的结果。下例中当执行失败时显示返回的数据信息。
+    ```html
+    <button id="TestButton" action="/api/system/test-connection" success-when="data == ''" failure-text="连接失败：{data}">Test<button>
+    ```
+
+以上三个变量都可以继续操作，如`{ data.message }`，`{ value.trim() }`。这三个变量也可以用到 Javacript 语句占位符中`{{ return data.status + value; }}`。
+
+## 对结果值进行 URI 编码
+
+特别是在接口地址中，经常要传递各种数据，就避免不了要对传递的值进行编码，即 Javascript 的 `encodeURIComponent` 全局方法。可以使用百分号`%`作为占位符的结尾，以表示对结果值进行 URL 编码。因为程序并不清楚什么时候需要编码，什么时候不需要编码，所以编码操作需要开发者主动进行。编码符号`%`适用于以上介绍的所有占位符。
+
+```javascript
+$cogo('/api/search?keyword=$(#Keyword)%')
+    .then(data => {
+        ...
+    });    
 ```
 
 ---

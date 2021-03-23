@@ -1,35 +1,35 @@
-# Sharp表达式 - 数据表操作
+# Sharp 表达式 - 数据表操作
 
 数据表是一种比较特殊的集合类型，概念上是一个二维表格。数据表与关系型数据库的数据表概念一致，也包含列、字段、行等。数据表的某一行的数据类型是“数据行”，数据表某一列的数据列表是“数组”，数据表某一个单元格的数据类型按照数据表对应列的数据类型确定。注意：下面涉及 Json 对象中的字符串一定要用双引号。
 
-### 获取数据表的行、列及单元格
+## 获取数据表的行、列及单元格
 
 * **`FIRST ROW`** 返回表格的第一行，表格为空时抛出异常。
-* **`FIRST ROW row`** 返回表格的第一行，如果表格为空则返回数据行`row`，`row`用Json对象表示。
+* **`FIRST ROW row`** 返回表格的第一行，如果表格为空则返回数据行`row`，`row`用 Json 对象表示。
   ```sql
   SELECT * FROM table1 -> FIRST ROW { "name": "Tom", "age": 18 }
   ```
 * **`LAST ROW`** 返回表格的最后一行，表格为空时抛出异常。
-* **`LAST ROW row`** 返回表格的最后一行，如果表格为空则返回数据行`row`，`row`用Json对象表示，同`FIRST ROW`。	
-* **`ROW n`** 得到第n行，索引从`1`开始，如果不存在则抛出异常。
+* **`LAST ROW row`** 返回表格的最后一行，如果表格为空则返回数据行`row`，`row`用 Json 对象表示，同`FIRST ROW`。	
+* **`ROW n`** 得到第 n 行，索引从`1`开始，如果不存在则抛出异常。
 * **`FIRST COLUMN`** 得到第一列的所有值，返回数组。如果数据表为空，则抛出异常。
-* **`FIRST COLUMN array`** 得到表格的第一列的所有值，返回数组。如果数据表为空则返回数组`array`，`array`用Json数组表示。
+* **`FIRST COLUMN array`** 得到表格的第一列的所有值，返回数组。如果数据表为空则返回数组`array`，`array`用 Json 数组表示。
   ```sql
   SELECT * FROM table1 -> FIRST COLUMN [1, 2];
   ```
 * **`LAST COLUMN`** 得到表格的最后一列的所有值，返回数组。如果不存在则抛出异常。
-* **`LAST COLUMN array`** 得到表格的最后一列的所有值，返回数组。如果数据表为空则返回数组`array`，`array`用Json数组表示，同`FIRST COLUMN`。
+* **`LAST COLUMN array`** 得到表格的最后一列的所有值，返回数组。如果数据表为空则返回数组`array`，`array`用 Json 数组表示，同`FIRST COLUMN`。
 * **`COLUMN 'column'`** 根据字段名`column`返回此列的所有值，不存在则抛出异常。
 * **`FIRST CELL'`** 返回第一行第一列的值，数据类型根据第一列的数据类型确定，经常用于返回单值。数据表为空时抛出异常。
 * **`LAST CELL'`** 返回最后一行最后一列的值，数据类型根据最后一列的数据类型确定。数据表为空时抛出异常。
 * **`FIRST ROW CELL 'column'`** 返回第一行列名为`column`列的值。不存在时则抛出异常。
 * **`LAST ROW CELL 'column'`** 返回最后一行列名为`column`列的值。不存在时则抛出异常。
 * **`HAS 'column'`** 判断数据表中是否包含名称为`column`的列。
-* **`RANDOM n`** 从数据表随机取`n`个数据行，结果类型仍是数据表，`n`大于等于`1`且`n`小于等于数据表的记录数，`n`为`1`时返回`1`行的数据表而不是数据行。这个Link会把数据行的顺序打乱，哪怕设置`n`等于数据表的记录数。这个Link一般用于数据表的随机取样。
+* **`RANDOM n`** 从数据表随机取`n`个数据行，结果类型仍是数据表，`n`大于等于`1`且`n`小于等于数据表的记录数，`n`为`1`时返回`1`行的数据表而不是数据行。这个操作会把数据行的顺序打乱，哪怕设置`n`等于数据表的记录数。一般用于数据表的随机取样。
 
 另一种快速获取数据表中内容的方式使用属性规则和索引规则，如`$table.first.field`，详见[集合类型的元素访问](/pql/collection.md)。
   
-### 数据表操作
+## 数据表操作
 
 * **`DELETE`** 通过条件删除数据，条件支持`AND`和`OR`及使用小括号分组，但不支持函数。与`WHERE`操作效果相反。
   ```sql
@@ -39,7 +39,7 @@
   ```sql
   SELECT * FROM table1 -> INSERT { "name": "Tom", "age": 18 };
   ```
-* **`INSERT (column1, column2) VALUES (value1, value2)`** 在数据表中插入一行，用SQL中INSERT语句的类似的语法。
+* **`INSERT (column1, column2) VALUES (value1, value2)`** 在数据表中插入一行，用 SQL 中 INSERT 语句的类似的语法。
   ```sql
   SELECT * FROM table1 -> INSERT (name, age) VALUES ('Tom', 18};
   ```
@@ -74,7 +74,7 @@
   SELECT item, COUNT(0) AS amount FROM table1 -> WHERE 'amount > 0';
   ```
 
-### 其他操作
+## 其他操作
 
 * **`COUNT`** 获取数据表的行数，返回一个整数。
 * **`FIELDS`** 获得数据表的所有字段名的数组。
@@ -93,4 +93,4 @@
 * [Sharp 表达式操作 - 数组 ARRAY](/pql/sharp-array.md)
 * [Sharp 表达式操作 - 数据行 ROW](/pql/sharp-row.md)
 * [Sharp 表达式操作 - 数据判断](/pql/sharp-if.md)
-* [Sharp 表达式操作 - Json字符串](/pql/sharp-json.md)
+* [Sharp 表达式操作 - Json 字符串](/pql/sharp-json.md)

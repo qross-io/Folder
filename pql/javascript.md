@@ -1,4 +1,4 @@
-# PQL中的Javascript
+# PQL 中的 Javascript
 
 这里提到的Javascript并不涉及任何前端代码，更不涉及任何DOM操作。PQL中的基础运算由Javascript的逻辑实现，所有在PQL中与Javascript关系非常密切。这个章节对于使用PQL没有任何影响，仅作了解即可。如果你会一些Javascript，这章对你来说会非常容易理解。
 

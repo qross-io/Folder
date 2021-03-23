@@ -106,7 +106,6 @@
     + [模板引擎 Voyager](/voyager/overview.md)
     + [任务调度工具 Keeper](/keeper/overview.md)
     + [数据管理平台 Master](/master/overview.md)
-    + [在 HTML 页面上执行 PQL](/pql/html.md)
 
 * 附录
     + [完整的嵌入规则表](/pql/place.md)

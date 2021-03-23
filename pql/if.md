@@ -23,10 +23,12 @@ SELECT * FROM students WHERE $where!;
 * `THEN`后不加分号，虽然加分号也不会出错。
 * `THEN`或`ELSE`后面要有至少一条语句，如果确实什么都没有，请输入`ECHO;`占个位置。
 * `ELSIF`不能写成`ELSE IF`。
-* `END IF`后面必须加分号，表示IF语句结束。
-* `ELSE`可以有可以没有。
-* `ELSIF`可以有可以没有。
+* `END IF`后面必须加分号，表示 IF 语句结束。
+* `ELSE`不是必需的。
+* `ELSIF`也不是必需的。
 * `IF`和`THEN`之间是条件判断的内容，详见[条件表达式](/pql/condition.md)。
+
+ 上例中，变量`$where`加叹号`!`是因为将字符串变量嵌入到 SQL 语句中时一般要忽略类型，如果不加叹号，得到的结果可能是`SELECT * FROM students WHERE '1=1'`而不是`SELECT * FROM students WHERE 1=1`。详见[用户变量](/pql/variable.md)或[完整的嵌入规则表](/pql/place.md)。
 
 ### IF 短语句
 

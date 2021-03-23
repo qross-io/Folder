@@ -1,5 +1,6 @@
-# Sharp表达式 - 数据行操作
-数据行类似于Json中的对象或其他语句中的Map，操作数据行的Link比较少。
+# Sharp 表达式 - 数据行操作
+
+数据行类似于 Json 中的对象或其他语句中的 Map，操作数据行的操作比较少。
 
 * **`GET 'column'`** 获取数据行中名为`column`字段的值。
   ```sql
@@ -70,7 +71,7 @@
 ---
 参考链接
 
-* [更优雅的数据操作方法 Sharp表达式](/pql/sharp.md)
+* [更优雅的数据操作方法 Sharp 表达式](/pql/sharp.md)
 * [Sharp表达式操作 - 文本和字符串 TEXT](/pql/sharp-text.md)
 * [Sharp表达式操作 - 日期时间 DATETIME](/pql/sharp-datetime.md)
 * [Sharp表达式操作 - 数字 INTEGER/DECIMAL](/pql/sharp-numeric.md)
@@ -78,4 +79,4 @@
 * [Sharp表达式操作 - 数组 ARRAY](/pql/sharp-array.md)
 * [Sharp表达式操作 - 数据表 TABLE](/pql/sharp-table.md)
 * [Sharp表达式操作 - 数据判断](/pql/sharp-if.md)
-* [Sharp表达式操作 - Json字符串](/pql/sharp-json.md)
+* [Sharp表达式操作 - Json 字符串](/pql/sharp-json.md)

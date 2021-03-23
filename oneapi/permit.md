@@ -1,6 +1,7 @@
 # OneApi 访问安全控制
 
 在配置好安全验证之后，还需要配置请求者有权限访问哪些接口，就和用户系统需要配置用户权限一样。通过设置项`oneapi.access.permit`进行设置。
+
 ```properties
 oneapi.access.permit=*=*
 oneapi.access.permit=/api/*=*
@@ -20,16 +21,18 @@ oneapi.access.permit=GET,PUT:/api/example/*,/api/score/*=tom,jerry
 * 上述规则没有指定请求方法的情况下，都是允许所有请求方法。
 * 单个接口的权限控制一般设置在接口定义上，在接口上的定义控制的是 **请求方法+接口名**。
 
-访问安全控制同时适用于基于登录用户的访问控制，与Token不同，在控制规则的等号`=`右侧，可以设置用户的角色或者用户名，角色以`@`开头。即以`@`开头的是角色，否则是用户名。
+访问安全控制同时适用于基于登录用户的访问控制，与 Token 不同，在控制规则的等号`=`右侧，可以设置用户的角色或者用户名，角色以`@`开头。即以`@`开头的是角色，否则是用户名。
+
 ```properties
 oneapi.access.permit=/api/*=sam,@teacher
 ```
-* `/api/*=sam,@teacher`表示把用户`sam`和角色`@teacher`可以访问`/api/`目录下的所有接口。
+
+上例中`/api/*=sam,@teacher`表示把用户`sam`和角色`@teacher`可以访问`/api/`目录下的所有接口。
 
 
 ---
 参考链接
 
-* [OneApi全局设置](/oneapi/setup.md)
-* [OneApi登录用户](/oneapi/signin.md)
-* [OneApi设置安全验证例外](/oneapi/open.md)
+* [OneApi 全局设置](/oneapi/setup.md)
+* [OneApi 登录用户](/oneapi/signin.md)
+* [OneApi 设置安全验证例外](/oneapi/open.md)

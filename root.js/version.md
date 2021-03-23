@@ -5,7 +5,11 @@
 ## v1.3.0
 
 * [Input 扩展](/root.js/input.md)新增扩展类型：`integer`，`password`，`idcard`，`mobile`，`name`等，以及`check`、`warning-text`、`autosize`等扩展属性。
-
+* [Input 扩展](/root.js/input.md)新增属性`required`（原生）、`check`、`pass-when`、`warning-text`、`autosize`、`hint`、`callout`等属性，以及移除`prevent-injection`属性（通过接口防止 SQL 注入）。
+* [Button 扩展](/root.js/button.md)新增`succes-when`属性，
+* [Input 扩展](/root.js/input.md)和 [Button 扩展](/root.js/button.md)现在所有提示文字属性支持 [Express 字符串](/root.js/express.md)。
+* [Express 字符串]现在 Javascript 占位符默认支持 `data`、`value`、`text` 三个变量；现在所有占位符支持以`%`结尾来进行 URL 编码。
+* 修复各个组件的多个 bug.
 
 ## v1.2.0 (2021-2-28)
 
@@ -20,6 +24,7 @@
 * [事件表达式](/root.js/event.md)加入，目的是尽可能的不写 Javascript 代码。
 * `$s`选择器现在可以选择扩展标签，仅可使用`name`属性进行选择，如`$s('#Button1')`。
 * `$a`选择器现在可以选择扩展标签，仅可使用`name`属性进行选择，如`$a('#Input1,#Input2,#Input3')`。
+
 
 ## v1.1.0 (2021-1-31)
 

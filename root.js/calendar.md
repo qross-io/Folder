@@ -57,8 +57,8 @@ SELECT concat(solar_year, '-', IF(solar_month < 10, '0', ''), solar_month, '-', 
 <script type="text/javascript" src="@/root.calendar.js"></script>
 <script type="text/javascript" src="@/root.clock.js"></script>
 <script type="text/javascript" src="@/root.popup.js"></script>
-<link href="@/css/root/calendar.css" rel="stylesheet" type="text/css" />
 <link href="@/css/root/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="@/css/root/calendar.css" rel="stylesheet" type="text/css" />
 <link href="@/css/root/clock.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 input { font-size: 1rem; }
@@ -182,7 +182,7 @@ $calendar('calendar6').endDate; //返回选中的结束日期，格式`yyyy-MM-d
     <div class="space10"></div>
     <clock id="Clock" hour-interval="1" minute-interval="1" second-interval="0" option-frame-side="upside" value="HH:mm:00"></clock>
     <div id="DateTimePickerTip" class="space40 error" style="display: flex; justify-content: center; align-items: center;">&nbsp;</div>
-    <div class="popup-button"><input id="DateTimePicker_ConfirmButton" type="button" value=" OK " class="normal-button prime w80" /> &nbsp; &nbsp; &nbsp; <input id="DateTimePicker_CancelButton" type="button" value=" Cancel " class="normal-button minor w80" /></div>
+    <div class="popup-button"><input id="DateTimePicker_ConfirmButton" type="button" value=" OK " class="normal-button prime-button w80" /> &nbsp; &nbsp; &nbsp; <input id="DateTimePicker_CancelButton" type="button" value=" Cancel " class="normal-button minor-button w80" /></div>
 </div>
 
 <script type="text/javascript">
@@ -208,7 +208,7 @@ $listen('DateTimePicker').on('confirm', function() {
     <div class="space10"></div>
     <clock id="Clock" hour-interval="1" minute-interval="1" second-interval="0" option-frame-side="upside" value="HH:mm:00"></clock>
     <div id="DateTimePickerTip" class="space40 error" style="display: flex; justify-content: center; align-items: center;">&nbsp;</div>
-    <div class="popup-button"><input id="DateTimePicker_ConfirmButton" type="button" value=" OK " class="normal-button prime w80" /> &nbsp; &nbsp; &nbsp; <input id="DateTimePicker_CancelButton" type="button" value=" Cancel " class="normal-button minor w80" /></div>
+    <div class="popup-button"><input id="DateTimePicker_ConfirmButton" type="button" value=" OK " class="normal-button prime-button w80" /> &nbsp; &nbsp; &nbsp; <input id="DateTimePicker_CancelButton" type="button" value=" Cancel " class="normal-button minor-button w80" /></div>
 </div>
 
 <script type="text/javascript">

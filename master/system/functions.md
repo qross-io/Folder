@@ -3,9 +3,11 @@
 可以使用 PQL 创建自定义系统函数，以让一些通用的处理逻辑在多个 PQL 中可以共享，自定义系统函数也可以理解为存储过程。由于 PQL 本身的性质，函数只能处理单值，而不是像 SQL 一样，函数可以依次处理集合中的多个值。从这方面讲，PQL 中系统函数在函数本身方面的作用反而小了些。
 
 ```sql
-CREATE OR UPDATE FUNCTION @CUSTOM_FUNC_NAME ($a, $b DEFAULT 1)
+FUNCTION @CUSTOM_FUNC_NAME ($a, $b DEFAULT 1)
     BEGIN
         -- statement...
+
+        RETURN $a + $b;
     END
 ```
 

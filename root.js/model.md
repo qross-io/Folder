@@ -2,6 +2,7 @@
 # Model 数据加载模型
 
 ## 简介
+
 **Model** 组件提供多种非常简单的方式在页面上显示数据源（Api 接口或 PQL 语句）中的数据，并可以直接执行 PQL 语句（需要配置后端 Controller）。Model 组件通过自定义标签或属性的方式加载数据，支持循环和分支，目的是减少 Javascript 代码的编写。Model 还为其他组件提供数据加载支持。
 
 Model 相关标签的执行都在客户端，即页面呈现给用户之后再加载页面上需要的数据。
@@ -452,6 +453,7 @@ TEMPLATE 标签也可应用到其他自定义组件中，如 [TreeView 标签](/
 ### TEMPLATE 方法
 
 TEMPLATE 与其他标签不同的是提供了方法，如：
+
 ```javascript
 $tempalte('name').load(data, path).asArray().clear().append(func);
 ```

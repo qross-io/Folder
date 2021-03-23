@@ -15,7 +15,7 @@ SET $affected := UPDATE table SET a=1 WHERE a<>1;
 
 ### 析构赋值
 
-有时我们需要从SQL语句中提取值或者一次赋多个值。SET 支持析构赋值。
+有时我们需要从 SQL 语句中提取值或者一次赋多个值。SET 支持析构赋值。
 
 ```sql
 SET $name, $score := SELECT name, score FROM table1 LIMIT 1;

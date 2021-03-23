@@ -1,11 +1,15 @@
-# Sharp表达式 - 数组操作
+# Sharp 表达式 - 数组操作
+
 PQL 中的数组是变长的，可以增减元素，按索引访问数据的项。
 
-### 数组基本操作
+## 数组基本操作
+
 设有数组
+
 ```sql
     SET $array := [1, 2, 3, 4, 5];
 ```
+
 * **`ADD value`** 为数组添加项，支持添加多个值。新增加的值在数组的后面。
   ```sql
     LET $array ADD 6; -- 添加单个值
@@ -26,18 +30,21 @@ PQL 中的数组是变长的，可以增减元素，按索引访问数据的项�
 * **`JOIN 'delimiter'`** 将数组的所有元素合并成一个字符串，元素之间添加分隔符`delimiter`。`$array JOIN '-'`结果是`'1-2-3-4-5'`。
 * **`DELIMIT 'delimiter'`** 将数组的每一项使用分隔符`delimiter`分开并将数组转成一个数据行。`["name=Tom", "age=18", "score=89"] DELIMIT '='`结果是`{ "name": "Tom", "age": "18", "score": "89" }`。
 
-### 其他与数组相关的操作
-* **`m TO n`** 生成一个从`m`到`n`的整数数组，包括`n`，一般用于FOR循环中。`1 TO 4`结果是`[1, 2, 3, 4]`
-* **`m UNITIL n`** 生成一个从`m`到`n`的整数数组，不包括`n`，一般用于循环中。`1 TO 4`结果是`[1, 2, 3]`。更多示例可以参阅[FOR语句](/pql/for.md)。
+## 其他与数组相关的操作
+
+* **`m TO n`** 生成一个从`m`到`n`的整数数组，包括`n`，一般用于 [FOR 循环](/pql/for.md)中。`1 TO 4`结果是`[1, 2, 3, 4]`
+* **`m UNITIL n`** 生成一个从`m`到`n`的整数数组，不包括`n`，一般用于循环中。`1 TO 4`结果是`[1, 2, 3]`。更多示例可以参阅 [FOR 语句](/pql/for.md)。
 * **`value IN (v1, v2, v3)`** 判断一个值是否在数组中。
 * **`value NOT IN (v1, v2, v3)`**  判断一个值是否不在数组中。
-  以下是`IN`和`NOT IN`的示例:
-  ```sql
-  IF $id IN (SELECT id FROM table1) THEN ...
-  IF $id NOT IN (1, 3, 5, 8) THEN ...
-  IF $n IN $array THEN ...
-  IF $name NOT IN ["Tom", "Jerry", "Garfield"] THEN ...
-  ```
+
+以下是`IN`和`NOT IN`的示例:
+
+```sql
+IF $id IN (SELECT id FROM table1) THEN ...
+IF $id NOT IN (1, 3, 5, 8) THEN ...
+IF $n IN $array THEN ...
+IF $name NOT IN ["Tom", "Jerry", "Garfield"] THEN ...
+```
 
 ---
 参考链接
@@ -51,5 +58,5 @@ PQL 中的数组是变长的，可以增减元素，按索引访问数据的项�
 * [Sharp 表达式操作 - 数据表 TABLE](/pql/sharp-table.md)
 * [Sharp 表达式操作 - 数据行 ROW](/pql/sharp-row.md)
 * [Sharp 表达式操作 - 数据判断](/pql/sharp-if.md)
-* [Sharp 表达式操作 - Json字符串](/pql/sharp-json.md)
+* [Sharp 表达式操作 - Json 字符串](/pql/sharp-json.md)
 * [循环遍历 FOR](/pql/for.md)

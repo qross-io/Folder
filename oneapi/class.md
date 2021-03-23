@@ -1,6 +1,7 @@
 # OneApi类
 
-OneApi类所在的包为`io.qross.app.OneApi`。这里汇总一下OneApi类中的方法，方便查阅。
+OneApi 类所在的包为`io.qross.app.OneApi`。这里汇总一下 OneApi 类中的方法，方便查阅。
+
 ```java
 public static boolean OneApi.authenticateManagementKey(key);
 public static boolean contains(String path);
@@ -35,6 +36,7 @@ public static Object request(String path, Map<String, String> params);
 * `request` 请求某个接口，可以自定义参数。
 
 在自定义的`@RestController`类中，只需要调用`signIn`和`request`方法即可，其他均为管理方法，见[OneApi管理功能](/oneapi/management.md)。调用示例：
+
 ```java
 OneApi.request(path);
 OneApi.signIn(1, username, role).request(path);

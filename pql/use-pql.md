@@ -1,4 +1,4 @@
-# 使用PQL
+# 使用 PQL
 
 ## 运行环境
 
@@ -18,71 +18,29 @@
 * Scala 2.10 或以上版本（可选）
 * Gradle 4.9 或以上版本（可自行修改为 Maven）
 
-### 引入PQL依赖
+### 引入 PQL 依赖
 
-PQL 可以在任何 Java 和 Scala 项目里使用，包括 Spring Boot 项目，只要引入一个依赖即可。[OneApi 统一接口](/oneapi/overview.md)和 [Voyager 模板引擎](/voyager/overview.md)也一样引用这个依赖。PQL 项目暂时使用阿里云私有仓库保存，未来会迁移到 Maven 中央仓库。
+PQL 可以在任何 Java 和 Scala 项目里使用，包括 Spring Boot 项目，只要引入一个依赖即可。[OneApi 统一接口](/oneapi/overview.md)和 [Voyager 模板引擎](/voyager/overview.md)也一样引用这个依赖。
 
-* **Maven配置如下**
+* **Maven 配置**
 
-1. settings.xml 中配置凭证
-
-```xml
-<servers>
-  <server>
-    <id>rdc-releases</id>
-    <username>PtbpNI</username>
-    <password>kwCz3C0wHx</password>
-  </server>
-  <server>
-    <id>rdc-snapshots</id>
-    <username>PtbpNI</username>
-    <password>kwCz3C0wHx</password>
-  </server>
-</servers>
-```
-2. porn.xml 仓库配置
-
-```xml
-<distributionManagement>
-  <repository>
-    <id>rdc-releases</id>
-    <url>https://packages.aliyun.com/maven/repository/2011186-release-Aa5YmC/</url>
-  </repository>
-  <snapshotRepository>
-    <id>rdc-snapshots</id>
-    <url>https://packages.aliyun.com/maven/repository/2011186-snapshot-FSoDsK/</url>
-  </snapshotRepository>
-</distributionManagement>
-```
-
-3. porn.xml 依赖配置
+porn.xml 依赖配置如下
 
 ```xml
 <dependencies>
     <dependency>
         <groupId>io.qross</groupId>
         <artifactId>pql</artifactId>
-        <version>0.6.4-40-SNAPSHOT</version>
+        <version>1.3.0</version>
     </dependency> 
 </dependencies>
 ```
 
-* **Gradle 配置如下**
+* **Gradle 配置**
 
 ```groovy
-repositories {
-    maven{
-		credentials {
-			username 'PtbpNI'
-			password 'kwCz3C0wHx'
-		}
-		url "https://packages.aliyun.com/maven/repository/2011186-snapshot-FSoDsK/"
-		//url "https://packages.aliyun.com/maven/repository/2011186-release-Aa5YmC/"
-    }
-}
-
 dependencies {
-    compile (group: 'io.qross', name: 'pql', version: '1.1.0-RELEASE')
+    compile group: 'io.qross', name: 'pql', version: '1.3.0'
 }
 ```
 
@@ -96,14 +54,14 @@ io.qross.pql.PQL.run("PRINT 'HELLO WORLD!'");
 
 PQL 主要用于数据查询和计算，所以在使用之前，需要先配置数据源。PQL 支持多种方式配置数据连接，请参照 [数据连接配置](/pql/properties.md)。
 
-
 ## 编写第一个 PQL 过程
 
 ### 编写 PQL 文件
+
 上面的备工作做好之后，下面我们开始编写我们的第一个 PQL 程序。
 
 1. 在项目的`resources`目录下，创建名字的文件夹进行组织，如`pql`。
-2. 在文件夹下创建扩展名为`sql`的文件，如`test.sql`（PQL本质上还是 SQL 语句的集合）。
+2. 在文件夹下创建扩展名为`sql`的文件，如`test.sql`（PQL 本质上还是 SQL 语句的集合）。
 3. 打开刚刚创建的文件，输入以下代码：
    ```sql
    DEBUG ON; -- 启用调试
@@ -116,7 +74,7 @@ PQL 主要用于数据查询和计算，所以在使用之前，需要先配置�
       io.qross.pql.PQL.runFile("/pql/test.sql");
    }   
    ```
-   Scala代码：
+   Scala 代码：
    ```scala
    def main(Array[String] args): Unit = {
       io.qross.pql.PQL.runFile("/pql/test.sql")
@@ -127,11 +85,12 @@ PQL 主要用于数据查询和计算，所以在使用之前，需要先配置�
 **io.qross.pql.PQL** 类还有很多重载和方法用于应对各种场景，请参阅 [PQL 类文档](/pql/class.md)。这种方式特别适合于数据计算脚本的开发，甚至不需要写 Java 和 Scala 代码。脚本开发调试完成之后，直接将 PQL 文件部署到服务器上即可，不需要编译和构建。在服务器上可以通过命令直接运行或者通过 [Keeper 调度工具](/keeper/overview.md)运行。作者所在的数据部门采用这种开发方式，非常方便。
 
 
-### 直接运行PQL过程字符串
+### 直接运行 PQL 字符串
 
-除了将 PQL 保存为文件外，也可以直接运行PQL过程字符串。
+除了将 PQL 保存为文件外，也可以直接运行 PQL 过程字符串。
 
 Java 代码：
+
 ```java
 public static void main(String[] args) {
     String pql = "DEBUG ON;";
@@ -143,6 +102,7 @@ public static void main(String[] args) {
 ```
 
 Scala 代码：
+
 ```scala
 def main(Array[String] args): Unit = {
     val pql = 

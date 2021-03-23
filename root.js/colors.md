@@ -157,9 +157,7 @@ $x('table')
         if (color.startsWith('#') && color.length == 7) {            
             tr.cells[2].style.backgroundColor = color;
         }
-        else {
-            tr.cells[1].style.width = '120px';
-            tr.cells[2].style.width = '120px';
-        }
+        tr.cells[1].style.width = '120px';
+        tr.cells[2].style.width = '120px';
     });
 </script>

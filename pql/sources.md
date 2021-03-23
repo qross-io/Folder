@@ -4,19 +4,23 @@ Qross 系统支持多种数据源访问，跨源访问能力是 PQL 的核心能
 
 ## 关系型数据库
 
-* MySQL
+* Derby
 * MariaDB
+* MySQL
 * Oracle
-* SQL Server
 * PostgreSQL
+* SQL Server
 
 ## 分布式数据仓库或计算引擎
 
-* Hive
-* Presto
-* GreenPlum
-* TiDB
 * AnalyticDB
+* Drill
+* GreenPlum
+* Hive
+* Impala
+* Phoenix（HBase 查询引擎）
+* Presto
+* TiDB
 
 ## 键值或缓存数据库
 
@@ -32,8 +36,9 @@ Qross 系统支持多种数据源访问，跨源访问能力是 PQL 的核心能
 
 ## 文件
 
-* CSV
+* CSV 格式
 * 按行分隔的 TXT
+* 按行分隔的 Json 文件（每行是一个 Json 对象）
 * 按行分隔的 GZ 文件
 
 ## 其他

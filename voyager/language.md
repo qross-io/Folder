@@ -2,9 +2,9 @@
 
 Voyager 支持根据不同的设置或用户习惯在页面上显示不同的语言，配置非常简单。
 
-## 在`resources`文件夹下添加语言文件夹和文件
+## 在 resources 文件夹下添加语言文件夹和文件
 
-语言配置文件放在`resources`文件下的`languages`文件夹下，没有自行创建即可。然后在`languages`文件夹下创建两个语言文件夹，如`chinese`和`english`。语言配置文件保存在相应的语言文件夹下，扩展名为`.lang`，一般一个模块创建一个语言文件即可。可以创建多层文件夹，比如父级模块、子模块等，一般对于中小型项目，一层目录足够用了。创建好的文件目录结构如下：
+语言配置文件放在 resources 文件下的`languages`文件夹下，没有自行创建即可。然后在`languages`文件夹下创建两个语言文件夹，如`chinese`和`english`。语言配置文件保存在相应的语言文件夹下，扩展名为`.lang`，一般一个模块创建一个语言文件即可。可以创建多层文件夹，比如父级模块、子模块等，一般对于中小型项目，一层目录足够用了。创建好的文件目录结构如下：
 
 + resources
     + languages
@@ -20,18 +20,19 @@ Voyager 支持根据不同的设置或用户习惯在页面上显示不同的语
 
 语言文件的名称可根据模块的名称设置，建议是英文单词，多个单词之间使用中线`-`隔开，如`job-task`。不同语言文件夹下的语言文件名必须一一对应，否则切换语言时找不到相应的配置。
 
-
 ## 在语言文件中添加语言标签
 
-语言文件使用`properties`文件相同的设置规则，即`标签名=语言文字`。
+语言文件使用 properties 文件相同的设置规则，即`标签名=语言文字`。
 
-在`chinese`文件夹下的`carton.lang`文件中输入
+在 chinese 文件夹下的`carton.lang`文件中输入
+
 ```properties
 tom=汤姆
 jerry=杰瑞
 ```
 
-在`english`文件夹下的`carton.lang`文件中输入
+在 english 文件夹下的`carton.lang`文件中输入
+
 ```properties
 tom=Tom
 jerry=Jerry
@@ -63,7 +64,7 @@ jerry=Jerry
 <div><%="# carton.tom # and # carton.jerry #"%></div>
 ```
 
-当一个页面要使用非常多语言标签时，如果每个占位符都输入模块名会非常麻烦，可以通过`include`引入整个模块，引入之后可省略模块名。
+当一个页面要使用非常多语言标签时，如果每个占位符都输入模块名会非常麻烦，可以通过`include`语法引入整个模块，引入之后可省略模块名。
 
 ```html
 <body>
@@ -76,10 +77,9 @@ jerry=Jerry
 
 ## 如何切换语言
 
-可以在配置文件中设置默认语言，详见[Voyager设置](/voyager/setup.md)中的`voyager.language`项。
+可以在配置文件中设置默认语言，详见 [Voyager 设置](/voyager/setup.md)中的`voyager.language`项。
 
-一般情况下需要根据用户的操作系统语言或用户自行更改界面语言，Voyager可以将用户设置保存在 Cookie 中，并会优先调取 Cookie 中的值，Cookie 名称为 `language`。即要切换语言，更新`language`的值即可。
-
+一般情况下需要根据用户的操作系统语言或用户自行更改界面语言，Voyager 可以将用户设置保存在 Cookie 中，并会优先调取 Cookie 中的值，Cookie 名称为 `language`。即要切换语言，更新`language`的值即可。
 
 ---
 参考链接

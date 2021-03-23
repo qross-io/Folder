@@ -1,10 +1,10 @@
-# Qross系统文档
+# Qross 系统文档
 
-**Qross** (Query Cross DataSources) 是提速和简化数据开发、后端开发的一整套解决方案，核心组件包含[数据处理语言 PQL](/pql/overview.md)、[任务调度工具 Keeper](/pql/overview.md)、[数据管理平台 Master](/master/overview.md)、[统一接口应用 OneApi](/oneapi/overivew.md)、[数据开发框架 DataHub](/datahub/overview.md)和[前端组件库 root.js](/root.js/overview.md)。**Qross系统** 使用`Scala`和`Java`语言编写，免费且开源。
+**Qross** (Query Cross DataSources) 是提速和简化数据开发、后端开发的一整套解决方案，核心组件包含[数据处理语言 PQL](/pql/overview.md)、[任务调度工具 Keeper](/pql/overview.md)、[数据管理平台 Master](/master/overview.md)、[统一接口应用 OneApi](/oneapi/overivew.md)、[数据开发框架 DataHub](/datahub/overview.md)和[前端组件库 root.js](/root.js/overview.md)。Qross 系统使用`Scala`和`Java`语言编写，免费且开源。
 
 ## # [过程化查询语言 PQL](/pql/overview.md)
 
-**PQL** (Procedural Query Language) 是一种适合于数据处理中间件语言，语法类似于 Oracle 的`PL/SQL`。PQL 简单易用但功能强大，所有功能基本都可以用一条语句搞定。支持多数据源的数据输入和输出，并支持多个与数据处理相关的周边功能，如Excel读写、邮件发送、接口访问等。PQL适用于数据统计计算、后端接口服务、模板引擎等应用场景。
+**PQL** (Procedural Query Language) 是一种适合于数据处理中间件语言，语法类似于 Oracle 的`PL/SQL`。PQL 简单易用但功能强大，所有功能基本都可以用一条语句搞定。支持多数据源的数据输入和输出，并支持多个与数据处理相关的周边功能，如 Excel 读写、邮件发送、接口访问等。PQL 适用于数据统计计算、后端接口服务、模板引擎等应用场景。
 
 * 可支持[任何 JDBC 数据源](/pql/properties)，并可在不同数据之间任意[流转数据](/pql/dataflow.md)。
 * 提供[缓存数据库](/pql/cache.md)和[中间缓冲区](/pql/get.md)，用于缓冲或临时保存处理过程中的中间数据。
@@ -39,7 +39,7 @@ Keeper 基于 Akka 和 DataHub 框架开发，文档待补全。源码地址为�
 
 ## # [统一接口管理 OneApi](/oneapi/overview.md)
 
-**OneApi** 是PQL的另一种应用，即后端接口由 PQL 而不是 Java 或者 MyBatis 来开发。OneApi 可以极大的提高接口开发的效率，在接口中只需要编写核心逻辑，不再需要各种 Java 类。OneApi 运行在 Spring Boot 环境下。
+**OneApi** 是 PQL 的另一种应用，即后端接口由 PQL 而不是 Java 或者 MyBatis 来开发。OneApi 可以极大的提高接口开发的效率，在接口中只需要编写核心逻辑，不再需要各种 Java 类。OneApi 运行在 Spring Boot 环境下。
 
 * 在 Spring Boot 项目中，[Controller 只需要配置一次](/oneapi/controller.md)。
 * OneApi 的接口可以写在 Spring Boot 项目的文件中，与项目一起受源代码管理。
@@ -50,7 +50,7 @@ Keeper 基于 Akka 和 DataHub 框架开发，文档待补全。源码地址为�
 * 通过 PQL，可快速访问任意关系型数据库和其他数据源如 Redis 等。
 * 通过 PQL，可快速将输出各种文件并实现文件下载功能。
 
-OneApi的页面管理功能正在开发中，可更方便直观的管理项目和接口。示例项目地址为：<https://github.com/qross-io/OneApi>
+OneApi 的页面管理功能正在开发中，可更方便直观的管理项目和接口。示例项目地址为：<https://github.com/qross-io/OneApi>
 
 ## # [数据管理平台 Master](/master/overview.md)
 
