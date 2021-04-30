@@ -1,6 +1,6 @@
-# Keeper自定义事件
+# Keeper 自定义事件
 
-在Keeper预设的事件中，只有发送邮件、请示接口、执行指定的程序（脚本）或重启任务。显然满足不了常规的业务需求，比如打电话、发短信、发送企业微信或钉钉消息等。虽然可以通过执行指定的程序实现，但是如果每一个调度作业都配置一次又太麻烦了。Keeper提供了自定义事件的方法，可以把自定义事件理解为是一个“函数”。能够通过程序扩展是Keeper与其他调度工具的最大区别。在“系统”->“Keeper监控”->“自定义事件”中找到自定义事件页面。
+在 Keeper 预设的事件中，只有发送邮件、请示接口、执行指定的程序（脚本）或重启任务。显然满足不了常规的业务需求，比如打电话、发短信、发送企业微信或钉钉消息等。虽然可以通过执行指定的程序实现，但是如果每一个调度作业都配置一次又太麻烦了。Keeper 提供了自定义事件的方法，可以把自定义事件理解为是一个“函数”。能够通过程序扩展是 Keeper 与其他调度工具的最大区别。在“系统”->“Keeper 监控”->“自定义事件”中找到自定义事件页面。
 
 自定义事件的各个参数解释如下：
 
@@ -10,7 +10,7 @@
 ```json
 { "chinese": "中文标签", "english": "English Label" }
 ```
-不是这种Json格式的即为单语言形式，根据需要选择。
+不是这种 Json 格式的即为单语言形式，根据需要选择。
 
 事件名称可以是“拨打电话给”、“发送企业微信消息给”（用户信息中包含了企业微信字段）、“发送短信给”等等。
 
@@ -30,7 +30,7 @@
 
 ## 实现事件逻辑的程序
 
-自定义事件支持使用PQL过程、Shell命令或Python脚本来实现。如果使用Java书写逻辑，可以先打成jar包，然后使用Shell调用。
+自定义事件支持使用 PQL 过程、Shell 命令或 Python 脚本来实现。如果使用 Java 书写逻辑，可以先打成 jar 包，然后使用 Shell 调用。
 
 在事件逻辑编码过程中，可以使用一些内置的参数或变量，分别说明如下：
 
@@ -38,12 +38,12 @@
 * `title` 调度作业的标题。
 * `task_id` 任务ID。
 * `status` 任务状态。
-* `task_time` 任务创建时间，格式为 "yyyyMMddHHmmss00"。
-* `record_time`  任务每次执行的时间，格式为 "yyyy-MM-dd HH:mm:ss" 。
+* `task_time` 任务创建时间，格式为`yyyyMMddHHmmss00`。
+* `record_time`  任务每次执行的时间，格式为`yyyy-MM-dd HH:mm:ss`。
 * `event_limit` 事件触发限制条件，由逗号分隔的多个值，比如`auto_start,manual_start`。可选值`4`个值分别有`auto_start`、`manual_start`、`auto_restart`、`manual_restart`，分别对应自动启动、手工启动、自动重启和手工重启，意义详见[调度作业事件](/keeper/event.md)中的说明。
 * `value` 事件参数的值。如果是角色选项，是由逗号分隔的多个值，比如`_OWNER,_LEADER`，最多可选`4`个值，分别为所有者`_OWNER`，团队负责人`_LEADER`，次级管理员`_KEEPER`和超级管理员`_MASTER`。
 
-这些内置的值可以作为参数和变量调用。如果以参数形式调用，可使用格式`#{name}`，如`#{task_id}`；如果以变量形式调用，可使用格式`$name`，如`$task_id`。建议在PQL过程中使用变量格式调用，在Shell或Python中使用参数格式调用。
+这些内置的值可以作为参数和变量调用。如果以参数形式调用，可使用格式`#{name}`，如`#{task_id}`；如果以变量形式调用，可使用格式`$name`，如`$task_id`。建议在 PQL 过程中使用变量格式调用，在 Shell 或 Python 中使用参数格式调用。
 
 在事件参数类型为“角色选项”时，还支持额外的一些参数或变量：
 
@@ -55,7 +55,7 @@
 
 以上几个变量类型均为数据表格。当事件参数值选中对应的角色时，其相应变量的表格中就会存有用户的详细信息；如果没有选中某个角色，其对应变量的表格为空。这几个表格的字段名有：
 
-* `id` 用户在Qross系统中的唯一id
+* `id` 用户在 Qross 系统中的唯一id
 * `username` 用户名，同登录名，如`zhangsan`
 * `fullname` 用户全名，一般为中文名称，如`张三`
 * `email` 邮件地址，如`zhangsan@company.com`，发送邮件时可以作为收件地址使用
@@ -63,14 +63,16 @@
 * `mobile` 手机号码
 * `wechat_work_id` 企业微信id
 
-在PQL中这几个用户变量可以直接使用或遍历，如
+在 PQL 中这几个用户变量可以直接使用或遍历，如
+
 ```sql
 FOR $user OF $users LOOP
     PRINT $user.mobile;
 END LOOP;
 ```
 
-在Shell或Python中可使用嵌入式Sharp表达式进行值加工然后传递，如
+在 Shell 或 Python 中可使用嵌入式 Sharp 表达式进行值加工然后传递，如
+
 ```sh
 java -jar custom-event.jar ${ $owner COLUMN 'mobile' JOIN ',' }
 ```
@@ -80,7 +82,7 @@ java -jar custom-event.jar ${ $owner COLUMN 'mobile' JOIN ',' }
 
 ## 自定义事件示例
 
-建议使用PQL编写自定义事件逻辑，以下几个由PQL写成的事件示例可供参考。
+建议使用 PQL 编写自定义事件逻辑，以下几个由 PQL 写成的事件示例可供参考。
 
 ### 请求接口
 
@@ -91,6 +93,7 @@ REQUEST JSON API '''http://www.domain.com/api/event?job=$job_id''' METHOD 'POST'
 ```
 
 电话语言接口示例：
+
 ```sql
 REQUEST JSON API '''https://api.company.com/phone/call?calledShowNumber=01086483133&calledNumber=${ $users COLUMN 'mobile' JOIN ','  }&ttsCode=TTS_169899687&deptNo=0007&token=7f0e43a86e15a20bdff07a160e0b9cc4&cId=9999&name=SingleCallByVoice&jobId=$job_id&jobTitle=${ $title URL ENCODE }''' METHOD 'POST';
 ```
@@ -112,7 +115,7 @@ SEND MAIL ${ 'ERROR: ' + $title }
 
 ```sql
 IF @WXWORK_TOKEN == '' OR  @WXWORK_TOKEN_LAST_GET_TIME == '' OR @WXWORK_TOKEN_LAST_GET_TIME EARLIER @NOW >= 7200 SECONDS THEN
-		REQUEST JSON API 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=ww081d3ebb58b63ebc&corpsecret=f9ekY5w52_2FmVSsFu8MIqp82xgc4FG5mXMnXl8ma_Q';
+		REQUEST JSON API 'https://qyapi.weixin.qq.com/cgi-bin/gettoken?corpid=@CORPID&corpsecret=f9ekY5w52_2FmVSsFu8MIqp82xgc4FG5mXMnXl8ma_Q';
 		VAR $info := PARSE '/' AS ROW;
 		IF $info.errcode == 0 THEN
 			SET @WXWORK_TOKEN := $info.access_token;

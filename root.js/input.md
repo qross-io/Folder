@@ -1,21 +1,20 @@
 # INPUT 标签扩展
 
-为了更方便的处理表单中的用户输入，组件库对 INPUT 标签进行了扩展。
+为了更方便的处理表单中的用户输入，组件库对 [INPUT 标签](/root.js/input-native.md)进行了扩展。
 
 ```html
-<input type="text" name="Input1" required-text="" invalid-text="" warning-text="" valid-text="" validator="" minlength="0" class="" focus-class="" error-class="" valid-class="" error-text-class="" valid-text-class="" get="" set="" prevent-injection update-value-on="" />
+<input type="text" name="TextBox1" required-text="" invalid-text="" valid-text="" validator="" minlength="0" class="" focus-class="" error-class="" valid-class="" error-text-class="" valid-text-class="" get="" set="" set-value-on="" onblur+="server" success-text="" failure-text="" exception-text="" onload="" />
 ```
 
 扩展或新增的属性有：
 
-* `type` 文本框的类型，除扩展了原生类型`text`、`number`和`password`外，还新增了`integer`、`float`、`mobile`、`idcard`和`name`。各类型的应用在正面分别介绍。
-* `hint` 设置显示提醒文字的元素，值使用 CSS 选择器，如`#Message`。如果不设置这个属性，则默认在文本框的后面创建一个元素。使用`error-text-class`和`valid-text-class`设置文字样式。可以多个 INPUT 使用同一个元素标签，如只在提交按钮后面显示提醒。
+* `type` 文本框的类型，除扩展了原生类型`text`、`number`和`password`外，还新增了`integer`、`float`、`mobile`、`idcard`和`name`。各扩展类型的应用在下面分别介绍。
+* `hint` 设置显示提醒文字的元素，值使用 CSS 选择器，如`#Message`。如果不设置这个属性，则默认在文本框的后面创建一个 SPAN 元素。使用`error-text-class`和`valid-text-class`设置文字样式。可以多个 INPUT 使用同一个元素标签，比如只想在提交按钮后面显示提醒。
 * `callout` 如果设置了这个属性，则提醒文字在 Callout 中显示，这个属性可以设置 Callout 的显示位置，可选值有 `leftside`、`rightside`、`upside`、`downside`，默认值为`upside`。如果设置了`callout`属性而没有设置`hint`属性，则只用 Callout 的方式显示提醒；如果没有设置`callout`属性，则使用文本元素显示提醒文字；可以两种方式同时使用。
-* `required-text` 当输入值为空时的提示文字，显示在输入框的右方。
-* `invalid-text` 当输入值不满足验证要求时的提示文字，显示在输入框的右方。
-* `warning-text` 当输入值满足验证要求但仍然不正确时要显示的提示文字，如用户名不唯一等。
-* `valid-text` 当输入值正确时的提示文字，显示在输入框的右方，不设置则不显示。
-* `validator` 正则表达式验证器，如`^[a-z]$`只允许输入小写英文字母，可以使用 Javascript 的格式，如`/^[a-z]$/i`来忽略大小写。
+* `required-text` 当输入值为空时的提示文字。
+* `invalid-text` 当输入值不满足验证要求时的提示文字。
+* `valid-text` 当输入值正确时的提示文字，不设置则不显示。
+* `validator` 正则表达式验证器，区别于原生属性`pattern`，`pattern`是大小写敏感的，`validator`不区分大小写，如`pattern="^[a-z]$"`只允许输入小写英文字母，而`validator="^[a-z]$"`也可以输入大写字母。
 * `minlength` 最小字符长度，当不满足要求时提示`invalid-text`。小于等于`0`表示不限制最小长度。这个属性是原生属性。
 * `autosize` 是否根据输入的字符数自动调整宽度`size`，中文占用两个字符位置，如果设置了这个属性，则`size`属性表示最小宽度。
 * `class` 默认的显示样式，必填项默认值为`input-required-class`，选填项默认值为`input-optional-class`。
@@ -24,10 +23,18 @@
 * `valid-class` 当输入正确时的样式，默认使用系统样式。
 * `error-text-class` 警告文字的样式，默认为红色。
 * `valid-text-class` 输入正确时的提醒文字的样式，默认为绿色，需设置`valid-text`才显示。
-* `check` 接受一个接口地址或 PQL 查询语句（不一定是 SELECT），检查输入值是否符合预期，如检查用户名是否唯一。格式见 [data 属性](/root.js/data.md) 和 [Express 字符串](/root.js/express.md)。
-* `get` 在获取输入值时对值进行加工，返回加工后的值，下面有详细的解释。
-* `set` 在设置输入值时对值进行加工，设置输入值为加工后的值，下面有详细的解释。
-* `update-{attr}-on` 指定文本框的值或其他属性的更新条件，其中`{attr}`可以替换成组件支持的属性，例如`update-value-on`，下面有详细的示例。属性值规则见[事件表达式](/root.js/event.md)。
+* `getter` 在获取输入值时对值进行加工，返回加工后的值，下面有详细的解释。
+* `setter` 在设置输入值时对值进行加工，设置输入值为加工后的值，下面有详细的解释。
+* `set-{attr}-on` 指定文本框的值或其他属性的更新条件，其中`{attr}`可以替换成组件支持的属性，例如`set-value-on`，下面有详细的示例。属性值规则见[事件表达式](/root.js/event.md)。
+* `onblur+` 服务器端事件，接受一个接口地址或 PQL 查询语句（不一定是 SELECT），检查输入值是否符合预期，如检查用户名是否唯一。详见[服务器端事件](/root.js/server.md)，属性格式见[与数据相关的属性](/root.js/data.md) 和 [Express 字符串](/root.js/express.md)。
+* `success-text` 服务器端事件`onblur`执行成功并且结果验证通过时的提示文字，如检查用户名唯一等。
+* `failure-text`  服务器端事件`onblur`执行成功并且结果验证未通过时的提示文字，如用户名重复等。
+* `exception-text` 服务器端事件`onblur`执行失败时的提示文字，一般为接口出错。如果不设置则提示接口的出错信息。
+* `enter` 设定一个地址，当按下回车键时，自动跳转到指定的地址。如`<input type="search" enter="/search?key=$:[value]" />`。
+* `onmodify` 新增的事件，当且仅当用户输入的值改变时触发。
+* `onload` 实现了原生未实现的事件，当文本框加载后触发。
+
+以上以`-text`结尾的提醒文本属性均支持 [Express 表达式](/root.js/express.md)。
 
 特有 type 类型的属性有：
 
@@ -38,6 +45,8 @@
 * `precision` 小数点的精度，适用于`number`和`float`类型，为`0`时即控制为整数。
 * `strength` 密码复杂度，可选值 `WEAK`、`STRONG`和`COMPLEX`，适用于`password`类型，用于密码强度控制。
 * `fit` 设置一个密码输入框的 id，适用于第二个`password`，用于检查两次输入的密码是否一致。如`#Password`。
+
+其他原生属性请参照 [INPUT 标签](/root.js/input-native.md)。
 
 ## 文本 type="text"
 
@@ -191,36 +200,36 @@
 有时即使输入值符合要求，也要进一步对值进行检查，以判断是否符合系统要求，比如用户名唯一检查。
 
 ```html
-<input type="name" minlength="6" maxlength="16" required-text="用户名不能为空。" invalid-text="用户名至少为 6 位，最多 16 位。" warning-text="用户名已经存在。" check="/system/check-username?username={value}" />
+<input type="name" minlength="6" maxlength="16" required-text="用户名不能为空。" invalid-text="用户名至少为 6 位，最多 16 位。" onblur+="/system/check-username?username={value} -> empty" success-text="用户名可以使用。" failure-text="用户名已经存在。" />
 ```
 
 运行效果为：
 
-<input type="name" minlength="6" maxlength="16" required-text="用户名不能为空。" invalid-text="用户名至少为 6 位，最多 16 位。" warning-text="用户名已经存在。" check="/api/system/check-username?username={value}" valid-text="用户名可以使用。" size="40" />
+<input type="name" minlength="6" maxlength="16" required-text="用户名不能为空。" invalid-text="用户名至少为 6 位，最多 16 位。" onblur+="/api/system/check-username?username={value} -> empty" success-text="用户名可以使用。" failure-text="用户名已经存在。" size="40" />
 
-上例中，用户名`master`已经在系统中，`{value}`表示获取当前文本框的值。当文本框失去焦点时，会自动调用`check`属性中的接口，并判断返回值是否为空。当返回值不为空，即用户名已经存在时，会提示`warning-text`属性中的文字。
+上例中，用户名`master`已经在系统中，`{value}`表示获取当前文本框的值。当文本框失去焦点时，会自动执行`onblur+`事件，并判断返回值是否为空。当返回值不为空，即用户名已经存在时，会提示`failure-text`属性中的文字，否则提示`success-text`中的文字。
 
 ## 其他组件触发更新
 
-通过标签的`update-{attr}-on`属性，可以设置一个[事件表达式](/root.js/event.md)，当表达式中的组件触发相应的事件时，更新文本框的值或其他属性。这个标签需要配合相应对应的值格式属性使用，如`value:`，注意属性名中多一个冒号`:`以和原有的属性`value`区分，`value:`属性值格式设置见 [Express 字符串](/root.js/express.md)。
+通过标签的`set-{attr}-on`属性，可以设置一个[事件表达式](/root.js/event.md)，当表达式中的组件触发相应的事件时，更新文本框的值或其他属性。值格式设置见 [Express 字符串](/root.js/express.md)。
 
 ```html
 <select id="Select1">...</select>
-<select id="Select2">...</select>
-<input type="text" update-value-on="change:Select1" value:="$(#Select1).~{ this.value.takeAfter('.') }" update-size-on="change:#Select2" size:="$(#Select2)" />
+<select id="Select2" onchange+="..">...</select>
+<input type="text" set-value-on="load; change:Select1 -> $(#Select1).~{ this.value.takeAfter('.') }" set-size-on="change+success:#Select2 -> $(#Select2)" />
 ```
 
-上例中，当选择框`Select1`改变选项时，文本框的`value`自动更新，`value:`属性值中的`this`指向当前文本框。当选择框`Select2`选项改变时，文本框的`size`属性自动更新。
+上例中，当文本框加载后和选择框`Select1`改变选项时，文本框的`value`自动更新，上式中的`this`指向当前文本框。当选择框`Select2`选项改变时，文本框的`size`属性自动更新。
 
 ## 对输入值进行拦截
 
-`get`和`set`属性可以实现拦截器的功能，当获取或设置`value`属性的值时，对值进行加工，并返回加工后的值。这两个属性的属性值是一个 Javascript 短句，因为输入值是一个字符串，所以一般是字符串操作方法，使用`value`表示当前文本框的值。
+`getter`和`setter`属性可以实现拦截器的功能，当获取或设置`value`属性的值时，对值进行加工，并返回加工后的值。这两个属性的属性值是一个 Javascript 短句，因为输入值是一个字符串，所以一般是字符串操作方法，使用`value`表示当前文本框的值。
 
 ```html
-<input id="TextBox1" type="text" get="value.replace(/\s/g, '')" set="value.trim()" />
+<input id="TextBox1" type="text" getter="value.replace(/\s/g, '')" setter="value.trim()" />
 ```
 
-上例中，当获取文本框的值时，会执行`get`属性内的逻辑，自动将输入值去掉所有空白字符。当设置文本框的值时，会执行`set`属性的逻辑，自动去掉输入值两端的空白字符。
+上例中，当获取文本框的值时，会执行`getter`属性内的逻辑，自动将输入值去掉所有空白字符。当设置文本框的值时，会执行`setter`属性的逻辑，自动去掉输入值两端的空白字符。
 
 ## 可用的选择器
 

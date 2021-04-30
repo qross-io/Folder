@@ -64,8 +64,8 @@ $x('div').tail().css('nav').show();
 
 元素基本操作：
 
-* `show(display = true)` 显示集合中的所有元素，当`display`为`false`，则隐藏集合中的所有元素。
-* `hide()` 隐藏集合中的所有元素。
+* `show(display)` 显示集合中的所有元素，当`display`为`false`时，则隐藏集合中的所有元素。当不传递`display`值时或`display`为`true`时，显示集合中的所有元素。`display`属性还可以使用其他样式属性`display`属性所支持的值，如`block`。通过设置`visible="always"`或`hidden="always"`来忽略这个方法。通过在目标元素上设置`relative`属性来关联显示或隐藏其他的元素，如`relative="#Button1"`。
+* `hide()` 隐藏集合中的所有元素。通过设置`visible="always"`来忽略这个方法。通过在目标元素上设置`relative`属性来关联隐藏其他的元素，如`relative="#Span1"`。
 * `toggle()` 自动切换隐藏和显示状态，如果是隐藏，则切换成显示；否则亦然。
 * `remove()` 从页面上清除集合中所有元素。
 * `switch(attr, value1, value2)` 切换元素的属性。
@@ -176,14 +176,12 @@ Ajax 用来从接口调取数据，以下 4 个方法分别对应 4 种不同的
         .send(function(data) {
             //data 表示请求成功后获得的数据
         });
-
-
 ```
 
 现在已经有了更强大的请求方法：
 
 * `$cogo(todo, element)` 可以运行 PQL 语句或请示接口（支持跨域），但需要后端配合。
-    + `todo`表示要运行的 PQL 语句或要请求的接口，支持 [Express 字符串](/root.js/express.md)。当`todo`是接口时，格式为`method:url -> path`，其中`method`如果是`GET`可以省略，`path`如果是根目录`/`可以省略。
+    + `todo`表示要运行的 PQL 语句或要请求的接口，支持 [Express 字符串](/root.js/express.md)，属性格式详见[与数据相关的属性](/root.js/data.md)与 PQL 语句或接口相关的说明。
     + `element`表示发起请示的元素或对象。
     + `$cogo`返回一个 **Promise** 对象。
 
@@ -262,7 +260,6 @@ Json 构造函数和方法有：
 * `isDateString()` 判断字符串是否为日期。
 * `isTimeString()` 判断字符串是否为时间。
 
-
 ## Number 数字类型扩展方法
 
 * `kilo()` 为数字增加千分符，返回字符串。如`12004.kilo()`结果是`'12,004'`
@@ -303,13 +300,35 @@ Json 构造函数和方法有：
     + `styles` 样式列表，必须是一个 Object，如`{ "backgroundColor": "#FF0000", "font-size": "2rem" }`
     + `attributes` 自定义属性列表，必须是一个 Object，如`{ "sign": "TEST" }`
 
-全局转化方法，可处理`null`值，如果传入值为`null`，则返回默认值
+全局转化方法：<a id="parse"></a>
 
-* `$parseString(value, defaultValue = '')` 将数值转成字符串
-* `$parseInt(value, defaultValue = 0)`  将数值转成整数
-* `$parseFloat(value, defaultValue = 0)` 将数值转成小数
-* `$parseBoolean(value, defaultValue = false)` 将数值转成布尔值
-* `$parseArray(value, defaultValue = [])` 将数值转成数组
+* `$parseString(value, defaultValue = '')` 尝试将数值转成字符串。
+* `$parseInt(value, defaultValue = 0)`  尝试将数值转成整数。
+* `$parseFloat(value, defaultValue = 0)` 尝试将数值转成小数。
+* `$parseBoolean(value, defaultValue = false)` 尝试将数值转成布尔值，否则返回默认值。根据`value`的类型不同，有不同的判断条件。分别说明：
+    + `null`或`undefined` 返回默认值；
+    + 数字，是否大于`0`；
+    + 字符串，`true`或`yes`或`1`或`ok`或`on`会识别为`true`，`false`或`no`或`0`或`cancel`或`off`会识别为`false`，不区分大小写。其他值`eval`计算之后再进行识别，计算失败也返回默认值；
+    + 数组，长度是否大于`0`；
+    + 对象，是否有属性或数据项；
+    + 类实例，是否有`length`或`size`属性且大于`0`；
+    + 其他，返回默认值。
+* `$parseArray(value, defaultValue = [])` 尝试将数值转成数组。
+* `$parseEmpty(value, defaultValue = true)` 检查给定值是否为空，一定程度上可以理解为是`$parseBoolean`判断的逆操作：
+    + `null`或`undefined`，返回默认值；
+    + 字符串，是否为空；
+    + 数组，长度是否为`0`；
+    + 对象，是否无属性或空数据项；
+    + 布尔值，是否为`false`；
+    + 数字，是否小于`0`；
+    + 其他，返回默认值。
+* `$parseZero(value, defaultValue = 1)` 检查给定值是否为`0`，如果不是数字，则尝试转成数字。
+    + `null`或`undefined`，返回默认值；
+    + 字符串，尝试转成数字再判断，如果不能转成数字，则使用默认值；
+    + 数组，长度是否为`0`；
+    + 对象，是否无属性或空数据项；
+    + 布尔值，是否为`false`；
+    + 其他，返回默认值。
 
 其他更多
 
@@ -348,7 +367,7 @@ $enhance(HTMLButtonElement.prototype)
     })    
     .describe({
         onActionSuccess: null, // function(result) { },
-        onActionFail: null //function(result) { },
+        onActionFailure: null //function(result) { },
     })
     .define({
         'text': {
@@ -368,7 +387,7 @@ $enhance(HTMLButtonElement.prototype)
 * `declare()` 添加可在标签上定义的扩展属性，不能是原生属性。
 * `getter()` 为在`declare`方法中定义的属性添加 AOP 逻辑，当获取扩展属性时对属性值进行加工。上例中获取`actionText`时总是转变为小写。
 * `setter()` 为在`declare`方法中定义的属性添加 AOP 逻辑，当设置扩展属性时对属性值进行加工。上例中设置`actionText`时总是转变为大写。
-* `describe()` 添加即可在标签上定义也在对象实例上定义的属性，一般为事件。这里设置的属性不能添加 AOP 逻辑。
+* `describe()` 添加既可在标签上定义也在对象实例上定义的属性，一般为事件。这里设置的属性不能添加 AOP 逻辑。（示例中两个事件已弃用）
 * `define()` 如果以上两个方法定义的属性还不能满足要求，比如覆盖原生属性，需要使用这个方法添加完整的逻辑。这个方法与`Object.defineProperties()`方法效果相同。
 
 还可以通过`prototype`定义更多原型属性，不过这样定义的属性不支持`getter`和`setter`。扩展方法也可以在原型对象上定义，如下例：
@@ -514,14 +533,6 @@ $t('#Tag1').onclick = function(p) {
 
 除上面介绍的所有开发者可用的方法外，还有一些自动执行的功能。
 
-* 使用`hidden`属性隐藏页面上的元素。
-
-    ```html
-    <div hidden>...</div>
-    ```
-
-    页面加载时会自动隐藏这个 DIV 标签，其实就是`style="display: none"`的简写形式。
-
 * 自动解析标签的特定属性值，如果这些属性值里包含 [Express 字符串]的占位符，将自动替换成对应的值。这些属性包括：
     + `-html` 任意标签
     + `-value` INPUT 标签的值
@@ -551,11 +562,6 @@ $t('#Tag1').onclick = function(p) {
     <body self-adaption="#CatalogDiv,#WorkFrame">
     ```
 
-* 含有`enter`属性的 INPUT 标签会自动添加回车事件，当用户按下回车时，如果文本框的值改变，得自动跳转到`enter`属性指定的地址。
-    ```html
-    <input type="search" enter="/search?key=$:[value]">
-    ```
-
 * 锁定 DIV 和 TABLE，一般用于导航和表格表头固定，需要在 DIV 或 TABLE 上添加`fixed`属性。
 
     ```html
@@ -566,6 +572,13 @@ $t('#Tag1').onclick = function(p) {
 
     ```html
     <body ifram="#WorkFrame">
+    ```
+
+* `click-to-copy`属性，通过设置这个属性，可以点击标签内文字时自动将文本复制到剪切板。如果不设置属性值，那么复制自己的内容。也可以设置属性值，复制其他标签的内容。H1、H2、H3 标签自动附加点击复制功能。
+
+    ```html
+    <span click-to-copy></span>
+    <button click-to-copy="#Text1">复制</button>
     ```
 
 ---

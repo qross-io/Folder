@@ -1,6 +1,6 @@
-# Keeper系统调度
+# Keeper 系统调度
 
-Keeper有`3`个系统作业，用于Keeper正常的维护工作。系统作业所有信息项均不可修改。简要说明如下：
+Keeper 有`3`个系统作业，用于 Keeper 正常的维护工作。系统作业所有信息项均不可修改。简要说明如下：
 
 ## 任务清理
 
@@ -12,11 +12,11 @@ Keeper有`3`个系统作业，用于Keeper正常的维护工作。系统作业�
 * 任务及所有记录的工作流信息
 * 任务及所有记录的事件信息
 
-这个作业的PQL文件名称为`keeper_clean.sql`。
+这个作业的 PQL 文件名称为`keeper_clean.sql`。
 
 ## 调度统计
 
-这个作业在每小时`0`分统计Keeper各个图表需要的数据，包含以下指标：
+这个作业在每小时`0`分统计 Keeper 各个图表需要的数据，包含以下指标：
 
 * 新建任务数量
 * 正在执行的任务数量
@@ -29,7 +29,7 @@ Keeper有`3`个系统作业，用于Keeper正常的维护工作。系统作业�
 * 异常任务记录数
 
 
-这个作业的PQL文件名称为`keeper_stat.sql`。
+这个作业的 PQL 文件名称为`keeper_stat.sql`。
 
 ## 系统清理
 
@@ -37,18 +37,18 @@ Keeper有`3`个系统作业，用于Keeper正常的维护工作。系统作业�
 
 这个作业设定在每天凌晨`2`点执行，将清理以下过期的日志：
 
-* Keeper心跳日志
-* Keeper运行日志
-* Keeper异常日志
-* Keeper服务器监控
+* Keeper 心跳日志
+* Keeper 运行日志
+* Keeper 异常日志
+* Keeper 服务器监控
 * 卡死的任务记录
 
-这个作业的PQL文件名称为`keeper_system_clean.sql`。
+这个作业的 PQL 文件名称为`keeper_system_clean.sql`。
 
 
 ---
 参考链接
 
-* [Keeper设置](/keeper/settings.md)
-* [Keeper监控](/keeper/monitor.md)
+* [Keeper 设置](/keeper/settings.md)
+* [Keeper 监控](/keeper/monitor.md)
 * [调度作业](/keeper/job.md)

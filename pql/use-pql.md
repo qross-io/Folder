@@ -16,7 +16,7 @@
 
 * JDK 1.8 或以上版本
 * Scala 2.10 或以上版本（可选）
-* Gradle 4.9 或以上版本（可自行修改为 Maven）
+* Gradle 或 Maven 
 
 ### 引入 PQL 依赖
 
@@ -31,7 +31,7 @@ porn.xml 依赖配置如下
     <dependency>
         <groupId>io.qross</groupId>
         <artifactId>pql</artifactId>
-        <version>1.3.0</version>
+        <version>1.4.0</version>
     </dependency> 
 </dependencies>
 ```
@@ -40,7 +40,7 @@ porn.xml 依赖配置如下
 
 ```groovy
 dependencies {
-    compile group: 'io.qross', name: 'pql', version: '1.3.0'
+    compile group: 'io.qross', name: 'pql', version: '1.4.0'
 }
 ```
 

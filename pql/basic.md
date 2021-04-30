@@ -1,6 +1,6 @@
-# PQL基本语法
+# PQL 基本语法
 
-PQL 参照 SQL 语句的语法格式进行设计，控制结构和 Oracle 的 **PL/SQL** 基本一致。所以 PQL 看起来更像存储过程，PQL 中的 P 也是单词`Procedural`的首字母。PQL 编写的程序也称为“**过程**”。
+PQL 参照 SQL 语句的语法格式进行设计，控制结构和 Oracle 的 **PL/SQL** 基本一致。所以 PQL 看起来更像存储过程，PQL 中的`P`也是单词`Procedural`的首字母。PQL 编写的程序也称为 **过程**。
 
 PQL 的基本语法规则如下：
 

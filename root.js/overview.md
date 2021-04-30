@@ -7,11 +7,12 @@ root.js 库是 [Cogo 计划](/cogo/overview.md)的关键部分。
 ## 基础库
 
 * [**root.js**](/root.js/root.md) 基础功能类似于`jQuery`，同时提供很多基础的操作并为其他组件服务。
-* [**标签扩展属性 data**](/root.js/data.md)，让标签具有与后端交互的能力。
-* [**DateTime 日期时间类**](/root.js/datetime.md) 比原生的日期时间类功能更多。
+* [**与数据相关的标签扩展属性**](/root.js/data.md)，让标签具有与后端交互的能力。
 * [**Express 字符串**](/root.js/express.md) 提供快速串接字符串和显示元素标签内容的方法。
 * [**Model 数据加载模型**](/root.js/model.md) 提供从后端获取数据的能力，支持 FOR 循环、IF 判断等自定义标签。
+* [**服务器端事件**](/root.js/server.md) 为关键事件提供与后端快速交互的能力。
 * [**事件表达式**](/root.js/event.md) 用最简单的方法绑定事件。
+* [**DateTime 日期时间类**](/root.js/datetime.md) 比原生的日期时间类功能更多。
 
 ## 组件库
 

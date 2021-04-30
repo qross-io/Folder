@@ -113,6 +113,58 @@ BUTTON 模式下 SELECT 标签的专有属性只有一个
 
 如上例，IMAGE 模式下 OPTION 标签一个专有属性`src`，用于设置图片的地址或路径。这时选项文字`text`将显示在图片的下方。
 
+## 单选框模式
+
+用来代替单选框 Radio 列表，仅需要将`type`属性设置为`radio`即可。
+
+```html
+<select type="radio" id="Radio1">
+    <option value="mysql">MySQL</option>
+    <option selected value="mariadb">MariaDB</option>
+    <option value="sqlserver">SQL Server</option>
+    <option value="postgresql">PostgreSQL</option>
+    <option value="oracle">Oracle</option>
+    <option value="hive">Hive</option>
+</select>
+```
+
+显示效果如下：
+
+<select type="radio" id="Radio1">
+    <option value="mysql">MySQL</option>
+    <option selected value="mariadb">MariaDB</option>
+    <option value="sqlserver">SQL Server</option>
+    <option value="postgresql">PostgreSQL</option>
+    <option value="oracle">Oracle</option>
+    <option value="hive">Hive</option>
+</select>
+
+## 复选框模式
+
+用来代替单选框 Radio 列表，仅需要将`type`属性设置为`checkbox`即可。
+
+```html
+<select type="checkbox" id="Checkbox1">
+    <option value="mysql">MySQL</option>
+    <option selected value="mariadb">MariaDB</option>
+    <option value="sqlserver">SQL Server</option>
+    <option value="postgresql">PostgreSQL</option>
+    <option value="oracle">Oracle</option>
+    <option value="hive">Hive</option>
+</select>
+```
+
+显示效果如下：
+
+<select type="checkbox" id="Checkbox1">
+    <option value="mysql">MySQL</option>
+    <option selected value="mariadb">MariaDB</option>
+    <option value="sqlserver">SQL Server</option>
+    <option value="postgresql">PostgreSQL</option>
+    <option value="oracle">Oracle</option>
+    <option value="hive">Hive</option>
+</select>
+
 ## 加载数据
 
 暂无。
@@ -141,7 +193,11 @@ SELECT 组件是原生组件的扩展，可以使用选择器有：
     });
 ```
 
-其他事件暂缺。
+* `onchange+` 设置[服务器端事件](/root.js/server.md)。
+
+```html
+<select onchange+="/api/list?type={value}">
+```
 
 ## Select 类
 

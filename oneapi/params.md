@@ -26,6 +26,8 @@ REQUEST JSON API 'http://localhost:8080/api/exapmle/test'
     SEND DATA { "id": 1, "score": 89 };
 ```
 
+上例中，向 OneApi 中的接口 `http://localhost:8080/api/exapmle/test` 传递了一个 Json 对象，OneApi 会自动解析这个 Json 对象并将`id`和`score`两个参数传给这个接口。上例只是 PQL 中请求接口的示例，其他环境也可以这样用，如 Vue，Postman 等。
+
 ## 在接口逻辑中使用参数
 
 因为接口逻辑使用 PQL 过程实现，所以 OneApi 处理参数的过程就是 PQL 处理参数的过程。请参照 [PQL 参数处理](/pql/params.md)。如果想在 PQL 中使用参数或 URL 地址中的信息，请参阅[在 PQL 中获取 URL 地址及其他请求信息](/oneapi/request.md)

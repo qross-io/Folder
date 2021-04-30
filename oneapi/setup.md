@@ -12,9 +12,11 @@ oneapi.access.open=
 oneapi.access.permit=*=*
 oneapi.secret.key.ttl=3600
 oneapi.secret.key.digit=16
+
+oneapi.ajax.settings=
 ```
 
-* `onapi.service.name` 如果使用基于数据库的接口管理方式，项目启动时根据这个名字去数据库加载相应的接口，另外有些管理功能也需要这个名称，名称需唯一。如果仅使用基于文件的方式管理接口，不要设置此项。详见[接口服务](/oneapi/service.md)。
+* `onapi.service.name` 如果使用基于数据库的接口管理方式，项目启动时根据这个名字去数据库加载相应的接口，另外管理功能和附加功能（如文档、流量统计等）也需要这个名称，名称需唯一。如果仅使用基于文件的方式管理接口，也不需要附加功能，可以不要设置此项。详见[接口服务](/oneapi/service.md)。
 * `oneapi.management.key` OneApi 服务管理密码，OneApi 服务提供了一些管理功能，如刷新接口，修改设置等。使用这些管理功能需要设置管理密码，可通过 [OneApi 类](/oneapi/class.md)中的`OneApi.getToken(int digit)`方法生成随机密码。管理功能详见 [OneApi 接口管理](/oneapi/management.md)
 * `oneapi.resources.dirs` 表示保存在`resources`目录下的接口文件的目录，可以设置多个目录。如果设置多个，目录名称之间使用逗号分隔。OneApi 根据这个设置扫描这些目录下的所有文件，用户请求时再调用相应的接口。详见[用目录组织接口文件](/oneapi/file.md)。
 * `oneapi.security.mode` 接口访问安全控制，特别是接口开放到外网时尤其重要。可选`none`，无安全控制; `token` 静态Token认证，为每一个接口请求者分配一个用户名和 Token，请求者每次访问接口必须携带这两个参数，匹配上才能够继续访问接口; `securet` 动态 Token 认证，每次接口请求前必须先请求一次 Token 获取接口，获取动态 Token，然后再用动态 Token 继续请求接口; `user` 使用用户登录信息做安全控制，不做安全验证，只做接口的访问控制。详见 [OneApi 访问安全控制](/oneapi/token.md)。
@@ -23,6 +25,7 @@ oneapi.secret.key.digit=16
 * `oneapi.token.list` OneApi 的请求者和 Token 列表，请求者可以是其他业务部门、或者其他微服务、或其他模块的名字，Token 建议使用`OneApi.getToken(int digit)`方法生成，详见 [OneApi 类](/oneapi/class.md)。Token 在系统内必须唯一，即不同请求者的 token不能相同。Token 相关逻辑详见 [OneApi 访问安全验证](/oneapi/token.md)。
 * `oneapi.access.open` 不需要安全验证也能够访问的接口地址各地址规则，详见 [OneApi 设置安全验证例外](/oneapi/open.md)。
 * `oneapi.access.permit` 配置需要认证接口的访问权限，即使有安全控制，每个接口也不是每个请求者都可以访问，比如有的请求者只能访问服务中的几个接口。这个参数可以对访问进行批量控制，详见 [OneApi 访问安全控制](/oneapi/permit.md)。
+* `oneapi.ajax.settings` 为整个 Cogo 系统设置 Ajax 的请求逻辑，是一个与 root.js 前端组件库相关的属性，详见 [root.js 接口请求全局设置](/root.js/ajax.md)。
 
 如果你的系统中有多个服务，但是期望这些服务使用同样的设置，比如设置项`oneapi.token.list`。有几个办法可以解决这个问题：
 

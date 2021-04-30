@@ -1,6 +1,6 @@
 # Button 按钮扩展
 
-组件库对 BUTTON 标签进行了扩展，主要是为了实现与后端进行快速交互。
+组件库对 BUTTON 标签进行了扩展，主要是为了实现与后端进行快速交互。当设置了`onclick+`或`watch`属性时，所有扩展功能才生效。
 
 ## 使用
 
@@ -8,6 +8,8 @@
 
 ```html
 <script type="text/javascript" src="/root.js"></script>
+<script type="text/javascript" src="/root.popup.js"></script>
+<script type="text/javascript" src="/root.dialog.js"></script>
 <script type="text/javascript" src="/root.button.js"></script>
 ```
 
@@ -17,52 +19,34 @@
 ## 标签示例
 
 ```html
-<button id="Button1" action="pql|api" watch="#TextBox1,#TextBox2" confirm-text="" action-text="" success-text="" failed-text="" exception-text="" jumping-text="" jump-to="url" enabled-class="" disabled-class="" onclick="" onActionSuccess="" onActionFail="" onActionException="" onActionComplete="">按钮</button>
+<button id="Button1" onclick+="pql|api" watch="#TextBox1,#TextBox2" scale="normal" color="blue" confirm-text="" click-text="" success-text="" failure-text="" exception-text="" jumping-text="" jump-to="url" enabled-class="" disabled-class="">按钮</button>
 ```
 
-可用扩展属性如下：
+可用的扩展属性如下：
 
-* `action` 按钮要执行的 PQL 语句或 API 接口，见 [data 属性](/root.js/data.md)
 * `watch` 用于组件监听，下面在“组件监听”中单独介绍这个属性。
 * `confirm-text` 如果设置了这个属性，则在点击按钮时显示确认提示框，提示框里显示这个属性的文字。
-* `action-text` 执行`action`请求时的提示文字，替换按钮上的文字。
-* `success-text` 请求成功后的提示文字，替换按钮上的文字，返回值可以识别成正确的布尔值，见下面“请求成功与失败”中的详细说明。
-* `failed-text` 请求失败后的提示文字，替换按钮上的文字，见下面“请求成功与失败”的说明。
+* `confirm-title` 设置确认对话框的标题文字，对于原生确认对话框无效。
+* `confirm-button-text` 设置弹出对话框确认按钮的文字，默认为`OK`，对于原生确认对话框无效。
+* `cancel-button-text` 设置弹出对话框取消按钮的文字，默认为`Cancel`，对于原生确认对话框无效。
+* `click-text` 点击按钮触发服务器端请求时的提示文字，替换按钮上的文字。
+* `success-text` 请求成功后的提示文字，本文下方有状态说明。
+* `failure-text` 请求失败后的提示文字，本文下方有状态说明。
 * `exception-text` 请求发生异常后的提示文字，替换按钮上的文字，“异常”是指接口或 PQL 语句发生错误，错误会被打印到控制台。
-* `jump-to` 请求成功后的跳转 URL 地址。
+* `jump-to` 请求成功后的跳转 URL 地址，支持 [Express 字符串](/root.js/express.md)。
 * `jumping-text` 跳转过程中的提示文字。
-* `enabled-class` 启用状态下的样式，默认值`normal-button blue-button`
+* `enabled-class` 启用状态下的样式，默认值`normal-button blue-button`。
 * `disabled-class` 按钮在禁用状态下的样式，默认值`normal-button optional-button`。
+* `scale` 按钮大小，见本文下面的说明。
+* `color` 按钮颜色，见本文下面的说明。
+
+以上所有以`-text`消息相关属性均支持 [Express 字符串](/root.js/express.md)。
 
 ## 按钮事件
 
-事件一般情况下不需要设置，不过有时其他组件有时需要监听按钮的动作，参见[事件表达式](/root.js/event.md)。可用事件如下：
+按钮新增一个[服务器端事件](/root.js/server.md)`onclick+`，是按钮扩展的关键属性。属性值为按钮要执行的 PQL 语句或要请求的 API 接口，属性值格式详见[服务器端事件](/root.js/server.md)和[与数据相关的属性](/root.js/data.md)。客户端事件`onclick`依然可以使用。
 
-* `onActionSuccess` 当请求成功时触发。事件函数`function(data)`，参数为返回的数据。
-* `onActionFail` 当请求失败时触发。事件函数`function(data)`，参数为返回的数据。
-* `onActionException` 当请求发生错误时触发。事件函数`function(error)`，参数为错误信息。
-* `onActionComplete` 当请求完成后触发。事件函数`function()`，无参数。
-
-示例：
-
-```javascript
-$listen('Button1').on('actionException', function(err) {
-    console.log(err);
-})
-
-$s('#Button1').on('ActionSuccess', function(data) {
-    //...
-}).on('actionfail', function(data) {
-    //...
-});
-
-$s('#Button1').onActionComplete = function() {
-    //...
-}
-
-```
-
-上例中，三种方式都可以绑定事件，建议使用`$listen`和`on`方法绑定事件。第一种和第二种方式事件名称不区分大小写，可使用多次绑定多个事件；但第三种方式区分大小写，只能绑定一个事件。两种方法绑定的事件互相不影响，优先执行第三种方式。
+客户端事件一般情况下不会用到，不过有时其他组件有时需要监听按钮的动作，参见[精简事件和表达式](/root.js/event.md)。
 
 ## 可用的选择器
 
@@ -76,19 +60,11 @@ $s('#Button1').onActionComplete = function() {
 
 Button 扩展主要用于向后端发起请求，请求有以下几种状态：
 
-* `success` 成功状态，表示返回值符合预期，依照返回值类型确定。默认值为成功状态，即识别不出是失败状态，即是成功状态。
-    + 布尔值，`true`
-    + 字符串，可识别为`true`的字符串，如`yes`、`1`、`true`、`on`等，不区分大小写
-    + 数字，大于`0`
-    + 数组或对象，不为空
-* `failed` 失败状态，表示返回值不符合预期，依照返回值类型确定。
-    + 布尔值，`false`
-    + 字符串，可识别为`false`的字符串，如`no`、`0`、`false`、`off`等，不区分大小写
-    + 数字，小于等于`0`
-    + 数组或对象，为空
+* `success` 成功状态，表示返回值符合`expectation`属性设置的预期，依照返回值类型确定。默认值为成功状态，即不设置`expection`属性或识别不出是失败状态，即是成功状态。
+* `failure` 失败状态，表示返回值不符合预期，依照返回值类型确定。    
 * `exception` 请求异常状态，PQL 语句或接口出错。
 
-大多数情况下，按钮行为都是向数据库插入或更新数据，插入数据可以返回最新数据的自增`id`，更新数据可以返回受影响的行数。
+大多数情况下，按钮行为都是向数据库插入或更新数据，插入数据可以返回最新数据的自增`id`，更新数据可以返回受影响的行数，使用`non-zero`规则即可进行判断。
 
 ## 组件监听
 
@@ -125,7 +101,7 @@ Button 一般情况下会配合其他表单组件使用，如文本框等。Butt
 
 这个功能不需要引入`root.button.js`文件。
 
-## 可用的按钮样式
+## 可用的按钮外观
 
 按钮样式分为基本样式和颜色样式，基本样式用于控制按钮或文字大小，颜色样式用于控制按钮颜色，一般情况下两个样式同时使用。
 
@@ -151,12 +127,18 @@ Button 一般情况下会配合其他表单组件使用，如文本框等。Butt
 示例：
 
 ```html
-<button class="normal-button orange-button" disabled-class="normal-button gray-button">
+<button class="normal-button orange-button" disabled-class="normal-button gray-button">...</button>
+```
+
+外观样式可用`scale`和`color`属性代替，如
+
+```html
+<button scale="small" color="prime">...</button>
 ```
 
 ---
 参考链接
 
 * [root.js 基础库](/root.js/root.md)
-* [data 属性](/root.js/data.md)
-* [事件表达式](/root.js/event.md)
+* [与数据相关的属性](/root.js/data.md)
+* [精简事件和表达式](/root.js/event.md)

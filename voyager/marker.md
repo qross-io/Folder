@@ -1,6 +1,6 @@
 # Marker 类 - Markdown 转 Html
 
-Marker 可以将 Markdown 格式的文档转成 Html 代码，以方便在网页中显示，官网和 Master 管理平台中的文档全是使用 Marker 进行格式转换的。并且 Marker 也是 Voyager 模板引擎的 Markdown 文件转换引擎。
+Marker 可以将 Markdown 格式的文档转成 Html 代码，以方便在网页中显示，官网和 Master 管理平台中的文档全是使用 Marker 进行格式转换的。并且 Marker 也是 Voyager 模板引擎的 Markdown 格式转换引擎。
 
 Marker 是一个 Java 类，如果你已经[引入了 PQL 依赖](/pql/use-pql.md)，可以通过路径`io.qross.app.Marker`找到。以下是 Marker 公开的方法
 

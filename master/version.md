@@ -1,8 +1,12 @@
 # 版本和更新
 
-## v1.3.0
+## v1.4.0
 
-* 增加 PQL [自定义系统函数](/master/system/functions.md)管理。
+* [系统] 增加 PQL [全局变量](/master/system/variables.md)管理。
+
+## v1.3.0 (2021.3.24)
+
+* [系统] 增加 PQL [自定义系统函数](/master/system/functions.md)管理。
 
 ## v1.2.0 (2021.2.28)
 

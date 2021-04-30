@@ -2,11 +2,11 @@
 
 在 Spring Boot 项目中引用 Voyager 非常简单。
 
-## 引入PQL依赖
+## 引入 PQL 依赖
 
 在使用前需要引用相关 PQL 依赖并进行相关的数据源设置，请参照[使用 PQL](/pql/use-pql.md)
 
-## 添加`@Bean`
+## 添加 @Bean
 
 以 Master 项目为例，代码如下：
 
@@ -24,13 +24,13 @@ public class MasterApplication {
 }
 ```
 
-上面是 Master 项目的入口类，在`main`方法下面的`initVoyagerResolver`方法，即Voyager模板引擎的相关代码。
+上面是 Master 项目的入口类，在`main`方法下面的`initVoyagerResolver`方法，即 Voyager 模板引擎的相关代码。
 
 ## Hello World
 
 完成了以上两步，就可以开始编写业务逻辑了。
 
-1. 添加`Controller`，地址是`/home`，映射到页面`home.html`
+1. 添加 Controller，地址是`/home`，映射到页面`home.html`
     ```java
     @RequestMapping("/home")
     String home(Model root, HttpServletRequest request) {
@@ -51,5 +51,5 @@ public class MasterApplication {
 ---
 参考链接
 
-* [Voyager语法](/voyager/syntax.md)
-* [Voyager设置](/voyager/setup.md)
+* [Voyager 语法](/voyager/syntax.md)
+* [Voyager 设置](/voyager/setup.md)

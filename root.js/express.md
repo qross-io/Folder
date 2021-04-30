@@ -115,7 +115,7 @@ let str = '&(param)-$:[title]'.$p(span);
     ```
 * `data` 指向请求接口或执行 PQL 语句返回的结果。下例中当执行失败时显示返回的数据信息。
     ```html
-    <button id="TestButton" action="/api/system/test-connection" success-when="data == ''" failure-text="连接失败：{data}">Test<button>
+    <button id="TestButton" action="/api/system/test-connection" expection="empty" failure-text="连接失败：{data}">Test<button>
     ```
 
 以上三个变量都可以继续操作，如`{ data.message }`，`{ value.trim() }`。这三个变量也可以用到 Javacript 语句占位符中`{{ return data.status + value; }}`。
@@ -129,6 +129,18 @@ $cogo('/api/search?keyword=$(#Keyword)%')
     .then(data => {
         ...
     });    
+```
+
+很少的情况下会遇到字符冲突，例如：
+
+```javascript
+$cogo("SELECT * FROM qross_api_in_one WHERE path LIKE '$(#Filter)%'").then(data => { ... });    
+```
+
+这时的本意是匹配以关键词开始的所有结果，`%`在这里有特殊的意义。解决方法是使用 Javascript 表达式，稍微得多写几个字符。
+
+```javascript
+$cogo("SELECT * FROM qross_api_in_one WHERE path LIKE '$(#Filter)~{'%'}'").then(data => { ... });
 ```
 
 ---

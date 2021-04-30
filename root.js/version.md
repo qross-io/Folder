@@ -1,12 +1,26 @@
 # 版本和更新
 
-**root.js** 库一般跟随 [Qross Master](/master/overview.md) 项目的功能进行更新。相关文档会慢慢补全。
+**root.js** 库一般跟随 [Qross Master](/master/overview.md) 项目的功能进行更新。
 
-## v1.3.0
+## v1.4.0 (2021-4-30)
+
+* [服务器端事件](/root.js/server.md)加入，比原有的`action`属性更明确，例如`onclick+="insert into ...."`。所有相关组件的核心交互属性都修改为服务器端事件。
+* [精简事件](/root.js/event.md)加入，对原有的事件表达式进行了升级。
+* 新组件 [DateTimePicker](/root.js/datetimepicker.md)，这是一个组合组件，用于日期和时间的选择。
+* [A 标签扩展](/root.js/anchor.md)加入，主要是服务器端事件的支持。
+* 弹出框组件 [Popup](/root.js/popup.md) 文档补全。
+* [Select 标签扩展](/root.js/select.md)现在支持`radio`和`checkbox`类型。
+* [Input](/root.js/input.md) 和 [Button](/root.js/button.md) 扩展配合服务器端事件进行了大量属性更新。
+* [Input](/root.js/input.md) 新增`icon`属性，用于设置在输入框中显示的图标。新增`onmodify`事件，在值通过输入方式改变时触发。实现`onload`事件，组件加载完成时触发。
+* [Coder 彩色编码]组件的提示文字配合服务器端事件进行了统一，增加`validator`属性用于 Json 内容的验证。
+* [Model 模型](/root/js/model.md)中 Template 标签更新了两个方法的名称，新增`reload`方法。
+* 增加`click-to-copy`属性，可以应用到任何元素上，增加点击复制文字功能。
+
+## v1.3.0 (2021-3-24)
 
 * [Input 扩展](/root.js/input.md)新增扩展类型：`integer`，`password`，`idcard`，`mobile`，`name`等，以及`check`、`warning-text`、`autosize`等扩展属性。
-* [Input 扩展](/root.js/input.md)新增属性`required`（原生）、`check`、`pass-when`、`warning-text`、`autosize`、`hint`、`callout`等属性，以及移除`prevent-injection`属性（通过接口防止 SQL 注入）。
-* [Button 扩展](/root.js/button.md)新增`succes-when`属性，
+* [Input 扩展](/root.js/input.md)新增属性`required`（原生）、`check`、`pass-when`、`warning-text`、`autosize`、`hint`、`callout`等属性，以及移除`prevent-injection`属性（改为通过后端接口防止 SQL 注入）。
+* [Button 扩展](/root.js/button.md)新增`success-when`属性，
 * [Input 扩展](/root.js/input.md)和 [Button 扩展](/root.js/button.md)现在所有提示文字属性支持 [Express 字符串](/root.js/express.md)。
 * [Express 字符串]现在 Javascript 占位符默认支持 `data`、`value`、`text` 三个变量；现在所有占位符支持以`%`结尾来进行 URL 编码。
 * 修复各个组件的多个 bug.
@@ -24,7 +38,6 @@
 * [事件表达式](/root.js/event.md)加入，目的是尽可能的不写 Javascript 代码。
 * `$s`选择器现在可以选择扩展标签，仅可使用`name`属性进行选择，如`$s('#Button1')`。
 * `$a`选择器现在可以选择扩展标签，仅可使用`name`属性进行选择，如`$a('#Input1,#Input2,#Input3')`。
-
 
 ## v1.1.0 (2021-1-31)
 

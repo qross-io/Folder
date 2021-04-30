@@ -18,7 +18,7 @@ GET # 1 TO 10;
 PUT # INSERT INTO students (idx);
 ```
 
-FOR 语句遍历数组的其他示例（后面的示例都省略了`LOOP`后的部分）。
+FOR 语句遍历数组的其他示例（后面的示例都省略了`LOOP`后面的部分）。
 
 ```sql
 FOR $i IN 1 UNTIL 10 LOOP  -- 遍历从1到9，不包含10

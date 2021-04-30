@@ -55,11 +55,8 @@ SELECT concat(solar_year, '-', IF(solar_month < 10, '0', ''), solar_month, '-', 
 <script type="text/javascript" src="@/root.animation.js"></script>
 <script type="text/javascript" src="@/root.datetime.js"></script>
 <script type="text/javascript" src="@/root.calendar.js"></script>
-<script type="text/javascript" src="@/root.clock.js"></script>
-<script type="text/javascript" src="@/root.popup.js"></script>
 <link href="@/css/root/iconfont.css" rel="stylesheet" type="text/css" />
 <link href="@/css/root/calendar.css" rel="stylesheet" type="text/css" />
-<link href="@/css/root/clock.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 input { font-size: 1rem; }
 </style>
@@ -129,13 +126,14 @@ $listen('calendar4').on('WeekSelected', function(year, weekOfYear, startDate, en
 });
 ```
 
-### 三月多选模式
+### 双月多选模式
 
 ```html
-<calendar id="calendar5" mode="range" days-of-other-month="hidden" months="3"></calendar>
+<calendar id="calendar5" mode="range" days-of-other-month="hidden" months="2"></calendar>
 ```
 
-<calendar id="calendar5" mode="range" days-of-other-month="hidden" months="3"></calendar>
+<calendar id="calendar5" mode="range" days-of-other-month="hidden" months="2"></calendar>
+
 
 ### INPUT 多选模式
 
@@ -152,71 +150,31 @@ $calendar('calendar6').startDate; //返回选中的开始日期，格式`yyyy-MM
 $calendar('calendar6').endDate; //返回选中的结束日期，格式`yyyy-MM-dd`
 ```
 
+### 日期时间选择框
+
+```html
+<input id="calendar7" type="datetime" />
+```
+
 ### 整年模式
 
 ```html
-<calendar id="calendar7" mode="none" lunar="yes" holiday="yes" title-format="yyyy年"
+<calendar id="calendar8" mode="none" lunar="yes" holiday="yes" title-format="yyyy年"
  days-of-other-month="hidden" week-names="一,二,三,四,五,六,日" this-year-text="今年"
   month-names="一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月" corner-names="休,班" 
   extension-api="/api/system/calendar?year=" months="12"></calendar>
 ```
 <br/>
 <div>
-<calendar id="calendar7" mode="none" lunar="yes" holiday="yes" title-format="yyyy年"
+<calendar id="calendar8" mode="none" lunar="yes" holiday="yes" title-format="yyyy年"
  days-of-other-month="hidden" week-names="一,二,三,四,五,六,日" this-year-text="今年"
   month-names="一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月" corner-names="休,班" 
   extension-api="/api/system/calendar?year=" months="12"></calendar>
 </div>
 
-### 与其他组件组合
+### 日期时间组合选择器
 
-可以和 [Popup 组件](/root.js/popup.md)和 [Clock 组件](/root.js/clock.md)一起合成一个日期时间选择控件。
-
-<input id="DateTime" type="text" size="30" placeholder="yyyy-MM-dd HH:mm:00" /><a id="DateTimePicker_OpenButton" href="javascript:void(0)" style="margin-left: -24px"><i class="iconfont icon-calendar"></i></a>
-
-<div id="DateTimePicker" popup="yes" class="popup-autosize" display="sidebar" position="right">
-    <div id="DateTimePicker_CloseButton" class="popup-close-button"><i class="iconfont icon-quxiao"></i></div>
-    <div class="popup-bar"><i class="iconfont icon-calendar"></i> &nbsp; <span id="DateTimePickerTitle"></span></div>
-    <div class="popup-title">请分别选择日期和时间</div>
-    <calendar id="Calendar" lunar="yes" corner-names="休,班" week-title="周" week-names="一,二,三,四,五,六,日" month-names="一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月" this-month-text="本月" today-text="今天" head-format="yyyy年M月" holiday="yes" extension-api="/api/system/calendar?year=" date="today"></calendar>
-    <div class="space10"></div>
-    <clock id="Clock" hour-interval="1" minute-interval="1" second-interval="0" option-frame-side="upside" value="HH:mm:00"></clock>
-    <div id="DateTimePickerTip" class="space40 error" style="display: flex; justify-content: center; align-items: center;">&nbsp;</div>
-    <div class="popup-button"><input id="DateTimePicker_ConfirmButton" type="button" value=" OK " class="normal-button prime-button w80" /> &nbsp; &nbsp; &nbsp; <input id="DateTimePicker_CancelButton" type="button" value=" Cancel " class="normal-button minor-button w80" /></div>
-</div>
-
-<script type="text/javascript">
-$listen('DateTimePicker').on('confirm', function() {
-    $x('#DateTime').value($calendar('Calendar').date + ' ' + $clock('Clock').time);
-});
-</script>
-
-代码如下：
-
-```html
-<script type="text/javascript" src="/root.clock.js"></script>
-<script type="text/javascript" src="/root.popup.js"></script>
-<link href="/css/root/clock.css" rel="stylesheet" type="text/css" />
-
-<input id="DateTime" type="text" size="30" placeholder="yyyy-MM-dd HH:mm:00" /><a id="DateTimePicker_OpenButton" href="javascript:void(0)" style="margin-left: -24px"><i class="iconfont icon-calendar"></i></a>
-
-<div id="DateTimePicker" popup="yes" class="popup-autosize" display="sidebar" position="right">
-    <div id="DateTimePicker_CloseButton" class="popup-close-button"><i class="iconfont icon-quxiao"></i></div>
-    <div class="popup-bar"><i class="iconfont icon-calendar"></i> &nbsp; <span id="DateTimePickerTitle"></span></div>
-    <div class="popup-title">请分别选择日期和时间</div>
-    <calendar id="Calendar" lunar="yes" corner-names="休,班" week-title="周" week-names="一,二,三,四,五,六,日" month-names="一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月" this-month-text="本月" today-text="今天" head-format="yyyy年M月" holiday="yes" extension-api="/api/system/calendar?year=" date="today"></calendar>
-    <div class="space10"></div>
-    <clock id="Clock" hour-interval="1" minute-interval="1" second-interval="0" option-frame-side="upside" value="HH:mm:00"></clock>
-    <div id="DateTimePickerTip" class="space40 error" style="display: flex; justify-content: center; align-items: center;">&nbsp;</div>
-    <div class="popup-button"><input id="DateTimePicker_ConfirmButton" type="button" value=" OK " class="normal-button prime-button w80" /> &nbsp; &nbsp; &nbsp; <input id="DateTimePicker_CancelButton" type="button" value=" Cancel " class="normal-button minor-button w80" /></div>
-</div>
-
-<script type="text/javascript">
-$listen('DateTimePicker').on('confirm', function() {
-    $x('#DateTime').value($calendar('Calendar').date + ' ' + $clock('Clock').time);
-});
-</script>
-```
+见 [DateTimePicker 日期时间选择器组件](/root.js/datetimepicker.md)。
 
 ## 标签和类
 
@@ -224,7 +182,7 @@ $listen('DateTimePicker').on('confirm', function() {
 
 标签属性可以在自定义标签`<calendar>`上进行设置。
 
-#### 基本设置
+### 基本设置
 
 * `id`或`name` Calendar在页面上的唯一名称。
 * `mode` Calendar日期的选择模式，可选值`day`、`week`、`range`、`none`，分别代表单选、周选、日期范围选择和仅事件模式，属性值不区分大小写。
@@ -236,12 +194,12 @@ $listen('DateTimePicker').on('confirm', function() {
 * `quick-switch` 是否启用快速切换，月历时点击月标题可快速切换年和月，年历时点击年标题可以快速切换年，默认为`true`。当可总年数小于`4`时或月数小于`months+3`时，这个属性会自动关闭。
 * `lunar` 是否显示农历，默认`false`，需要扩展接口支持。作者没有使用农历算法进行转换，那个代码量要远远超过这个组件的代码本身。
 * `holiday` 是否显示特殊工作日和特殊休息日（如法定节假日），默认`false`，需要扩展接口支持。
-* `extension-api` 扩展接口地址，仅支持`GET`方式获取。接口数据已在压缩包中。
+* `extension-api` 扩展接口地址，仅支持`GET`方式获取。接口数据已在压缩包中。仅`lunar`或`holiday`为`true`时才生效。
 
 * `icon` 在`INPUT`模式下，会在输入框右侧显示一个图标，这个属性用来自定义图片地址或`iconfont`类名，如`/images/calendar.png`或`icon-calendar`。
 * `align` 在`INPUT`模式下，日历弹出框的对齐方式，可选`LEFT`或`RIGHT`，即与输入框左侧对齐还是右侧对齐。没有居中对齐选项，真的不好看。
 
-#### 初始值
+### 初始值
 
 * `min-date` 设置允许选择的最小日期，格式`yyyy-MM-dd`，支持`today`关键字，默认值为`1900-01-01`。
 * `max-date` 设置允许选择的最大日期，格式`yyyy-MM-dd`，支持`today`关键字，默认值为`2100-12-31`。
@@ -250,7 +208,7 @@ $listen('DateTimePicker').on('confirm', function() {
 * `start-date` 在范围选择模式下，默认选中的开始日期，格式`yyyy-MM-dd`，支持`today`关键字。
 * `end-date` 在范围选择模式下，默认选中的结束日期，格式`yyyy-MM-dd`，支持`today`关键字。
 
-#### 格式属性
+### 格式属性
 
 * `title-format` 整年模式下，设置年份标题的格式，如`yyyy年`，默认为空，即不显示。
 * `head-format` 单月或多月模式下，月历头的格式，默认`yyyy-MM`，如可以设置为`yyyy年M月`。
@@ -259,9 +217,9 @@ $listen('DateTimePicker').on('confirm', function() {
 * `month-names` 年历模式下，每个月的月份名称，默认值为`January,February,March,April,May,June,July,August,September,October,November,December`，如可以设置为`一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月`。
 * `corner-names` 特殊工作日和特殊休息日（如法定节假日）的名称，默认值为`W,R`，如可以设置为`班,假`。
 
-#### 样式属性
+### 样式属性
 
-样式属性一般不需要设置，可直接修改calendar.css中对应的样式即可。考虑到可能存在某些极端的情况，Calendar提供了这些可设置样式的属性。或者要修改样式时可以根据说明去找。
+样式属性一般不需要设置，可直接修改 calendar.css 中对应的样式即可。考虑到可能存在某些极端的情况，Calendar 提供了这些可设置样式的属性。或者要修改样式时可以根据说明去找。
 
 * `frame-class` 整体日历框架的样式，默认值`-calendar`
 * `title-class` 整个日历的标题框`DIV`样式，一般用于年历模式， 默认值`-calendar-title`
@@ -302,7 +260,7 @@ $listen('DateTimePicker').on('confirm', function() {
 * `switch-this-month-option-class` 月快速切换框体中的本月项样式，默认值`-calendar-switch-this-month-option`
 * `switch-month-checked-option-class` 月快速切换框体中的选中月样式，默认值`-calendar-switch-month-checked-option`
 
-样式属性的名称建议使用中横线连字符分隔的格式，不过去掉连字符也没什么问题。在使用Javascript操作这个Calendar对象时，可以通过`camel`格式属性进行调用 ，如`focus-day-class`对应属性`focusDayClass`，但是组件没有提供属性设置功能，如`calendar.focusDayClass = 'other-class-name'`是无效的。
+样式属性的名称建议使用中横线连字符分隔的格式，不过去掉连字符也没什么问题。在使用 Javascript 操作这个 Calendar 对象时，可以通过`camel`格式属性进行调用 ，如`focus-day-class`对应属性`focusDayClass`，但是组件没有提供属性设置功能，如`calendar.focusDayClass = 'other-class-name'`是无效的。
 
 ### 选择器
 
@@ -328,7 +286,7 @@ $listen('DateTimePicker').on('confirm', function() {
     二者的区别是`$listen`无需要考虑页面是否加载完成，而`$calendar`必须在标签解析之后才能调用。
 * 仍可以使用原生的选择器，但只支持按名选择，如`$s('#Calendar1')`、`$a('#Calendar1,#Calendar2')`。
 
-### 属性
+### 类属性
 
 在标签属性中已经介绍了很多属性，这些标签属性除了可以进行预设置外，都可以通过 Calendar 对象进行调用，不过标签属性在 Calenar 对象中大部分都是只读的。另外还有一些不是标签属性的 Calendar 对象属性。
 
@@ -371,7 +329,7 @@ $listen('DateTimePicker').on('confirm', function() {
 
 ### 方法
 
-在Calendar对象中，私有方法居多，可用的方法比较少。
+在 Calendar 对象中，私有方法居多，可用的方法比较少。
 
 * `getCell(date)` 根据日期（格式`yyyy-MM-dd`）获取日历单元格，返回CalendarCell对象，见下面的说明。注意一定是可见的单元格。
 * `yearSwitchEnabled()` 年模式下年快速切换是否可用，可用年数小于`4`时自动关闭。
@@ -379,7 +337,7 @@ $listen('DateTimePicker').on('confirm', function() {
 
 ### 事件
 
-事件可以捕获用户对Calendar的操作，基本上是除了`INPUT`模式外必须有的编程工作。
+事件可以捕获用户对 Calendar 的操作。
 
 * `onNavPrevMonth` 当月历导航到上一个月时触发，可传递参数`prevMonth`，参数格式为`yyyy-MM`。
 * `onNavNextMonth` 当月历导航到下一个月时触发，可传递参数`nextMonth`，参数格式为`yyyy-MM`。

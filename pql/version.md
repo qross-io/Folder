@@ -1,6 +1,18 @@
 # 版本和更新
 
-作者会一个月发布一个稳定版本。PQL 的最新稳定版本为 **v1.3.0**，发布时间 **2021-03-23**。
+作者会一个月发布一个稳定版本。PQL 的最新稳定版本为 **v1.4.0**，发布时间 **2021-04-30**。
+
+## v1.4.0 (2021.4.30)
+
+这个版本主要是 OneApi 相关的更新。
+
+1. OneApi 现在支持[接口文档](/oneapi/document.md)和[流量统计](/oneapi/traffic.md)，但查阅页面暂时未实现。
+2. OneApi 现在统一返回值的[数据格式](/oneapi/general.md)。
+3. OneApi 新增设置`oneapi.ajax.settings`，设置[通用接口请求过滤器](/oneapi/setup.md)。
+3. Voyager 已[支持缓存](/voyager/cache.md)。
+4. Sharp 表达式新增表达式 ELSE、IF GREATER THAN ZERO、IF LESS THAN ZERO，详见 [Sharp 判断操作](/pql/sharp-if.md)。
+6. 全局变量现在支持复合类型，如 TABLE、ROW 等。
+7. 所有 test 相关文件已移走。
 
 ## v1.3.0 (2021.3.23)
 

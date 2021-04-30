@@ -58,13 +58,13 @@ Voyager 支持在页面中包含其他页面碎片或 SQL 文件，包含进来�
 
 引入文件的路径相对于当前站点，即`resources/templates`目录，引于的页面碎片文件不需要添加对应的`Controller`。
 
-可以引入`.sql`扩展名的 PQL 文件，比如公用的逻辑可以单独放在一个文件中。例如：
+也可以引入`.sql`扩展名的 PQL 文件，比如公用的逻辑可以单独放在一个文件中。例如：
 
 ```html
 <#include file="/job/rules.sql"/>
 ```
 
-另外一种语言配置文件的引入在[多语言支持](/voyager/language.md)中介绍。
+另外一种语言配置文件的引入在[多语言支持](/voyager/language.md)中介绍。服务器端包含支持传递参数，格式同 URL 地址传参，目的是对包含页面进行配置，详见 [Voayger 使用参数](/voyager/query.md)。
 
 ## 使用母版页
 
@@ -90,4 +90,6 @@ Voyager 支持在页面中包含其他页面碎片或 SQL 文件，包含进来�
 ---
 参考链接
 
-* [Voyager多语言支持](/voyager/language.md)
+* [Voyager 多语言支持](/voyager/language.md)
+* [Voyager 母版页](/voyager/master.md)
+* [Voyager 参数处理](/voyager/query.md)

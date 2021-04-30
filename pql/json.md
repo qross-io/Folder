@@ -53,6 +53,7 @@ OUTPUT # {
 REQUEST JSON API 'http://domain.com/api/score' METHOD 'POST'
     SEND DATA { "name": "Tom", "age": 18, "score": 89 };
 
+
 ```
 
 还有很多地方可以使用 Json 常量数据，相应语句的文档中会介绍。

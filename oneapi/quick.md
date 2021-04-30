@@ -29,66 +29,7 @@ OneApi 基于 Spring Boot 框架运行，通过依赖的方式引入到 Java Web
 
 ## 引入 OneApi 依赖
 
-OneApi 的依赖和 PQL 是同一个依赖。
-
-### Maven 配置如下
-
-1. settings.xml中配置凭证
-    ```xml
-    <servers>
-    <server>
-        <id>rdc-releases</id>
-        <username>PtbpNI</username>
-        <password>kwCz3C0wHx</password>
-    </server>
-    <server>
-        <id>rdc-snapshots</id>
-        <username>PtbpNI</username>
-        <password>kwCz3C0wHx</password>
-    </server>
-    </servers>
-    ```
-2. porn.xml仓库配置
-    ```xml
-    <distributionManagement>
-    <repository>
-        <id>rdc-releases</id>
-        <url>https://packages.aliyun.com/maven/repository/2011186-release-Aa5YmC/</url>
-    </repository>
-    <snapshotRepository>
-        <id>rdc-snapshots</id>
-        <url>https://packages.aliyun.com/maven/repository/2011186-snapshot-FSoDsK/</url>
-    </snapshotRepository>
-    </distributionManagement>
-    ```
-3. porn.xml依赖配置
-    ```xml
-    <dependencies>
-        <dependency>
-            <groupId>io.qross</groupId>
-            <artifactId>pql</artifactId>
-            <version>0.6.4-40-SNAPSHOT</version>
-        </dependency> 
-    </dependencies>
-    ```
-
-### Gradle配置如下
-```groovy
-repositories {
-    maven{
-    credentials {
-        username 'PtbpNI'
-        password 'kwCz3C0wHx'
-    }
-    url "https://packages.aliyun.com/maven/repository/2011186-snapshot-FSoDsK/"
-    //url "https://packages.aliyun.com/maven/repository/2011186-release-Aa5YmC/"
-    }
-}
-
-dependencies {
-    compile (group: 'io.qross', name: 'pql', version: '0.6.4-40-SNAPSHOT')
-}
-```
+OneApi 的依赖和 PQL 是同一个依赖，参见[使用 PQL](/pql/use-pql.md) 中关于依赖的配置内容。
 
 ## 添加 RestController
 

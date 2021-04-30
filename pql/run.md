@@ -3,7 +3,7 @@
 RUN 语句可以用来运行 Shell 命令，属于 PQL 跟其他语言交互的一部分。示例：
 
 ```sql
-SET $ls := RUN SHELL "ls";
+VAR $ls := RUN SHELL "ls";
 FOR $line IN $ls.logs LOOP
     PRINT $line;
 END LOOP;

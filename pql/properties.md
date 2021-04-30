@@ -9,7 +9,7 @@
 PQL 基础使用最简单的`properties`文件，可以保存在以下两个位置。
 
 1. 项目内`resources`目录下的`conf.properties`文件中。
-2. 与 jar 包相同目录（一般为 Qross 系统家目录）的`qross.properties`文件中。如果是开发中的项目，以Intellij Idea 为例，放在项目的`/out/production`目录下。
+2. 与 jar 包相同目录（一般为 Qross 系统家目录）的`qross.properties`文件中。如果是开发中的项目，以 Intellij Idea 为例：如果使用 Gradle 构建，放在项目的`/out/production`目录（使用 IDEA 构建和运行）或`/build`目录（使用 Gradle 构建和运行）下；如果 Maven 构建，放在项目的`/target`目录下。
 
 基础配置文件必须有，整个 Qross 系统都从这里开始。基础配置文件中可以保存数据连接，或者告诉 PQL 在哪里可以找到数据连接。如果在`qross.properties`中配置数据源，同级目录下的其他程序均可使用。`conf.properties`只能当前项目内部使用。`conf.properties`的优先级高于`qross.properties`。
 

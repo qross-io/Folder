@@ -100,12 +100,6 @@
     + [在 PQL 中调用 Java 方法 INVOKE](/pql/invoke.md)
     + [在 PQL 中运行 PQL 文件或 Shell 命令 RUN](/pql/run.md)
     + [PQL 中的 Javascript](/pql/javascript.md)    
-    
-* PQL相关应用
-    + [统一接口 OneApi](/oneapi/overview.md)
-    + [模板引擎 Voyager](/voyager/overview.md)
-    + [任务调度工具 Keeper](/keeper/overview.md)
-    + [数据管理平台 Master](/master/overview.md)
 
 * 附录
     + [完整的嵌入规则表](/pql/place.md)

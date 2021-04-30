@@ -84,4 +84,4 @@ jerry=Jerry
 ---
 参考链接
 
-* [Voyager设置](/voyager/setup.md)
+* [Voyager 设置](/voyager/setup.md)

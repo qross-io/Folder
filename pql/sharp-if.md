@@ -30,7 +30,7 @@ OUTPUT # $score IF NULL 60;
 SET $rate := '#{rate}' IF UNDEFINED 'C'; 
 ```
 
-一般情况下`IF NULL`和`IF UNDEFINED`可以通用。
+一般情况下`IF NULL`和`IF UNDEFINED`可以通用，`value`可以使用`null`。
 
 ## 数据的特殊值判断
 
@@ -38,10 +38,20 @@ SET $rate := '#{rate}' IF UNDEFINED 'C';
 
 * **`IF TRUE value`** 如果值为真则赋值为`value`。
 * **`IF FALSE value`** 如果值为假则赋值为`value`。
-* **`IF ZERO m`** 如果给定的数字为`0`则赋值为`m`。
-* **`IF NOT ZERO m`**  如果不为`0`则赋值为`m`。
+* **`IF ZERO value`** 如果给定的数字为`0`则赋值为`value`。
+* **`IF NOT ZERO value`**  如果不为`0`则赋值为`value`。
+* **`IF GREATER THAN ZERO value`** 如果大于`0`时则赋值为`value`
+* **`IF LESS THAN ZERO value`** 如果小于`0`时则赋值为`value`
 
 **以上介绍所有操作中默认值`value`的数据类型可以与要判断的数据的数据的类型不同。**
+
+## ELSE 操作
+
+`ELSE`表达式可以与上面所有的`IF`判断配合使用。
+
+```sql
+UPDATE table1 SET name=$name WHERE id=$id -> IF ZERO 1 ELSE 0;
+```
 
 ## 数值的比较操作
 

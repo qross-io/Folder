@@ -6,6 +6,9 @@ Voyager 的设置保存在项目`resources`目录下的`conf.properties`文件�
 # 在项目中默认保存模板文件的目录
 voyager.directory=/templates/
 
+# 是否启用缓存
+voyager.cache.enabled=false
+
 # 静态站点路径，说明见下
 voyager.static.site=
 
@@ -20,6 +23,9 @@ voyager.connection=mysql.qross
 
 # 默认语言
 voyager.language=english
+
+# 启用缓存
+voyager.cache.enabled=false
 ```
 
 以上设置中，默认数据库连接名如果不设置（留空）则使用`jdbc.default`，数据连接设置详见[数据源配置](/pql/properties.md)。默认语言的名称必须与`languages`下的语言文件夹名称一致，区分大小写。
