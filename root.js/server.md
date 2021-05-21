@@ -5,7 +5,7 @@
 ```html
 <textarea coder="java" onsave+="/api/code/check?code={value}% # /data -> not-zero"></textarea>
 <button onclick+="/api/entity/update?id=&(id)">Button</textarea>
-<input onblur+="select id from users where name='{value}' -> FIRST CELL -> IF GREATER THAN ZERO false ELSE true">
+<input onchange+="select id from users where name='{value}' -> FIRST CELL -> IF GREATER THAN ZERO false ELSE true">
 ```
 
 * 事件名称与元素标签或组件原有的事件名称相同，只比客户端事件多一个加号`+`，注意事件名和`+`号之间不能有空格。`+`与可以理解为是客户端事件的 plus 版本，也可以理解为“扩展”、“附加”的意思。
@@ -20,7 +20,7 @@
 数据接口是最经常的与后端交互的方式。
 
 ```html
-<textarea coder="java" onblur+="/api/code/check?code={value}% # /data -> not-zero"></textarea>
+<textarea coder="java" onchange+="/api/code/check?code={value}% # /data -> not-zero"></textarea>
 ```
 
 上例中，要请求的接口是`/api/code/check?code={value}%`；井号`#`后面的`/data`表示当接口请求完成后返回结果中路径`/data`里的数据，支持标准 JsonPath；`->`后面的`not-zero`为判断接口是否请求结果是否符合预期的条件，意义为返回结果不为`0`。所有判断是否符合预期的条件和逻辑为：
@@ -38,7 +38,7 @@
 PQL 是 Cogo 支持的后端交互方式，但仅支持一条 PQL 语句。
 
 ```html
-<input onblur+="select count(0) from users where name='{value}' -> FIRST CELL -> IF GREATER THAN ZERO false ELSE true">
+<input onchange+="select count(0) from users where name='{value}' -> FIRST CELL -> IF GREATER THAN ZERO false ELSE true">
 ```
 
 与接口交互方式不同，PQL 语句返回执行后的结果，不支持在前端对结果进行进一步解析和判断结果是否符合预期，所有操作都可以在 PQL 中通过 [Sharp 表达式](/pql/sharp.md)完成。上例中``FIRST CELL`用于提取 SELECT 语句返回的数据表中第一个单元格的内容，`IF GREATER THAN ZERO`当判断结果大于`0`时返回`false`。依然会将最终结果自动转成布尔值，如果最终结果可识别为`true`，则提示`success-text`，如果可识别为`false`，提示`failure-text`。如果没有设置`success-text`或`failure-text`属性，则结果总是会识别为`true`。

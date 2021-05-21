@@ -1,6 +1,10 @@
 # 版本和更新
 
-## v1.4.0
+## v1.5.0 (开发中)
+
+* [系统] 增加 Keeper [命令模板管理](/master/system/command-tempalte.md)。
+
+## v1.4.0 (2021.5.4)
 
 * [系统] 增加 PQL [全局变量](/master/system/variables.md)管理。
 

@@ -3,7 +3,7 @@
 为了更方便的处理表单中的用户输入，组件库对 [INPUT 标签](/root.js/input-native.md)进行了扩展。
 
 ```html
-<input type="text" name="TextBox1" required-text="" invalid-text="" valid-text="" validator="" minlength="0" class="" focus-class="" error-class="" valid-class="" error-text-class="" valid-text-class="" get="" set="" set-value-on="" onblur+="server" success-text="" failure-text="" exception-text="" onload="" />
+<input type="text" name="TextBox1" required-text="" invalid-text="" valid-text="" validator="" minlength="0" class="" focus-class="" error-class="" valid-class="" error-text-class="" valid-text-class="" get="" set="" set-value-on="" onchange+="server" success-text="" failure-text="" exception-text="" onload="" />
 ```
 
 扩展或新增的属性有：
@@ -26,7 +26,7 @@
 * `getter` 在获取输入值时对值进行加工，返回加工后的值，下面有详细的解释。
 * `setter` 在设置输入值时对值进行加工，设置输入值为加工后的值，下面有详细的解释。
 * `set-{attr}-on` 指定文本框的值或其他属性的更新条件，其中`{attr}`可以替换成组件支持的属性，例如`set-value-on`，下面有详细的示例。属性值规则见[事件表达式](/root.js/event.md)。
-* `onblur+` 服务器端事件，接受一个接口地址或 PQL 查询语句（不一定是 SELECT），检查输入值是否符合预期，如检查用户名是否唯一。详见[服务器端事件](/root.js/server.md)，属性格式见[与数据相关的属性](/root.js/data.md) 和 [Express 字符串](/root.js/express.md)。
+* `onchange+` 服务器端事件，接受一个接口地址或 PQL 查询语句（不一定是 SELECT），检查输入值是否符合预期，如检查用户名是否唯一。详见[服务器端事件](/root.js/server.md)，属性格式见[与数据相关的属性](/root.js/data.md) 和 [Express 字符串](/root.js/express.md)。
 * `success-text` 服务器端事件`onblur`执行成功并且结果验证通过时的提示文字，如检查用户名唯一等。
 * `failure-text`  服务器端事件`onblur`执行成功并且结果验证未通过时的提示文字，如用户名重复等。
 * `exception-text` 服务器端事件`onblur`执行失败时的提示文字，一般为接口出错。如果不设置则提示接口的出错信息。
@@ -45,6 +45,9 @@
 * `precision` 小数点的精度，适用于`number`和`float`类型，为`0`时即控制为整数。
 * `strength` 密码复杂度，可选值 `WEAK`、`STRONG`和`COMPLEX`，适用于`password`类型，用于密码强度控制。
 * `fit` 设置一个密码输入框的 id，适用于第二个`password`，用于检查两次输入的密码是否一致。如`#Password`。
+* `options` 仅适用于`checkbox`和`switch`类型，指定复选框或切换按钮在两种状态下的值，例如`yes,no`、`1,0`等
+* `theme` 仅适用于`switch`类型，指定切换按钮的主题，默认值`switch`，可选值`checkbox`和`whether`。
+
 
 其他原生属性请参照 [INPUT 标签](/root.js/input-native.md)。
 
@@ -195,19 +198,35 @@
 
 <input type="name" size="20" invalid-text="姓名至少有两个字。" callout="rightside" />
 
-## 进一步对值进行检查
+## 复选框
 
-有时即使输入值符合要求，也要进一步对值进行检查，以判断是否符合系统要求，比如用户名唯一检查。
+`checkbox`是原生类型，可使用`options`来设定选中和未选中状态下的值，也可以使用`onchange+`事件在状态切换时与服务器端交互。
 
 ```html
-<input type="name" minlength="6" maxlength="16" required-text="用户名不能为空。" invalid-text="用户名至少为 6 位，最多 16 位。" onblur+="/system/check-username?username={value} -> empty" success-text="用户名可以使用。" failure-text="用户名已经存在。" />
+<input type="checkbox" options="yes,no" required="true" onchange+="put:/api/entity/enabled?id=&(id)&status={value}" />
+```
+
+## 切换按钮
+
+`switch`是扩展类型，这个类型表现为一个切换按钮，按钮有两种状态，开启状态和关闭状态，点击时在两种状态之是切换。可以理解为是复选框的图片版本。可使用`theme`设置按钮的样式。
+
+```html
+<input type="switch" options="1,0" onchange+="put:/api/licence/open?id=&(id)&status={value}" />
+```
+
+## 进一步对值进行检查
+
+有时即使输入值符合要求，也要进一步对值进行检查，以判断是否符合系统要求，比如用户名唯一检查。使用`onchange`事件（当值改变时且失去焦点）触发。
+
+```html
+<input type="name" minlength="6" maxlength="16" required-text="用户名不能为空。" invalid-text="用户名至少为 6 位，最多 16 位。" onchange+="/system/check-username?username={value} -> empty" success-text="用户名可以使用。" failure-text="用户名已经存在。" />
 ```
 
 运行效果为：
 
-<input type="name" minlength="6" maxlength="16" required-text="用户名不能为空。" invalid-text="用户名至少为 6 位，最多 16 位。" onblur+="/api/system/check-username?username={value} -> empty" success-text="用户名可以使用。" failure-text="用户名已经存在。" size="40" />
+<input type="name" minlength="6" maxlength="16" required-text="用户名不能为空。" invalid-text="用户名至少为 6 位，最多 16 位。" onchange+="/api/system/check-username?username={value} -> empty" success-text="用户名可以使用。" failure-text="用户名已经存在。" size="40" />
 
-上例中，用户名`master`已经在系统中，`{value}`表示获取当前文本框的值。当文本框失去焦点时，会自动执行`onblur+`事件，并判断返回值是否为空。当返回值不为空，即用户名已经存在时，会提示`failure-text`属性中的文字，否则提示`success-text`中的文字。
+上例中，用户名`master`已经在系统中，`{value}`表示获取当前文本框的值。当文本框失去焦点时，会自动执行`onchange+`事件，并判断返回值是否为空。当返回值不为空，即用户名已经存在时，会提示`failure-text`属性中的文字，否则提示`success-text`中的文字。
 
 ## 其他组件触发更新
 

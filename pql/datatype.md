@@ -138,6 +138,15 @@ END IF;
 
 数据表中的字段名不区分大小写，数据表相关操作参见 [Sharp 表达式](/pql/sharp-table.md)
 
+## 哈希列表 HASHSET
+
+与数据或列表类似，数组中的值允许重复，但哈希列表中的值不允许重复，且哈希列表的元素是无序的。哈希列表在 PQL 中应用非常少，不能直接声明，只能通过数组转化而来。所有操作跟数组完全相同，不再赘述。
+
+```sql
+VAR $hashset := [1, 3, 3, 2, 5, 2, 4, 5, 1] TO HASHET;
+VAR $scores := SELECT score FROM table1 -> FIRST COLUMN -> TO HASHSET;
+```
+
 ## 扩展类型
 
 *扩展数据类型将在未来版本中支持。*

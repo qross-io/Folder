@@ -2,6 +2,13 @@
 
 **root.js** 库一般跟随 [Qross Master](/master/overview.md) 项目的功能进行更新。
 
+## v1.5.0 (开发中)
+
+* [TABLE 标签扩展](/root.js/table.md)加入，在原有 DataTable 组件的基础进行了重构。
+* [INPUT 标签扩展](/root.js/input.md)新增`switch`和`checkbox`类型，可用作“开关”。
+* [Editor 标签编辑器](/root.js/editor.md)中关于`switch`和`checkbox`类型的编辑器移除。
+* 现有组件大量优化，大量的 bug 修复。
+
 ## v1.4.0 (2021-4-30)
 
 * [服务器端事件](/root.js/server.md)加入，比原有的`action`属性更明确，例如`onclick+="insert into ...."`。所有相关组件的核心交互属性都修改为服务器端事件。
@@ -20,7 +27,7 @@
 
 * [Input 扩展](/root.js/input.md)新增扩展类型：`integer`，`password`，`idcard`，`mobile`，`name`等，以及`check`、`warning-text`、`autosize`等扩展属性。
 * [Input 扩展](/root.js/input.md)新增属性`required`（原生）、`check`、`pass-when`、`warning-text`、`autosize`、`hint`、`callout`等属性，以及移除`prevent-injection`属性（改为通过后端接口防止 SQL 注入）。
-* [Button 扩展](/root.js/button.md)新增`success-when`属性，
+* [Button 扩展](/root.js/button.md)新增`success-when`属性（1.4 中已移除）。
 * [Input 扩展](/root.js/input.md)和 [Button 扩展](/root.js/button.md)现在所有提示文字属性支持 [Express 字符串](/root.js/express.md)。
 * [Express 字符串]现在 Javascript 占位符默认支持 `data`、`value`、`text` 三个变量；现在所有占位符支持以`%`结尾来进行 URL 编码。
 * 修复各个组件的多个 bug.

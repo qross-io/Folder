@@ -33,7 +33,10 @@
 * `success-text` 请求成功后的提示文字，本文下方有状态说明。
 * `failure-text` 请求失败后的提示文字，本文下方有状态说明。
 * `exception-text` 请求发生异常后的提示文字，替换按钮上的文字，“异常”是指接口或 PQL 语句发生错误，错误会被打印到控制台。
-* `jump-to` 请求成功后的跳转 URL 地址，支持 [Express 字符串](/root.js/express.md)。
+* `href` 请求成功后的跳转 URL 地址，支持 [Express 字符串](/root.js/express.md)。没有服务器端事件时，可以把按钮直接当链接使用。
+    ```html
+    <button href="/index.html">返回首页</button>
+    ```
 * `jumping-text` 跳转过程中的提示文字。
 * `enabled-class` 启用状态下的样式，默认值`normal-button blue-button`。
 * `disabled-class` 按钮在禁用状态下的样式，默认值`normal-button optional-button`。
@@ -60,7 +63,7 @@
 
 Button 扩展主要用于向后端发起请求，请求有以下几种状态：
 
-* `success` 成功状态，表示返回值符合`expectation`属性设置的预期，依照返回值类型确定。默认值为成功状态，即不设置`expection`属性或识别不出是失败状态，即是成功状态。
+* `success` 成功状态，表示返回值符合预期，依照返回值类型确定。详见[服务器端事件](/root.js/server.md)中的说明。
 * `failure` 失败状态，表示返回值不符合预期，依照返回值类型确定。    
 * `exception` 请求异常状态，PQL 语句或接口出错。
 
@@ -71,12 +74,12 @@ Button 扩展主要用于向后端发起请求，请求有以下几种状态：
 Button 一般情况下会配合其他表单组件使用，如文本框等。Button 提供了对其他表单组件进行监听的功能，已在表单输入未完成和完成时作出正确的响应，决定是否禁用按钮。这个响应是自动的，一般情况下也不需要专门配置。
 
 ```html
-<button id="Button1" action="insert into table1 (title, views) values ('$(#Title)', $(#Views))">Add</button>
+<button id="Button1" onclick+="insert into table1 (title, views) values ('$(#Title)', $(#Views))">Add</button>
 <button id="Button2" watch="#Title,#Views">Add</button>
-<button id="Button3" action="insert into table1 (title, views) values ('$(#Title)', $(#Views))" watch="#Source">Add</button>
+<button id="Button3" onclick+="insert into table1 (title, views) values ('$(#Title)', $(#Views))" watch="#Source">Add</button>
 ```
 
-监听其他组件有两种方式。第一是设定`action`属性，页面加载时会自动分析`action`属性中相关的组件是否为必填项`required`，Button 会自动将必填组件加入监听列表。第二是设定`watch`属性，Button 会自动将`watch`属性中的组件加入监听列表，只能按照组件的名字或 id 进行监听，多个组件之间使用逗号`,`分隔。当只使用一种方式不能满足监听要求时，也可以两种方式混合使用。上例中，假如`#Title`，`#Views`，`#Source`都是必填项，则按钮必须在这 3 个表单项的输入值都正确时才会启用。
+监听其他组件有两种方式。第一是设定`onclick+`事件，页面加载时会自动分析`onclick+`事件中相关的组件是否为必填项`required`，Button 会自动将必填组件加入监听列表。第二是设定`watch`属性，Button 会自动将`watch`属性中的组件加入监听列表，只能按照组件的名字或 id 进行监听，多个组件之间使用逗号`,`分隔。当只使用一种方式不能满足监听要求时，也可以两种方式混合使用。上例中，假如`#Title`，`#Views`，`#Source`都是必填项，则按钮必须在这 3 个表单项的输入值都正确时才会启用。
 
 试试下面的例子，文本框输入值时 Button 才能启用。
 
@@ -90,16 +93,6 @@ Button 一般情况下会配合其他表单组件使用，如文本框等。Butt
 <input id="Input1" type="text" required-text="Please input something." invalid-text="Please input 3 characters at least." minlength="3" size="30" />
 <button watch="#Input1"> Submit </button>
 ```
-
-## 链接按钮
-
-除了后端请求以外，还可以把按钮当作链接使用。
-
-```html
-<button href="/index.html">返回首页</button>
-```
-
-这个功能不需要引入`root.button.js`文件。
 
 ## 可用的按钮外观
 

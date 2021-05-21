@@ -50,9 +50,9 @@
 
 在母版页中，有几个保留参数，这些参数名称不要通过传参的方式进行替换：
 
-* `#{title}` 可以向母版页传递`title`参数，如果不传则自动解析 Markdown 文档中的主标题
-* `#{scripts}` Voyager 根据引用的组件自动判断引入哪些 Javascript 文件和 CSS 样式文件，不可传参替换
-* `#{content}` 使用母版页的页面在被解析后替换这个位置，是子页面的内容页代码，不可传参替换
+* `#{title}` 可以向母版页传递`title`参数，如果不传则自动解析 Markdown 文档中的主标题。
+* `#{scripts}` Voyager 根据引用的组件自动判断引入哪些 Javascript 文件和 CSS 样式文件，不可传参替换。
+* `#{content}` 使用母版页的页面在被解析后替换这个位置，是子页面的内容页代码，不可传参替换。
 
 ## 母版页引用
 
@@ -72,8 +72,7 @@
 <# page template="/master/form.html?language=system&jump=/link/detail%3Fname%3DTome%26age%3D18&button=Create%20Item" />
 ```
 
-更多信息请参考 [Voyager 参数处理](/voyager/query.md)。
-
+也可通过 Json 格式进行传参，更多信息请参考 [Voyager 参数处理](/voyager/query.md)。另外，如果想在母版页中使用引用页的变量或数据，可以使用“逻辑前置”，见 [Voyager 语法](/voyager/syntax.md)中相关的说明。
 
 ---
 参考链接

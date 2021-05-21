@@ -14,6 +14,7 @@ $x('div').objects.forEach(div => ...);
 还有其他可用的选择器：
 
 * `$s(o)` 获取符合条件的第一个标签或元素，如`$s('a')`返回页面上的第一个链接。其中`s`表示`single`，这个方法可选择原生标签和自定义标签，且自定义标签会被优先选择。
+* `$v(o)` 获取符合条件且可见的第一个标签或元素，其中`v`表示`visible`。除限制可见外，其他功能同`$s`。
 * `$a(...o)` 获取符合条件的全部标签或元素，支持输入多个参数，如`$a('p', 'div')`返回页面上所有 P 标签和 DIV 标签。其中`a`表示`all`，这个方法可选择原生标签和自定义标签。
 * `$t(o)` 选择单个自定义标签，只能传入标签`name`，如 TREEVIEW、CALENDAR 等。其中`t`表示`tag`，这个方法只能选择自定义标签。另外每个组件中也提供了选择器方法，如`$tree(name)`。
 * `$c(...o)` 获取符合条件的全部自定义标签，支持输入多个参数，如`$c('calendar,clock')`返回页面上所有 CALENDAR 标签和 CLOCK 标签。其中`c`表示`components`，这个方法只能选择自定义标签。
@@ -25,11 +26,11 @@ $x('#Title').html('HELLO WORLD!');
 $s('#Title').innerHTML = 'HELLO WORLD!';
 ```
 
-自定义标签只能按照`name`属性进行选择，且名字前面必须加符号`@`，区别于原生标签的`#`号。
+自定义标签只能按照`id`或`name`属性进行选择。
 
 ```javascript
-$s('#tag')...
-$a('#tag1,#tag2')...
+$s('#tag')
+$a('#tag1,#tag2')
 $t('#tag') //与 $s('#tag') 效果相同
 ```
 
@@ -92,7 +93,6 @@ $x('div').tail().css('nav').show();
     + `func` 事件函数
     + `useCapture` `false` 在冒泡阶段执行，`true` 在捕获阶段执行
     + `attach` 是附加操作还是赋值操作。附加操作是添加监听，赋值操作可以理解为直接把`func`赋给事件，如`element.onclick = function()...`
-* `un(eventName, func, useCapture = false, attach = true)` `on`方法的逆操作。
 
 子元素操作，各参数的意义见`$create()`全局方法：
 
@@ -286,11 +286,19 @@ Json 构造函数和方法有：
 
 * `$ready(func)` 当页面渲染完成之后执行指定的函数，在`window.onload`事件之前，可使用多次。
 * `$finish(func)` 当 Model 加载数据完成之后执行指定的函数，可使用多次。
+* `$post(func)` 当页面加载完成之后触发，可以理解为为`window.onload`添加事件监听。
+* `$complete(func)` 当完成事件监听绑定之后触发，可以理解为在`$post`之后触发的事件。
 
 解析地址字符串：
 
-* `$query(name)` 获取地址中名称为`name`的参数。
-* `$query.contains(name)` 判断地址中是否包含名称为`name`的参数。
+* `$query.get(name)` 获取地址中名称为`name`的参数。
+* `$query.has(name)` 判断地址中是否包含名称为`name`的参数。
+
+Cookie 操作
+
+* `$cookie.get(name)` 获取名为`name`的 Cookie 的值。
+* `$cookie.set(name, value)` 设置名为`name`的 Cookie 的值为`value`。
+* `$cookie.has(name)` 判断 Cookie 中是否包含`name`。
 
 创建元素：
 
@@ -330,6 +338,20 @@ Json 构造函数和方法有：
     + 布尔值，是否为`false`；
     + 其他，返回默认值。
 
+Callout:
+
+```javascript
+Callout('message').position(reference, pos).offset(x, y).show(seconds);
+```
+
+其中`message`内容可定义；`reference`为参考元素，表示在哪个元素的附近显示 Callout；`pos`为位置项，可选`up`、`down`、`left`、`right`，默认为`up`；`offset`设置偏移坐标；`seconds`设置多少秒后自动关闭，不设置则一直显示，直到被点击。一个页面上只能显示一个 Callout，点击 Callout 会自动隐藏。
+
+对话框相关：
+
+* `$root.alert(message, confirmButtonText = 'OK', title = 'Message')` 显示警告对话框。
+* `$root.confirm(message, confirmButtonText = 'OK', cancelButtonText = 'Cancel', title = 'Confirm')` 显示确认对话框。
+* `$root.prompt(message)` 未实现。
+
 其他更多
 
 * `$lang()` 获取当前浏览器的语言。
@@ -355,7 +377,7 @@ $enhance(HTMLButtonElement.prototype)
         actionText: '',
         action: '' //要执行的 PQL 语句或要请求的接口
     })
-    .geeter({
+    .getter({
         'actionText': function(value) {
             return value.toLowerCase();
         }

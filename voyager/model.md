@@ -1,6 +1,6 @@
 # 通过 model 向页面传递数据
 
-虽然在页面上可以通过 PQL 从各种地方获取数据，但是有时我们仍需要通过 Controller 向页面传递数据，就像其他的模板引擎那样。Voyager 也支持通过 model 向页面传递数据，传递的数据会自动生成 PQL 的用户变量。
+虽然在页面上可以通过 PQL 从各种地方获取数据，但是有时我们仍需要通过 Spring Boot 的 Controller 向页面传递数据，就像其他的模板引擎那样。Voyager 也支持通过 model 向页面传递数据，传递的数据会自动生成 PQL 的用户变量。
 
 ```java
 @RequestMapping("/carton/page")

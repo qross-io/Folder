@@ -27,7 +27,7 @@ Select 组件的依赖库和组件列表如下：
 ```html
 <select id="Select1" type="button"
      class="CSS" option-class="CSS" selected-option-class="CSS" disabled-option-class="CSS"
-     multiple="boolean" data="api" action="api">
+     multiple="boolean" data="api" onchange+="api">
     <option value="" title="" class="CSS" selected-class="CSS" disabled-class="CSS">text</option>
     ...
 </select>
@@ -42,7 +42,12 @@ Select 组件的依赖库和组件列表如下：
 * `disabled-option-class` 禁用状态选项的 CSS 样式，根据不同的 type 默认值不同。
 * `multiple` 原生属性，是否支持多选，支持设置可识别为布尔值的所有字符串，如`yes`、`FALSE`、`1`等，默认`false`。
 * `data` 从其他数据源生成 OPTION 列表，暂时不可用。
-* `action` 当切换选项时执行的操作，支持接口和 PQL 语句。
+* `value` 通过设置这个属性可以设置默认选中的项，只要与对应项的值相同即可。优先级高于选项的`selected `属性。在`multiple`时可以设置逗号分隔的多个值以默认选中多项。
+* `onchange+` 当切换选项时执行的[服务器端事件](/root.js/server.md)，支持接口和 PQL 语句。对应的状态事件是以下 4 个。
+* `onchange+success` 当服务器端事件执行成功时触发的客户端事件。
+* `onchange+failed` 当服务器端事件执行失败时触发的客户端事件。
+* `onchange+exception` 当服务器端事件执行异常时触发的客户端事件。
+* `onchange+completion` 当服务器端事件执行完成时触发的客户端事件。
 
 除支持所有原生属性外，OPTION 标签增加的扩展属性如下：
 

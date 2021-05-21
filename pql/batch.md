@@ -26,6 +26,10 @@ SAVE TO mysql.db3;
 * BATCH 语句中仅支持关系型数据库的非查询语句。
 * BATCH 语句也支持和 [PUT 语句](/pql/put.md)一样的 INSERT 串接。
 
+可使用的全局变量：
+
+* `@AFFECTED_ROWS_OF_LAST_PUT` 本次最后一条 BATCH 更新影响目标数据库的行数，不建议使用。
+* `@TOTAL_AFFECTED_ROWS_OF_RECENT_PUT` 本次所有 BATCH 更新影响目标数据库的行数。
 
 ### PQL 中的数据流转模式总结
 

@@ -7,9 +7,11 @@
 ## 事件标签
 
 **事件标签**是显示在调度作业事件列表中的名称，用于说明事件的功能。可以通过输入框中的默认值的方式定义双语：
+
 ```json
 { "chinese": "中文标签", "english": "English Label" }
 ```
+
 不是这种 Json 格式的即为单语言形式，根据需要选择。
 
 事件名称可以是“拨打电话给”、“发送企业微信消息给”（用户信息中包含了企业微信字段）、“发送短信给”等等。
@@ -71,20 +73,20 @@ FOR $user OF $users LOOP
 END LOOP;
 ```
 
-在 Shell 或 Python 中可使用嵌入式 Sharp 表达式进行值加工然后传递，如
+在 Shell 或 Python 中可使用[嵌入式 PQL](/pql/embedded.md) 进行值加工然后传递，如
 
 ```sh
-java -jar custom-event.jar ${ $owner COLUMN 'mobile' JOIN ',' }
+java -jar custom-event.jar <%= $owner COLUMN 'mobile' JOIN ',' %>
 ```
 
-上例中`${ $owner COLUMN 'mobile' JOIN ',' }`表示将表`$owner`中`mobile`列的值连成一个由逗号分隔的字符串。
+上例中`<%= $owner COLUMN 'mobile' JOIN ',' %>`表示将表`$owner`中`mobile`列的值连成一个由逗号分隔的字符串。不仅可以输出值，也可以通过[嵌入式 PQL](/pql/embedded.md) 实现更复杂的逻辑。
 
 
 ## 自定义事件示例
 
 建议使用 PQL 编写自定义事件逻辑，以下几个由 PQL 写成的事件示例可供参考。
 
-### 请求接口
+### 请求接口示例
 
 自定义事件时，接口操作用得最多。如短信、电话语音、企业微信、钉钉等都要请示接口。
 
@@ -98,7 +100,7 @@ REQUEST JSON API '''http://www.domain.com/api/event?job=$job_id''' METHOD 'POST'
 REQUEST JSON API '''https://api.company.com/phone/call?calledShowNumber=01086483133&calledNumber=${ $users COLUMN 'mobile' JOIN ','  }&ttsCode=TTS_169899687&deptNo=0007&token=7f0e43a86e15a20bdff07a160e0b9cc4&cId=9999&name=SingleCallByVoice&jobId=$job_id&jobTitle=${ $title URL ENCODE }''' METHOD 'POST';
 ```
 
-### 发送邮件
+### 发送邮件示例
 
 发邮件功能在默认事件中已实现。
 
@@ -111,7 +113,7 @@ SEND MAIL ${ 'ERROR: ' + $title }
     BCC ${ $master COLUMN 'personal' JOIN ';' };
 ```
 
-### 发送企业微信消息
+### 发送企业微信消息示例
 
 ```sql
 IF @WXWORK_TOKEN == '' OR  @WXWORK_TOKEN_LAST_GET_TIME == '' OR @WXWORK_TOKEN_LAST_GET_TIME EARLIER @NOW >= 7200 SECONDS THEN
@@ -143,3 +145,4 @@ END IF;
 
 * [事件和预警 Event](/keeper/event.md)
 * [调度作业 Job](/keeper/job.md)
+* [嵌入式 PQL](/pql/embedded.md)

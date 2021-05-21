@@ -101,6 +101,7 @@ GET # SELECT * FROM $table! WHERE score>=60;
 * [变量声明 SET](/pql/set.md)
 * [变量声明 VAR](/pql/var.md)
 * [全局变量 @](/pql/global-variable.md)
+* [调度变量 %](/keeper/job-variable.md)
 * [富字符串](/pql/rich.md)
 * [条件表达式](/pql/condition.md)
 * [条件控制 IF](/pql/if.md)

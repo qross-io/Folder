@@ -72,7 +72,7 @@
     + [数据判断](/pql/sharp-if.md)    
 
 * PQL 高级特性
-    + [嵌入式查询表达式](/pql/query.md)
+    + [查询表达式](/pql/query.md)
     + [PQL 中的 Json](/pql/json.md)
     + [富字符串](/pql/rich.md)
     + [PQL 中有返回值的语句](/pql/evaluate.md)
@@ -97,12 +97,13 @@
     + [多线程并行执行 PAR](/pql/par.md)
 
 * 其他语言相关
+    + [嵌入式 PQL](/pql/embedded.md)
     + [在 PQL 中调用 Java 方法 INVOKE](/pql/invoke.md)
     + [在 PQL 中运行 PQL 文件或 Shell 命令 RUN](/pql/run.md)
     + [PQL 中的 Javascript](/pql/javascript.md)    
 
 * 附录
-    + [完整的嵌入规则表](/pql/place.md)
+    + [完整的占位符规则表](/pql/place.md)
     + [特殊字符表](/pql/characters.md)
     + [io.qross.pql.PQL 类](/pql/class.md)
     + [PQL 全局设置](/pql/setup.md)

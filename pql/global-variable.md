@@ -71,5 +71,6 @@ PUT # INSERT INTO table2 (name, score) VALUES (?, ?);
 
 * [数据类型](/pql/datatype.md)
 * [用户变量 $](/pql/variable.md)
+* [调度变量 %](/pql/variable.md)
 * [变量声明 SET](/pql/set.md)
 * [变量声明 VAR](/pql/var.md)

@@ -10,9 +10,10 @@ PRINT [1, 2, 3];
 PRINT { "name": $name, "age": $age, "score": 98 };
 PRINT ${ 1 + 1 }; -- Sharp表达式
 PRINT ${{ SELECT name, score FROM table1 }};　--查询表达式
+PRINT;
 ```
 
-如上例所示，理论上，PRINT 语句可以在控制台输出任何信息。PRINT 表示打印一行信息，在结束时会打印换行符。PQL 没有提供只打印不换行的方法，如果想把一行信息分段分步打印，可使用[富字符串](/pql/rich.md)或其他方式将要打印的信息先连在一起。
+如上例所示，理论上，PRINT 语句可以在控制台输出任何信息。PRINT 表示打印一行信息，在结束时会打印换行符。PQL 没有提供只打印不换行的方法，如果想把一行信息分段分步打印，可使用[富字符串](/pql/rich.md)或其他方式将要打印的信息先连在一起。`PRINT;` 表示打印一个空行。
 
 PRINT 支持打印带时间戳和类型的信息。如下例：
 
@@ -55,3 +56,4 @@ PRINT HELLO "WORLD";
 * [数据类型](/pql/datatype.md)
 * [Sharp 表达式](/pql/sharp.md)
 * [查询表达式](/pql/query.md)
+* [富字符串](/pql/rich.md)

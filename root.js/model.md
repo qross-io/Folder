@@ -477,7 +477,8 @@ $tempalte('name').load(data, path).asArray().clear().append(func);
 
 * `onload` 第一次加载完成时触发。
 * `onlazyload` 每次增量加载完成时触发，不包括第一次。
-* `ondone` 增量加载所有数据完成之后触发。
+* `onterminate` 满足自动更新的终止条件时触发。
+* `ondone` 增量加载所有数据完成之后触发，在`onterminate`事件之后大约 3 次`interval`时间。
 
 ```javascript
 $listen('name').on('load', function(data) {

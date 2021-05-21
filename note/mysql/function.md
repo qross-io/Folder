@@ -198,7 +198,7 @@ SELECT CONCAT(2, ' test'); -- '2 test'
     ```sql
     select TIMESTAMPDIFF(MINUTE, '2017-08-09 17:00:00', '2017-08-09 18:00:00');
     ```
-17. `DATE_ADD(date, INTERVAL expr type)`、`DATE_SUB(date, INTERVAL expr type)`、`ADDDATE(date, INTERVAL expr type)`、`SUBDATE(date, INTERVAL expr type)` 对日期时间进行加减法运算，ADDDATE() 和 SUBDATE() 是 DATE_ADD() 和 DATE_SUB() 的同义词。date 是一个 DATETIME 或 DATE 值，expr 对 date 进行加减法的一个表达式字符串 type 指明表达式 expr 应该如何被解释。type 值含义和期望的 expr格式：
+17. `DATE_ADD(date, INTERVAL expr type)`、`DATE_SUB(date, INTERVAL expr type)`、`ADDDATE(date, INTERVAL expr type)`、`SUBDATE(date, INTERVAL expr type)` 对日期时间进行加减法运算，ADDDATE() 和 SUBDATE() 是 DATE_ADD() 和 DATE_SUB() 的同义词。date 是一个 DATETIME 或 DATE 值，expr 对 date 进行加减法的一个表达式字符串 type 指明表达式 expr 应该如何被解释。type 值含义和期望的 expr 格式：
     
     + SECOND 秒 SECONDS
     + MINUTE 分钟 MINUTES

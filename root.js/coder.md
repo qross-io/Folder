@@ -15,7 +15,7 @@ Coder 以 **TEXTAREA** 作为配置标签，并支持所有 CodeMirror 的原有
 在设置属性时需要使用分隔符格式，如上例中使用`line-wrapping`而不是`lineWrapping`。Coder 常用属性简单列表如下：
 
 * `value` 获取代码框中的内容，这是最关键属性。设置值即设置 TEXTAREA 标签的值即可。
-* `mode` 语言，默认`pql`。这里可使用 mineType 值，也可直接使用语言名称，如`java`。
+* `coder`或`mode` 编码语言，默认`pql`。这里可使用 mineType 值，也可直接使用语言名称，如`java`。一般使用`coder`属性。
 * `readOnly` 是否只读，默认`false`。
 * `rows` 最小行数，默认`1`。
 * `save` 保存代码的动作，支持接口和 PQL 语句，详见[与数据相关的属性](/root.js/data.md)。当按下`Ctrl`+`Enter`时触发保存动作。例如：
@@ -36,16 +36,18 @@ Coder 以 **TEXTAREA** 作为配置标签，并支持所有 CodeMirror 的原有
 * `success-text` 保存成功时的提示文字，默认与`saved-text`相同。
 * `failure-text` 后端验证失败时的提示文字。
 * `exception-text` 后端事件发生错误时的提示文字。
+* `alternative` 备选的语言代码 mode，主要是告诉 Voyager 引擎该引入哪些相关的 js 库，这个属性不会被前端使用。如`alternative="pql,shell,python"`
 
 以上`-text`结尾的属性显示在代码框的右下角。
 
-与方法相关的属性有 3 个，属性值均为[精简事件和事件表达式](/root.js/event.md)。
+与方法相关的属性有 4 个，属性值均为[精简事件和事件表达式](/root.js/event.md)。
 
 * `save-on` 当其他标签或元素行为触发的保存。
 * `clear-on` 当其他标签或元素行为触发的清空。
 * `copy-on` 当其他标签或元素行为触发的将所有代码复制到剪切板。
+* `set-{attr}-on` 当其他标签或元素行为触发的设置属性，例如 `set-mode-on="change: #Select1 -> #(Select1)"`。
 
-以上 3 个属性对应的方法分别为`save()`、`clear()`和`copy()`。
+以上 4 个属性对应的方法分别为`save()`、`clear()`、`copy()`和`set(attr, value)`。
 
 事件主要有`onsave`，当保存代码内容时触发，支持`return`语句，当`return false`时中断保存。保存事件在输入框失去焦点或者同时按下`Ctrl+Enter`时触发。
 

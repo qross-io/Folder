@@ -8,13 +8,13 @@
 
 * 任意版本的`Linux`操作系统
 * `MySQL 5.7`或更高版本
-* `JDK1.8`或更高版本
+* `JDK 1.8`或更高版本
 
 **Qross** 系统理论上需要运行在 Linux 环境下，但出于开发调试的目的，Qross 系统可以在 Windows 环境下运行，但会缺少某些附加功能。 MySQL 是必须的，版本要求不强制，理论上 MariaDB 也可以，作者在开发过程中尽量规避了数据库版本之间的差异。 JDK 是必须的。
 
 ## 文件清单
 
-需要有专门的目录保存Qross系统的所有文件，如`/usr/qross`。将压缩包解压之后把所有相关文件放在这个专用目录下。Qross 系统的文件清单如下：
+需要有专门的目录保存 Qross 系统的所有文件，如`/usr/qross`。将压缩包解压之后把所有相关文件放在这个专用目录下。Qross 系统的文件清单如下：
 
 * `qross-master-x.x.x.jar` Master 管理平台，是一个 Spring Boot 项目，可以单独启动。
 * `qross-keeper-x.x.x.jar` Keeper 任务调度工具。如果生产中用到了除了 MySQL 之外的数据库，建议[下载源码](https://github.com/qross-io/Keeper)然后添加相关依赖重新打包或联系作者。
@@ -24,7 +24,7 @@
 * `data` 目录，保存需要初始化的数据文件，系统初始化后可删除。
 * `qross-keeper-start.sh` Shell 脚本，在`crontab`配置时使用。
 
-其中的`x.x.x`表示版本号，如`0.6.4`。
+其中的`x.x.x`表示版本号，如`1.5.0`。
 
 ## 配置数据源
 
@@ -68,10 +68,10 @@ Master 是 Spring Boot 项目，可以为其分配相应的域名和端口，默
 
 ```sh
 /srv/jdk1.8/bin/java -cp /usr/qross/qross-keeper-x.x.x.jar  io.qross.keeper.Protector
-/srv/jdk1.8/bin/java -cp /usr/qross/qross-kopeeper-x.x.x.jar io.qross.keeper.Inspector >> "/usr/qross/keeper/beats/${day}.log" 2>&1
+/srv/jdk1.8/bin/java -cp /usr/qross/qross-keeper-x.x.x.jar io.qross.keeper.Inspector >> "/usr/qross/keeper/beats/${day}.log" 2>&1
 ```
 
-第一需要把`/usr/qross`部分修改为 Qross 系统的保存目录。第二要把`/srv/jdk1.8`修改为 JDK 的安装目录。
+第一需要把`/usr/qross`部分修改为 Qross 系统的保存目录。第二要把`/srv/jdk1.8`修改为 JDK 的安装目录。第三需要修改版本号到对应版本。
 
 使用`crontab -e`命令，在打开界面中添加一行，注意路径：
 

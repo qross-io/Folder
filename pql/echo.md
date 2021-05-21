@@ -4,15 +4,15 @@ ECHO 语句和 OUTPUT 语句](/pql/output.md)一样，都用来输出和返回 P
 
 ```html
 ECHO <h1>标题1</h1>;
-ECHO <div>${name}</div>;
+ECHO <div>#{name}</div>;
 ECHO <div># description #</div>;
 ```
 
-* [OUTPUT 语句](/pql/output.md)支持完整的规则，后面的表达式和语句都会被计算。ECHO 语句只计算嵌入式变量（上例`${name}`）和多语句言占位符（上例`# description #`），其他内容不作处理，直接返回。
+* [OUTPUT 语句](/pql/output.md)支持完整的规则，后面的表达式和语句都会被计算。ECHO 语句不支持任何占位符和嵌入规则，直接返回。
 * ECHO 语句后面忽略数据类型，均为字符串。
 * ECHO 语句属于显示输出，结果都会被输出和返回。
 * ECHO 语句会去掉`ECHO`关键字后的第一个空白字符，其他空白字符不做处理。
-* ECHO 语句是嵌入式 PQL 的基础，应用于模板引擎 Voyager。
+* ECHO 语句是[嵌入式 PQL](/pql/embedded.md) 的基础。
 
 ECHO 语句另外一种应用场景是语句占位。
 

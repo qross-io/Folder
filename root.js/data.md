@@ -8,7 +8,7 @@
 <span editable="yes" action="put:/api/student/name?id=&(id)&name="></span>
 <input type="text" check="select id from users where username='{value}'" />
 <button id="Btn1" onclick+="insert into table1 (name, age) values ('$(#name)', $(#age))">
-<textarea coder="java" onblur+="/api/code/update?id=&(id)&code="></textarea>
+<textarea coder="java" onsave+="/api/code/update?id=&(id)&code="></textarea>
 ```
 
 数据属性支持多种数据类型，比较典型的是接口和 PQL，也可以是静态数据。
@@ -57,8 +57,8 @@ FOR 标签的`in`属性也是和`data`属性一样的逻辑。接口地址支持
 大多数情况下都需要向数据属性中传递参数值，数据属性支持 [Express 字符串](/root.js/express.md)支持的所有参数格式。
 
 ```html
-<select action="/api/select/change?item=$:[text]" />
-<input check="select id from users where username='{value}'">
+<select onchange+="/api/select/change?item=$:[text]" />
+<input onchange+="select id from users where username='{value}'">
 ```
 
 ---

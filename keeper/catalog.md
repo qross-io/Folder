@@ -8,6 +8,7 @@
 * [组织调度作业 Project](/keeper/project.md)
 * [Keeper 中的 Cron 表达式](/keeper/cron.md)
 * [工作流 DAG](/keeper/dag.md)
+* [命令模板](/keeper/command-template.md)
 * [执行依赖 Dependency](/keeper/dependency.md)
 * [调度作业的所有者](/keeper/owner.md)
 * [事件和预警 Event](/keeper/event.md)

@@ -14,7 +14,17 @@ PQL.runFile("/usr/qross/pql/test.sql")
 ### PQL 构造函数
 
 ```scala
+class PQL(originPQL: String)
 class PQL(originPQL: String, dh: DataHub) 
+class PQL(originPQL: String, embedded: Boolean)
+class PQL(originPQL: String, embedded: Boolean, dh: DataHub)
+```
+
+```java
+class PQL(String originPQL)
+class PQL(String originPQL, DataHub dh) 
+class PQL(String originPQL, boolean embedded)
+class PQL(String originPQL, boolean embedded, DataHub dh)
 ```
 
 构造函数一般不会直接使用，多用静态方法。
@@ -33,6 +43,12 @@ def run(PQL: String): Any
 def runEmbedded(PQL: String): Any
 def runFile(path: String): Any
 def runEmbeddedFile(path: String): Any
+
+def check(PQL: String): String
+def checkFile(path: String): String
+
+def recognizeParameters(SQL: String): java.util.HashSet[String]
+def recognizeParametersInFile(path: String): java.util.HashSet[String]
 ```
 
 Java 代码：
@@ -47,11 +63,19 @@ public static Object run(String PQL);
 public static Object runEmbedded(String PQL);
 public static Object runFile(String path);
 public static Object runEmbeddedFile(String path);
+
+public static String check(String PQL);
+public static String checkFile(String path);
+
+public static HashSet<String> recognizeParameters(String SQL);
+public static HashSet<String> recognizeParametersInFile(String path);
 ```
 
-* `open`方法只打开PQL语句或文件，但不运行，返回 PQL 类。
-* `run`方法打开PQL语句或文件并运行，返回运行 PQL 的结果。
-* `Embedded`是嵌入式 PQL，用于模板引擎，是 [Voyager](/voyager/overview.md) 的基础。
+* `open`方法只打开 PQL 语句或文件，但不运行，返回 PQL 类。
+* `run`方法打开 PQL 语句或文件并运行，返回运行 PQL 的结果。
+* `embedded`是[嵌入式 PQL](/pql/embedded.md)，可用于模板引擎，是 [Voyager](/voyager/overview.md) 的基础。
+* `check`方法用于检查 PQL 过程是否有语法错误，正确时返回空字符串，出错时返回第一个错误的文本信息。
+* `recognizeParameters`方法用于识别 PQL 过程中的参数。
 
 ### 向 PQL 传递参数
 
@@ -69,11 +93,11 @@ Java 代码：
 ```java
 public PQL place(String name, String value);
 public PQL place(Map<String, String> map);
-public PQL place(String queryString);
+public PQL place(String queryOrJsonString);
 public PQL placeDefault(String defaultValue);
 ```
 
-要执行的 PQL 过程可以接受外部传参，见 [向 PQL 过程传递参数](/pql/params.md)，就是通过这个方法向 PQL过程传递参数。分别可以接受单个值、Map 键值对、或者查询字符串（格式 name=Tom&age=18&score=89）。`placeDefault`方法的作业时当变量不存在时才赋值，主要用于 OneApi 中的传参。
+要执行的 PQL 过程可以接受外部传参，见 [向 PQL 过程传递参数](/pql/params.md)，就是通过这个方法向 PQL 过程传递参数。分别可以接受单个值、Map 键值对、或者查询字符串（格式 name=Tom&age=18&score=89）、Json 对象字符串等形式。`placeDefault`方法的作业时当变量不存在时才赋值，主要用于 OneApi 中的传参。
 
 ### 设置 PQL 过程的变量并赋值
 
@@ -113,7 +137,7 @@ def signIn(info : java.util.Map[String, Any]): PQL
 def signIn(userId: Int, userName: String, role: String, info : java.util.Map[String, Any]): PQL
 ```
 
-Java代码：
+Java 代码：
 
 ```java
 public PQL signIn(Map<String, Object> info);

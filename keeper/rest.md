@@ -2,7 +2,7 @@
 
 因为 Keeper 调度程序和 Master 管理程序是两个独立的程序，一方停机不会影响另一方。但是 Master 也需要在 Keeper 运行时能够控制 Keeper，即能与 Keeper 通信。Keeper 提供了一些 Restful 接口用于接收外部的命令或消息。
 
-这些接口需要通过内网访问，IP 即本机内网地址，端口号默认为`7700`，可以在“系统”->“Keeper 监控”->[“Keeper 设置”](/keeper/settings.md)中进行设置，如`http://localhost:7700/kill/task/3306`。另外所有接口的 Method 均为`PUT`。
+这些接口需要通过内网访问，IP 即本机内网地址，端口号默认为`7700`，可以在“系统”->“Keeper 监控”->[“Keeper 设置”](/keeper/settings.md)中进行设置，如`http://localhost:7700/kill/task/3306`。另外所有接口的请求方法 Method 如无特别说明，是默认为`PUT`。
 
 以下说明中省略域名和端口。
 
@@ -56,7 +56,7 @@
 }
 ```
 
-## 杀死正在运行的任务 `/kill/task/{taskId}`
+## 杀死正在运行的任务 `/task/kill/{taskId}`
 
 这个接口会杀掉正在运行的任务并返回被中断的 Action ID 列表。路径参数`taskId`必须有。如果指定的 Task 没有运行，则返回空数组。
 
@@ -66,11 +66,34 @@
 { "actions": [2035, 2036] }
 ```
 
-## 杀死正在运行的调度的所有任务 `/kill/job/{jobId}`
+## 获取任务的运行日志 `/task/logs`
+
+这个接口的请求方法为`GET`。需要的参数如下：
+
+* `jobId` 调度 id
+* `taskId` 任务 id
+* `recordTime` 任务记录时间，格式`yyyy-MM-dd HH:mm:ss`
+* `actionId` 动作 Action 的 id。默认值`0`，表示获取任务的所有日志。
+* `cursor` 读取到的记录位置，下面会详细说明。默认值`0`，表示从头开始读。
+* `mode` 日志的分类，可选值有全部日志 `all`，调试日志 `debug`，错误日志 `error`，默认值为`all`。
+
+日志以文件的行式保存到运行服务器上，任务在运行时会不断的产生日志。这个接口每次请求最多返回 100 行日志，并且会返回日志读取到的位置。
+
+```json
+{
+    "logs": [ ... ],
+    "cursor": 1457
+}
+```
+
+如上所示，接口返回值除了有日志数据外，还会返回本次读取到的位置`cursor`。下次请求时，需要传递`cursor`的值，表示从上次读取到的位置开始继续读取日志。
+
+
+## 杀死正在运行的调度的所有任务 `/job/kill/{jobId}`
 
 这个接口会杀掉指定调度的所有任务副本，路径参数`jobId`必须有。返回值同上个接口。如果指定的 Job 没有运行的 Action，则返回空数组。
 
-## 杀死正在运行的 Action `/kill/action/{actionId}`
+## 杀死正在运行的 Action `/action/kill/{actionId}`
 
 这个接口会杀掉正在运行的 Action，路径参数`actionId`必须有，返回值为：
 
@@ -79,6 +102,34 @@
 ```
 
 其中`2035`是`actionId`，如果指定的 Action 没有运行，则返回`0`。
+
+## 重新加载所有配置 `/configurations/reload`
+
+系统接口。重新加载数据源配置、数据连接配置、PQL 系统函数、PQL 全局变量等全局配置。返回值固定为`1`。
+
+## 重新加载某个连接配置 `/connection/setup/{connectionId}`
+
+系统接口。重新加载指定的数据连接。
+
+## 移除某个数据连接 `/connection/remove/{connectionId}`
+
+系统接口。移除指定的数据连接。
+
+## 重新加载某个系统函数 `/function/renew?function_name=`
+
+系统接口。
+
+## 移除某个系统函数 `/function/remove?function_name=`
+
+系统接口。
+
+## 重新加载某个全局变量 `/variable/renew?variable_name=`
+
+系统接口。
+
+## 移除某个全局变量 `/variable/remove?variable_name=`
+
+系统接口。
 
 ---
 参考链接

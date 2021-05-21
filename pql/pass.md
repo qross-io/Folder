@@ -18,12 +18,14 @@ SAVE AS mysql.db3;
 * PASS 语句会清空 GET 的数据并将自己查询的数据保存在缓冲区。
 * 与 GET 和 PUT 相同，PASS 语句也有自己的多线程版本，请参见 [PROCESS 语句](/pql/process.md)。
 
-在PASS完成之后，有几个全局变量可用：
+在 PASS 完成之后，有几个全局变量可用：
 
 * `@COUNT_OF_LAST_GET` 这一次查询的总数据量（表格行数），可简写为`@COUNT`。
 * `@TOTAL_COUNT_OF_RECENT_GET` 这个值现在表示 PASS 语句和 GET 语句的总数量，可简写为`@TOTAL`。
 * `@BUFFER` 可以通过这个全局变量访问缓冲区。
 * `@COUNT_OF_LAST_SELECT` 这一次查询的总数量量（表格行数），可简写为`@ROWS`，同`@COUNT_OF_LAST_GET`。
+
+另外：PASS 只支持 SELECT 查询和 REDIS 查询，不如 GET 支持丰富。
 
 ---
 参考链接

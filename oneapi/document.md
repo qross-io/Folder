@@ -18,13 +18,13 @@
 
 ```sql
 /*
- * 删除自定义函数
- * 在 Keeper 运行时会同时更新 Keeper，只能删除自己的函数
- * #id INT 函数的 id
- * #owner INT 所有者的用户 id
- * @return INT 受影响的行数
- * @create Tom 2021-4-27 
- * @update Jerry 2021-4-28
+ * 删除自定义函数（第一行是标题）
+ * 在 Keeper 运行时会同时更新 Keeper，只能删除自己的函数（这一行是接口描述）
+ * #id INT 函数的 id （接口参数）
+ * #owner INT 所有者的用户 id （接口参数）
+ * @return INT 受影响的行数 （返回值信息）
+ * @created Tom 2021-4-27  （创建人及时间等信息）
+ * @updated Jerry 2021-4-28 （修改人及时间等信息）
  */
 ## function | DELETE | id=0 |
 DELETE FROM qross_functions WHERE id=#{id} AND owner=#{owner};

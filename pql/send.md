@@ -120,7 +120,6 @@ SEND EMAIL "test mail"
     FROM "personal<sender@domain.com>"
     SET PASSWORD "password"
     SET PERSONAL "name"
-    SET LANGUAGE "Chinese"
     TO "personal<user@domain.com>";
 ```
 
@@ -129,7 +128,6 @@ SEND EMAIL "test mail"
 * `FROM` 设置发件人邮箱地址。
 * `SET PASSWORD` 设置发件人邮箱密码，`SET`关键词可省略。
 * `SET PERSONAL` 设置发件人署名，`SET`关键词可省略。也可用来修改系统默认设置的署名。
-* `SET LANGUAGE` 设置模板中内容的交互语言，邮箱模板已支持多语言，需要自定义。详见 [Voyager 模板引擎国际化](/voyager/language.md)
 
 ## SEND语句的返回信息
 
@@ -149,4 +147,3 @@ SEND 语句的返回值应用很少，一般可能在记录执行日志时用到
 * [PQL 中有返回值的语句](/pql/evaluate.md)
 * [嵌入式 PQL](/pql/embedded.md)
 * [Voyager 模板引擎](/voyager/overview.md)
-* [Voyager 国际化](/pql/language.md)

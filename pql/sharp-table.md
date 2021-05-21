@@ -20,8 +20,8 @@
 * **`LAST COLUMN`** 得到表格的最后一列的所有值，返回数组。如果不存在则抛出异常。
 * **`LAST COLUMN array`** 得到表格的最后一列的所有值，返回数组。如果数据表为空则返回数组`array`，`array`用 Json 数组表示，同`FIRST COLUMN`。
 * **`COLUMN 'column'`** 根据字段名`column`返回此列的所有值，不存在则抛出异常。
-* **`FIRST CELL'`** 返回第一行第一列的值，数据类型根据第一列的数据类型确定，经常用于返回单值。数据表为空时抛出异常。
-* **`LAST CELL'`** 返回最后一行最后一列的值，数据类型根据最后一列的数据类型确定。数据表为空时抛出异常。
+* **`FIRST CELL`** 返回第一行第一列的值，数据类型根据第一列的数据类型确定，经常用于返回单值。数据表为空时抛出异常。
+* **`LAST CELL`** 返回最后一行最后一列的值，数据类型根据最后一列的数据类型确定。数据表为空时抛出异常。
 * **`FIRST ROW CELL 'column'`** 返回第一行列名为`column`列的值。不存在时则抛出异常。
 * **`LAST ROW CELL 'column'`** 返回最后一行列名为`column`列的值。不存在时则抛出异常。
 * **`HAS 'column'`** 判断数据表中是否包含名称为`column`的列。
@@ -31,6 +31,7 @@
   
 ## 数据表操作
 
+* **`COLLECT (column1, column2, ...) AS 'newColumn'`** 将指定的多个列合并成一列，要合并的列需要大于等于两个，否则无意义。`newColumn`表示新的列名，注意必须加引号。合并的列是一个对象结构，包含合并前每一列的数据。
 * **`DELETE`** 通过条件删除数据，条件支持`AND`和`OR`及使用小括号分组，但不支持函数。与`WHERE`操作效果相反。
   ```sql
   SELECT item, COUNT(0) AS amount FROM table1 -> DELETE 'amount = 0';
@@ -52,6 +53,7 @@
   $table SELECT * -- 选择全部列，生成的数据表和原数据相同，无意义
   $table SELECT *, name AS title -- 选择全有的全部列，并将其中一列另存为新列。因为数据表中不能存在重名的列，所以新列必须用`AS`重新命名。
   ```
+* **`TO HTML TABLE`** 将数据表转化为HTML表格`<table>`字符串，一般用于 Voyager 模板。
 * **`TO NESTED MAP 'column'`** 将数据表转化为一个嵌套的 Map 结构。如此非主流的操作来自于前端工程师的变态需求。数据表可以理解本身是一个数据行的数组，而数据行可以理解为是一个 Map 结构。现在前端工程师说数组不好处理，需要一个 Map，Map 每一项的值就是整个数据行。这个操作需要指定一列，前端工程师要的 Map 结构的 Key 就是这列的值（一般来说这列的每个值都是唯一的），然后数据表中每一行的其他值就构成了这个 Map 每一项的 Value。
   ```sql
   SELECT name, age, score FROM students -> TO NESTED MAP;
@@ -63,8 +65,11 @@
       "Jerry": { "age": 17， "score": 77},
   }
   ```
-* **`TO HTML TABLE`** 将数据表转化为HTML表格`<table>`字符串，一般用于 Voyager 邮件模板。
-* **`TURN column1 AND column2 TO ROW` 或 **`TURN (column1, column2) TO ROW`** 将数据表中的`column1`和`column2`两列数据转成数据行, 列`column1`的值做为数据行的字段名，列`column2`的值作为数据行对应字段的值。
+* **`TO TREE (primaryKey, parentColumn, startPoint, newColumn)`** 将一个数据表转成一个树形结构，这个功能常用于前端目录树的展示，在树形组件渲染中要求一次性获取所有节点的数据。其中`primaryKey`和`parentColumn`分别指定主键字段和父级关系字段，这两个字段用于确定目录的上下级关系。例如主键`id`和父级关系字段`parent_id`，id 为`2`的目录有 3 个子目录，那么这 3 个子目录的 parent_id 值均为`2`，即 id 为`2`的目录。`startPoint`表示顶层目录的父级 id，一般设置为`0`。`newColumn`设置聚合后字段名，如下例中的`children`，当前目录的所有子节点都在这里。特别注意，找到不父级的目录都会被认为是顶级目录。
+  ```sql
+  SELECT * FROM projects -> TO TREE (id, parent_project_id, 0, children);
+  ```
+* **`TURN column1 AND column2 TO ROW`** 或 **`TURN (column1, column2) TO ROW`** 将数据表中的`column1`和`column2`两列数据转成数据行, 列`column1`的值做为数据行的字段名，列`column2`的值作为数据行对应字段的值。
   ```sql
   SELECT name, age FROM students -> TURN (name, age) TO ROW;
   ```

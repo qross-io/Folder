@@ -6,7 +6,7 @@ FILE 语句是一个名词语句，用于文件操作，实现文件新建、删
     FILE "path";
     FILE DELETE "path";
     FILE RENAME "path" TO "new path";
-    FILE MOVE "path" TO "new Path" REPLACE EXISTING;
+    FILE MOVE "path" TO "new path" REPLACE EXISTING;
     FILE COPY "path" TO "new path" REPLACE EXISTING;
     FILE MAKE "path";
     FILE LENGTH "path";
@@ -14,7 +14,7 @@ FILE 语句是一个名词语句，用于文件操作，实现文件新建、删
     FILE LIST "dir";
     FILE WRITE "path" APPEND "content";
     FILE READ "path";
-
+    FILE VOYAGE "path" WITH "p1=v1&p2=v2" TO "new path";
     FILE DOWNLOAD "path";
 ```
 
@@ -26,7 +26,7 @@ FILE 语句通过路径`path`来定位文件，必须使用完整的路径。
 VAR $file := FILE 'c:/io.Qross/Home/1.txt';
 ```
 
-无其他关键词的FILE语句用于获取文件的详细信息，返回值是一个数据行。如果文件不存在，返回格式为：
+无其他关键词的 FILE 语句用于获取文件的详细信息，返回值是一个数据行。如果文件不存在，返回格式为：
 
 ```json
 {
@@ -50,7 +50,8 @@ VAR $file := FILE 'c:/io.Qross/Home/1.txt';
 }
 ```
 
-特别说明：`PRINT $file.size;`将打印`2.41K`；文件夹的扩展名是`<DIR>`。
+* 可使用集合对象的访问规则，如`PRINT $file.size;`将打印`2.41K`。
+* 文件夹的扩展名是`<DIR>`。
 
 ## 新建和删除文件
 
@@ -62,7 +63,7 @@ FILE DELETE "c:/io.Qross/Home/1.txt";
 * 新建文件返回布尔值。文件不存在且有写权限可创建成功，否则失败。只能创建文件文件。
 * 删除文件操作也返回布尔值。如果文件存在且未被其他程序占用，即删除成功，返回`true`; 删除失败返回`false`。
 
-## 文件重全名、移动和复制。
+## 文件重全名、移动和复制
 
 ```sql
 FILE RENAME "c:/io.Qross/Home/1.txt" TO "2.txt";
@@ -103,6 +104,7 @@ END LOOP;
 ```
 
 ## 获取文件大小
+
 ```sql
 SET $length := FILE LENGTH "c:/io.Qross/Home/1.txt";
 SET $size := FILE SIZE "c:/io.Qross/Home/1.txt";
@@ -111,7 +113,8 @@ SET $size := FILE SIZE "c:/io.Qross/Home/1.txt";
 * `LENGTH`返回字节长度，是一个整数，如`2477`。
 * `SIZE`返回易读的文件大小表示，是一个字符串，如`2.41K`。`SIZE`的逻辑等效于`FILE LENGTH "path" -> TO CAPACITY`。 
 
-### 文件读写操作
+## 文件读写操作
+
 ```sql
 SET $content := FILE READ "c:/io.Qross/Home/1.txt";
 SET $content := $content + "\nHELLO WORLD.";
@@ -124,7 +127,15 @@ FILE WRITE "d:/temp/2.txt" APPEND $content;
 
 在 PQL 中，FILE 语句 SQL 语句、PARSE 语句一样归为[查询语句](/pql/evaluate.md)的范畴，每条语句都有返回值，所以 SQL 语句和 PARSE 语句的特性 FILE 语句均支持。比如用做赋值语句、在[FOR循环](/pql/for.md)中使用，使用[Sharp表达式](/pql/sharp.md)再编辑，当做[查询表达式](/pql/query.md)的一部分等。
 
-### 文件下载
+## 按模板引擎解析
+
+```sql
+FILE VOYAGE "d:/datax/example.json" WITH { "source": "mysql", "destination": "phoenix" } TO """d:/datax/tasks/$(action_id)""";
+```
+
+`FILE VOYAGE` 的作用是将使用 [PQL 嵌入式规则](/pql/embedded.md)编写的文件解析后生成新的文件，可以理解为原文件是一个模板，通过传递参数从而生成不同的内容，模板文件中支持所有的 PQL 。`WITH`关键词用于传递参数，可支持查询字符串或 Json 对象格式。`TO`关键词用于设置目标文件的绝对路径，当目标文件存在时会直接覆盖。
+
+## 文件下载
 
 ```sql
 FILE DOWNLOAD "/usr/qross/data.csv";

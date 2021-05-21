@@ -48,7 +48,7 @@ SET $name := 'Tom';
 * 条件语句或循环语句的条件体或循环体语句中可以使用 HTML 语句块，类似上面的 [IF 语句](/pql/if.md)和 [FOR 语句](/pql/for.md)
 * `<%`和`%>`可以嵌入到 HTML 中，也可以嵌入到 Javascript 代码中，即页面的任何部分都可以嵌入。
 
-## 服务器端包含
+## 服务器端包含 Server Side Include
 
 Voyager 支持在页面中包含其他页面碎片或 SQL 文件，包含进来后作为整个页面的一部分。例如：
 
@@ -66,7 +66,7 @@ Voyager 支持在页面中包含其他页面碎片或 SQL 文件，包含进来�
 
 另外一种语言配置文件的引入在[多语言支持](/voyager/language.md)中介绍。服务器端包含支持传递参数，格式同 URL 地址传参，目的是对包含页面进行配置，详见 [Voayger 使用参数](/voyager/query.md)。
 
-## 使用母版页
+## 使用母版页 Master Page
 
 ```html
 <#page template="/master/form.html?name=Tom&age=18"/>
@@ -74,6 +74,23 @@ Voyager 支持在页面中包含其他页面碎片或 SQL 文件，包含进来�
 
 母版页的路径也相对于当前站点，格式为`.html`，上例中`/master/form.html`为母版文件。母版页支持传递参数，上例中问号后面的部分为参数，格式同 URL 传参一样。参数会自动替换母版页中的参数占位符。详细信息见 [Voyager 母版页](/voyager/master.md)。
 
+## 逻辑前置 Setup
+
+前置逻辑可以让一段服务器端代码优先执行。在不使用母版页时，把服务器端代码放在页面最前面即可，但如果使用了母版页，我们又希望于有服务器端逻辑首先被执行，从而在母版页中可以使用这段代码的一些结果，比如变量和数据。一般用于使用了母版页时。
+
+```html
+<#page template="/master/form.html"/>
+@{
+    "name": "Tom",
+    "age": 18
+}
+
+<%!
+VAR $student := SELECT * FROM students WHERE id=#{id} -> FIRST ROW;
+%>
+```
+
+上例中，由`<%!`和`%>`包含的部分即“逻辑前置”，这段代码会在页面请求时被首先执行，然后在母版页中可以使用变量`$student`。
 
 ## 用`#`和`#`包围的多语言标签
 

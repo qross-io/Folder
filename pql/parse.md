@@ -5,11 +5,13 @@ PARSE 语句负责解析接口返回的数据，逻辑和 SELECT 语句属于同
 ```sql
 PARSE "path" AS TABLE;
 PARSE "path" AS ROW;
+PARSE "path" AS OBJECT;
 PARSE "path" AS ARRAY;
+PARSE "path" AS LIST;
 PARSE "path" AS VALUE;
 ```
 
-`"path"`参数使用标准的JsonPath表达式。`AS`后面表示期望将指定路径的数据解析成什么格式。
+`"path"`参数使用标准的 JsonPath 表达式。`AS`后面表示期望将指定路径的数据解析成什么格式。其中`ROW`和`OBJECT`等价、`LIST`和`ARRAY`等价。
 
 ```json
 {
