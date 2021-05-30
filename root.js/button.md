@@ -22,7 +22,7 @@
 <button id="Button1" onclick+="pql|api" watch="#TextBox1,#TextBox2" scale="normal" color="blue" confirm-text="" click-text="" success-text="" failure-text="" exception-text="" jumping-text="" jump-to="url" enabled-class="" disabled-class="">按钮</button>
 ```
 
-可用的扩展属性如下：
+可用的扩展属性如下（按功能排序）：
 
 * `watch` 用于组件监听，下面在“组件监听”中单独介绍这个属性。
 * `confirm-text` 如果设置了这个属性，则在点击按钮时显示确认提示框，提示框里显示这个属性的文字。
@@ -30,6 +30,7 @@
 * `confirm-button-text` 设置弹出对话框确认按钮的文字，默认为`OK`，对于原生确认对话框无效。
 * `cancel-button-text` 设置弹出对话框取消按钮的文字，默认为`Cancel`，对于原生确认对话框无效。
 * `click-text` 点击按钮触发服务器端请求时的提示文字，替换按钮上的文字。
+* `invalid-text` 当 onclick 事件的值返回 false 时的提醒文字 `onclick="return false;"`。
 * `success-text` 请求成功后的提示文字，本文下方有状态说明。
 * `failure-text` 请求失败后的提示文字，本文下方有状态说明。
 * `exception-text` 请求发生异常后的提示文字，替换按钮上的文字，“异常”是指接口或 PQL 语句发生错误，错误会被打印到控制台。
@@ -37,17 +38,21 @@
     ```html
     <button href="/index.html">返回首页</button>
     ```
-* `jumping-text` 跳转过程中的提示文字。
+* `jumping-text` 跳转过程中的提示文字，替换按钮文字。
 * `enabled-class` 启用状态下的样式，默认值`normal-button blue-button`。
 * `disabled-class` 按钮在禁用状态下的样式，默认值`normal-button optional-button`。
-* `scale` 按钮大小，见本文下面的说明。
 * `color` 按钮颜色，见本文下面的说明。
+* `scale` 按钮大小，见本文下面的说明。
+* `type` 按钮类型，目前仅支持`switch`属性，用作切换按钮。本文最下面有一个示例。
+* `options` 切换按钮的选项，这个属性的默认值是`Enabled=yes&Disabled=no`，其中等号前面是文本，后面是值，可以根据需要配置。
 
 以上所有以`-text`消息相关属性均支持 [Express 字符串](/root.js/express.md)。
 
 ## 按钮事件
 
 按钮新增一个[服务器端事件](/root.js/server.md)`onclick+`，是按钮扩展的关键属性。属性值为按钮要执行的 PQL 语句或要请求的 API 接口，属性值格式详见[服务器端事件](/root.js/server.md)和[与数据相关的属性](/root.js/data.md)。客户端事件`onclick`依然可以使用。
+
+另外为了配合`switch`按钮类型，新增两个客户端事件`onclick-enabled`和`onclick-disabled`，分别当按钮切换到相应的状态下触发。
 
 客户端事件一般情况下不会用到，不过有时其他组件有时需要监听按钮的动作，参见[精简事件和表达式](/root.js/event.md)。
 
@@ -128,6 +133,16 @@ Button 一般情况下会配合其他表单组件使用，如文本框等。Butt
 ```html
 <button scale="small" color="prime">...</button>
 ```
+
+## 切换按钮示例
+
+当`type`属性设置为`switch`时，可以把按钮做为切换按钮使用。
+
+```html
+<button id="EnableButton" type="switch" options="已启用=yes&已禁用=no" value="<%= $job.enabled %>" onclick="return <%=$job.dags%> > 0;" invalid-text="至少先设置一个工作流命令才能启用调用。" onclick+="put:/api/job/switch?id=&(jobId)&enabled={value}" />
+```
+
+这个示例来自于 Master 项目后台启停用调度的按钮，主要逻辑为：只有先设置了工作流之后才能启用按钮，由`onchange`事件来判断，如果不满足启用条件，则提示文字`invalid-text`；`options`用来设置不同状态下按钮的显示文字和值；`value`属性必须设置值；`onclick+`事件用于请求后端接口，完成数据库更新。
 
 ---
 参考链接

@@ -2,11 +2,19 @@
 
 **root.js** 库一般跟随 [Qross Master](/master/overview.md) 项目的功能进行更新。
 
-## v1.5.0 (开发中)
+## v1.6.0 (开发中)
+
+* SELECT 扩展，`star-button`。
+* INPUT 输入框扩展，`stars`类型。
+* 新增菜单类型。
+
+## v1.5.0 (2021-5-28)
 
 * [TABLE 标签扩展](/root.js/table.md)加入，在原有 DataTable 组件的基础进行了重构。
-* [INPUT 标签扩展](/root.js/input.md)新增`switch`和`checkbox`类型，可用作“开关”。
-* [Editor 标签编辑器](/root.js/editor.md)中关于`switch`和`checkbox`类型的编辑器移除。
+* [TAB 标签视图](/root.js/tab.md)组件加入，在原有 FocusView 组件的基础上进行了重构。
+* [INPUT 输入框扩展](/root.js/input.md)新增`switch`和`checkbox`类型，可用作“开关”。
+* [BUTTON 按钮扩展](/root.js/button.md)新增`type`属性及`switch`类型，可用作“开关”。
+* [Editor 标签编辑器](/root.js/editor.md)中关于`switch`、`checkbox`、`switchbutton`类型的编辑器移除。
 * 现有组件大量优化，大量的 bug 修复。
 
 ## v1.4.0 (2021-4-30)

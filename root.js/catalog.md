@@ -20,6 +20,7 @@
     + [Layout 布局](/root.js/layout.md)
     + [Popup 弹出对话框](/root.js/popup.md)
     + [Select 选择列表组件](/root.js/select.md)
+    + [Tab 标签视图](/root.js/tab.md)
     + [Table 表格扩展](/root.js/table.md)
 
 * 基本概念

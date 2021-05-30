@@ -15,7 +15,7 @@
 
 ## 事件表达式
 
-精简事件的值即为事件表达式。上例中`reload: #Span1`和`update-value: #TextBox1 -> $(#Select1)`，与之对应的 Javascript 代码为 `onclick="$s('#Span1').reload()"`和`onchnage="$x('#TextBox1').update('value', '$(#Select1)')"`。
+精简事件的值即为事件表达式。上例中`reload: #Span1`和`update-value: #TextBox1 -> $(#Select1)`，与之对应的 Javascript 代码为 `onclick="$s('#Span1').reload()"`和`onchange="$x('#TextBox1').update('value', '$(#Select1)')"`。
 
 事件表达式格式为`method: selector -> value`，共分三部分：方法名、CSS 选择器和方法参数，其中`method`和`selector`之间使用冒号分隔`:`，`selector`和`value`之间使用箭头号分隔`->`。其中`selector`和`value`可以省略，省略`selector`表示调用对象本身的方法，省略`value`表示调用无参方法。特别说明：方法名各单词之间使用`-`分隔，最后一个`-`之后的值为方法的第一个参数。多个`selector`和`value`之间使用逗号分开，`method`不支持设置多个。多个表达式之间使用分号`;`分隔。`value`参数支持 [Express 表达式](/root.js/express.md)。
 
@@ -66,6 +66,28 @@
 <select id="Select1" onchange+="/api/select/options">...</select>
 ```
 
+## 事件之间的关系
+
+在 root.js 框架上，同一个事件名，会有不同的用法并衍生好几个状态事件，以`onclick`事件为例，总结如下：
+
+* `onclick` 原生事件，可以定义在属性上，也可以通过监听绑定。
+* `onclick+` [服务器端事件](/root.js/server.md)，用来执行 PQL 语句或请求接口，完成与后端交互。只能在属性上定义。
+* `onclick+success` 状态事件，当`onclick+`请求成功且结果符合预期时触发。可以在属性上定义，也可以通过监听绑定。
+* `onclick+failure` 状态事件，当`onclick+`请求成功但结果不符合预期时触发。可以在属性上定义，也可以通过监听绑定。
+* `onclick+exception` 状态事件，当`onclick+`请求失败时触发，表示服务器端出错。可以在属性上定义，也可以通过监听绑定。
+* `onclick+completion` 状态事件，当`onclick+`请求完成后无论任何结果都会触发。可以在属性上定义，也可以通过监听绑定。
+* `onclick-enabled` 状态事件，当组件切换到`enabled`状态时触发。可以在属性上定义，也可以通过监听绑定。同类事件还有`onchange-checked`。
+* `onclick-disabled` 状态事件，当组件切换到`disabled`状态时触发。可以在属性上定义，也可以通过监听绑定。同类事件还有`onchange-unchecked`。
+
+除了`onclick+`事件外，每个客户端事件都有自己的精简格式，即在每个事件之后加一个减号`-`，也是本文主要介绍的内容，精简格式只能在属性上定义。
+
+* `onclick-`
+* `onclick+success-`
+* `onclick+failure-`
+* `onclick+exception-`
+* `onclick+completion-`
+* `onclick+enabled-`
+* `onclick+disabled-`
 
 ---
 参考链接

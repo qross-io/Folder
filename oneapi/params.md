@@ -30,7 +30,7 @@ REQUEST JSON API 'http://localhost:8080/api/exapmle/test'
 
 ## 在接口逻辑中使用参数
 
-因为接口逻辑使用 PQL 过程实现，所以 OneApi 处理参数的过程就是 PQL 处理参数的过程。请参照 [PQL 参数处理](/pql/params.md)。如果想在 PQL 中使用参数或 URL 地址中的信息，请参阅[在 PQL 中获取 URL 地址及其他请求信息](/oneapi/request.md)
+因为接口逻辑使用 PQL 过程实现，所以 OneApi 处理参数的过程就是 PQL 处理参数的过程。请参照 [PQL 参数处理](/pql/arguments.md)。如果想在 PQL 中使用参数或 URL 地址中的信息，请参阅[在 PQL 中获取 URL 地址及其他请求信息](/oneapi/request.md)
 
 ---
 参考链接

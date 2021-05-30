@@ -97,7 +97,7 @@ public PQL place(String queryOrJsonString);
 public PQL placeDefault(String defaultValue);
 ```
 
-要执行的 PQL 过程可以接受外部传参，见 [向 PQL 过程传递参数](/pql/params.md)，就是通过这个方法向 PQL 过程传递参数。分别可以接受单个值、Map 键值对、或者查询字符串（格式 name=Tom&age=18&score=89）、Json 对象字符串等形式。`placeDefault`方法的作业时当变量不存在时才赋值，主要用于 OneApi 中的传参。
+要执行的 PQL 过程可以接受外部传参，见 [向 PQL 过程传递参数](/pql/arguments.md)，就是通过这个方法向 PQL 过程传递参数。分别可以接受单个值、Map 键值对、或者查询字符串（格式 name=Tom&age=18&score=89）、Json 对象字符串等形式。`placeDefault`方法的作业时当变量不存在时才赋值，主要用于 OneApi 中的传参。
 
 ### 设置 PQL 过程的变量并赋值
 
@@ -193,7 +193,7 @@ PQL.openFile('/usr/qross/pql/test.sql')
 参考链接
 
 * [使用 PQL](/pql/use-pql.md)
-* [向 PQL 过程传递参数](/pql/params.md)
+* [向 PQL 过程传递参数](/pql/arguments.md)
 * [用户变量](/pql/variable.md)
 * [全局变量](/pql/global-variable.md)
 * [返回结果 OUTPUT](/pql/output.md)

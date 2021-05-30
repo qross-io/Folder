@@ -117,7 +117,7 @@ let str = '&(param)-$:[title]'.$p(span);
     ```
 * `data` 指向请求接口或执行 PQL 语句返回的结果。下例中当执行失败时显示返回的数据信息。
     ```html
-    <button id="TestButton" onchange+="/api/system/test-connection" expection="empty" failure-text="连接失败：{data}">Test<button>
+    <button id="TestButton" onchange+="/api/system/test-connection -> empty" failure-text="连接失败：{data}">Test<button>
     ```
 
 以上三个变量都可以继续操作，如`{ data.message }`，`{ value.trim() }`。这三个变量也可以用到 Javacript 语句占位符中`{{ return data.status + value; }}`。

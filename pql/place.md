@@ -78,7 +78,7 @@
 ---
 参考链接
 
-* [向PQL传递参数](/pql/params.md)
+* [向PQL传递参数](/pql/arguments.md)
 * [简单输出 ECHO](/pql/echo.md)
 * [用户变量 $](/pql/variable.md)
 * [全局变量 @](/pql/global-variable.md)

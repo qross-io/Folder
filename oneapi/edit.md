@@ -43,6 +43,6 @@ DELETE FROM table1 WHERE id=#{id}
 参考链接
 
 * [PQL 过程化查询语言](/pql/overview.md)
-* [向 PQL 过程传递参数](/pql/params.md)
+* [向 PQL 过程传递参数](/pql/arguments.md)
 * [OneApi 访问控制](/oneapi/token.md)
 * [OneApi 全局设置](/oneapi/setup.md)

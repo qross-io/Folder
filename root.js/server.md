@@ -76,10 +76,11 @@ PQL 是 Cogo 支持的后端交互方式，但仅支持一条 PQL 语句。
     <input update-value-on="click+completion: #Button1" />
 ```
 
-root.js 建议在标签属性定义事件和事件监听。
+root.js 建议在标签属性定义事件和事件监听。框架中还有其他的事件格式，请参阅[精简事件表达式](/root.js/event.md)及其最后一节的内容。
 
 ---
 参考链接
 
 * [与数据相关属性](/root.js/data.md)
 * [Express 表达式](/root.js/express.md)
+* [精简事件表达式](/root.js/event.md)

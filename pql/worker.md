@@ -99,7 +99,7 @@ pql --file /usr/qross/pql/test.sql
 2. 在打开的编辑器中，按`I`键输入下面的命令并按`ESC`然后输入`:wq`保存并退出。
 
     ```sh
-    /usr/java/jdk1.8.0_251/bin/java -jar /usr/qross/qross-worker-1.4.0.jar $*
+    /usr/java/jdk1.8.0_251/bin/java -jar /usr/qross/qross-worker-1.5.0.jar $*
     ```
 
     其中 java 目录根据你的安装确定，使用`which java`命令可以查看。Worker 目录也修改成 Worker jar 包的保存位置。

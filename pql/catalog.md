@@ -15,7 +15,7 @@
     + [使用注释](/pql/comment.md)
     + [用户变量](/pql/variable.md)
     + [全局变量](/pql/global-variable.md)
-    + [向 PQL 过程传递参数](/pql/params.md)
+    + [向 PQL 过程传递参数](/pql/arguments.md)
     + [访问集合类型元素](/pql/collection.md)
 
 * 数据流转

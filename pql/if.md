@@ -28,9 +28,17 @@ SELECT * FROM students WHERE $where!;
 * `ELSIF`也不是必需的。
 * `IF`和`THEN`之间是条件判断的内容，详见[条件表达式](/pql/condition.md)。
 
- 上例中，变量`$where`加叹号`!`是因为将字符串变量嵌入到 SQL 语句中时一般要忽略类型，如果不加叹号，得到的结果可能是`SELECT * FROM students WHERE '1=1'`而不是`SELECT * FROM students WHERE 1=1`。详见[用户变量](/pql/variable.md)或[完整的嵌入规则表](/pql/place.md)。
+上例中，变量`$where`加叹号`!`是因为将字符串变量嵌入到 SQL 语句中时一般要忽略类型，如果不加叹号，得到的结果可能是`SELECT * FROM students WHERE '1=1'`而不是`SELECT * FROM students WHERE 1=1`。详见[用户变量](/pql/variable.md)或[完整的嵌入规则表](/pql/place.md)。
 
-### IF 短语句
+在条件语句中可以使用 Sharp 表达式先对要比较的值进行运算，但必须使用嵌入语法。
+
+```sql
+IF ${ '(?i)^SELECT' FIND FIRST IN 'select * from qross_jobs' } == 'SELECT' THEN
+   PRINT 'HELLO WORLD';
+END IF;
+```
+
+## IF 短语句
 
 除了上述的完整的 IF 语句之外，IF 语句还有另一种形态，称为 **IF短语句**。IF 短语句不能独立存在，必须集成在语句中，比如 SET 语句的右侧赋值表达式，或嵌入 [Sharp 表达式](/pql/sharp.md)等。
 
@@ -72,6 +80,9 @@ VAR $scores :=
 
 如上例，IF 短语句运算完成后返回一个数据表，而且可以继续通过 Sharp 表达式继续运算。
 
+
+
+---
 参考链接
 
 * [条件表达式](/pql/condition.md)

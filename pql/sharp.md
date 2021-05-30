@@ -40,7 +40,7 @@ Sharp 表达式为每种数据类型都提供了丰富的处理方法，详情�
 * [数据表 TABLE](/pql/sharp-table.md)
 * [数据判断](/pql/sharp-if.md)
 
-## 将Sharp表达式嵌入到语句中
+## 将 Sharp 表达式嵌入到语句中
 
 Sharp 表达式的另一个常用功能是可以像变量一样嵌入到语句中。
 

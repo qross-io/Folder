@@ -48,7 +48,7 @@
 * `String.prototype.padEnd(targetLength, padding)` 用字符 padding 填充字符串右侧至 targetLength 长度。
 * `Object.getOwnPropertyDescriptors()` 该方法会返回目标对象中所有属性的属性描述符，该属性必须是对象自己定义的，不能是从原型链继承来的。
 * 函数参数支持尾部逗号。
-* 装饰器`@decorator`，可以用到类和方法上，不能用于函数上，可以参，可以使用多个。
+* 装饰器`@decorator`，可以用到类和方法上，不能用于函数上，可以传参，可以使用多个。
     ```javascript
     @speak("hello world")
     class Person { }

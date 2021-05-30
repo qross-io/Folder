@@ -3,40 +3,46 @@
 为了更方便的处理表单中的用户输入，组件库对 [INPUT 标签](/root.js/input-native.md)进行了扩展。
 
 ```html
-<input type="text" name="TextBox1" required-text="" invalid-text="" valid-text="" validator="" minlength="0" class="" focus-class="" error-class="" valid-class="" error-text-class="" valid-text-class="" get="" set="" set-value-on="" onchange+="server" success-text="" failure-text="" exception-text="" onload="" />
+<input type="text" name="TextBox1" required-text="" invalid-text="" valid-text="" validator="" minlength="0" class="" focus-class="" error-class="" valid-class="" error-text-class="" valid-text-class="" get="" set="" set-value-on="" onchange+="server-event" success-text="" failure-text="" exception-text="" onload="" />
 ```
 
 扩展或新增的属性有：
 
 * `type` 文本框的类型，除扩展了原生类型`text`、`number`和`password`外，还新增了`integer`、`float`、`mobile`、`idcard`和`name`。各扩展类型的应用在下面分别介绍。
-* `hint` 设置显示提醒文字的元素，值使用 CSS 选择器，如`#Message`。如果不设置这个属性，则默认在文本框的后面创建一个 SPAN 元素。使用`error-text-class`和`valid-text-class`设置文字样式。可以多个 INPUT 使用同一个元素标签，比如只想在提交按钮后面显示提醒。
+* `autosize` 是否根据输入的字符数自动调整宽度`size`，中文占用两个字符位置，如果设置了这个属性，则`size`属性表示最小宽度。
 * `callout` 如果设置了这个属性，则提醒文字在 Callout 中显示，这个属性可以设置 Callout 的显示位置，可选值有 `leftside`、`rightside`、`upside`、`downside`，默认值为`upside`。如果设置了`callout`属性而没有设置`hint`属性，则只用 Callout 的方式显示提醒；如果没有设置`callout`属性，则使用文本元素显示提醒文字；可以两种方式同时使用。
-* `required-text` 当输入值为空时的提示文字。
+* `class` 默认的显示样式，必填项默认值为`input-required-class`，选填项默认值为`input-optional-class`。
+* `enter` 设定一个地址，当按下回车键时，自动跳转到指定的地址。如`<input type="search" enter="/search?key=$:[value]" />`。
+* `error-class` 当输入不正确时的样式，默认使用系统样式。
+* `error-text-class` 警告文字的样式，默认为红色。
+* `exception-text` 服务器端事件`onchange+`执行失败时的提示文字，一般为接口出错。如果不设置则提示接口的出错信息。
+* `failure-text`  服务器端事件`onchange+`执行成功并且结果验证未通过时的提示文字，如用户名重复等。
+* `focus-class` 当文本框获得焦点时的样式，默认使用系统样式。
+* `getter` 在获取输入值时对值进行加工，返回加工后的值，下面有详细的解释。
+* `hint` 设置显示提醒文字的元素，值使用 CSS 选择器，如`#Message`。如果不设置这个属性，则默认在文本框的后面创建一个 SPAN 元素。使用`error-text-class`和`valid-text-class`设置文字样式。可以多个 INPUT 使用同一个元素标签，比如只想在提交按钮后面显示提醒。
 * `invalid-text` 当输入值不满足验证要求时的提示文字。
+* `minlength` 最小字符长度，当不满足要求时提示`invalid-text`。小于等于`0`表示不限制最小长度。这个属性是原生属性。
+* `required-text` 当输入值为空时的提示文字。
+* `set-{attr}-on` 指定文本框的值或其他属性的更新条件，其中`{attr}`可以替换成组件支持的属性，例如`set-value-on`，下面有详细的示例。属性值规则见[事件表达式](/root.js/event.md)。
+* `setter` 在设置输入值时对值进行加工，设置输入值为加工后的值，下面有详细的解释。
+* `success-text` 服务器端事件`onchange+`执行成功并且结果验证通过时的提示文字，如检查用户名唯一等。
+* `valid-class` 当输入正确时的样式，默认使用系统样式。
 * `valid-text` 当输入值正确时的提示文字，不设置则不显示。
 * `validator` 正则表达式验证器，区别于原生属性`pattern`，`pattern`是大小写敏感的，`validator`不区分大小写，如`pattern="^[a-z]$"`只允许输入小写英文字母，而`validator="^[a-z]$"`也可以输入大写字母。
-* `minlength` 最小字符长度，当不满足要求时提示`invalid-text`。小于等于`0`表示不限制最小长度。这个属性是原生属性。
-* `autosize` 是否根据输入的字符数自动调整宽度`size`，中文占用两个字符位置，如果设置了这个属性，则`size`属性表示最小宽度。
-* `class` 默认的显示样式，必填项默认值为`input-required-class`，选填项默认值为`input-optional-class`。
-* `focus-class` 当文本框获得焦点时的样式，默认使用系统样式。
-* `error-class` 当输入不正确时的样式，默认使用系统样式。
-* `valid-class` 当输入正确时的样式，默认使用系统样式。
-* `error-text-class` 警告文字的样式，默认为红色。
 * `valid-text-class` 输入正确时的提醒文字的样式，默认为绿色，需设置`valid-text`才显示。
-* `getter` 在获取输入值时对值进行加工，返回加工后的值，下面有详细的解释。
-* `setter` 在设置输入值时对值进行加工，设置输入值为加工后的值，下面有详细的解释。
-* `set-{attr}-on` 指定文本框的值或其他属性的更新条件，其中`{attr}`可以替换成组件支持的属性，例如`set-value-on`，下面有详细的示例。属性值规则见[事件表达式](/root.js/event.md)。
+
+扩展事件有：
+
 * `onchange+` 服务器端事件，接受一个接口地址或 PQL 查询语句（不一定是 SELECT），检查输入值是否符合预期，如检查用户名是否唯一。详见[服务器端事件](/root.js/server.md)，属性格式见[与数据相关的属性](/root.js/data.md) 和 [Express 字符串](/root.js/express.md)。
-* `success-text` 服务器端事件`onblur`执行成功并且结果验证通过时的提示文字，如检查用户名唯一等。
-* `failure-text`  服务器端事件`onblur`执行成功并且结果验证未通过时的提示文字，如用户名重复等。
-* `exception-text` 服务器端事件`onblur`执行失败时的提示文字，一般为接口出错。如果不设置则提示接口的出错信息。
-* `enter` 设定一个地址，当按下回车键时，自动跳转到指定的地址。如`<input type="search" enter="/search?key=$:[value]" />`。
-* `onmodify` 新增的事件，当且仅当用户输入的值改变时触发。
+* `onchange-checked` 当改变到选中状态时触发的事件，适用于`switch`和`checkbox`类型。
+* `onchange-unchecked` 当改变到未选中状态时触发的事件，适用于`switch`和`checkbox`类型。
 * `onload` 实现了原生未实现的事件，当文本框加载后触发。
+* `onmodify` 新增的事件，当且仅当用户输入的值改变时触发。
+
 
 以上以`-text`结尾的提醒文本属性均支持 [Express 表达式](/root.js/express.md)。
 
-特有 type 类型的属性有：
+下面是一些特有 type 类型的属性：
 
 * `max` 原生属性，设置允许的最大值 ，适用于`number`、`integer`和`float`类型。
 * `min` 原生属性，设置允许的最小值 ，适用于`number`、`integer`和`float`类型。
@@ -47,6 +53,7 @@
 * `fit` 设置一个密码输入框的 id，适用于第二个`password`，用于检查两次输入的密码是否一致。如`#Password`。
 * `options` 仅适用于`checkbox`和`switch`类型，指定复选框或切换按钮在两种状态下的值，例如`yes,no`、`1,0`等
 * `theme` 仅适用于`switch`类型，指定切换按钮的主题，默认值`switch`，可选值`checkbox`和`whether`。
+
 
 
 其他原生属性请参照 [INPUT 标签](/root.js/input-native.md)。
@@ -203,7 +210,7 @@
 `checkbox`是原生类型，可使用`options`来设定选中和未选中状态下的值，也可以使用`onchange+`事件在状态切换时与服务器端交互。
 
 ```html
-<input type="checkbox" options="yes,no" required="true" onchange+="put:/api/entity/enabled?id=&(id)&status={value}" />
+<input type="checkbox" options="yes,no" required="true" onchange+="put:/api/entity/enabled?id=&(id)&status={value}" onchange-checked-="show: #Agreement" />
 ```
 
 ## 切换按钮
@@ -211,7 +218,7 @@
 `switch`是扩展类型，这个类型表现为一个切换按钮，按钮有两种状态，开启状态和关闭状态，点击时在两种状态之是切换。可以理解为是复选框的图片版本。可使用`theme`设置按钮的样式。
 
 ```html
-<input type="switch" options="1,0" onchange+="put:/api/licence/open?id=&(id)&status={value}" />
+<input type="switch" options="1,0" onchange+="put:/api/licence/open?id=&(id)&status={value}" onchange-unchecked-="hide: #Message" />
 ```
 
 ## 进一步对值进行检查
