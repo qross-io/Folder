@@ -1,12 +1,21 @@
 # 版本和更新
 
-作者会一个月发布一个稳定版本。PQL 的最新稳定版本为 **v1.5.0**，发布时间 **2021-05-28**。
+作者会一个月发布一个稳定版本。PQL 的最新稳定版本为 **v1.6.0**，发布时间 **2021-06-28**。
 
-## v1.6.0 (开发中)
+## v1.7.0 (开发中)
 
-* 更友好的出错提示信息。
-* 更多的 Sharp 表达式。
-* 更多的函数。
+本版本主要对报错提示信息进行优化，以方便定位错误。
+
+## v1.6.0 (2021.6.28)
+
+这个版本以稳定为主，主要是代码优化和 Bug 修复工作。
+
+1. 新的 [Sharp 表达式](/pql/sharp-table.md)，`INSERT IF NOT EXISTS`、`UPDATE`、`UPDATE IF NULL`、`UPDATE IF EMPTY`、`UPDATE IF UNDEFINED`，用于数据表操作。
+2. 新的 [Sharp 表达式](/pql/sharp-array.md) `MAP`，用于列表的数据映射。
+3. 新的全局变量`@ARGUMENTS`，可以获得传递给 PQL 过程的所有参数。
+4. 新的全局变量`@KEEPER_HTTP_SERVICE`，查找可用的 Keeper HTTP 服务地址。
+5. 新的全局变量`@KEEPER_IS_RUNNING`，判断 Keeper 是否正在运行。
+6. 多项优化。
 
 ## v1.5.0 (2021.5.28)
 

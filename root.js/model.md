@@ -1,4 +1,3 @@
-
 # Model 数据加载模型
 
 ## 简介
@@ -16,7 +15,7 @@ Model 相关标签的执行都在客户端，即页面呈现给用户之后再�
 
 ## MODEL 标签
 
-MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展示在页面相应的元素中。MODEL 标签主要用于一次加载在多个地方显示数据的场景，支持自动刷新。
+MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展示在页面相应的元素中。MODEL 标签主要用于一次加载在多个地方显示数据的场景，支持自动刷新。MODEL 标签主要用来显示对象类型的数据，对于数组类型的数据，一般使用 FOR 或 TEMPLATE 加载。
 
 ```html
 <model name="name" data="url|array|object|pql" auto-refresh="yes|no" terminal="boolean expression" interval="integer">
@@ -56,25 +55,40 @@ MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展�
 
 ### 数据呈现方式二
 
-第二种方法是 *通过设置标签属性调取 MODEL 中的数据*。目前支持在任意元素的`innerHTML`和部分元素属性中调取 MODEL 中的数据，支持如下：
-
-* 任意元素的`innerHTML`中，需要在元素中添加`-html`属性，可以为任意值
-* A 元素的`href`属性，需要在`href`属性名前加中横线 `-href`
-* INPUT 元素的`value`属性，同样也要在前面加中横线 `-value`
-* 任意元素的`title`属性，同样也要在属性前面加中横线`-title`
-* FOR 标签的`in`属性，见下面的介绍
-* IF 或 ELSIF 标签的`test`属性，见下面的介绍
-* TEMPLATE 标签的`data`属性，见下面的介绍
-
-示例：
+第一种方式是 MODEL 标签发起的数据更新，第二种方式是元素方发起的数据请求。语法规则是在属性名字前面多一个减号`—`，例如：
 
 ```html
 <model name="students" data="select grade, count(0) as amount from students -> first row">
 
 <span -html>@students.grade</span>
+<select -value="@students.grade">
+    <option value="1">Grade 1</option>
+    <option value="2">Grade 2</option>
+    <option value="3">Grade 3</option>
+</select>
 <if test="@students.amount > 100">
     <input -value="@students.amount" />
 </if>
+```
+
+有几个属性不需要在名称前面加减号`-`。
+
+* FOR 标签的`in`属性，见下面的介绍
+* IF 或 ELSIF 标签的`test`属性，见下面的介绍
+* TEMPLATE 标签的`data`属性，见下面的介绍
+
+这个方式的优点支持元素的所有属性，使用限制是当前暂时仅支持自定义标签和扩展标签，不支持原生标签。随着框架的不断完善，会支持的越来越多。第二种方式的加载顺序在第一种之后。
+
+另外，所有以`-`开始的属性在加载时进行一次 Express 字符串运算，Express 运算在 Model 数据运算之后。所以即时没有加载 Model 数据，也可以单独进行 Express 运算。可以理解是对属性值的扩展。
+
+```html
+<a -href="/job/detail?id=&(jobId)">Job Detail</a>
+```
+
+上例会自动解析`-href`属性将值解析后替换为`href`属性，解析后可以是：
+
+```html
+<a href="/job/detail?id=3">Job Detail</a>
 ```
 
 ### 调取 MODEL 中的数据的占位符规则
@@ -159,11 +173,13 @@ $model('name').on('refresh', function(data) {
 <model name="test" data="/api/test" onload="tell()"></model>
 ```
 
-注：`$listen`和`$model`的区别是前者只用于绑定事件，后者可以操作 Model 对象，且只能在加载完成后使用。对于 MODEL 标签来说，因为没有公开的方法，所以`$model`只在程序内部使用。上例中`data`参数是 MODEL 加载的数据。
+注：`$listen`和`$model`的区别是前者只用于绑定事件，后者可以操作 Model 对象，且只能在加载完成后使用。对于 MODEL 标签来说，因为没有公开的方法，所以`$model`只在程序内部使用。上例中`data`属性是 MODEL 加载的数据。
 
 ## O 标签
 
 MODEL 标签可以一次查询然后将数据显示在不同的标签（元素）的属性中，经常我们查询只使用一次，所以框架提供了 **O 标签**用于实现一次性数据查询需求。O 标签在 **加载完成后自动移除**，只保留加载的文本数据。
+
+第一种应用方式，从接口或 PQL 中加载数据。
 
 ```html
 <o>SELECT title FROM table WHERE id=#{id} -> FIRST CELL</o>
@@ -175,11 +191,33 @@ MODEL 标签可以一次查询然后将数据显示在不同的标签（元素�
 <%=SELECT title FROM table WHERE id=#{id} -> FIRST CELL%>
 ```
 
-不同点是前者是在客户端实现的异步查询，在页面呈现给用户之后执行；后者是在服务器端实现的查询，是在页面呈现给用户之前。O 标签与[`data`属性](/root.js/data.md)实现的逻辑完全相同，也支持接口或跨域接口。
+不同点是前者是在客户端实现的异步查询，在页面呈现给用户之后执行；后者是在服务器端实现的查询，是在页面呈现给用户之前。O 标签与[data 属性](/root.js/data.md)实现的逻辑完全相同，也支持接口或跨域接口。
 
 ```html
 <o>/api/page/title?id=#{id} -> /data</o>
 <o>SELECT title FROM table1 WHERE id=$id -> FIRST CELL</o>
+```
+
+第二种应用方式，从 Model 中加载数据，这种方式必须以`@`符号开头。
+
+```html
+<model name="page" data="/api/page/title?id=#{id} -> /data"></model>
+
+文章标题：<o>@page.title</o>; 文章浏览：<o>@page.views?(0)</o>
+```
+
+第三种应用方式，从`data`属性加载数据。
+
+```html
+<o data="/api/page/title?id=#{id} -> /data">文章标题：@:title; 文章浏览：@:views?(0)</o>
+```
+
+O 标签的数据占位符规则为 `@:keyOrPath?(defaultValue)`。
+
+因为除了 SPAN 标签之外，其他标签不支持从后端获取数据。O 标签让任意元素内的数据输出成为可能。可以把 O 标签嵌套在任意其他标签中，实现数据加载需求。而且 O 标签在加载完数据后，会自动移除，不会对页面布局和其他元素的样式产生任何影响。O 标签的缺点一是不支持自动刷新，可以使用 MODEL 或 TEMPLATE 实现；二是不支持重新加载，可以使用 <SPAN> 实现。
+
+```html
+<h1><o>@page.title</o></h1>
 ```
 
 ## SPAN 标签扩展
@@ -190,15 +228,23 @@ O 标签不是原生标签，不是样式控制及更多功能，为了实现更
 <span onload="event" onreload="event" reload-on="click:#Button1" data="SELECT title, views FROM table1 WHERE id=$id -> FIRST ROW">文章“@:title”的阅读数是 @:views!!</span>
 ```
 
+SPAN 扩展标签必须有`data`属性。
+
 * `onload` 第一次数据加载完成后触发的事件。
 * `onreload` 重新加载数据后触发的事件。
 * `reload-on` 指定重新加载数据的条件，由其他组件触发。规则详情[事件表达式](/root.js/event.md)。
 
 SPAN 标签的事件只能写在标签上，SPAN 扩展标签不提供扩展标签的选择器。SPAN 标签可以使用其他原生属性来做其他操作，比如控制样式。
 
-SPAN 标签的占位符语法规则为 `@:keyOrPath?(defaultValue)`
+SPAN 标签的占位符语法规则为 `@:keyOrPath?(defaultValue)`，与 O 标签相同。
 
 上例中，`data`属性返回一个有两个字段的对象，如可以是`{ "title": "低代码平台简单介绍", "views": 209 }`。`@:title`可以获取`低代码平台简单介绍`，`@:views`可以获取到`209`，最后 SPAN 标题中展示`文章“低代码平台简单介绍”的阅读数是 209!`。`@:views`后面有两个叹号，前一叹号表示占位符结尾，防止字符冲突。可使用`@:/`获取`data`属性的所有数据。
+
+SPAN 标签也从 Model 中获取数据，例如：
+
+```html
+<span data>文章“@page.title”的阅读数是 @page.views!!</span>
+```
 
 ## FOR 标签
 

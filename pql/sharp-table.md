@@ -32,7 +32,7 @@
 ## 数据表操作
 
 * **`COLLECT (column1, column2, ...) AS 'newColumn'`** 将指定的多个列合并成一列，要合并的列需要大于等于两个，否则无意义。`newColumn`表示新的列名，注意必须加引号。合并的列是一个对象结构，包含合并前每一列的数据。
-* **`DELETE`** 通过条件删除数据，条件支持`AND`和`OR`及使用小括号分组，但不支持函数。与`WHERE`操作效果相反。
+* **`DELETE`** 通过条件删除数据，条件支持`AND`和`OR`及使用小括号分组，但不支持函数。与`WHERE`操作效果相反。注意表达式必须为字符串，作者暂时还没找到去掉引号的办法。
   ```sql
   SELECT item, COUNT(0) AS amount FROM table1 -> DELETE 'amount = 0';
   ```
@@ -40,12 +40,13 @@
   ```sql
   SELECT * FROM table1 -> INSERT { "name": "Tom", "age": 18 };
   ```
-* **`INSERT (column1, column2) VALUES (value1, value2)`** 在数据表中插入一行，用 SQL 中 INSERT 语句的类似的语法。
+* **`INSERT (column1, column2) VALUES (value1, value2)`** 在数据表中插入一行，用 SQL 中 INSERT 语句的类似的语法。支持通过串连值插入多行数据。
   ```sql
-  SELECT * FROM table1 -> INSERT (name, age) VALUES ('Tom', 18};
+  SELECT * FROM table1 -> INSERT (name, age) VALUES ('Tom', 18), ('Jerry', 19);
   ```
-* **`INSERT IF EMPTY row`** 如果数据表为空时才插入一行。例子见`INSERT row`。
-* **`INSERT IF EMPTY (column1, column2) VALUES (value1, value2)`** 如果数据表为空时才插入一行。
+* **`INSERT IF EMPTY row`** 如果数据表为空时才插入数据。例子见`INSERT row`。
+* **`INSERT IF EMPTY (column1, column2) VALUES (value1, value2)`** 如果数据表为空时才插入数据，支持值串连。
+* **`INSERT IF NOT EXISTS (column1, column2) VALUES (value1, value2)`** 如果数据表不存在指定的数据时才插入指定的数据，支持值串连。数据对比会比较所有指定的字段值。
 * **`SELECT column1, column2`** 选择数据表中的一列或多列，生成新的数据表，支持`*`和`AS`。几种用法见下例：
   ```sql
   $table SELECT name -- 选择其中一列
@@ -74,7 +75,11 @@
   SELECT name, age FROM students -> TURN (name, age) TO ROW;
   ```
 * **`TURN TO ROW`** 将数据表第一列和第二列的数据转成数据行，第一列的值作为数据行的字段名，第二列的值作为数据对应字段的值。
-* **`WHERE`** 通过条件筛选数据，条件支持`AND`和`OR`及使用小括号分组，但不支持函数。与`DELETE`操作效果相反。
+* **`UPDATE a='hello', b=2`** 将数据表中字段的值更新为常量。`UPDATE`暂时不支持与`WHERE`的联动运算。
+* **`UPDATE IF EMPTY a='hello'`** 如果字段`a`的值为空字符串，则更新为指定的字符串。
+* **`UPDATE IF NULL a='hello', b=2`** 如果字段`a`和`b`的值为`NULL`，则更新为指定的数值。
+* **`UPDATE IF UNDEFINED b=0`** 如果数据表不包含字段`b`，则添加字段`b`并赋值为指定的数值。
+* **`WHERE`** 通过条件筛选数据，条件支持`AND`和`OR`及使用小括号分组，但不支持函数。与`DELETE`操作效果相反。注意表达式必须为字符串，作者暂时还没找到去掉引号的办法。
   ```sql
   SELECT item, COUNT(0) AS amount FROM table1 -> WHERE 'amount > 0';
   ```

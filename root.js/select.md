@@ -35,13 +35,13 @@ Select 组件的依赖库和组件列表如下：
 
 除支持所有原生属性外，SELECT 标签增加的扩展属性如下：
 
-* `type` 选择框的模式，现在支持`button`和`image`两种模式，以后会增加更多模式，下面会分别介绍。如果没有这个属性则保持原始模式。
+* `type` 选择框的模式，下面会分别介绍。如果没有这个属性则保持原始模式。
 * `class` 整个框体的 CSS 样式，不同模式下框体的标签元素不同。
 * `option-class` 每个选项的 CSS 样式，根据不同的 type 默认值不同。
 * `selected-option-class` 被选中选项的 CSS 样式，根据不同的 type 默认值不同。
 * `disabled-option-class` 禁用状态选项的 CSS 样式，根据不同的 type 默认值不同。
 * `multiple` 原生属性，是否支持多选，支持设置可识别为布尔值的所有字符串，如`yes`、`FALSE`、`1`等，默认`false`。
-* `data` 从其他数据源生成 OPTION 列表，暂时不可用。
+* `data` 从其他数据源生成 OPTION 列表，见本文下面的介绍。
 * `value` 通过设置这个属性可以设置默认选中的项，只要与对应项的值相同即可。优先级高于选项的`selected `属性。在`multiple`时可以设置逗号分隔的多个值以默认选中多项。
 * `onchange+` 当切换选项时执行的[服务器端事件](/root.js/server.md)，支持接口和 PQL 语句。对应的状态事件是以下 4 个。
 * `onchange+success` 当服务器端事件执行成功时触发的客户端事件。
@@ -172,7 +172,27 @@ BUTTON 模式下 SELECT 标签的专有属性只有一个
 
 ## 加载数据
 
-暂无。
+更多的情况下，我们需要从各种数据源加载数据，数据源也好，数据接口也好。SELECT 标签扩展通过`data`属性从其他数据源加载数据。
+
+```html
+<select data="1 to 10">
+    <option>@item</option>
+</select>
+
+<select data='[{"lang": "Java", "id": "1"}, {"lang": "Scala", "id": "2"}, {"lang": "Python", "id": "3"}]'>
+    <option value="@[id]">@[lang]</option>
+</select>
+
+<select data='{"Java": "1", "Scala": "2", "Python": "3"}'>
+    <option value="@value">@key</option>
+</select>
+
+<select data="/api/languages">
+    <option value="@[id]">@[lang]</option>
+</select>
+```
+
+SELECT 数据加载使用 [FOR 标签](/root.js/model.md)提供支持，`data`属性的可选值与 FOR 标签的`in`属性相同，模板内容中的占位符规则也与 FOR 标签完全相同。
 
 ## 选择器
 
@@ -203,6 +223,9 @@ SELECT 组件是原生组件的扩展，可以使用选择器有：
 ```html
 <select onchange+="/api/list?type={value}">
 ```
+
+* `onload` 如果没有设置`data`属性，则当组件初始化完成之后触发；如果设置了`data`属性，则当数据加载完成之后触发。只触发一次。
+* `onrelad` 当设置了`data`属性时有效，当数据重新加载完成之后触发，每次重新加载都触发。
 
 ## Select 类
 

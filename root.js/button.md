@@ -40,6 +40,7 @@
     ```
 * `jumping-text` 跳转过程中的提示文字，替换按钮文字。
 * `enabled-class` 启用状态下的样式，默认值`normal-button blue-button`。
+* `disable-on-click` 当向服务器端发送请求时，是否禁用按钮，可以防止用户多次点击，默认为`true`。
 * `disabled-class` 按钮在禁用状态下的样式，默认值`normal-button optional-button`。
 * `color` 按钮颜色，见本文下面的说明。
 * `scale` 按钮大小，见本文下面的说明。

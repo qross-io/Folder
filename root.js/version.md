@@ -2,11 +2,17 @@
 
 **root.js** 库一般跟随 [Qross Master](/master/overview.md) 项目的功能进行更新。
 
-## v1.6.0 (开发中)
+## v1.6.0 (2021-6-30)
 
-* SELECT 扩展，`star-button`。
-* INPUT 输入框扩展，`stars`类型。
-* 新增菜单类型。
+这个版本增强了数据加载相关功能，主要是 Model 模型的更新，可以更方便的从后端加载数据。
+
+* [Editor 文本编辑](/root.js/editor.md)组件重新设计，现在已支持普通文本的编辑，更多编辑类型逐渐加入。
+* [SELECT 标签扩展](/root.js/select.md)现在支持`data`属性，方便从其他数据源加载数据。
+* [Model 数据加载模型](/root.js/model.md)支持由自定义组件或扩展标签向模板发起数据加载请求。
+* [SPAN 标签扩展](/root.js/model.md)功能增强。
+* [O 标签扩展](/root.js/model.md)功能增强。
+* [INPUT 标签扩展](/root.js/input.md)新增`if-empty`属性。
+* 现有组件优化及 bug 修复。
 
 ## v1.5.0 (2021-5-28)
 

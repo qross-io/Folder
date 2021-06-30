@@ -15,6 +15,10 @@ PRINT @NOW; -- 打印当前时间，如 '2020-08-04 09:31:22'
 * `@YESTERDAY` 昨天的日期，时分秒均为`0`
 * `@TOMORROW` 明天的日期，时分秒均为`0`
 
+* `@ARGUMENTS` 可以获得传递给 PQL 的所有参数，这是一个数据行。
+* `@KEEPER_IS_RUNNING` 判断 Keeper 是否在运行。
+* `@KEEPER_HTTP_SERVICE` 查找可用的 Keeper Http 服务地址，如果 Keeper 在运行，则返回可用资源最多的那台机器。
+
 * `@ROWS` 最后一个`SELECT`语句返回的记录数，包括[GET语句](/pql/get.md)和[PASS语句](/pql/pass.md)中的 SELECT 查询也会更新这个值
 * `@COUNT_OF_LAST_SELECT` `@ROWS`的完整写法
 * `@AFFECTED_ROWS` 最后一个非查询语句影响数据库的行数
@@ -38,12 +42,11 @@ PRINT @NOW; -- 打印当前时间，如 '2020-08-04 09:31:22'
 * `@LANGUAGE` 获得当前用户的默认界面语句，适用于多语言环境
 
 * `@THEME` 获取一个随机主题颜色，是一个数据行，包含 3 个颜色字段`primary`、`lighter`和`darker`。
-* `@SPOTLIGHT` 系统内部使用。
 
 * `@LOCAL_IP` 获取本机的 IP 地址。
 * `@RUNNING_DIR` 获取当前 jar 包的保存目录。
 
-除了以上全局变量外，PQL 的全局设置的每一项都对应一个全局变量，如 `@QROSS_HOME`，`@KEEPER_HTTP_ADDRESS`等，详见 [PQL 全局设置](/pql/setup.md)。
+除了以上全局变量外，PQL 的全局设置的每一项都对应一个全局变量，如 `@QROSS_HOME`等，详见 [PQL 全局设置](/pql/setup.md)。
 
 ## 自定义全局变量
 

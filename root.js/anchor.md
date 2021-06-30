@@ -19,7 +19,11 @@
 * `callout` 如果不设置`alert`属性，则默认使用 Callout 来提示以上各种消息。这个属性可以设置 Callout 的位置，默认为`upside`。
 * `alert` 如果设置了这个属性，则使用 Alert 弹出框来提示各种消息，Callout 设置则无效。
 
-以上所有`-text`结尾的消息属性均支持 [Express 字符串](/root.js/express.md)。
+以上所有`-text`结尾的消息属性均支持 [Express 字符串](/root.js/express.md)。而且，在有`onclick+`事件时，`href`属性同样也支持，可以处理服务器端返回的数据。
+
+```html
+<a href="/page/detail?id={data.id}">Detail Page</a>
+```
 
 另外，如果设置了`href`属性，会在服务器端事件执行完成后，且执行结果为`success`状态，则会跳转到对应的地址。但是对`target="_blank"`支持不好，会转成`window.open`弹出窗口方式，可能会被浏览器拦截，不过这种场景应用比较少。
 

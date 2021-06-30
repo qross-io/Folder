@@ -16,6 +16,7 @@
     + [Clock 文字时钟](/root.js/clock.md)
     + [Coder 彩色编码](/root.js/coder.md)    
     + [DateTimePicker 日期时间选择器](/root.js/datetimepicker.md)
+    + [Editor 文本编辑](/root.js/editor.js)
     + [Input 输入框扩展](/root.js/input.md)
     + [Layout 布局](/root.js/layout.md)
     + [Popup 弹出对话框](/root.js/popup.md)
@@ -34,7 +35,7 @@
     + [正则表达式](/root.js/regex.md)
     + [颜色编码表](/root.js/colors.md)
     + [KeyCode 键值对照表](/root.js/keycodes.md)
-    + [ECMAScript 新特性](/root.js/es.md)
+    + [ECMAScript 各版本新特性](/root.js/es.md)
 
 * HTML 参考
     + [HTML 全局属性](/root.js/html.md)
