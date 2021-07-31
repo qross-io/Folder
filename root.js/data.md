@@ -5,8 +5,8 @@
 ```html
 <table data="select * from students">...</table>
 <select data="/api/options"></select>
-<span editable="yes" action="put:/api/student/name?id=&(id)&name="></span>
-<input type="text" check="select id from users where username='{value}'" />
+<span editable="yes" onchange+="put:/api/student/name?id=&(id)&name="></span>
+<input type="text" onblur+="select id from users where username='{value}'" />
 <button id="Btn1" onclick+="insert into table1 (name, age) values ('$(#name)', $(#age))">
 <textarea coder="java" onsave+="/api/code/update?id=&(id)&code="></textarea>
 ```
@@ -36,7 +36,7 @@ FOR 标签的`in`属性也是和`data`属性一样的逻辑。接口地址支持
 
 ```html
 <model name="studens" data="select * from students"></model>
-<table datatable="yes" data="open mysql.school; select * from students">
+<table data="open mysql.school; select * from students">
 <span data="select title from articles where id=7725 -> first cell">文章标题：@:[title]</span>
 ```
 

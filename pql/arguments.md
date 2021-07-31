@@ -12,7 +12,7 @@
 * 手工执行 PQL 文件时
   命令可以在本地开发环境和服务器上运行。
   ```sh
-  java -jar qross-worker-1.5.0.jar --file /usr/qross/pql/test.sql --args name=Tom&age=18&score=89
+  java -jar qross-worker-1.7.0.jar --file /usr/qross/pql/test.sql --args name=Tom&age=18&score=89
   ```
 
 * OneApi 传递参数

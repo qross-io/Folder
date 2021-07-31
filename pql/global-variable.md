@@ -16,8 +16,12 @@ PRINT @NOW; -- 打印当前时间，如 '2020-08-04 09:31:22'
 * `@TOMORROW` 明天的日期，时分秒均为`0`
 
 * `@ARGUMENTS` 可以获得传递给 PQL 的所有参数，这是一个数据行。
+
 * `@KEEPER_IS_RUNNING` 判断 Keeper 是否在运行。
-* `@KEEPER_HTTP_SERVICE` 查找可用的 Keeper Http 服务地址，如果 Keeper 在运行，则返回可用资源最多的那台机器。
+* `@KEEPER_HTTP_SERVICE` 查找可用的 Keeper Http 服务地址，包括 IP 地址和端口，如`192.168.1.1:7700`。如果 Keeper 在运行，则返回可用资源最多的那台机器。
+* `@KEEPER_HTTP_ADDRESS` 可以设置一个常用的 Keeper Http 服务节点的 IP 地址。可以在[系统](/master/keeper/settings.md)中设置。
+* `@KEEPER_HTTP_PORT` 可以设置 Keeper Http 服务端口，默认值为 7700。可以[系统](/master/keeper/settings.md)中设置。
+* `@KEEPER_HTTP_TOKEN` 访问 Keeper Http 服务的 TOKEN，可以[系统](/master/keeper/settings.md)中设置。
 
 * `@ROWS` 最后一个`SELECT`语句返回的记录数，包括[GET语句](/pql/get.md)和[PASS语句](/pql/pass.md)中的 SELECT 查询也会更新这个值
 * `@COUNT_OF_LAST_SELECT` `@ROWS`的完整写法

@@ -1,14 +1,23 @@
 # Keeper 中的 Restful 接口
 
-因为 Keeper 调度程序和 Master 管理程序是两个独立的程序，一方停机不会影响另一方。但是 Master 也需要在 Keeper 运行时能够控制 Keeper，即能与 Keeper 通信。Keeper 提供了一些 Restful 接口用于接收外部的命令或消息。
+因为 Keeper 调度程序和 Master 管理程序是两个独立的程序，一方停机不会影响另一方。但是有时我们需要在 Keeper 运行时能够控制 Keeper，即能与 Keeper 通信。Keeper 提供了一些 Restful 接口用于接收外部的命令或消息。
 
 这些接口需要通过内网访问，IP 即本机内网地址，端口号默认为`7700`，可以在“系统”->“Keeper 监控”->[“Keeper 设置”](/keeper/settings.md)中进行设置，如`http://localhost:7700/kill/task/3306`。另外所有接口的请求方法 Method 如无特别说明，是默认为`PUT`。
 
-以下说明中省略域名和端口。
+在多机模式下，可以在 PQL 使用`@KEEPER_HTTP_SERVICE`全局变量获取任意一个节点的地址进行通信，一般返回是负载最低的那个节点。
+
+除了首页用于测试外，其他所有接口均需要使用 TOKEN 认证权限，TOKEN 在系统中设置，对应的全局变量`@KEEPER_HTTP_TOKEN`。下例是一个典型的接口请求。
+
+```sql
+REQUEST '''http://@KEEPER_HTTP_SERVICE/configuration/reload?token=@KEEPER_HTTP_TOKEN''' METHOD 'PUT';
+PARSE '/' AS VALUE;
+```
+
+以下是各个接口的说明，省略域名和端口。
 
 ## 默认主页 `/`
 
-，可以测试 Keeper 的接口是否能正常工作。
+可以测试 Keeper 是否在正常运行，或者接口服务能否在正常工作。
 
 ## 环境变量设置 `/global/set?name=&value=`
 

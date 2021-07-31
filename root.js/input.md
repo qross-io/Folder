@@ -12,7 +12,7 @@
 * `autosize` 是否根据输入的字符数自动调整宽度`size`，中文占用两个字符位置，如果设置了这个属性，则`size`属性表示最小宽度。
 * `callout` 如果设置了这个属性，则提醒文字在 Callout 中显示，这个属性可以设置 Callout 的显示位置，可选值有 `leftside`、`rightside`、`upside`、`downside`，默认值为`upside`。如果设置了`callout`属性而没有设置`hint`属性，则只用 Callout 的方式显示提醒；如果没有设置`callout`属性，则使用文本元素显示提醒文字；可以两种方式同时使用。
 * `class` 默认的显示样式，必填项默认值为`input-required-class`，选填项默认值为`input-optional-class`。
-* `enter` 设定一个地址，当按下回车键时，自动跳转到指定的地址。如`<input type="search" enter="/search?key=$:[value]" />`。
+* `enter` 可以设定一个地址，当按下回车键时，自动跳转到指定的地址。如`<input type="search" enter="/search?key=$:[value]" />`。如果不设置值，那么当按下回车时，则失去焦点触发`onblur`或`onchange`事件。
 * `error-class` 当输入不正确时的样式，默认使用系统样式。
 * `error-text-class` 警告文字的样式，默认为红色。
 * `exception-text` 服务器端事件`onchange+`执行失败时的提示文字，一般为接口出错。如果不设置则提示接口的出错信息。

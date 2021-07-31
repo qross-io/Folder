@@ -19,5 +19,6 @@
 * [与 Keeper 交互的 Restful 接口](/keeper/rest.md)
 * [Keeper 监控](/keeper/monitor.md)
 * [Keeper 自定义事件](/keeper/custom-event.md)
+* [Keeper 全局事件](/keeper/global-event.md)
 * [Keeper 系统设置](/keeper/settings.md)
 * [Keeper 系统调度](/keeper/system-job.md)

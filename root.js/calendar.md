@@ -22,6 +22,7 @@ Calendar 组件及其依赖库或组件列表如下：
 ```html
 <script type="text/javascript" src="/root.js"></script>
 <script type="text/javascript" src="/root.animation.js"></script>
+<script type="text/javascript" src="/root.input.js"></script>
 <script type="text/javascript" src="/root.datetime.js"></script>
 <script type="text/javascript" src="/root.calendar.js"></script>
 <link href="/css/root/calendar.css" rel="stylesheet" type="text/css" />
@@ -54,8 +55,9 @@ SELECT concat(solar_year, '-', IF(solar_month < 10, '0', ''), solar_month, '-', 
 
 <script type="text/javascript" src="@/root.animation.js"></script>
 <script type="text/javascript" src="@/root.datetime.js"></script>
+<script type="text/javascript" src="@/root.input.js"></script>
 <script type="text/javascript" src="@/root.calendar.js"></script>
-<link href="@/css/root/iconfont.css" rel="stylesheet" type="text/css" />
+<link href="/iconfont.css" rel="stylesheet" type="text/css" />
 <link href="@/css/root/calendar.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 input { font-size: 1rem; }
@@ -66,10 +68,10 @@ input { font-size: 1rem; }
 ### 单月单选模式
 
 ```html
-<calendar id="calendar1"></calendar>
+&lt;calendar id="calendar1"&gt;&lt;/calendar&gt;
 ```
 
-注意是 `<calendar></calendar>` 而不是 `<calendar />`，虽然标签之间没有任何东西。
+注意是 `&lt;calendar&gt;&lt;/calendar&gt;` 而不是 `&lt;calendar /&gt;`，虽然标签之间没有任何东西。
 
 <calendar id="calendar1"></calendar>
 
@@ -156,6 +158,8 @@ $calendar('calendar6').endDate; //返回选中的结束日期，格式`yyyy-MM-d
 <input id="calendar7" type="datetime" />
 ```
 
+示例略。
+
 ### 整年模式
 
 ```html
@@ -164,13 +168,8 @@ $calendar('calendar6').endDate; //返回选中的结束日期，格式`yyyy-MM-d
   month-names="一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月" corner-names="休,班" 
   extension-api="/api/system/calendar?year=" months="12"></calendar>
 ```
-<br/>
-<div>
-<calendar id="calendar8" mode="none" lunar="yes" holiday="yes" title-format="yyyy年"
- days-of-other-month="hidden" week-names="一,二,三,四,五,六,日" this-year-text="今年"
-  month-names="一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月" corner-names="休,班" 
-  extension-api="/api/system/calendar?year=" months="12"></calendar>
-</div>
+
+示例略。
 
 ### 日期时间组合选择器
 
@@ -180,7 +179,7 @@ $calendar('calendar6').endDate; //返回选中的结束日期，格式`yyyy-MM-d
 
 ### 标签属性
 
-标签属性可以在自定义标签`<calendar>`上进行设置。
+标签属性可以在自定义标签 CALEDNAR 上进行设置。
 
 ### 基本设置
 
@@ -212,10 +211,11 @@ $calendar('calendar6').endDate; //返回选中的结束日期，格式`yyyy-MM-d
 
 * `title-format` 整年模式下，设置年份标题的格式，如`yyyy年`，默认为空，即不显示。
 * `head-format` 单月或多月模式下，月历头的格式，默认`yyyy-MM`，如可以设置为`yyyy年M月`。
+* `value-format` 单月单选模式下，返回值的格式，默认为`yyyy-MM-dd`，例如可以设置为`yyyy/MM/dd`。
 * `week-title` 周选模式下，会有一列显示第几周，这个属性用来设置这一列的标题，默认值为`Week`，如可以设置为`周`。
-* `week-names` 星期的表头名称，默认值为`Mon,Tue,Wed,Thu,Fri,Sat,Sun`，如可以设置为`一、二、三、四、五、六、日`。
-* `month-names` 年历模式下，每个月的月份名称，默认值为`January,February,March,April,May,June,July,August,September,October,November,December`，如可以设置为`一月,二月,三月,四月,五月,六月,七月,八月,九月,十月,十一月,十二月`。
-* `corner-names` 特殊工作日和特殊休息日（如法定节假日）的名称，默认值为`W,R`，如可以设置为`班,假`。
+* `week-names` 星期的表头名称，中文环境默认值`一、二、三、四、五、六、日`，其他语言环境默认值为`Mon,Tue,Wed,Thu,Fri,Sat,Sun`。
+* `month-names` 年历模式下，每个月的月份名称，中文环境默认值为`一月`至`十二月`，其他语言环境默认值为`January`至`December`。
+* `corner-names` 特殊工作日和特殊休息日（如法定节假日）的名称，中文环境默认值为`班,假`，其他语言环境默认值为`W,R`。
 
 ### 样式属性
 
@@ -352,6 +352,8 @@ $calendar('calendar6').endDate; //返回选中的结束日期，格式`yyyy-MM-d
 * `onRangeEndCanceled` 范围选择模式下，取消选中结束日期时触发，传递一个参数`startDate`
 * `onRangeSelected` 范围选择模式下，选择了开始日期并选中了结束日期时触发，传递两个参数`startDate`、`endDate`
 * `onRangeCanceled` 范围选择模式下，取消选择开始日期和结束日期时触发，无参数传递
+
+另外还有一个事件`onchange`，当选择的日期改变时触发，目前仅适用于日期单选，和`onDaySelected`和`onDayClick`事件一起触发，但是相互独立。区别是`onchange`可以在属性中使用，其他的事件暂时不可以。
 
 事件使用示例：
 

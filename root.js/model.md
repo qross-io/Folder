@@ -9,13 +9,13 @@ Model 相关标签的执行都在客户端，即页面呈现给用户之后再�
 ## 引用
 
 ```html
-<script type="text/javascript" src="@/root.js"></script>
-<script type="text/javascript" src="@/root.model.js"></script>
+<script type="text/javascript" src="/root.js"></script>
+<script type="text/javascript" src="/root.model.js"></script>
 ```
 
 ## MODEL 标签
 
-MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展示在页面相应的元素中。MODEL 标签主要用于一次加载在多个地方显示数据的场景，支持自动刷新。MODEL 标签主要用来显示对象类型的数据，对于数组类型的数据，一般使用 FOR 或 TEMPLATE 加载。
+MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展示在页面相应的元素中。MODEL 标签主要用于一次加载在多个地方显示数据的场景，支持自动刷新。MODEL 标签主要用来显示对象类型的数据或单值数据，对于数组类型的数据，一般使用 FOR 或 TEMPLATE 加载。
 
 ```html
 <model name="name" data="url|array|object|pql" auto-refresh="yes|no" terminal="boolean expression" interval="integer">
@@ -25,11 +25,11 @@ MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展�
 
 上面的 SET 标签可以根据需要是否选用，见下面的说明。
 
-* `name` MODEL 的名字，在页面上获取 MODEL 中的数据时会用到
-* `data` 支持 URL 地址、PQL、数组和对象，直接输入数组或对象时需要能正确转成 json 对象，详见[data属性](/root.js/data.md)
-* `auto-refresh` 是否自动刷新
+* `name` MODEL 的名字，在页面上获取 MODEL 中的数据时会用到，必须设置。
+* `data` 支持 URL 地址、PQL、数组和对象，直接输入数组或对象时需要能正确转成 json 对象，详见[data属性](/root.js/data.md)。
+* `auto-refresh` 是否启用自动刷新。
 * `terminal` 自动刷新时的结束条件，支持表达式，如`@:data.length == 0`，即当返回的数据为空时结束自动刷新。`@:data.length`表示返回数据的`data`键下的数组的长度；可用`@:/`表示所有数据，这种情况下`/`不可省略。其中`@:`的意义是指向当前数据，冒号不可省略。
-* `interval` 自动刷新的间隔时间，单位秒，可以为小数。
+* `interval` 自动刷新的间隔时间，单位毫秒，默认值为`2000`，即`2`秒。
 
 ### 数据呈现方式一
 
@@ -42,7 +42,7 @@ MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展�
 示例：
 
 ```html
-<model name="students" data="select grade, count(0) as amount from students -> first row" auto-refresh="yes" interval="2" terminal="@:amount >= 100">
+<model name="students" data="select grade, count(0) as amount from students -> first row" auto-refresh="yes" interval="2000" terminal="@:amount >= 100">
     <set $="#Grade"></set>
     <set $="#Amount" if="@:amount > 10"></set>
 </model>
@@ -55,7 +55,7 @@ MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展�
 
 ### 数据呈现方式二
 
-第一种方式是 MODEL 标签发起的数据更新，第二种方式是元素方发起的数据请求。语法规则是在属性名字前面多一个减号`—`，例如：
+第一种方式是 MODEL 标签发起的数据更新，第二种方式是元素方发起的数据请求。语法规则是在属性名字前面多一个减号`-`，例如：
 
 ```html
 <model name="students" data="select grade, count(0) as amount from students -> first row">
@@ -93,12 +93,13 @@ MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展�
 
 ### 调取 MODEL 中的数据的占位符规则
 
-数据占位符格式为 `@modelName.property[index]?(defaultValue)`
+数据占位符格式为 `@modelName.property#column[index]?(defaultValue)`
 
 * `@` 必须有
 * `modelName` 指定`Model`的数据。
 * 使用`.`规则访问属性，如`@school.data`。
 * 使用方括号`[`和`]`访问数组，如`@students[0]`。
+* 使用`#`规则访问列，仅适用于对象数组，返回数组中每个对象指定字段的值，生成一个新的单元素数组。
 * 点规则和方括号规则可以互换，如`@school[data]`或`@students.0`。
 * 支持多层引用，如`@students[0].age`。
 * 结尾使用叹号`!`防止字符冲突，如`-value="@student.name!andOtherWords"`，如果不加叹号会导致识别错误
@@ -133,6 +134,7 @@ MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展�
 
 * 调取整个 MODEL 的数据 - `@children`
 * 调取`message` - `@children.message`
+* 调取所有孩子的名字 - `@children.data#name`
 * 调取第一个孩子的名字 - `@children.data[0].name`
 * 如果不存在`elapsed`属性，能默认为`0` - `@children.elapsed?(0)`
 * 如果默认值为空字符串，则写为 `@childern.message?()`
@@ -148,32 +150,47 @@ MODEL 标签一般放到 HEAD 标签中，用于从数据源调取数据并展�
 
 补充：程序会将占位符替换为实际的数据，如果没找到且没有设置默认值，此位置仍保留占位符文本，以利于查错或避免文本冲突（如电子邮件地址）。
 
-### Model 事件
+### Model 方法和事件
 
 MODEL 标签可用的事件如下：
 
-* `onload` 第一次加载完成后触发，仅执行一次
-* `onrefresh` 每次刷新完成后触发，第一次加载不算刷新
+* `onload` 第一次加载完成后触发，仅执行一次。
+* `onreload` 每次刷新完成后触发，第一次加载不算刷新。
 
-调用示例：
+因为`load()`方法是自动执行，所以可有的方法只有`reload()`，即在非自动更新时可手动或由其他组件触发更新 MODEL 的数据。
+
+事件一般直接写在标签上：
+
+```html
+<model name="test" data="/api/test" onreload-="hide: #PopupLoading"></model>
+```
+
+也可以 Javascript 中调用：
 
 ```javascript
-$listen('name').on('load,refresh', function(data) {
+$listen('#name').on('load,reload', function(data) {
     //每次加载都执行
 });
 
-$model('name').on('refresh', function(data) {
+$model('name').on('reload', function(data) {
     //仅刷新后执行
 });
 ```
 
-事件也可以直接写在标签上：
+上例中，`$listen`和`$model`的区别是前者只用于绑定事件，后者可以操作 Model 对象，且只能在加载完成后使用。对于 MODEL 标签来说，`$model`只在程序内部使用。上例中`data`属性是 MODEL 加载的数据。
+
+### Model 数据的双向绑定
+
+Model 用于加载并为其他组件提供数据，主要用于一次加载且多个组件使用的场景。当 Model 的数据变化时（即执行了`reload`方法)，则可以自动重新加载使用数组的组件。当前只支持 Chart 组件、TABLE 和 SPAN 扩展标签。
 
 ```html
-<model name="test" data="/api/test" onload="tell()"></model>
+<div id="Range" value="1h" tab="yes" bindings="A" onchange-="reload: #Stat">...</div>
+<model name="Stat" data="SELECT channel_name AS channelName, AVG(pageviews) AS pageviews FROM traffic WHERE range='$(#Range)'"></model>
+<chart id="PageviewsChart" title="Channel PageViews" type="bar" x-axis="@Stat#channelName" y-axis="@Stat#pageviews"></chart>
 ```
 
-注：`$listen`和`$model`的区别是前者只用于绑定事件，后者可以操作 Model 对象，且只能在加载完成后使用。对于 MODEL 标签来说，因为没有公开的方法，所以`$model`只在程序内部使用。上例中`data`属性是 MODEL 加载的数据。
+上例中，名为`Stat`的 Model 用来从后端加载数据，接口参数依赖于标签`Range`的值，返回数据结构是一个包含列`channelName`和`pageviews`的二维表格；图表`PageviewsChart`从 Model 中加载数据，分别使用数据中的`channelName`列和`pageviews`列作为 X 轴和 Y 轴的数据；当 TAB 标签`Range`的选项切换时，触发`onchange`事件，让 Model 的数据根据`Range`的值重新加载；Model 加载完成后，图表`PageviewsChart`因为引用了 Model 的数据，也会自动被重新加载已展示新的数据。
+
 
 ## O 标签
 
@@ -240,11 +257,13 @@ SPAN 标签的占位符语法规则为 `@:keyOrPath?(defaultValue)`，与 O 标�
 
 上例中，`data`属性返回一个有两个字段的对象，如可以是`{ "title": "低代码平台简单介绍", "views": 209 }`。`@:title`可以获取`低代码平台简单介绍`，`@:views`可以获取到`209`，最后 SPAN 标题中展示`文章“低代码平台简单介绍”的阅读数是 209!`。`@:views`后面有两个叹号，前一叹号表示占位符结尾，防止字符冲突。可使用`@:/`获取`data`属性的所有数据。
 
-SPAN 标签也从 Model 中获取数据，例如：
+SPAN 标签也从 MODEL 中获取数据，例如：
 
 ```html
 <span data>文章“@page.title”的阅读数是 @page.views!!</span>
 ```
+
+这时，当 MODEL 的数据更新时，SPAN 标签的数据也会同时更新。
 
 ## FOR 标签
 
@@ -475,7 +494,7 @@ TEMPLATE 标签也可应用到其他自定义组件中，如 [TreeView 标签](/
 ### TEMPLATE 属性
 
 ```html
-<template name="name" var="variable name" data="url|array|object" path="jsonPath" as="array|list|for|loop|collection|object" page="int" increment="primary key" offset="0" auto-refresh="yes|no" interval="second" terminal="boolean expression">
+<template name="name" var="variable name" data="url|array|object" path="jsonPath" as="array|list|for|loop|collection|object" page="int" increment="primary key" offset="0" auto-refresh="yes|no" interval="ms" terminal="boolean expression">
     html code...
 </template>
 ```
@@ -489,32 +508,32 @@ TEMPLATE 标签也可应用到其他自定义组件中，如 [TreeView 标签](/
 * `lazy-load` 是否滚动增量加载，可选`yes`、`no`、`1`、`0`、`true`、`false`等布尔值
 * `clear-on-refresh` 是否在重新加载数据前先清空原有数据
 * `auto-refresh` 是否支持自动更新
-* `interval` 自动更新的间隔时间，单位“秒”，支持小数，默认`2`秒。
+* `interval` 自动更新的间隔时间，单位“毫秒”，默认`2`秒。
 * `terminal` 自动更新的终止条件，可使用`@:`得到当前数据。
 
 占位符语法规则为 `@:keyOrPath?(defaultValue)`
 
-与 MODEL 不同的是, MODEL 必须声明`name`属性, 并需要使用`name`来调取值; TEMPLATE 在调取数据时不使用`name`，而使用`:`，表示当前TEMPLATE，如`@:data[0].name`。使用`@:/`调取TEMPLATE 的所有数据。
+与 MODEL 不同的是, MODEL 必须声明`name`属性, 并需要使用`name`来调取值; TEMPLATE 在调取数据时不使用`name`，而使用`:`，表示当前TEMPLATE，如`@:data[0].name`、`@:data#name`等。使用`@:/`调取TEMPLATE 的所有数据。
 
 ### TEMPLATE 方法
 
 TEMPLATE 与其他标签不同的是提供了方法，如：
 
 ```javascript
-$tempalte('name').load(data, path).asArray().clear().append(func);
+$tempalte('name').setData(data).asArray().clear().load(func);
 ```
 
 可用方法有：
 
 * `$template` 为固定选择器方法，如`$template('name')`，需要在页面加载完成之后才能使用，见下面的`$finish`全局方法。
-* `load(data)` 如果要加载和第一次不同的数据，则通过这个方法再次指定。
+* `setData(data)` 如果要加载和第一次不同的数据，则通过这个方法再次指定。
 * `asArray()` `asList()` `asLoop()` 功能同 `as="array"` 属性。
 * `setContainer(container)` 设定呈现 HTML 的容器元素。
 * `setPosition(position)` 设置 HTML 在容器中呈现的位置，可选项有：`befeoreEnd` 容器的结束标签之前，这是默认值；`afterEnd` 容器的结束标签之后；`beforeBegin` 容器的开始标签之前；`afterBegin`容器的开始标签之后。
 * `setPage(page)` 手工设置页码, 按页码分页时使用。
 * `setOffset(offset)` 设置分页偏移量，按主键分页时使用。
 * `clear()` 在重新加载内容时先清空。
-* `append(func)` 将内容添加到页面上, 设置`func`可以指定在添加完成后执行的函数，独立于`onload`事件，即如果同时设置了`onload`并传递了`func`函数，都会执行。
+* `load(func)` 将内容添加到页面上, 设置`func`可以指定在添加完成后执行的函数，独立于`onload`事件，即如果同时设置了`onload`并传递了`func`函数，都会执行。
     ```javascript
     $template('name').load(data).append(func);
     ```
@@ -522,7 +541,7 @@ $tempalte('name').load(data, path).asArray().clear().append(func);
 ### TEMPLATE 事件
 
 * `onload` 第一次加载完成时触发。
-* `onlazyload` 每次增量加载完成时触发，不包括第一次。
+* `onreload` 每次重新加载完成时触发，不包括第一次。
 * `onterminate` 满足自动更新的终止条件时触发。
 * `ondone` 增量加载所有数据完成之后触发，在`onterminate`事件之后大约 3 次`interval`时间。
 
@@ -617,13 +636,13 @@ TEMPLATE 标签可以很方便的实现数据懒加载，支持移动端。TEMPL
 TEMPLATE 标签还支持自动刷新操作，见下例：
 
 ```html
-    <template name="abc" as="loop" auto-refresh="yes" interval="2" clear-on-refresh="no" data="select id, task_time from qross_tasks limit ~{ $random(2, 10) }" interval="2">
+    <template name="abc" as="loop" auto-refresh="yes" interval="2000" clear-on-refresh="no" data="select id, task_time from qross_tasks limit ~{ $random(2, 10) }">
         <div class="f24">@[id]</div>
         <diV class="space">@[task_time]</div>
     </template>
 ```
 
-上例中`auto-refresh`必须设置为`true`或其他可用真值。`interval`指自动刷新的间隔时间，单位“秒”，默认值为`2`秒。`clear-on-refresh`设置为真值表示每次都清空，如果不清空则表示增加增加，默认为真值。
+上例中`auto-refresh`必须设置为`true`或其他可用真值。`interval`指自动刷新的间隔时间，单位“毫秒”，默认值为`2`秒。`clear-on-refresh`设置为真值表示每次都清空，如果不清空则表示增加增加，默认为真值。
 
 ## 全局事件
 

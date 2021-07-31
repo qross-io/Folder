@@ -1,6 +1,6 @@
 # CronExp 基础类
 
-CronExp 类支持`1`到`7`位的 Cron 表达式解析和匹配，注意不支持多个 Cron 表达式和人性化的时间表达式，建议使用 [ChronExp 类](/datahub/chron.md)作为解析的入口。详情使用说明参见 [Keeper 中的 Cron 表达式](/keeper/cron.md)。
+CronExp 类支持`1`到`7`位的 Cron 表达式解析和匹配，注意不支持多个 Cron 表达式和人性化的时间表达式，建议使用 [ChronExp 类](/datahub/chron.md)作为解析的入口。Cron 表达式语法请参见 [Keeper 中的 Cron 表达式](/keeper/cron.md)。
 
 ## 构造函数
 

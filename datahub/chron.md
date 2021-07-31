@@ -43,7 +43,7 @@ String nextTick = new ChronExp(chronExp).getNextTickOrNone(DateTime.now());
 
 ## 属性
 
-`expression: String` 即构造函数传入的表达式参数，只读
+`expression: String` 即构造函数传入的表达式参数，只读。
 
 ---
 参考链接

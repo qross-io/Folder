@@ -146,7 +146,7 @@ let y = x.groups.year + '-' + x.groups.month + '-' + x.groups.day;
 
 ## 模式修饰符
 
-因为 Javascript 有了 flag，所有不支持模式修饰符。模式修饰符和 flag 的作用基本相同，写在正则表达式的最前面，例如 `(?i)hello`，其中的`(?i)`即模式修改符。在 Javascript 和 Scala 语言中，支持的模式修饰符有：
+因为 Javascript 有了 flag，所有不支持模式修饰符。模式修饰符和 flag 的作用基本相同，写在正则表达式的最前面，例如 `(?i)hello`，其中的`(?i)`即模式修改符。在 Java 和 Scala 语言中，支持的模式修饰符有：
 
 * `(?i)` 即`ignore case`，表示忽略英文字母大小写。
 * `(?s)` 即`single line`，同`dotAll`，让整个字符串当做一行来处理。这时符号`.`忽略换行符`\n`，支持跨行。

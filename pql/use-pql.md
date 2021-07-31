@@ -31,7 +31,7 @@ porn.xml 依赖配置如下
     <dependency>
         <groupId>io.qross</groupId>
         <artifactId>pql</artifactId>
-        <version>1.5.0</version>
+        <version>1.6.0</version>
     </dependency> 
 </dependencies>
 ```

@@ -41,10 +41,11 @@
 * `jumping-text` 跳转过程中的提示文字，替换按钮文字。
 * `enabled-class` 启用状态下的样式，默认值`normal-button blue-button`。
 * `disable-on-click` 当向服务器端发送请求时，是否禁用按钮，可以防止用户多次点击，默认为`true`。
+* `enableOnSuccess` 当服务器端请求成功后，是否启用按钮，默认为`true`。如果为一次性按钮可设置为`false`。
 * `disabled-class` 按钮在禁用状态下的样式，默认值`normal-button optional-button`。
 * `color` 按钮颜色，见本文下面的说明。
 * `scale` 按钮大小，见本文下面的说明。
-* `type` 按钮类型，目前仅支持`switch`属性，用作切换按钮。本文最下面有一个示例。
+* `type` 按钮类型，目前支持`switch`和`confirm`属性，用作切换按钮和再次确认按钮。本文最下面有示例。
 * `options` 切换按钮的选项，这个属性的默认值是`Enabled=yes&Disabled=no`，其中等号前面是文本，后面是值，可以根据需要配置。
 
 以上所有以`-text`消息相关属性均支持 [Express 字符串](/root.js/express.md)。
@@ -116,7 +117,7 @@ Button 一般情况下会配合其他表单组件使用，如文本框等。Butt
 * `prime-button` 系统主题颜色相同，`32`种颜色中随机一种
 * `green-button` 绿色按钮
 * `red-button` 红色按钮
-* `optional-button` 无色按钮，与其他颜色按钮相反。
+* `optional-button` 无色按钮，与其他颜色按钮相反
 * `maroon-button` 深红色按钮
 * `blue-button` 蓝色按钮，默认颜色
 * `orange-button` 橙色按钮
@@ -144,6 +145,16 @@ Button 一般情况下会配合其他表单组件使用，如文本框等。Butt
 ```
 
 这个示例来自于 Master 项目后台启停用调度的按钮，主要逻辑为：只有先设置了工作流之后才能启用按钮，由`onchange`事件来判断，如果不满足启用条件，则提示文字`invalid-text`；`options`用来设置不同状态下按钮的显示文字和值；`value`属性必须设置值；`onclick+`事件用于请求后端接口，完成数据库更新。
+
+## 确认按钮示例
+
+当`type`设置为`confirm`时，当点击按钮时会划出“确认”和“取消”按钮进行再次确认，在用户体验上这种方式比弹出框更友好一些。
+
+```html
+<button id="RestartButton" type="confirm" class="task-failed-badge normal-button w150" confirm-button-text="# confirm-restart #" onclick+="put:/api/keeper/quit-on-next-beat?node_address=<%=$node.node_address%>" onclick+success-="start: #Logs; fadeIn: #LoadingHint" exception-text="Exception: {data}" callout cancel-button-text="# cancel-restart #" enable-on-success="false"># restart-button #</button>
+```
+
+这个示例来自于 Master 项目后台重启 Keeper 的按钮，主要逻辑为，当点击按钮时，按钮会向下划出（fadeOut），同时“确认”和“取消”两个按钮会从左右两方划入（fadeIn）；再次点击“确认”按钮才会继续执行。使用`confirm-button-text`和`cancel-button-text`属性可以设置“确认”和“取消”按钮的文字，`enable-on-success`属性表示点击成功后不再恢复。
 
 ---
 参考链接

@@ -45,7 +45,7 @@
 * 在变量名上加小括号会让索引或属性失去作用，如`$(list).first`。在集合元素访问时，不会出现解析冲突，当然也可以通过这种方式避免集合解析问题。
 * 如果变量不是集合类型，则索引或属性规则无效，如`$str[1]`，其中的`[1]`会被忽略。
 * 集合元素访问可以直接嵌入到其他语句中，如`SELECT * FROM table1 WHERE id=$list[2]`。
-* 当遇到嵌入冲突时，可以使用 Sharp 表达式的嵌入规则，上例可修改成`SELECT * FROM table1 WHERE id=${ $list[2] }`。
+* 当遇到嵌入冲突时，可以使用 Sharp 表达式的嵌入规则，如`SELECT name FROM ${ $connection.default_database }.sys.tables;`。
 * 集合元素访问在执行时优先于 Sharp 表达式的操作。
 * 索引数字从`0`开始而不是像 Sharp 表达式中从`1`开始是循环语言本身的习惯，类 SQL 语言都是从`1`开始。像方括号索引这样的语法更像 Java 或 Javascript，从`1`开始会显得非常奇怪。
 * 仍可以使用叹号`!`忽略数据类型的自动转化，如`WHERE $row.condition!`。

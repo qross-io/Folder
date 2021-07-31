@@ -1,5 +1,17 @@
 # 版本和更新
 
+## v1.7.0 (2021.7.30)
+
+这个版本主要是节点管理相关页面的开发。
+
+* [系统] 新增 [Keeper 节点仪表盘](/master/keeper/node.md)页面。
+* [系统] 新增 [Keeper 节点任务统计](/master/keeper/tasks.md)页面。
+* [系统] 重写 [Keeper 节点心跳和重启](/master/keeper/beats.md)页面。
+* [系统] 重写 [Keeper 节点异常日志](/master/keeper/exceptions.md)页面。
+* [系统] 重写 [Keeper 节点运行日志](/master/keeper/running.md)页面。
+* [系统] 重写 [Keeper 重启记录](/master/keeper/starts.md)页面。
+* 其他配合 Keeper 升级进行的优化和更新。
+
 ## v1.6.0 (2021.6.30)
 
 * [系统] 新增 [Keeper 节点管理](/master/keeper/nodes.md)页面。

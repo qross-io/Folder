@@ -3,9 +3,9 @@
 为了进一步减少 Javascript 代码的编写，root.js 为组件提供了 **服务器端事件**，服务器端事件支持向后端发送请求，例如当文本框失去焦点时、当点击按钮时。服务器端事件是前端组件与后端交互的核心属性。
 
 ```html
-<textarea coder="java" onsave+="/api/code/check?code={value}% # /data -> not-zero"></textarea>
-<button onclick+="/api/entity/update?id=&(id)">Button</textarea>
-<input onchange+="select id from users where name='{value}' -> FIRST CELL -> IF GREATER THAN ZERO false ELSE true">
+&lt;textarea coder="java" onsave+="/api/code/check?code={value}% # /data -> not-zero"&gt;&lt;/textarea&gt;
+<button onclick+="/api/entity/update?id=&(id)">Button</button>
+<input onchange+="select id from users where name='{value}' -> FIRST CELL -> IF GREATER THAN ZERO false ELSE true" />
 ```
 
 * 事件名称与元素标签或组件原有的事件名称相同，只比客户端事件多一个加号`+`，注意事件名和`+`号之间不能有空格。`+`与可以理解为是客户端事件的 plus 版本，也可以理解为“扩展”、“附加”的意思。
@@ -20,7 +20,7 @@
 数据接口是最经常的与后端交互的方式。
 
 ```html
-<textarea coder="java" onchange+="/api/code/check?code={value}% # /data -> not-zero"></textarea>
+&lt;textarea coder="java" onchange+="/api/code/check?code={value}% # /data -> not-zero"&gt;&lt;/textarea&gt;
 ```
 
 上例中，要请求的接口是`/api/code/check?code={value}%`；井号`#`后面的`/data`表示当接口请求完成后返回结果中路径`/data`里的数据，支持标准 JsonPath；`->`后面的`not-zero`为判断接口是否请求结果是否符合预期的条件，意义为返回结果不为`0`。所有判断是否符合预期的条件和逻辑为：

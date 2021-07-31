@@ -17,6 +17,19 @@ Panel 模式用于流式布局，一般用于多项内容的列表显示，根�
 * `width` 用于设置面板宽度，默认值`330px`。
 * `height` 用于设置面板的高度，无默认值。
 
+## Justify 模式
+
+Justify 模式可以平均分布 DIV 内的各个元素，各元素横向分布且间距相等。 
+
+```html
+<div display="justify">
+    <div class="score">...</div>
+    <div class="score">...</div>
+    <div class="score">...</div>
+    <div class="score">...</div>
+    <div class="score">...</div>
+</div>
+```
 
 ---
 参考链接
