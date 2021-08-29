@@ -10,7 +10,7 @@ Popup 提供页面弹出框功能，可以把 DIV 元素转成弹出框。其中
 
 Popup 可用的属性如下：
 
-* `display` 显示模式，可选值有：`window` 窗口模式，`sidebar` 边栏模式，`menu` 菜单模式。显示模式配合`position`属性使用，默认值为`window`。
+* `popup` 显示模式，可选值有：`window` 窗口模式，`sidebar` 边栏模式，`menu` 菜单模式。显示模式配合`position`属性使用，默认值为`window`。
 * `modal` 是否使用模态，默认`true`。模态下在 Popup 打开时 Popup 之外的元素不可操作。
 * `position` 显示位置，这个属性稍微复杂。下文详细说明。Popup 通过`position`属性设置的值由 X 轴和 Y 轴两个位置构成，位置之间使用`.`或`,`隔开，如`center.middel`。其中 X 轴可选值有`left`、`center`、`right`、`event`和具体的数字，Y 轴可选值有`top`、`middle`、`bottom`、`event`和具体的数字。其中`event`表示事件触发位置，数字表示页面的像素位置。更详细的信息在下文会提到。
 * `offsetX` 打开时 X 轴的偏移距离，单位为像素。
@@ -24,13 +24,23 @@ Popup 可用的属性如下：
 * `disable-scrolling` 打开时是否禁用滚动条，默认为`false`，边栏械下默认为`true`。
 * `mask-color` 模态背景的颜色，默认为`#999999`。
 * `mask-opacity` 模态背景的透明度，可选值`0 ~ 10`，`0`为完全透明，`10`为完全不透明，默认值`3`。
+* `visibility` 弹出框的可见性，默认值为`hidden`，即开始时隐藏弹出框。如果初始设置为`visible`，则进行页面时即弹出。与标签的原生属性`hidden`和扩展属性`visible`逻辑不同。
+
+可用的方法有：
+
+* `open()` 打开对话框，触发`onopen`事件。
+* `confirm()` 点击确认按钮并关闭对话框，触发`onconfirm`事件。
+* `close()` 点击关闭按钮关闭对话框，触发`onclose`事件。
+* `cancel()` 点击取消按钮关闭对话框，触发`oncancel`事件。
 
 可用的事件有：
 
-* `onopen` 当 Popup 打开时触发，传递参数为当前事件变量`ev`。
-* `onclose` 当 Popup 关闭时触发，传递参数为当前事件变量`ev`。
-* `onconfirm` 当 Popup 确定时触发，传递参数为当前事件变量`ev`。这个事件最重要。
-* `oncancel` 当 Popup 取消时触发，传递参数为当前事件变量`ev`。
+* `onopen` 当 Popup 打开时触发，事件函数参数为当前事件变量`ev`，如`function(ev) { ... }`，支持`return false`取消打开。
+* `onclose` 当 Popup 关闭时触发，事件函数参数为当前事件变量`ev`，支持`return false`。
+* `onconfirm` 当 Popup 确定时触发，事件函数参数为当前事件变量`ev`。这个事件最重要，支持`return false`。
+* `oncancel` 当 Popup 取消时触发，事件函数参数为当前事件变量`ev`，支持`return false`。
+* `onshow` 当 Popup 打开后触发。
+* `onhide` 当 Popup 关闭后触发。
 
 示例如下：
 
@@ -45,7 +55,7 @@ $listen('Popup1').on('confirm', function(ev) {
 如果不设置`position`，那么其默认值为`center.middle`。位置针对整个窗口，如`left.top`让整个窗口显示在窗口的左上角。
 
 ```html
-<div id="Popup1" popup="yes" display="window" position="center.top">
+<div id="Popup1" popup="window" position="center.top">
     <div>
         这个是一个 Popup。
     </div>
@@ -61,7 +71,7 @@ $listen('Popup1').on('confirm', function(ev) {
 边栏模式下，`position`可以设置为`left`、`right`、`top`和`bottom`。当设置为`left`和`right`时，Y 轴默认值为`middle`；当设置为`top`和`bottom`时，X 轴默认值为`center`。当 X 轴为`center`时，会自动调整 Popup 宽度为整个窗口宽度；当 Y 轴设置为`middle`时，会自动调整 Popup 高度为整个窗口高度。边栏模式下默认禁用滚动条。
 
 ```html
-<div id="Popup1" popup="yes" display="sidebar" position="right"></div>
+<div id="Popup1" popup="sidebar" position="right"></div>
 ```
 
 ## 菜单模式
@@ -69,8 +79,23 @@ $listen('Popup1').on('confirm', function(ev) {
 菜单模式下，`position`的位置不再相对于窗口，而是`reference`属性设置的参考元素。`left`相对于参考元素左对齐，`center`与参考元素居中对齐，`right`相对于参考元素右对齐，`top`让 Popup 显示在参考元素上方，`bottom`让 Popup 显示在参考元素下方，`middle`设置无效。
 
 ```html
-<div id="Popup1" popup="yes" display="menu" position="left.bottom"></div>
+<div id="Popup1" popup="menu" position="left.bottom"></div>
 ```
+
+## 对话框
+
+基于 Popup，标签库实现了对应三种 window 对话框的新弹出框，用于标签库内部使用。三种对话框均返回一个 Popup 对象。
+
+* `$root.alert(message, confirmButton = 'OK', title = 'Message')` 显示警告对话框。
+* `$root.confirm(message, confirmButton = 'OK', cancelButton = 'Cancel', title = 'Confirm')` 显示确认对话框。
+* `$root.prompt(message, input = 'text', confirmButton = 'OK', cancelButton = 'Cancel', title = 'Prompt')` 显示输入提示对话框。
+
+对话的每个参数除可传入字符串外，都支持传入对象类型以对每一项进行更多设置。
+
+* `message` 对象属性有`text`和`class`。
+* `confirmButton` 对象属性有`text`、`class`、`icon`。
+* `cancelButton` 对象属性有`text`、`class`、`icon`。
+* `input` 对象属性支持所有 [INPUT 标签](/root.js/input.md)的属性。
 
 ## 动画属性
 
@@ -97,3 +122,4 @@ Popup 支持自定义打开和关闭时的动画，动画元素由位置、缩�
 
 * [Calendar 日历组件](/root.js/calendar.md)
 * [Clock 数字时钟组件](/root.js/clock.md)
+* [Editor 文本编辑](/root.js/editor.md)

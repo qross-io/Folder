@@ -1,6 +1,15 @@
 # 版本和更新
 
-作者会一个月发布一个稳定版本。PQL 的最新稳定版本为 **v1.7.0**，发布时间 **2021-07-28**。
+作者会一个月发布一个稳定版本。PQL 的最新稳定版本为 **v1.8.0**，发布时间 **2021-07-28**。
+
+## v1.8.0（2021.8.29）
+
+1. [系统函数](/pql/global-function.md) 新增[日期时间函数](/pql/function-datetime.md) 支持。
+2. [Sharp 表达式 - 日期时间](/pql/sharp-datetime.md) 新增`GET WEEK OF YEAR`、`GET QUARTER`等 7 个操作。
+2. [Sharp 表达式 - 字符串](/pql/sharp-text.md) 新增`PREFIX`和`SUFFIX`用于为字符串添加前缀或后缀。
+3. [Sharp 表达式 - 字符串](/pql/sharp-text.md) `DROP`和`DROP RIGHT`现在参数支持字符串。
+4. [Sharp 表达式 - 数字](/pql/sharp-numeric.md) `IF GREATER THEN ZERO`修改为`IF POSITIVE`，`IF LESS THEN ZERO`修改为`IF NEGATIVE`。
+5. [DateTime 日期时间类](/datahub/datetime.md) 增加季度、月份、星期名称相关的方法。
 
 ## v1.7.0 (2021.7.28)
 

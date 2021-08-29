@@ -47,6 +47,8 @@ SELECT * FROM table1 WHERE id=${ Math.sqrt(4) };
 
 * **`IF ZERO m`** 如果给定的数字为`0`则赋值为`m`。
 * **`IF NOT ZERO m`**  如果不为`0`则赋值为`m`。
+* **`IF POSITIVE m`** 如果给定的数字为正数时则赋值为`m`。
+* **`IF NEGATIVE m`**  如果给定的数字为负数时则赋值为`m`。
 
 这两个操作的应用场景有些怪异，但确实有时会用到。
 

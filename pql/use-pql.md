@@ -31,7 +31,7 @@ porn.xml 依赖配置如下
     <dependency>
         <groupId>io.qross</groupId>
         <artifactId>pql</artifactId>
-        <version>1.6.0</version>
+        <version>1.8.0</version>
     </dependency> 
 </dependencies>
 ```
@@ -40,7 +40,7 @@ porn.xml 依赖配置如下
 
 ```groovy
 dependencies {
-    compile group: 'io.qross', name: 'pql', version: '1.5.0'
+    compile group: 'io.qross', name: 'pql', version: '1.8.0'
 }
 ```
 
@@ -85,7 +85,7 @@ PQL 主要用于数据查询和计算，所以在使用之前，需要先配置�
 **io.qross.pql.PQL** 类还有很多重载和方法用于应对各种场景，请参阅 [PQL 类文档](/pql/class.md)。这种方式特别适合于数据计算脚本的开发，甚至不需要写 Java 和 Scala 代码。脚本开发调试完成之后，直接将 PQL 文件部署到服务器上即可，不需要编译和构建。在服务器上可以通过命令直接运行或者通过 [Keeper 调度工具](/keeper/overview.md)运行。作者所在的数据部门采用这种开发方式，非常方便。
 
 
-### 直接运行 PQL 字符串
+### 直接运行 PQL 语句
 
 除了将 PQL 保存为文件外，也可以直接运行 PQL 过程字符串。
 
@@ -129,7 +129,7 @@ java -jar qross-worker-0.6.3.jar --file /usr/qross/pql/test.sql
 
 在本地也可以通过这种方式运行，需要指定文件的绝对路径。可参阅 [Worker 文档](/pql/worker.md)获取更多信息。
 
-## PQL应用
+## PQL 应用
 
 ### 统一接口 OneApi
 

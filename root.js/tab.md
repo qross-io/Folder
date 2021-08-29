@@ -21,7 +21,7 @@ TAB 的使用非常简单，只有简单的几个属性和事件。
 
 * `tab` 关键属性，必须有，表示将这个元素转成“标签”。一般设置在 TABLE、DIV 等父级元素上。属性值任意。
 * `bindings` 选项的选择器，决定了这个标签有多少个选项。上例绑定到`TD`上，即只能两个选项。
-* `excludes` 当`bindings`的选择结果中有不想绑定的元素时，可以使用这个属性排除，可以写索引序号（从`0`开始），也支持奇数`odd`、偶数`even`、最后一个`l`或`n`，或者 Javascript 表达式如`n-1`表示倒数第二个。
+* `excludes` 当`bindings`的选择结果中有不想绑定的元素时，可以使用这个属性排除，可以写索引序号（从`0`开始），也支持奇数`odd`、偶数`even`、最后一个`-1`、倒数倒数第二个`-2`等。
 * `default-class` 选项在非选择状态下的样式。
 * `selected-class` 选项在选中状态下的样式。
 * `onchange` 客户端事件，当选项改变时触发。上例用于将新值保存到 Cookie 中。
@@ -29,9 +29,12 @@ TAB 的使用非常简单，只有简单的几个属性和事件。
 * `success-text` 服务器端执行符合预期后的提醒文字，只有 Callout 一种提醒方式。
 * `failure-text` 服务器端执行符合不预期后的提醒文字，只有 Callout 一种提醒方式。
 * `exception-text` 服务器端执行出错时的提醒文字，只有 Callout 一种提醒方式。
-* `value` 表示标签当前选中项的值，在选项元素上定义。如上例中`value="chinese"`和`value="english"`，`language={value}`中的`{value}`指向这个属性。
-* `text` 表示标签当前选中项的文本文字，在选项元素上定义。如上例中`text="Your setting is changed. Please refresh page to enable it."`，`success-text="{text}"`中的`{text}`指向这个属性。
-* `data` 表示请求后端返回的结果，`success`和`failure`状态下为接口返回接口，`exception`状态下为异常文字。上例中`exception-text="{data}"`中的`{data}`指向这个属性。
+
+有三个可用的变量：
+
+* `{value}` 表示标签当前选中项的值，在选项元素上定义。如上例中`value="chinese"`和`value="english"`，`language={value}`中的`{value}`指向这个属性。
+* `{text}` 表示标签当前选中项的文本文字，在选项元素上定义。如上例中`text="Your setting is changed. Please refresh page to enable it."`，`success-text="{text}"`中的`{text}`指向这个属性。
+* `{data}` 这个不是属性，表示请求后端返回的结果，`success`和`failure`状态下为接口返回接口，`exception`状态下为异常文字。上例中`exception-text="{data}"`中的`{data}`指向这个属性。
 
 每个标签选项的属性有：
 

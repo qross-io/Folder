@@ -39,10 +39,17 @@
 
 * `get(field: ChronoField): Int` 根据`ChronoField`得到相应的日期时间部分的值，不常用。
 * `getYear: Int` 得到年份。
+* `getQuarter: Int` 得到季度。
+* `getQuarterName: String` 得到季度的名字，如`Q3`，中文环境下为`3季`。
+* `getFullQuarterName: String` 得到季度的全称，如`3rd quaryter`，中文环境下为`第3季度`。
 * `getMonth: Int` 得到月份。
+* `getMonthName: String` 得到月份的名字，如`Aug`，中文环境下为`八月`。
+* `getFullMonthName: String` 得到月份的全称，如`August`，中文环境下为`八月`。
 * `getDayOfMonth: Int` 得到日期，即当月几号。
 * `getDayOfWeek: Int` 得到星期数字，周一到周日分别对应`1`到`7`。
-* `getWeekName: String` 得到星期的名称，中英文环境下返回值不同。
+* `getDayOfYear: Int` 得到一个数字，表示是一年中的第几天，取值范围`1~366`。
+* `getWeekName: String` 得到星期的名称，如`Sat`，中文环境下为`星期六`。
+* `getFullWeekName: String` 得到星期和全称，如`Saturday`，中文环境下为`星期六`。
 * `getHour: Int` 得到`24`小时制的小时。
 * `getMinute: Int` 得到分钟。
 * `getSecond: Int` 得到秒。
@@ -53,10 +60,17 @@
 下面是以上方法的简写：
 
 * `year`
+* `quarter`
+* `quarterName`
+* `fullQuarterName`
 * `month`
+* `monthName`
+* `fullMonthName`
 * `dayOfMonth`
 * `dayOfweek`
+* `dayOfYear`
 * `weekName`
+* `fullWekkName`
 * `hour`
 * `minute`
 * `second`
@@ -122,7 +136,8 @@
 
 ### `formatStyle`参数中的时间单位
 
-* **`y`** 表示年，2位返回`19`，4位返回`2019`
+* **`y`** 表示年，2 位返回`19`，4 位返回`2019`
+* **`Q`** 表示季度，1 位返回`3`，2 位返回`03`，3 位返回`Q3`，4 位返回`3rd quarter`。中文环境下返回中文，如`3季`、`第3季度`。
 * **`M`** 表示月，1位返回`4`，2位返回`04`，3位返回`Apr`，4位返回 `April`。中文环境下返回中文，如`四月`。
 * **`d`** 表示天，1位和2位都返回`15`，1位时小于`10`才返回1位数字
 * **`H`** 表示24小时制小时，1位和2位都返回`13`，1位时小于`10`返回1位数字
@@ -130,7 +145,7 @@
 * **`m`** 表示分钟，1位和2位都返回`27`，1位时分钟小于`10`时返回1位数字。
 * **`s`** 表示秒，1位返回`5`，两位返回`05`
 * **`S`** 表示毫秒，一般为3位
-* **`e`** 表示星期，1位返回`1`，2位返回`01`，3位返回`Mon`，4位返回`Monday`。中文环境下返回中文，如`星期一`。
+* **`e`或`E`** 表示星期，1位返回`1`，2位返回`01`，3位返回`Mon`，4位返回`Monday`。中文环境下返回中文，如`星期一`。
 * **`a`** 表示上下午，返回`AM`或`PM`。中文环境下返回`上午`或`下午`。
 
 ### 日期时间的比较操作

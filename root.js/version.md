@@ -2,11 +2,28 @@
 
 **root.js** 库一般跟随 [Qross Master](/master/overview.md) 项目的功能进行更新。
 
-## v1.7.0 (2021.7.30)
+## v1.8.0 (2021.8.28)
+
+大版本，120 项更新。
+
+* [基础库](/root.js/root.md)进行了大改，编程思路改变。
+* [Editor 文本编辑](/root.js/editor.md)组件继续开发，增加 SELECT 类型及大量修正。
+* [Model 数据加载模型](/root.js/model.md) 与[数据占位符](/root.js/holder.md)相关的逻辑已重写并优化。
+* [Model 数据加载模型](/root.js/model.md) 除了 IF 标签外，还增加了`if`属性支持，可以在任意元素上设置。
+* [TABLE 标签扩展](/root.js/tablemd)新增服务器端事件`onrowdblclick+`及相关属性。
+* [布尔或条件表达式类型的属性](/root.js/boolean.md)处理逻辑进行了统一。
+* 新的[[消息组件](/root.js/animation.md)加入，配合其他标签使用。INPUT、BUTTON、SELECT 和 TABLE 都已支持。
+* 原 Layout 布局修改为 [DIV 布局增强](/root.js/div.md)。
+* [TreeView 树形目录](/root.js/treeview.md)的 [TreeNode 类](/root.js/treenode.md)新增`if`、`increase`和`decrease`方法。
+* 在所有原生标签上[新增多个方法](/root.js/root.md)，如`set(attr, value)`方法，用于重新设置元素某个属性的值。
+* 在所有原生标签上[新增多个属性](/root.js/root.md)，如`visible`属性，与`hidden`属性相对。现在两个属性都是[布尔属性](/root.js/boolean.md)。
+* 现有组件的大量功能升级和优化。
+
+## v1.7.0 (2021.7.31)
 
 * 新的组件 [CHART 图表标签](/root.js/chart.md)，简单封装了 echarts，可以使用标签和属性来声明图表。
 * 新的组件 [Log 日志组件](/root.js/log.md)，用于从服务器端端调取日志并显示。
-* [MODEL 标签](/root.js/model.md)现在支持绑定组件，当 Model 数据更新时（reload），组件也触发`reload`方法。
+* [MODEL 标签](/root.js/model.md)现在支持绑定组件，当 Model 数据更新时（reload），组件会触发`reload`方法。
 * [BUTTON 标签扩展](/root.js/button.md)增加类型`type="confirm"`，当点击时会显示两个按钮再次确认。
 * [Layout 页面布局组件](/root.js/layout.md)新增类型`justify`，平均分布 DIV 内的元素。
 * [TABLE 标签扩展](/root.js/table.md)现在支持使用 COL 来设置加载数据的方式，可以做到无感更新。
@@ -40,13 +57,13 @@
 * [精简事件](/root.js/event.md)加入，对原有的事件表达式进行了升级。
 * 新组件 [DateTimePicker](/root.js/datetimepicker.md)，这是一个组合组件，用于日期和时间的选择。
 * [A 标签扩展](/root.js/anchor.md)加入，主要是服务器端事件的支持。
-* 弹出框组件 [Popup](/root.js/popup.md) 文档补全。
+* [Popup 弹出框组件](/root.js/popup.md)文档补全。
 * [Select 标签扩展](/root.js/select.md)现在支持`radio`和`checkbox`类型。
 * [Input](/root.js/input.md) 和 [Button](/root.js/button.md) 扩展配合服务器端事件进行了大量属性更新。
 * [Input](/root.js/input.md) 新增`icon`属性，用于设置在输入框中显示的图标。新增`onmodify`事件，在值通过输入方式改变时触发。实现`onload`事件，组件加载完成时触发。
-* [Coder 彩色编码]组件的提示文字配合服务器端事件进行了统一，增加`validator`属性用于 Json 内容的验证。
+* [Coder 彩色编码](/root.js/coder.md)组件的提示文字配合服务器端事件进行了统一，增加`validator`属性用于 Json 内容的验证。
 * [Model 模型](/root/js/model.md)中 Template 标签更新了两个方法的名称，新增`reload`方法。
-* 增加`click-to-copy`属性，可以应用到任何元素上，增加点击复制文字功能。
+* /s:增加`click-to-copy`属性，可以应用到任何元素上，增加点击复制文字功能。/
 
 ## v1.3.0 (2021.3.24)
 
@@ -73,7 +90,7 @@
 
 ## v1.1.0 (2021.1.31)
 
-* **root.js 组件库** 从 Master 项目中分离，独立成项目。
+* **root.js 标签库** 从 Master 项目中分离，独立成项目。
 * [root.js 基础库](/root.js/root.md) 重新整理，文档已补全。
     + 增加新的选择器`$t`，可选择单个自定义标签
     + 增加新的选择器`$c`，可选择多个自定义标签

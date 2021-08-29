@@ -19,7 +19,7 @@ Express 字符串应用范围比较多
 
 ## URL 地址参数占位符
 
-通过地址参数占位符可以直接获取 URL 地址中传递的参数。占位符格式 `&(param)`。地址参数占位符不支持`defaultValue`格式，如果参数名称不存在，则值为`null`。下面会介绍用法。
+通过地址参数占位符可以直接获取 URL 地址中传递的参数。占位符格式 `&(param)`。地址参数占位符不支持`defaultValue`格式，如果参数名称不存在，则值为`null`。参数名称 **区分大小写**。
 
 ```html
 <a -href="/item/detail?id=&(id)">
@@ -35,7 +35,7 @@ Express 字符串应用范围比较多
 
 ## DOM 操作符
 
-在前端功能开发中，经常需要用选择器获取标签，读取标签的值或属性，组件库提供了更方便快捷的方法进行 DOM 导航。
+在前端功能开发中，经常需要用选择器获取标签，读取标签的值或属性，标签库提供了更方便快捷的方法进行 DOM 导航。
 
 DOM 占位符标准格式为`$(selector)+-><n[attr]?(defaultValue)`，各个符号的含义分别说明如下：
 
@@ -54,12 +54,13 @@ DOM 占位符标准格式为`$(selector)+-><n[attr]?(defaultValue)`，各个符�
 
 可以多个不同或相同的导航符号进行组合，以定位到需要的元素。几个示例：
 
-* 调取 name 为`keyword`的[扩展文本框](/root.js/input.md)加值 `$(#keyword)`
-* 调取 id 为`title`的节点的下一个元素的 textContent `$(#title)+`
-* 调取 id 为`link`的节点的`target`属性的值  `$(#link)[target]`
-* 调取当前元素的`sign`属性 `$:[sign]`
-    如 `<a sign="link" -href="/hello/$:[sign].htm">`
-    解析结果为 `<a sign="link" href="/hello/link.htm">`
+* 调取 name 为`keyword`的[扩展文本框](/root.js/input.md)的值使用 `$(#keyword)`。
+* 调取 id 为`title`的节点的下一个元素的 textContent 使用 `$(#title)+`。
+* 调取 id 为`link`的节点的`target`属性的值使用 `$(#link)[target]`。
+* 现有 `<input id="Check" type="checkbox" value="yes" />`，获取复选框的值使用`$(#Check)`无论是否选中都会有值`yes`，使用`$(#Check)[checked]`获取复选框的状态`true`或`false`，使用`$(#Check:check)?(no)`当选中时返回`yes`未选中时返回`no`。
+* 调取当前元素的`sign`属性使用 `$:[sign]`。
+    如 `<a sign="link" -href="/hello/$:[sign].htm">`。
+    解析结果为 `<a sign="link" href="/hello/link.htm">`。
 
 在 Express 字符串中，表示上一个同胞节点的第一个子节点的符号 `->` 在 root.js 中具有特殊的意义，尽量避免使用这个组合，可使用`-f`、`pf`、`p>`代替。
 

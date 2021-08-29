@@ -2,13 +2,21 @@
 
 **Select** 组件扩展了原生 SELECT 标签，增加了多种选择模式，并提供多选功能。
 
+* 支持选择按钮、图片列表、单选框、筛选框等类型。
+* 支持从后端加载数据。
+* 支持多选。
+* 支持通过服务器端事件与服务器端交互。
+* 除新增属性外，对一些原生属性进行了扩展，如`text`、`value`等。
+* 支持不同状态下的样式设置，并且支持单独设置选项的样式。
+
 ## 使用
 
-Select 组件的依赖库和组件列表如下：
+Select 组件的相关依赖库和组件列表如下：
 
-* [root.js 基础库](/root.js/root.md)
-* [Model 数据加载模型](/root.js/model.md)
-* Select 组件默认样式表 `root.select.css`
+* `root.js` [基础库](/root.js/root.md)
+* `root.model.js` [Model 数据加载模型](/root.js/model.md)
+* `root.select.js` 主文件
+* `/css/root/select.css` 默认样式表 
 
 ```html
 <script type="text/javascript" src="/root.js"></script>
@@ -33,17 +41,25 @@ Select 组件的依赖库和组件列表如下：
 </select>
 ```
 
-除支持所有原生属性外，SELECT 标签增加的扩展属性如下：
+除支持所有原生属性外，SELECT 标签增加的扩展属性和事件如下：
 
-* `type` 选择框的模式，下面会分别介绍。如果没有这个属性则保持原始模式。
+* `await` 等待其他组件加载完成之后再加载数据，如`await="#A"`。当前 SELECT 需要使用其他组件的数据时，假如其他依赖的组件未加载完成，会产生错误，这个属性可以等待其依赖的组件加载完成再进行加载。
 * `class` 整个框体的 CSS 样式，不同模式下框体的标签元素不同。
-* `option-class` 每个选项的 CSS 样式，根据不同的 type 默认值不同。
-* `selected-option-class` 被选中选项的 CSS 样式，根据不同的 type 默认值不同。
-* `disabled-option-class` 禁用状态选项的 CSS 样式，根据不同的 type 默认值不同。
-* `multiple` 原生属性，是否支持多选，支持设置可识别为布尔值的所有字符串，如`yes`、`FALSE`、`1`等，默认`false`。
 * `data` 从其他数据源生成 OPTION 列表，见本文下面的介绍。
-* `value` 通过设置这个属性可以设置默认选中的项，只要与对应项的值相同即可。优先级高于选项的`selected `属性。在`multiple`时可以设置逗号分隔的多个值以默认选中多项。
-* `onchange+` 当切换选项时执行的[服务器端事件](/root.js/server.md)，支持接口和 PQL 语句。对应的状态事件是以下 4 个。
+* `disabled` 原生属性，是否禁用组件。组件库对这个属性进行了扩展，处理逻辑请参见[布尔类型的属性](/root.js/boolean.md)。
+* `disabled-option-class` 禁用状态选项的 CSS 样式，根据不同的 type 默认值不同。
+* `enabled` 是否启用组件，与`disabled`相对，但优先级低于`disabeld`。
+* `multiple` 原生属性，是否支持多选，支持设置可识别为布尔值的所有字符串，如`yes`、`FALSE`、`1`等，默认`false`。
+* `option-class` 每个选项的 CSS 样式，根据不同的 type 默认值不同。处理逻辑请参见[布尔类型的属性](/root.js/boolean.md)。
+* `selected-option-class` 被选中选项的 CSS 样式，根据不同的 type 默认值不同。
+* `text` 获取或设置 SELECT 的选中项的文本。
+* `type` 选择框的模式，下面会分别介绍。如果没有这个属性则保持原始模式。
+* `value` 获取或设置 SELECT 的选中项的值。通过设置这个属性可以设置默认选中的项，只要与对应项的值相同即可。优先级高于选项的`selected `属性。在`multiple`时可以设置逗号分隔的多个值以默认选中多项。
+
+扩展事件有：
+
+* `onchange` 可以理解为是原有的`onchange`事件，事件函数参数传递`index`，是目标选中项的索引。如`select.onchange = funcdtion(index, ev) { ...; return false; };`。
+* `onchange+` 与`onchange`事件对应的[服务器端事件](/root.js/server.md)，支持接口和 PQL 语句。对应的状态事件是以下 4 个。
 * `onchange+success` 当服务器端事件执行成功时触发的客户端事件。
 * `onchange+failed` 当服务器端事件执行失败时触发的客户端事件。
 * `onchange+exception` 当服务器端事件执行异常时触发的客户端事件。
@@ -51,12 +67,14 @@ Select 组件的依赖库和组件列表如下：
 
 除支持所有原生属性外，OPTION 标签增加的扩展属性如下：
 
-* `title` 在鼠标划过选项时的提示文字。
 * `class` 选项的默认样式，不同模式下框体选项的标签元素不同。
-* `selected-class` 选项在被选中时的样式。
+* `disabled` 原生属性，是否禁用选项。组件库对这个属性进行了扩展，处理逻辑请参见[布尔类型的属性](/root.js/boolean.md)。
 * `disabled-class` 选项在禁用状态时的样式。
-* `show` 当前选项被选中时，需要显示的元素，这里输入选择器，如`show="#A,#B"`。
+* `enabled` 是否启用选项，与`disabled`相对，优先级低于`disabled`，处理逻辑请参见[布尔类型的属性](/root.js/boolean.md)。
 * `hide` 当前选项被选中时，需要隐藏的元素，这里的值也是选择器，如`hide='span.hint'`。一般与`show`属性同时设置，`hide`先与`show`执行。
+* `selected-class` 选项在被选中时的样式。
+* `show` 当前选项被选中时，需要显示的元素，这里输入选择器，如`show="#A,#B"`。
+* `title` 在鼠标划过选项时的提示文字。
 
 除了以上提到的属性外，不同的模式下还可能有自己的特有属性，将在各模式的说明里介绍。
 
@@ -194,6 +212,14 @@ BUTTON 模式下 SELECT 标签的专有属性只有一个
 
 SELECT 数据加载使用 [FOR 标签](/root.js/model.md)提供支持，`data`属性的可选值与 FOR 标签的`in`属性相同，模板内容中的占位符规则也与 FOR 标签完全相同。
 
+另外，使用`data`属性加载数据时没有默认选项，这时可以通过`value`属性来指定默认选项。
+
+```html
+<select data="1 to 10" value="2">
+    <option>@item</option>
+</select>
+```
+
 ## 选择器
 
 SELECT 组件是原生组件的扩展，可以使用选择器有：
@@ -231,12 +257,16 @@ SELECT 组件是原生组件的扩展，可以使用选择器有：
 
 除了在标签上设置的属性之外，还有几个可以在 Javascript 编程中使用的属性。
 
-* `value` 返回当前 SELECT 选中项的值，只读。
-* `text` 返回当前 SELECT 选中项的文本，只读。
-* `selectedIndex` 返回或设置当前选中结果的索引，默认值为`-1`。
+* `value` 返回或设置当前 SELECT 选中项的值。
+* `text` 返回或设置当前 SELECT 选中项的文本。
+* `selectedIndex` 返回或设置当前选中结果的索引，默认值为`-1`。在多选模式下返回第一个选中项的索引。
+* `selectedIndexes` 在多选模式下，返回或设置当前选中结果的索引，默认值为`[]`。
 * `options` 返回当前 SELECT 的所有选项的数组。数组元素类型为 `SelectOption`。
 
-其他可以标签上设置的属性也可通过设置或调用。可用方法暂缺。
+其他可以标签上设置的属性也可通过设置或调用。可用方法有：
+
+* `reload()` 重新加载数据，当设置了`data`属性时才有意义。
+* `set(attr, value)` 设置某个属性的值，可被[事件表达式](/root.js/event.md)使用，如`set-value-on="click: #Button1"`。
 
 ## SelectOption 类
 

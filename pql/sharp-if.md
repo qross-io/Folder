@@ -40,8 +40,8 @@ SET $rate := '#{rate}' IF UNDEFINED 'C';
 * **`IF FALSE value`** 如果值为假则赋值为`value`。
 * **`IF ZERO value`** 如果给定的数字为`0`则赋值为`value`。
 * **`IF NOT ZERO value`**  如果不为`0`则赋值为`value`。
-* **`IF GREATER THAN ZERO value`** 如果大于`0`时则赋值为`value`
-* **`IF LESS THAN ZERO value`** 如果小于`0`时则赋值为`value`
+* **`IF POSITIVE m`** 如果给定的数字为正数时则赋值为`m`。
+* **`IF NEGATIVE m`**  如果给定的数字为负数时则赋值为`m`。
 
 **以上介绍所有操作中默认值`value`的数据类型可以与要判断的数据的数据的类型不同。**
 

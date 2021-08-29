@@ -81,8 +81,8 @@ Voyager 支持在页面中包含其他页面碎片或 SQL 文件，包含进来�
 ```html
 <#page template="/master/form.html"/>
 @{
-    "name": "Tom",
-    "age": 18
+    "name": "<%=$student.name%>",
+    "age": "#{id}"
 }
 
 <%!
@@ -90,7 +90,7 @@ VAR $student := SELECT * FROM students WHERE id=#{id} -> FIRST ROW;
 %>
 ```
 
-上例中，由`<%!`和`%>`包含的部分即“逻辑前置”，这段代码会在页面请求时被首先执行，然后在母版页中可以使用变量`$student`。
+上例中，由`<%!`和`%>`包含的部分即“逻辑前置”，这段代码会在页面请求时被首先执行，然后在母版页中可以使用变量`$student`。也可以在母版页参数中也可传递`$student`，如例中`<%=$student.name%>`。
 
 ## 用`#`和`#`包围的多语言标签
 

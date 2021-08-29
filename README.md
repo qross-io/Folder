@@ -1,6 +1,6 @@
 # Qross 系统文档
 
-**Qross** (Query Cross DataSources) 是提速和简化数据开发、后端开发的一整套解决方案，核心组件包含[数据处理语言 PQL](/pql/overview.md)、[任务调度工具 Keeper](/pql/overview.md)、[数据管理平台 Master](/master/overview.md)、[统一接口应用 OneApi](/oneapi/overivew.md)、[数据开发框架 DataHub](/datahub/overview.md)和[前端组件库 root.js](/root.js/overview.md)。Qross 系统使用`Scala`和`Java`语言编写，免费且开源。
+**Qross** (Query Cross DataSources) 是提速和简化数据开发、后端开发的一整套解决方案，核心组件包含[数据处理语言 PQL](/pql/overview.md)、[任务调度工具 Keeper](/pql/overview.md)、[数据管理平台 Master](/master/overview.md)、[统一接口应用 OneApi](/oneapi/overivew.md)、[数据开发框架 DataHub](/datahub/overview.md)和[前端标签库 root.js](/root.js/overview.md)。Qross 系统使用`Scala`和`Java`语言编写，免费且开源。
 
 ## # [过程化查询语言 PQL](/pql/overview.md)
 
@@ -18,19 +18,20 @@
 * 支持[自定义函数](/pql/function.md)。
 * 丰富的[嵌入功能](/pql/place.md)与原生 SQL 语句完美结合。
 
-PQL 文档已是最新。PQL 的源码地址为：<https://github.com/qross-io/PQL>
+PQL 的源码地址为：<https://github.com/qross-io/PQL>
 
 ## # [任务调度工具 Keeper](/keeper/overview.md)
 
 **Keeper** 是一个轻量级的任务调度工具，是 Qross 系统的第一个项目，已运行和进化多年，相关功能已非常完善。Keeper 的主要功能有：
 
+* 完全去中心化的多机集群机制，自由增减节点。
 * 支持时间计划调度、无限循环调度、仅依赖触发的调度和仅手工执行的调度。
 * 支持三种前置依赖：任务依赖、SQL 依赖和 PQL 依赖；并支持任务结果校验。
 * 支持 DAG，每个 DAG 节点命令支持运行`Shell`、`Python`和`PQL`。
 * 支持不同任务状态下触发事件，可实现多种预警功能。
 * 支持超时或失败重试和延时自动重启。
 * 支持立即运行任务、中断任务、重启任务。
-* 支持已扩展的`Cron表达式`设置和自动启停调度。
+* 支持扩展的`Cron 表达式`设置和自动启停调度。
 * 多角色设置，精细的权限控制。
 * 丰富的统计图表，随时掌握任务运行状态。
 * 超强的自定义功能：自定义依赖、自定义事件、自定义触发器。
@@ -56,10 +57,6 @@ OneApi 的页面管理功能正在开发中，可更方便直观的管理项目�
 
 **Qross Master** 是一个适用于数据部门或数据开发的综合管理平台，含数据管理、调度管理、接口管理、文档管理等功能。Master 的很多功能正在不断增加中。
 
-## # [数据开发框架 DataHub](/datahub/overview.md)
-
-**DataHub** 是一个简单易用的数据处理框架，整合了多个资源库，PQL 和 Keeper 都是基于 DataHub 框架开发。文档正在逐渐补全。
-
 ## # [模板引擎 Voyager](/voyager/overview.md)
 
 **Voyager** 同样是基于 Spring Boot 的模板引擎，基础功能与 Freemarker 和 Thymeleaf 类似，但拥有更强大的功能和更简单、直接、高效的编码方式。
@@ -73,9 +70,13 @@ OneApi 的页面管理功能正在开发中，可更方便直观的管理项目�
 * 支持[国际化](/voyager/language.md)
 * 支持邮件模板
 
-## # [root.js 前端组件库](/root.js/overview.md)
+## # [root.js 前端标签库](/root.js/overview.md)
 
-**root.js** 是一个简单易用的前端组件库，包含很多个自定义组件用于实现各种交互功能，Qross 系统前端页面使用 root.js 库进行开发。
+**root.js** 是一个简单易用的前端标签库，包含很多个自定义标签和扩展标签用于实现各种交互功能，Qross 系统前端页面使用 root.js 标签库进行开发。
+
+## # [数据开发框架 DataHub](/datahub/overview.md)
+
+**DataHub** 是一个简单易用的数据处理框架，整合了多个资源库，PQL 和 Keeper 都是基于 DataHub 框架开发。文档正在逐渐补全。
 
 ---
 技术支持

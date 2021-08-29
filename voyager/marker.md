@@ -17,7 +17,7 @@ public Marker replaceAllInMarkdown(String regex, String replacement);　//在转
 public Marker replaceInHtml(String old, String replacement);　//在转换后替换
 public Marker replaceAllInHtml(String regex, String replacement);　//在转换后使用正则表达式替换
 
-public Marker colorCodes(); //使用彩色编码，显示行号，需要 root.js 组件库支持
+public Marker colorCodes(); //使用彩色编码，显示行号，需要 root.js 标签库支持
 public Marker colorCodes(boolean lineNumbers); //使用彩色编码，是否显示行号
 public Marker transform(); //执行转换
 public String getTitle(); //获取文档大标题

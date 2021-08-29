@@ -10,8 +10,10 @@
     + [MySQL 中大数据量高访问量的表负载分担策略](/blog/20210724.md)
 
 * Javascript
-    + [使用 Javascript 扩展 HTML 标签](/blog/20210731.md)
-    
+    + [扩展 HTML 原生标签（上）](/blog/20210731.md)  
+    + [扩展 HTML 原生标签（下）](/blog/20210807.md) 
+    + [定义自己的 HTML 标签（一）](/blog/20210814.md)
+    + [使用 Javascript 可选链让代码更优雅](/blog/20210828.md)
 
 * 积木编程
     + [Scratch 发展史](/blog/20201210.md)

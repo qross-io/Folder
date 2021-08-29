@@ -1,6 +1,14 @@
 # 版本和更新
 
-## v1.7.0 (2021.7.30)
+## v1.8.0 (2021.8.30)
+
+* [系统] 新增 [Keeper 节点事件](/master/keeper/node-events.md)管理页面。
+* [用户] 重写 [用户管理](/master/user/users.md)
+* [用户] 重写 [新建用户](/master/user/info.md)
+* [用户] 重写 [角色权限](/master/user/rule.md)
+* [用户] 重写 [管理团队](/master/user/team.md) 相关功能。
+
+## v1.7.0 (2021.7.31)
 
 这个版本主要是节点管理相关页面的开发。
 
@@ -46,11 +54,11 @@
 
 ## v1.1.0 (2021.1.31)
 
-这个版本主要是 root.js 组件库的更新，这个项目基本没有更新。
+这个版本主要是 root.js 标签库的更新，这个项目基本没有更新。
 
-* root.js 组件库从项目中分离。
+* root.js 标签库从项目中分离。
 * Home 页面任务统计逻辑修改为异步。
-* 跟随 root.js 组件库更新修改多个页面。
+* 跟随 root.js 标签库更新修改多个页面。
 
 ## v0.6.5 (2020.12.25)
 
@@ -98,4 +106,4 @@
 * [Keeper 任务调度工具](/keeper/overview.md)
 * [PQL 过程化查询语言](/pql/overview.md)
 * [Voyager 模板引擎](/voyager/overview.md)
-* [root.js 组件库](/root.js/overview.md)
+* [root.js 标签库](/root.js/overview.md)

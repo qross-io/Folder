@@ -2,10 +2,6 @@
 
 **Calendar** 可以实现一月、多月和整年日历功能，支持日期单选、周选和范围选择，可通过数据接口显示农历和特殊工作日、休息日，还可以与其他组件进行组合应用。日历组件也适配移动端。
 
-## 下载
-
-[点击下载 Calendar 组件及相关依赖文件](http://www.qross.cn/download?file=calendar.zip)
-
 ## 使用
 
 Calendar 组件及其依赖库或组件列表如下：
@@ -15,7 +11,7 @@ Calendar 组件及其依赖库或组件列表如下：
 * [DateTime 日期时间类 root.datetime.js](/root.js/datetime.md)
 * Calendar 组件默认样式 `root.calendar.css`
 * 需要两个`iconfont`图标，在`root.calendar.iconfont.css`中。
-* 如果要显示农历，还需要自己做一个农历数据接口，农历数据文件为`calendar.csv`
+* 如果要显示农历，还需要自己做一个农历数据接口，农历数据文件为`data`目录下的`calendar.csv`
 
 引用代码示例如下，可放在页面的任何地方，建议放在 HEAD 标签中：
 

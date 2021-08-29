@@ -1,6 +1,10 @@
 # Button 按钮扩展
 
-组件库对 BUTTON 标签进行了扩展，主要是为了实现与后端进行快速交互。当设置了`onclick+`或`watch`属性时，所有扩展功能才生效。
+标签库对 BUTTON 标签进行了扩展，主要是为了实现与后端进行快速交互。当设置了`onclick+`或`watch`属性时，所有扩展功能才生效。
+
+```html
+<button id="Button1" onclick+="pql|api" watch="#TextBox1,#TextBox2" scale="normal" color="blue" confirm-text="" click-text="" success-text="" failure-text="" exception-text="" jumping-text="" jump-to="url" enabled-class="" disabled-class="">按钮</button>
+```
 
 ## 使用
 
@@ -9,66 +13,87 @@
 ```html
 <script type="text/javascript" src="/root.js"></script>
 <script type="text/javascript" src="/root.popup.js"></script>
-<script type="text/javascript" src="/root.dialog.js"></script>
 <script type="text/javascript" src="/root.button.js"></script>
 ```
 
 <script type="text/javascript" src="@/root.input.js"></script>
 <script type="text/javascript" src="@/root.button.js"></script>
 
-## 标签示例
+## 扩展属性
 
-```html
-<button id="Button1" onclick+="pql|api" watch="#TextBox1,#TextBox2" scale="normal" color="blue" confirm-text="" click-text="" success-text="" failure-text="" exception-text="" jumping-text="" jump-to="url" enabled-class="" disabled-class="">按钮</button>
-```
+与按钮操作相关的扩展属性有：
 
-可用的扩展属性如下（按功能排序）：
-
+* `disable-on-click` 当向服务器端发送请求时，是否禁用按钮，可以防止用户多次点击，默认为`true`。
+* `enable-on-success` 当服务器端请求成功后，是否启用按钮，默认为`true`。如果为一次性按钮可设置为`false`。
+* `href` 请求成功后的跳转 URL 地址，支持 [Express 字符串](/root.js/express.md)。没有服务器端事件时，可以把按钮直接当链接使用。
+    ```html
+    <button href="/index.html">返回首页</button>
+    ```
+* `options` 切换按钮的选项，这个属性的默认值是`Enabled=yes&Disabled=no`，其中等号前面是文本，后面是值，可以根据需要配置。
+* `text` 获取或设置按钮的文字。
+* `type` 按钮类型，目前支持`switch`和`confirm`属性，用作切换按钮和再次确认按钮。本文最下面有示例。
 * `watch` 用于组件监听，下面在“组件监听”中单独介绍这个属性。
+
+与启用禁用相关的属性有：
+
+* `disabled` 是否默认禁用按钮，原生属性，不过属性值支持比原生多，接受可识别为尔值的各种值，如`ok`、`cancel`、`false`、`0`等。
+* `disabled-class` 按钮在禁用状态下的样式，默认值`normal-button optional-button`。
+* `enabled` 是否默认启用按钮，与`disabled`属性相对，两个属性同时使用时优先级低于`disabled`。接受可识别为布尔值的值，如`yes`、`no`、`true`、`1`等。
+* `enabled-class` 启用状态下的样式，默认值`normal-button blue-button`。
+
+与提示相关的属性如下，所有以`-text`消息相关属性均支持 [Express 字符串](/root.js/express.md)：
+
+* `hint`设置在其他文本标签中提示操作过程中的各种信息，属性值为 CSS 选择器，如`#Message`。当所有提示方式都没有设置但是又设置了提示文字属性时，默认在按钮右侧创建一个 SPAN 标签用于显示提示文字。
+* `callout` 使用 Callout 提示，属性值用来设置显示的位置，默认在按钮上方显示即`up`。
+* `alert` 使用 Alert 对话框进行提示，无属性值。如果引入了 Popup 组件，则会代替原生的 window.alert 对话框。
+* `message` 使用 Message 组件进行提示，属性值为 Message 提示框显示的时间，`0`为一直显示，单位为秒。
+* `text-class` 提醒文字的样式，仅适用于 Hint 提示方式。
+* `error-text-class` 错误或异常文字的样式，仅适用于 Hint 提示方式。
+* `valid-txt-class` 正确或成功文字的样式，仅用于 Hint 提示方式。
 * `confirm-text` 如果设置了这个属性，则在点击按钮时显示确认提示框，提示框里显示这个属性的文字。
 * `confirm-title` 设置确认对话框的标题文字，对于原生确认对话框无效。
 * `confirm-button-text` 设置弹出对话框确认按钮的文字，默认为`OK`，对于原生确认对话框无效。
 * `cancel-button-text` 设置弹出对话框取消按钮的文字，默认为`Cancel`，对于原生确认对话框无效。
 * `click-text` 点击按钮触发服务器端请求时的提示文字，替换按钮上的文字。
-* `invalid-text` 当 onclick 事件的值返回 false 时的提醒文字 `onclick="return false;"`。
+* `invalid-text` 当 onclick 事件的值返回 false 时的提醒文字`onclick="return false;"`。
+* `jumping-text` 跳转过程中的提示文字，替换按钮文字。
 * `success-text` 请求成功后的提示文字，本文下方有状态说明。
 * `failure-text` 请求失败后的提示文字，本文下方有状态说明。
 * `exception-text` 请求发生异常后的提示文字，替换按钮上的文字，“异常”是指接口或 PQL 语句发生错误，错误会被打印到控制台。
-* `href` 请求成功后的跳转 URL 地址，支持 [Express 字符串](/root.js/express.md)。没有服务器端事件时，可以把按钮直接当链接使用。
-    ```html
-    <button href="/index.html">返回首页</button>
-    ```
-* `jumping-text` 跳转过程中的提示文字，替换按钮文字。
-* `enabled-class` 启用状态下的样式，默认值`normal-button blue-button`。
-* `disable-on-click` 当向服务器端发送请求时，是否禁用按钮，可以防止用户多次点击，默认为`true`。
-* `enableOnSuccess` 当服务器端请求成功后，是否启用按钮，默认为`true`。如果为一次性按钮可设置为`false`。
-* `disabled-class` 按钮在禁用状态下的样式，默认值`normal-button optional-button`。
+
+
+与按钮外观相关的属性有：
+
 * `color` 按钮颜色，见本文下面的说明。
 * `scale` 按钮大小，见本文下面的说明。
-* `type` 按钮类型，目前支持`switch`和`confirm`属性，用作切换按钮和再次确认按钮。本文最下面有示例。
-* `options` 切换按钮的选项，这个属性的默认值是`Enabled=yes&Disabled=no`，其中等号前面是文本，后面是值，可以根据需要配置。
 
-以上所有以`-text`消息相关属性均支持 [Express 字符串](/root.js/express.md)。
+## 扩展方法
 
-## 按钮事件
+扩展方法可用于[事件表达式](/root.js/event.md)。
+
+* `enabld()` 启用按钮。
+* `disable()` 禁用按钮。
+* `hide()` 隐藏按钮。
+* `show()` 显示按钮。
+
+还有一个通用的`set(attr, value)`扩展方法可以用，原生方法不影响使用，如`click()`方法。
+
+## 扩展事件
 
 按钮新增一个[服务器端事件](/root.js/server.md)`onclick+`，是按钮扩展的关键属性。属性值为按钮要执行的 PQL 语句或要请求的 API 接口，属性值格式详见[服务器端事件](/root.js/server.md)和[与数据相关的属性](/root.js/data.md)。客户端事件`onclick`依然可以使用。
 
-另外为了配合`switch`按钮类型，新增两个客户端事件`onclick-enabled`和`onclick-disabled`，分别当按钮切换到相应的状态下触发。
+为了配合`switch`按钮类型，新增两个客户端事件`onclick-enabled`和`onclick-disabled`，分别当按钮切换到相应的状态下触发。  
+为了配合`confirm`按钮类型，新增两个客户羰事件`onclick-confirm`和`onclick-cancel`，分别当按钮确认和取消按钮时触发。
 
-客户端事件一般情况下不会用到，不过有时其他组件有时需要监听按钮的动作，参见[精简事件和表达式](/root.js/event.md)。
+客户端事件可配合其他组件使用，比如需要监听按钮的动作，参见[精简事件和表达式](/root.js/event.md)。
 
 ## 可用的选择器
 
-扩展选择器一般用来定义事件，可用的选择器只有`1`个。
-
-* `$s('#id')` 其中`id`前面的`#`符号不可省略。
-
-一般情况下用不到选择器，只了解选择器的语法即可。
+扩展选择器一般用来定义事件，可用的选择器只有 1 个：`$s('#id')` 其中`id`前面的`#`符号不可省略。一般情况下用不到选择器，只了解选择器的语法即可。
 
 ## 请求成功和失败
 
-Button 扩展主要用于向后端发起请求，请求有以下几种状态：
+Button 扩展通常用于通过`onclick+`事件向后端发起请求，请求有以下几种状态：
 
 * `success` 成功状态，表示返回值符合预期，依照返回值类型确定。详见[服务器端事件](/root.js/server.md)中的说明。
 * `failure` 失败状态，表示返回值不符合预期，依照返回值类型确定。    

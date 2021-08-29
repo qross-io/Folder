@@ -1,147 +1,275 @@
 # root.js 基础库
 
-**root.js** 是整个组件库的基础，root.js 基础库提供类似 **jQuery** 的功能，但是对细节更容易控制。组件库的其他组件都是基于 root.js 进行开发。root.js 除了基本的选择器功能外，对字符串、数组等数据类型进行了扩展，还提供了很多实用的全局方法。另提供了方便组件开发的方法，如初始化属性和定义事件。
+**root.js** 是整个标签库的基础，标签库的扩展标签和自定义标签都是基于 root.js 进行开发。root.js 除了基本的元素扩展外，对字符串、数组等数据类型进行了扩展，还提供了很多实用的全局方法。也提供了方便组件开发的方法，如初始化属性和定义事件等。
 
-## 选择器和 DOM 操作
+## HTMLElement 扩展
 
-最常用的选择器 `$x(...o)`，参数支持 CSS 选择器字符串、元素对象或元素集合，一般为 CSS 选择器字符串，返回一个可继续操作的对象`$root`。该方法支持传入多个参数，类似 jQuery 的选择器`$()`。`$x`是 DOM 操作的起点，后续的很多方法都需要先选择元素。`$x`选择器只支持原生标签，不支持 root.js 组件库的自定义标签。
+root.js 为 HTML 中的所有原生标签增加了一些通用的属性和方法。
+
+扩展的属性有：
+
+* `bottom` 获取或设置元素距文档底部的边距，单位像素。
+* `first` 功能同`firstElementChild`，指向第一个子元素。
+* `height` 获取或设置元素的高度，单位像素。
+* `html` 功能同`innerHTML`，得到元素内的所有 HTML。
+* `icon` 获取或设置元素的图标，支持 Iconfont 和 图片，图标显示为元素的第一个子节点。
+* `last` 功能同`lastElementChild`，指向最后一个子元素。
+* `left` 获取或设置元素距文档左侧的边距，单位像素。
+* `next` 功能同`nextElementSibling`，指向下一个同胞元素。
+* `parent` 功能同`parentNode`，指向其父级元素。
+* `right` 获取或设置元素距文档右侧的边距，单位像素，单位像素。
+* `text` 功能同`textContent`，得到元素的文本内容。
+* `top` 获取或设置元素距文档顶部的边距。
+* `visible` [布尔属性](/root.js/boolean.md)，获取或设置元素可见性，与`hidden`属性相对。
+* `width` 获取或设置元素的宽度，单位像素。
+
+扩展的方法有：
+
+* `bind(eventName, func)` 绑定一个事件到元素上。
+* `on(eventNames, func)` 绑定一个或多个事件到元素上。
+* `execute(eventName, ...args)` 执行一个自定义扩展事件。
+* `hide()` 隐藏当前元素。
+* `show()` 让当前元素可见。
+* `insertBeforeBegin(element)` 在元素开始标签之前插入另一个元素或 HTML，`insertAdjacentHTML('beforeBegin', html)` 和 `insertAdjacentElement('beforeBegin', element)`的合体形态。
+* `insertBeforeEnd(element)` 在元素结束标签之前插入另一个元素或 HTML，类似于`appendChild(element)`但支持 HTML 字符串。
+* `insertAfterBegin(element)` 在元素开始标签之后插入另一个元素或 HTML。
+* `insertAfterEnd(element)` 在元素结束标签之后插入另一个元素或 HTML。
+* `get(attr)` 获取某一个属性的值。
+* `select(o)` 同`querySelector(o)`，在元素内选择符合指定 CSS 选择器的第一个子元素，找不到则返回`null`。
+* `selectAll(o)` 同`querySelectorAll(o)`，在元素内选择符合指定 CSS 选择器的所有子元素，返回一个数组，找不到则返回一个空数组。
+* `set(attr, value)` 设置某个属性的值，用得比较多。
+* `setBootom(bottom)` 设置底边距，单位像素。
+* `setClass(className)` 设置样式类。
+* `setHeight(height)` 设置高度，单位像素。
+* `setHTML(html)` 设置 innerHTML。
+* `setIcon(icon)` 设置图标，见`icon`属性。
+* `setLeft(left)` 设置左边距，单位像素。
+* `setRight(right)` 设置右边距，单位像素。
+* `setStyle(name, value)` 设置某个样式。
+* `setStyles(styles)` 设置多个样式，`styles`参数传递一个对象。
+* `setText(text)` 设置`textContent`。
+* `setTop(top)` 设置顶边距，单位像素。
+* `setWidth(width)` 设置宽度，单位像素。
+* `call(message, position = 'up', seconds = 0)` 在当前元素的某个位置`position`显示 Callout，内容为`message`，`seconds`为`0`表示一直显示，直到被点击。请参阅本文下方关于 Callout 的内容。
+* `do(func)` 执行一个函数，方便链式操作，见下面示例。
+
+
+所有不返回值的方法都支持链式操作，让代码写得更优雅。
 
 ```javascript
-$x('#Title').html('HELLO WORLD!');
-$x('div').objects.forEach(div => ...);
+this.container.selectAll('tr[week=v' + week + ']')
+    .map(row => row.setClass(this.weekFocusRowClass)
+                    .first
+                    .setClass(this.weekOfYearFocusClass)
+                    .parent
+    )
+    .first
+    .do(row => { //row 表示当前元素
+        this.$week = week;
+        this.$startDate = row.cells[1].get('value');
+        this.$endDate = row.cells[7].get('value');
+
+        this.container.set('week', this.$week);
+        this.container.set('startDate', this.$startDate);
+        this.container.set('endDate', this.$endDate);
+    });
+
+calendar.container
+    .select('div[sign=CALENDAR-MONTH-SWITCH]')
+    .setStyle('visibility', 'visible')
+    .show()
+    .setLeft(target.left + target.width / 2 - frame.width / 2)
+    .setTop(body.top - 8)
+    .fadeIn();
+
+body.fadeOut(20).next.fadeOut(20);
 ```
 
-还有其他可用的选择器：
+## Document 全局事件
 
-* `$s(o)` 获取符合条件的第一个标签或元素，如`$s('a')`返回页面上的第一个链接。其中`s`表示`single`，这个方法可选择原生标签和自定义标签，且自定义标签会被优先选择。
+root.js 为 Document 增加了三个事件，按照触发顺序依次为：
+
+* `onready` 当页面渲染完成之后执行，在`window.onload`事件之前。
+* `onpost` 当 [Model 加载数据](/root.js/model.md)完成之后执行。
+* `onload` 当页面加载完成之后触发，即 onpost 事件都执行完成，代替`window.onload`事件。
+
+一般情况下使用`onload`事件多一些，而且建议使用`document.onload`事件代替`window.onload`事件。
+
+```javascript
+    document.on('load', function() {
+        //...
+    });
+```
+
+## Array 数组扩展
+
+扩展属性有：
+
+* `first` 返回数组的第一个元素。
+* `last` 返回数组的最后一个元素。
+
+扩展方法有：
+
+* `asc(p)` 升序排序原数组。如果是对象数组，可按照对象名称为`p`的属性值进行排序。
+* `desc(p)` 降序排序原数组。如果是对象数组，可按照计算对象名称为`p`的属性值进行排序。
+* `distinct()` 将数组的元素进行排重，还是返回数组。
+* `intersect(array)` 只保留两个数组都有的内容，即取交集。
+* `max(p)` 获取数组中的最大值。如果是对象数组，可计算对象名称为`p`的属性取最大值。
+* `min(p)` 获取数组中的最小值，如果是对象数组，可计算对象名称为`p`的属性取最小值。
+* `minus(array)` 从原数组中删除`array`中包含的所有内容，即取差集。
+* `one()` 如果数组只有一项，则返回这一项，否则返回当前数组。
+* `repeat(t)` 将`t`个原数组拼接，即重复`t`次。
+* `sum(p)` 获取数组各项累加的结果。如果是对象数组，可计算对象名称为`p`的属性取合计值。
+* `toSet()` 将数组转化为 Set 对象，元素会进行排重。
+* `union(array)` 连接另外一个数组并排重，即取合集，仅连接不排重可使用`concat(array)`方法。
+
+## String 字符串扩展
+
+* `$includes(str, delimiter = ',')`  判断字符串是否包含指定字符，类似于 SQL 中的`in`，如字符串`'1,3,14,15,28'`中是否包含`'4'`，返回`false`，是否包含`14`，返回`true`
+* `$length(min = 0)` 可以把中文字符识别为`2`个位置，`'中文'.$length()`结果为`4`
+* `$p(element)` [Express 字符串](/root.js/express.md)解析方法，可传入当前元素或对象。
+* `$remove(str, delimiter = ',')`  如字符串 `'1,3,14,15,28'` 中移除`14`，返回`'1,3,15,28'`
+* `$replace(sub, rep)` 用`req`替换字符串中的全部特定内容`sub`
+* `$trim(char1, char2)` 移除字符串两端的指定字符，如移除左右括号 `str.$trim('(', ')')`
+* `$union(strOrArray, delimiter)` 用指定内容拼接字符串或数组，返回值为拼接好的字符串
+* `decode()` 进行 HTML 解码。
+* `drop(length)` 从字符串左边开始删除指定长度的内容，如`'abcd'.drop(1)`结果为`'bcd'`。也接受字符串参数，如果字符串以指定参数的字符串开头则删除，如`'onclick'.drop('on')`结果为`click`。
+* `dropRight(length)` 从字符串右边开始删除指定长度的内容，如`'abcd'.dropRight(1) = 'abc'`。也接受字符串参数，从右侧删除指定的字符串。
+* `eval(obj, data)` 对字母串求值，不传递`obj`时功能同全局函数`eval(str)`；传递`obj`时，将会将字符串转成函数并应用到`obj`上，`data`是函数的可选参数。
+* `encode()` 进行 HTML 编码。
+* `encodeURIComponent()` 进行 URL 地址编码。
+* `fill(...elements)` 将字符串内容填充到指定元素内。
+* `prefix(str)` 为字符串增加前缀，如`click.prefix('on')`结果为`'onclick'`。
+* `suffix(str)` 为字符串增加后缀。
+* `take(length)` 从原字符串开头开始截取指定长度并返回，如`'abcd'.take(3) = 'abc'`。
+* `takeRight(length)` 获取原字符串从尾部开始到指定长度的内容，如`'abcd'.takeRight(3) = 'bcd'`。
+* `takeAfter(value)` 从字符串中获取第一次出现`value`之后的内容，如`'abbcd'.takeAfter(b) = 'bcd'`。
+* `takeAfterLast(value)` 从字符串中获取之后一次出现`value`之后的内容，如`'abbcd'.takeAfter(b) = 'cd'`。
+* `takeBefore(value)` 从字符串中获取第一次出现`value`之前的内容，如`'abcd'.takeBefore(c) = 'ab'`。
+* `takeBeforeLast(value)` 从字符串中获取最后一次出现`value`之前的内容，如`'abcddcba'.takeBeforeLast('c') = 'abcdd'`。
+
+一些字符串转化方法：
+
+* `recognize()` 自动识别字符串的类型并转换，可识别布尔值、整数和小数，如`'yes'.recognize()`返回`true`，`'23'.recognize()`返回`23`。
+* `toInt(defaultValue = 0)`  将字符串转化为整数，比`parseInt`方法更智能。
+* `toFloat(defaultValue = 0)`  将字符串转化为小数，比`parseFloat`方法更智能。
+* `toBoolean(defaultValue = false)` 将字符串转化为布尔值，会把`yes`, `1`, `true`, `ok`, `on`识别为`true`，会把`no`, `0`, `false`, `cancel`, `off`识别为`false`，详细规则见[布尔属性](/root.js/boolean.md)。
+* `toArray(delimiter = ',')` 将字符串转化转化数组，类似于`split`方法，也可以把`'[1,2,3,4]'`解析成数组。
+* `toMap(delimiter = '&', separator = '=')` 将字符串转化为 Object 结构，比较常用的是地址参数，也可转换 Json 格式的字符串。
+* `toJson()` 将字符串转成 Json 对象。
+* `toCamel()` 将分隔符形式的字符串转驼峰格式，如`'mine-type'.toCamel()`结果是`mineType`。
+* `toPascal()` 将分隔符形式的字符串转 Pascal 格式，如`'mine-type'.toPascal()`结果是`MineType`。
+* `toHyphen()` 将驼峰格式的字符串转分隔符格式，如`'mineType'.toHyphen()`结果是`mine-type`。
+
+一些字符串判断方法：
+
+* `if(exp)` 接受一个函数或字符串表达式，如果满足条件则返回自身，否则返回`null`，方便配合可选链进行链式操作。
+* `ifEmpty(other)` 若原字符串为空返回 other ，若部位空则返回原字符串。
+* `isArrayString()` 判断字符串是否可转为数组。
+* `isDateString()` 判断字符串是否为日期。
+* `isDateTimeString()` 判断字符串是否为日期时间。
+* `isEmpty()` 判断字符串是否为空。* `isObjectString()` 判断字符串是否是可转为对象。
+* `isIntegerString()` 判断字符串是否可转为 Int 类型。
+* `isNumberString()` 判断字符串是否可转为 Number 类型。
+* `isTimeString()` 判断字符串是否为时间。
+
+## Number 数字扩展
+
+* `floor(n = 0)` 去除多余的小数部分，保留`n`位小数。
+* `ifNegative(v)` 判断数字是否为负数，为负数则返回`v`。
+* `ifNotZero(v)` 判断数字是否不为`0`，不为`0`则返回`v`。
+* `ifPositive(v)` 判断数字是否为正数，为正数则返回`v`。
+* `ifZero(v)` 判断数字是否为`0`，为`0`则返回`v`。
+* `kilo()` 为数字增加千分符，返回字符串。如`12004.kilo()`结果是`'12,004'`
+* `percent(digits = 2)` 将数字转换为百分数字符串，默认保留两位小数。如`0.65487.toPercent()`结果是`65.49%`
+* `round(n = 0)` 将数字四舍五入，保留`n`位小数。
+* `toTimeSpan(max)` 将秒单位的数字转成易读的时间间隔值，如`1d24h`。
+
+## 全局属性
+
+一些关于文档的全局属性。
+
+* `$lang` 当前浏览器的语言，如中文为`zh`。
+* `$mobile` 当前是否在移动设备上运行，布尔值。反过来就是在 PC 设备上运行。
+* `$root.scrollTop` 获取或设置滚动条当前的纵向位置。
+* `$root.scrollLeft` 获取或设置滚动条当前的横向位置。
+* `$root.visibleWidth` 获取当前可视范围的宽度，不建议使用。
+* `$root.visibleHeight` 获取当前可视范围的高度, 在iframe中时不准，不在iframe时也不准，不建议使用。
+* `$root.documentWidth` 获取文档的宽度。
+* `$root.documentHeight` 获取文档的高度。
+
+## 全局方法
+
+解析地址字符串：
+
+* `$query.get(name)` 获取地址中名称为`name`的参数。
+* `$query.has(name)` 判断地址中是否包含名称为`name`的参数。
+
+Cookie 操作
+
+* `$cookie.get(name)` 获取名为`name`的 Cookie 的值。
+* `$cookie.set(name, value)` 设置名为`name`的 Cookie 的值为`value`。
+* `$cookie.has(name)` 判断 Cookie 中是否包含`name`。
+
+创建元素：
+
+* `$create(tag, properties, styles, attributes)` 创建一个标签元素，返回创建的元素。
+    + `tag` 标签名，如`DIV`
+    + `properties` 属性列表，必须是一个 Object，如`{ "className": "banner", "innerHTML": "Hello World" }`
+    + `styles` 样式列表，必须是一个 Object，如`{ "backgroundColor": "#FF0000", "font-size": "2rem" }`
+    + `attributes` 自定义属性列表，必须是一个 Object，如`{ "sign": "TEST" }`
+
+全局转化方法：<a id="parse"></a>
+
+* `$parseString(value, defaultValue = '')` 尝试将数值转成字符串。
+* `$parseInt(value, defaultValue = 0)`  尝试将数值转成整数。
+* `$parseFloat(value, defaultValue = 0)` 尝试将数值转成小数。
+* `$parseBoolean(value, defaultValue = false)` 尝试将数值转成布尔值，否则返回默认值。根据`value`的类型不同，有不同的判断条件。分别说明：
+    + `null`或`undefined` 返回默认值；
+    + 数字，是否大于`0`；
+    + 字符串，会识别为`true`的字符串有`true`、`yes`、`selected`、`disabled`、`enabled`、`1`、`ok`、`on`或`空字符串`，会识别为`false`的字符串有`null`、`undefined`、`false`、`no`、`0`、`cancel`或`off`，不区分大小写。其他值`eval`计算之后再进行识别，计算失败在控制台返回异常信息也返回默认值；详见[布尔属性](/root.js/boolean.md)。
+    + 数组，长度是否大于`0`；
+    + 对象，是否有属性或数据项；
+    + 类实例，是否有`length`或`size`属性且大于`0`；
+    + 其他，返回默认值。
+* `$parseArray(value, defaultValue = [])` 尝试将数值转成数组。
+* `$parseEmpty(value, defaultValue = true)` 检查给定值是否为空，一定程度上可以理解为是`$parseBoolean`判断的逆操作：
+    + `null`或`undefined`，返回默认值；
+    + 字符串，是否为空；
+    + 数组，长度是否为`0`；
+    + 对象，是否无属性或空数据项；
+    + 布尔值，是否为`false`；
+    + 数字，是否小于`0`；
+    + 其他，返回默认值。
+* `$parseZero(value, defaultValue = 1)` 检查给定值是否为`0`，如果不是数字，则尝试转成数字。
+    + `null`或`undefined`，返回默认值；
+    + 字符串，尝试转成数字再判断，如果不能转成数字，则使用默认值；
+    + 数组，长度是否为`0`；
+    + 对象，是否无属性或空数据项；
+    + 布尔值，是否为`false`；
+    + 其他，返回默认值。
+
+其他更多：
+
+* `$guid()` 随机生成`guid`，由当前时间和`10`位随机数字和字母构成。
+* `$random(begin, end)` 随机取`begin`到`end`之间的整数。
+* `$size(o)` 尝试得到一个对象的长度，如字符串、数组、Object 等。
+* `$shuffle(digit = 7)` 随机生成`digit`位密码，包含大小写字母和数字。
+
+## 选择器
+
+可用的选择器如下：
+
+* `$s(o)` 获取符合条件的第一个标签或元素，如`$s('a')`返回页面上的第一个链接。其中`s`表示`single`，这个方法可选择原生标签和自定义标签，且自定义标签会被优先选择。如果只想选择原生标签，可使用原生选择器`$`。
+* `$a(...o)` 获取符合条件的全部标签或元素，支持输入多个参数，如`$a('p', 'div')`返回页面上所有 P 标签和 DIV 标签。其中`a`表示`all`，这个方法可选择原生标签和自定义标签。如果只想选择原生标签，可使用原生选择器`$$`。
 * `$v(o)` 获取符合条件且可见的第一个标签或元素，其中`v`表示`visible`。除限制可见外，其他功能同`$s`。
-* `$a(...o)` 获取符合条件的全部标签或元素，支持输入多个参数，如`$a('p', 'div')`返回页面上所有 P 标签和 DIV 标签。其中`a`表示`all`，这个方法可选择原生标签和自定义标签。
-* `$t(o)` 选择单个自定义标签，只能传入标签`name`，如 TREEVIEW、CALENDAR 等。其中`t`表示`tag`，这个方法只能选择自定义标签。另外每个组件中也提供了选择器方法，如`$tree(name)`。
-* `$c(...o)` 获取符合条件的全部自定义标签，支持输入多个参数，如`$c('calendar,clock')`返回页面上所有 CALENDAR 标签和 CLOCK 标签。其中`c`表示`components`，这个方法只能选择自定义标签。
+* `$t(o)` 选择单个自定义标签，如 TREEVIEW、CALENDAR 等。其中`t`表示`tag`，这个方法只能选择自定义标签。另外每个组件中也提供了选择器方法，如`$tree(name)`。一般用不到。
 
-这两个选择器与`$x`选择器不同是，`$x`返回一个可继续操作元素的对象，可以使用系统的很多方法继续进行元素操作；而`$s`和`$a`选择器返回元素本身，需要使用元素本身的方法继续操作元素。
 
 ```javascript
-$x('#Title').html('HELLO WORLD!');
 $s('#Title').innerHTML = 'HELLO WORLD!';
+$a('#tag1,#tag2').forEach(...);
 ```
-
-自定义标签只能按照`id`或`name`属性进行选择。
-
-```javascript
-$s('#tag')
-$a('#tag1,#tag2')
-$t('#tag') //与 $s('#tag') 效果相同
-```
-
-上例两条语句实现的功能相同。
-
-### $x 的下一步操作
-
-`$x`选择器返回`$root`对象，这个对象包含很多方法，可对元素进行很多操作。`$root`对象里有一个数组保存已经选择到的所有元素，下文称为`$root`集合。
-
-`$x`大部分方法都返回`$root`对象本身，所以可以多个方法串接到一起进行操作。例如：
-
-```javascript
-$x('div').tail().css('nav').show();
-```
-
-在元素导航之间导航：
-
-* `push(...o)` 可以理解把两次`$x`的结果合在一起。
-* `head()` 只留下集合中的第一个元素。
-* `tail()` 只留下集合中的最后一个元素。
-* `pick(i)` 只留下指定索引位置的元素，如果`i`小于`0`则保留第`1`个元素，如果`i`大于总元素数量，则保留最后一个元素。
-* `select(...o)` 在当前元素集合的基础上继续选择子元素。
-* `parent()` 返回每个集合元素的父元素。
-* `prev()` 返回每个集合元素的上一个标签元素（`nodeType == 1`），相当于`previousElementSibling`。
-* `next()` 返回每个集合元素的上一个标签元素（`nodeType == 1`），相当于`nextElementSibling`。
-* `before()` 返回每个集合元素的上一个元素，包括标签、文本或注释，相当于`previousSibling`。
-* `after()` 返回每个集合元素的下一个元素，包括标签、文本或注释，相当于`previousSibling`。
-* `children()` 返回每个元素的所有节元素。
-* `first()` 返回集合中每个元素的第一个子元素。
-* `last()` 返回集合中每个元素的最后一个子元素。
-* `nth(index)` 返回集合中每个元素的指定索引位置的子元素。
-
-元素基本操作：
-
-* `show(display)` 显示集合中的所有元素，当`display`为`false`时，则隐藏集合中的所有元素。当不传递`display`值时或`display`为`true`时，显示集合中的所有元素。`display`属性还可以使用其他样式属性`display`属性所支持的值，如`block`。通过设置`visible="always"`或`hidden="always"`来忽略这个方法。通过在目标元素上设置`relative`属性来关联显示或隐藏其他的元素，如`relative="#Button1"`。
-* `hide()` 隐藏集合中的所有元素。通过设置`visible="always"`来忽略这个方法。通过在目标元素上设置`relative`属性来关联隐藏其他的元素，如`relative="#Span1"`。
-* `toggle()` 自动切换隐藏和显示状态，如果是隐藏，则切换成显示；否则亦然。
-* `remove()` 从页面上清除集合中所有元素。
-* `switch(attr, value1, value2)` 切换元素的属性。
-* `style(name, value)` 设置元素的样式。
-* `styles(styleObject)` 设置元素的多个样式，参数必须是一个对象，如`{ "color": "#009900", "text-decoration": "underline"}`。
-* `stash(attr)` 暂存元素的属性值，可能需要对元素的属性进行修改，并在将来使用元素的旧值。
-* `reset(attr)` 恢复元素的属性值。
-* `css(name)` 设置元素的样式单 class。
-* `swap(css1, css2)` 切换元素的样式单 class。
-
-表单相关操作：
-
-* `enable(enabled = true)` 启用表单元素，如按钮、输入框等。如果`enabled`为`false`，则禁用这个表单元素。
-* `disable()` 禁用表单元素。
-* `check(checked)` 设置复选框的选中或不选中。
-* `incheck()` 半选中复选框。
-* `uncheck()` 取消选中指定复选框。
-* `tocheck()` 切换复选框的选中状态。
-
-绑定事件：
-
-* `on(eventName, func, useCapture = false, attach = true)` 为元素添加监听事件，可同时绑定函数给多个事件。
-    + `eventName` 事件名称，如`onclick`，`onload`等，`on`前缀可以省略
-    + `func` 事件函数
-    + `useCapture` `false` 在冒泡阶段执行，`true` 在捕获阶段执行
-    + `attach` 是附加操作还是赋值操作。附加操作是添加监听，赋值操作可以理解为直接把`func`赋给事件，如`element.onclick = function()...`
-
-子元素操作，各参数的意义见`$create()`全局方法：
-
-* `insertFront(tag, properties, styles, attributes)` 在指定元素之前插入按照传入参数生成的元素。
-* `insertBehind(tag, properties, styles, attributes)` 在指定元素之后插入按照传入参数生成的元素。
-* `insertFirst(tag, properties, styles, attributes)` 在指定元素的第一个子元素之前插入按照传入参数生成的元素。
-* `append(tag, properties, styles, attributes)` 在指定元素的最后一个子元素之后插入按照传入参数生成的元素。
-
-与元素属性相关的操作，下面的方法当传参时设置元素相应的属性值，不传参时返回相应的属性值。如果不传参数（获取值时），当集合中有多个元素时，则返回数组。
-
-* `html(code)` 设置或获取元素的`innerHTML`，即所有 HTML 代码。
-* `text(text))` 设置或获取元素的`textContent`，即所有文本内容。
-* `value(value)` 设置或获取表单元素的`value`。
-* `attr(name, value)` 设置或获取元素的属性值，`name`为属性名称。如`$x('#span1').attr('tip', 'Hello!')`
-* `left(value)` 设置或获取元素左边框到可视区左边的距离。
-* `right(value)` 设置或获取元素右边框到可视区域左边的距离。
-* `top(value)` 设置或获取元素顶部到可视区域顶部的距离。
-* `bottom(value)` 设置或获取元素底边框到可视区域顶部的距离。
-* `width(value)` 设置或获取元素的宽度。
-* `height(value)` 设置或获取元素的高度。
-* `css(name)` 设置或获取元素的样式单。
-
-
-选择器基本操作，返回布尔值、数字或字符串：
-
-* `nonEmpty()` 判断`$root`集合是否为空。
-* `isEmpty()` 判断`$root`集合是否不为空。
-* `size()` 返回`$root`集合的元素个数。
-* `is(name)` 判断集合中第一个元素名称是否是`name`，`name`不区分大小写。
-* `get(i)` 返回指定索引位置的元素本身，不传参数表示得到第一个元素，当`i`超过索引范围时返回`null`。
-* `visible()` 判断第一个元素是否是可见状态。
-* `hidden()` 判断第一个元素是否是隐藏状态。
-
-定位相关操作，用于将元素定位到参照元素的附近。参数`reference`表示参考元素，接受元素对象或字符串；`offsetX`和`offsetY`分别为 X 轴和 Y 轴的偏移量，`align`表示对齐方式，可选值`left`，`center`，`right`。下面 4 个方法均返回布尔值，表示是否超出页面边界。
-
-* `upside(reference, offsetX = 0, offsetY = 0, align = 'center')` 将指定元素定位到参考元素上方。
-* `downside(reference, offsetX = 0, offsetY = 0, align = 'center')` 将指定元素定位到参考元素下方。
-* `leftside(reference, offsetX = 0, offsetY = 0)` 将指定元素定位到参考元素左边。
-* `rightside(reference, offsetX = 0, offsetY = 0)` 将指定元素定位到参考元素右边。
-
-
-### $root 对象静态方法
-
-* `$root.scrollTop(value)` 获取或设置滚动条当前的纵向位置。
-* `$root.scrollLeft(value)` 获取或设置滚动条当前的横向位置。
-* `$root.visibleWidth()` 获取当前可视范围的宽度，不建议使用。
-* `$root.visibleHeight()` 获取当前可视范围的高度, 在iframe中时不准，不在iframe时也不准，不建议使用。
-* `$root.documentWidth()` 获取文档的宽度。
-* `$root.documentHeight()` 获取文档的高度。
 
 ## Ajax 相关方法
 
@@ -183,7 +311,7 @@ Ajax 用来从接口调取数据，以下 4 个方法分别对应 4 种不同的
 * `$cogo(todo, element)` 可以运行 PQL 语句或请示接口（支持跨域），但需要后端配合。
     + `todo`表示要运行的 PQL 语句或要请求的接口，支持 [Express 字符串](/root.js/express.md)，属性格式详见[与数据相关的属性](/root.js/data.md)与 PQL 语句或接口相关的说明。
     + `element`表示发起请示的元素或对象。
-    + `$cogo`返回一个 **Promise** 对象。
+    + `$cogo`返回一个 *Promise* 对象。
 
 示例：
 
@@ -211,134 +339,13 @@ Json 构造函数和方法有：
 
 静态方法有：
 
-* `Json.parse(json)` 返回一个 Json 对象，功能同构造函数。
-* `Json.toString(v)` 尝试将一个 Json 对象转成字符串。
+* `Json.eval(str)` 尝试将字符串直接转成 Object 对象。
+* `Json.find(object, path = '/')` 按 JsonPath 查找 Object 对象的内容。
+* `Json.toString(v)` 尝试将一个 Object 对象或非字符串类型转成字符串。
 
-## String 字符串类型扩展方法
+## Callout
 
-* `$includes(str, delimiter = ',')`  判断字符串是否包含指定字符，类似于 SQL 中的`in`，如字符串`'1,3,14,15,28'`中是否包含`'4'`，返回`false`，是否包含`14`，返回`true`
-* `$length(min = 0)` 可以把中文字符识别为`2`个位置，`'中文'.$length()`结果为`4`
-* `$p(element)` [Express 字符串](/root.js/express.md)解析方法，可传入当前元素或对象。
-* `$remove(str, delimiter = ',')`  如字符串 `'1,3,14,15,28'` 中移除`14`，返回`'1,3,15,28'`
-* `$replace(sub, rep)` 用`req`替换字符串中的全部特定内容`sub`
-* `$trim(char1, char2)` 移除字符串两端的指定字符，如移除左右括号 `str.$trim('(', ')')`
-* `$union(strOrArray, delimiter)` 用指定内容拼接字符串或数组，返回值为拼接好的字符串
-* `eval()` 对字母串求值，功能同全局函数`eval(str)`。
-* `encode()` 进行 HTML 编码。
-* `decode()` 进行 HTML 解码。
-* `drop(length)` 从字符串左边开始删除指定长度的内容，如`'abcd'.drop(1) = 'bcd'`。
-* `dropRight(length)` 从字符串右边开始删除指定长度的内容，如`'abcd'.dropRight(1) = 'abc'`。
-* `take(length)` 从原字符串开头开始截取指定长度并返回，如`'abcd'.take(3) = 'abc'`。
-* `takeRight(length)` 获取原字符串从尾部开始到指定长度的内容，如`'abcd'.takeRight(3) = 'bcd'`。
-* `takeAfter(value)` 从字符串中获取第一次出现`value`之后的内容，如`'abbcd'.takeAfter(b) = 'bcd'`。
-* `takeAfterLast(value)` 从字符串中获取之后一次出现`value`之后的内容，如`'abbcd'.takeAfter(b) = 'cd'`。
-* `takeBefore(value)` 从字符串中获取第一次出现`value`之前的内容，如`'abcd'.takeBefore(c) = 'ab'`。
-* `takeBeforeLast(value)` 从字符串中获取最后一次出现`value`之前的内容，如`'abcddcba'.takeBeforeLast('c') = 'abcdd'`。
-
-一些字符串转化方法：
-
-* `recognize()` 自动识别字符串的类型并转换，可识别布尔值、整数和小数，如`'yes'.recognize()`返回`true`，`'23'.recognize()`返回`23`。
-* `toInt(defaultValue = 0)`  将字符串转化为整数，比`parseInt`方法更智能
-* `toFloat(defaultValue = 0)`  将字符串转化为小数，比`parseFloat`方法更智能
-* `toBoolean(defaultValue = false)` 将字符串转化为布尔值，会把`yes`, `1`, `true`, `ok`, `on`识别为`true`，会把`no`, `0`, `false`, `cancel`, `off`识别为`false`
-* `toArray(delimiter = ',')` 将字符串转化转化数组，类似于`split`方法，也可以把`'[1,2,3,4]'`解析成数组
-* `toMap(delimiter = '&', separator = '=')` 将字符串转化为 Object 结构，比较常用的是地址参数，也可转换 Json 格式的字符串
-* `toJson()` 将字符串转成 Json 对象
-* `toCamel()` 将分隔符形式的字符串转驼峰格式，如`'mine-type'.toCamel()`结果是`mineType`
-* `toPascal()` 将分隔符形式的字符串转 Pascal 格式，如`'mine-type'.toPascal()`结果是`MineType`
-* `toHyphen()` 将驼峰格式的字符串转分隔符格式，如`'mineType'.toHyphen()`结果是`mine-type`
-
-一些字符串判断方法：
-
-* `isEmpty()` 判断字符串是否为空。
-* `ifEmpty(other)` 若原字符串为空返回 other ，若部位空则返回原字符串。
-* `isObjectString()` 判断字符串是否是可转为对象。
-* `isArrayString()` 判断字符串是否可转为数组。
-* `isIntegerString()` 判断字符串是否可转为 Int 类型。
-* `isNumberString()` 判断字符串是否可转为 Number 类型。
-* `isDateTimeString()` 判断字符串是否为日期时间。
-* `isDateString()` 判断字符串是否为日期。
-* `isTimeString()` 判断字符串是否为时间。
-
-## Number 数字类型扩展方法
-
-* `kilo()` 为数字增加千分符，返回字符串。如`12004.kilo()`结果是`'12,004'`
-* `toPercent(digits = 2)` 将数字转换为百分数字符串，默认保留两位小数。如`0.65487.toPercent()`结果是`65.49%`
-* `toTimeSpan(max)` 将秒单位的数字转成易读的时间间隔值，如`1d24h`。
-
-## Array 数组类型扩展方法
-
-* `$asc(p)` 升序排序原数组。如果是对象数组，可按照对象名称为`p`的属性值进行排序。
-* `$desc(p)` 降序排序原数组。如果是对象数组，可按照计算对象名称为`p`的属性值进行排序。
-* `distinct()` 将数组的元素进行排重，还是返回数组。
-* `intersect(array)` 只保留两个数组都有的内容，即取交集。
-* `max(p)` 获取数组中的最大值。如果是对象数组，可计算对象名称为`p`的属性取最大值。
-* `min(p)` 获取数组中的最小值，如果是对象数组，可计算对象名称为`p`的属性取最小值。
-* `minus(array)` 从原数组中删除`array`中包含的所有内容，即取差集。
-* `repeat(t)` 将`t`个原数组拼接，即重复`t`次。
-* `sum(p)` 获取数组各项累加的结果。如果是对象数组，可计算对象名称为`p`的属性取合计值。
-* `toSet()` 将数组转化为 Set 对象，元素会进行排重。
-* `union(array)` 连接另外一个数组并排重，即取合集，仅连接不排重可使用`concat(array)`方法。
-
-## 其他全局方法
-
-页面加载相关：
-
-* `$ready(func)` 当页面渲染完成之后执行指定的函数，在`window.onload`事件之前，可使用多次。
-* `$finish(func)` 当 Model 加载数据完成之后执行指定的函数，可使用多次。
-* `$post(func)` 当页面加载完成之后触发，可以理解为为`window.onload`添加事件监听。
-* `$complete(func)` 当完成事件监听绑定之后触发，可以理解为在`$post`之后触发的事件。
-
-解析地址字符串：
-
-* `$query.get(name)` 获取地址中名称为`name`的参数。
-* `$query.has(name)` 判断地址中是否包含名称为`name`的参数。
-
-Cookie 操作
-
-* `$cookie.get(name)` 获取名为`name`的 Cookie 的值。
-* `$cookie.set(name, value)` 设置名为`name`的 Cookie 的值为`value`。
-* `$cookie.has(name)` 判断 Cookie 中是否包含`name`。
-
-创建元素：
-
-* `$create(tag, properties, styles, attributes)` 创建一个标签元素，返回创建的元素。
-    + `tag` 标签名，如`DIV`
-    + `properties` 属性列表，必须是一个 Object，如`{ "className": "banner", "innerHTML": "Hello World" }`
-    + `styles` 样式列表，必须是一个 Object，如`{ "backgroundColor": "#FF0000", "font-size": "2rem" }`
-    + `attributes` 自定义属性列表，必须是一个 Object，如`{ "sign": "TEST" }`
-
-全局转化方法：<a id="parse"></a>
-
-* `$parseString(value, defaultValue = '')` 尝试将数值转成字符串。
-* `$parseInt(value, defaultValue = 0)`  尝试将数值转成整数。
-* `$parseFloat(value, defaultValue = 0)` 尝试将数值转成小数。
-* `$parseBoolean(value, defaultValue = false)` 尝试将数值转成布尔值，否则返回默认值。根据`value`的类型不同，有不同的判断条件。分别说明：
-    + `null`或`undefined` 返回默认值；
-    + 数字，是否大于`0`；
-    + 字符串，`true`或`yes`或`1`或`ok`或`on`会识别为`true`，`false`或`no`或`0`或`cancel`或`off`会识别为`false`，不区分大小写。其他值`eval`计算之后再进行识别，计算失败也返回默认值；
-    + 数组，长度是否大于`0`；
-    + 对象，是否有属性或数据项；
-    + 类实例，是否有`length`或`size`属性且大于`0`；
-    + 其他，返回默认值。
-* `$parseArray(value, defaultValue = [])` 尝试将数值转成数组。
-* `$parseEmpty(value, defaultValue = true)` 检查给定值是否为空，一定程度上可以理解为是`$parseBoolean`判断的逆操作：
-    + `null`或`undefined`，返回默认值；
-    + 字符串，是否为空；
-    + 数组，长度是否为`0`；
-    + 对象，是否无属性或空数据项；
-    + 布尔值，是否为`false`；
-    + 数字，是否小于`0`；
-    + 其他，返回默认值。
-* `$parseZero(value, defaultValue = 1)` 检查给定值是否为`0`，如果不是数字，则尝试转成数字。
-    + `null`或`undefined`，返回默认值；
-    + 字符串，尝试转成数字再判断，如果不能转成数字，则使用默认值；
-    + 数组，长度是否为`0`；
-    + 对象，是否无属性或空数据项；
-    + 布尔值，是否为`false`；
-    + 其他，返回默认值。
-
-Callout:
+Callout 可以在指定元素的位置显示指定的文字内容，一些用于提示。在标签库中与其他标签配合使用。
 
 ```javascript
 Callout('message').position(reference, pos).offset(x, y).show(seconds);
@@ -346,20 +353,6 @@ Callout('message').position(reference, pos).offset(x, y).show(seconds);
 
 其中`message`内容可定义；`reference`为参考元素，表示在哪个元素的附近显示 Callout；`pos`为位置项，可选`up`、`down`、`left`、`right`，默认为`up`；`offset`设置偏移坐标；`seconds`设置多少秒后自动关闭，不设置则一直显示，直到被点击。一个页面上只能显示一个 Callout，点击 Callout 会自动隐藏。
 
-对话框相关：
-
-* `$root.alert(message, confirmButtonText = 'OK', title = 'Message')` 显示警告对话框。
-* `$root.confirm(message, confirmButtonText = 'OK', cancelButtonText = 'Cancel', title = 'Confirm')` 显示确认对话框。
-* `$root.prompt(message)` 未实现。
-
-其他更多
-
-* `$lang()` 获取当前浏览器的语言。
-* `$size(o)` 尝试得到一个对象的长度，如字符串、数组、Object 等。
-* `$random(begin, end)` 随机取`begin`到`end`之间的整数。
-* `$randomX(digit = 10)` 随机取`digit`位数字字符串
-* `$randomPassword(digit = 7)` 随机生成`digit`位密码，包含大小写字母和数字。
-* `$guid()` 随机生成`guid`，由当前时间和`10`位随机数字和字母构成。
 
 ## 与组件编程相关内容
 
@@ -524,59 +517,26 @@ this.execute('onclick', arg1, arg2);
 Event.execute('#Tag1', 'onclick', arg1, arg2);
 ```
 
-使用时可以有多种方法为自定义组件添加事件。
+使用时可以有两种方法为自定义组件添加事件。
 
-1. `declare`方法自动为自定义组件添加`on`方法，用于为组件添加监听事件。这个方法必须等待组件加载完成。一般在`$finish`全局方法里使用。`on`方法可以添加多个事件函数，按照添加顺序执行。
+1. 在标签属性上直接定义，建议使用这种方式进行事件定义。
+
+```html
+<div tab="yes" onchange-="show: #Tag1">...</div>
+<input onmodify="..." />
+```
+
+2. `declare`方法自动为自定义组件添加`on`方法，用于为组件添加监听事件。一般在`document.on('load', function() { ... })`全局事件里使用。`on`方法可以添加多个事件函数，按照添加顺序执行。
 
 ```javascript
-$t('#Tag1').on('click', function(p) {
+$s('#Tag1').on('click', function(p) {
     //...
 });
 ```
 
-2. 使用全局方法为自定义组件添加事件。这个方法可以不等待组件加载完成即可使用。
-
-```javascript
-$listen('#Tag1').on('click', function(p) {
-    //...
-})
-```
-
-3. 直接为组件的事件赋值。这个和`on`方法一样，必须在组件加载完成之后才能使用。不同的是这个只能添加一个事件函数，而`on`可以添加多个事件函数。这种方式和`on`方法添加的事件函数不冲突，调用事件时会依次执行这些事件函数。这种方式添加的事件函数优先级高于`on`方法添加的事件函数。
-
-```javascript
-$t('#Tag1').onclick = function(p) {
-    //...
-}
-```
-
-
 ## 自定义属性或自动执行的功能
 
 除上面介绍的所有开发者可用的方法外，还有一些自动执行的功能。
-
-* 自动解析标签的特定属性值，如果这些属性值里包含 [Express 字符串]的占位符，将自动替换成对应的值。这些属性包括：
-    + `-html` 任意标签
-    + `-value` INPUT 标签的值
-    + `-title` 任意标签的`title`属性
-    + `-href` A 标签的链接属性
-    
-    ```html
-    <span -html>ID: &(id)</span>
-    <input type="text" -value="&(name)">
-    <div -title="Hello $(#Name)">...</div>
-    <a -href="/detail?id=&(id)">Detail Page</a>
-    ```
-    
-    这几个以中线开头的属性会在页面加载时替换成解析后的值。
-
-* 如果上面几个特定的属性不够用，还可使用`p`属性。在元素标签上使用`p`属性指定要解析的属性名称，在页面加载时会自动将`p`属性指定的值进行解析。
-
-    ```html
-    <input p="size" size="&(size)" />
-    ```
-
-    上例可以根据地址参数`size`控制 INPUT 的宽度。
 
 * 自动调整页面布局 DIV 的高度以填满整个浏览器，需要在 BODY 标签中设置`self-adaption`属性。
     
@@ -596,14 +556,11 @@ $t('#Tag1').onclick = function(p) {
     <body ifram="#WorkFrame">
     ```
 
-* `click-to-copy`属性，通过设置这个属性，可以点击标签内文字时自动将文本复制到剪切板。如果不设置属性值，那么复制自己的内容。也可以设置属性值，复制其他标签的内容。H1、H2、H3 标签自动附加点击复制功能。
-
-    ```html
-    <span click-to-copy></span>
-    <button click-to-copy="#Text1">复制</button>
-    ```
 
 ---
 参考链接
 
 * [Express 字符串](/root.js/express.md)
+* [布尔属性](/root.js/boolean.md)
+* [服务器端事件](/root.js/server.md)
+* [精简事件表达式](/root.js/event.md)

@@ -1,8 +1,42 @@
 # ECMAScript 新版本特性
 
+## ES 13 (2022)
+
+现有 Chrome 和 Edge 浏览器已支持。
+
+* `static` 静态属性和方法声明前缀。
+* `#` 私有属性和方法声明前缀，在实例外使用时会返回`undefined`。
+
+```javascript
+class Student() {
+    constructor(name) {
+        this.name = name;
+    }
+
+    school = ''; //实例属性
+    static school = 'Middle'; //静态属性
+    #score = 80; //私有实例属性
+    static #score = 80; //私有静态属性
+
+    study() {} //实例方法
+    static study() {} //静态方法
+    #test() {} //私有实例方法
+    static #test() {} //私有静态方法
+}
+
+//原有方法
+Student.school = 'Middle'; //静态属性
+Student.prototype.__score__ = 80; //私有属性，但是还是能访问
+Student.__score__ = 80; //静态私有属性
+Student.prototype.study = function() {} //实例方法
+Student.prototype.__study__ = function() { } //私有实例方法
+Student.test = function() {} //静态方法
+Student.__test__ = function() {} //私有静态方法，但是还是能访问
+```
+
 ## ES 12 (2021)
 
-* `String.prototype.replaceAll`。
+* String 类的 `replaceAll()` 方法。
 * `Promise.any([promise1, promise2, promise3])` 任何一个成功则`resolve`，全部失败才`reject`。
 * `WeekMap`和`WeekSet`，当集合中的对象不再被使用时，GC 会主动回收以释放内存。
 * 逻辑运算符和赋值表达式`&&=`、`||=`、`??=`。

@@ -20,4 +20,6 @@
 ---
 参考链接
 
-* [Qross 系统用户管理](/master/users.md)
+* [用户管理](/master/user/users.md)
+* [用户信息](/master/user/info.md)
+* [用户权限](/master/user/rule.md)

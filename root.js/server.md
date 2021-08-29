@@ -23,12 +23,13 @@
 &lt;textarea coder="java" onchange+="/api/code/check?code={value}% # /data -> not-zero"&gt;&lt;/textarea&gt;
 ```
 
-上例中，要请求的接口是`/api/code/check?code={value}%`；井号`#`后面的`/data`表示当接口请求完成后返回结果中路径`/data`里的数据，支持标准 JsonPath；`->`后面的`not-zero`为判断接口是否请求结果是否符合预期的条件，意义为返回结果不为`0`。所有判断是否符合预期的条件和逻辑为：
+上例中，要请求的接口是`/api/code/check?code={value}%`；井号`#`后面的`/data`表示当接口请求完成后返回结果中路径`/data`里的数据，支持标准 JsonPath 格式；`->`后面的`not-zero`为判断接口是否请求结果是否符合预期的条件，意义为返回结果不为`0`。所有判断是否符合预期的条件和逻辑为：
 
-+ `empty`和`non-empty`：表示字符串是否为空、集合对象是否为空等，识别规则见 [$parseEmpty方法](/root.js/root.md#parse)；
++ `empty`和`non-empty`或`not-empty`：表示字符串是否为空、集合对象是否为空等，识别规则见 [$parseEmpty方法](/root.js/root.md#parse)；
 + `true`和`false`：自动将值转成布尔值，转换规则见 [$parseBoolean 方法](/root.js/root.md#parse)中的说明；
-+ `zero`和`non-zero`：自动将值转成`0`，转换规则见 [$parseZero 方法](/root.js/root.md#parse)中的说明；
-+ 当以上可选属性值不能满足要求时，可使用 Javascript 表达式进行判断，可用变量`data`表示返回结果，如`data > 10 && data < 20`或`data.length > 0`；
++ `zero`和`non-zero`或`not-zero`：自动将值转成`0`，转换规则见 [$parseZero 方法](/root.js/root.md#parse)中的说明；
++ 当以上可选属性值不能满足要求时，可使用 Javascript 表达式进行判断，可用变量`data`表示返回的结果，如`-> data > 10 && data < 20`或`-> data.length > 0`；
++ 如果仅仅是判断返回值是否与预期相等，可以直接写期望值，如`-> 2`。
 + 如果不设置判断条件，则会在标签设置了`success-text`或`failure-text`属性时尝试将返回结果自动转化为布尔值，转换规则同[$parseBoolean 方法](/root.js/root.md#parse)中的说明。
 
 当符合预期时表示执行成功，提示`success-text`，当不符合预期时表示执行失败，提示`failure-text`。如果没有设置判断条件，并且没有设置`success-text`或`failure-text`属性，那么结果会永远识别为`true`。判断结果还有另一个目的，就是触发客户端事件监听，下文中单独介绍。

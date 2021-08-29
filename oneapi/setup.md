@@ -25,7 +25,7 @@ oneapi.ajax.settings=
 * `oneapi.token.list` OneApi 的请求者和 Token 列表，请求者可以是其他业务部门、或者其他微服务、或其他模块的名字，Token 建议使用`OneApi.getToken(int digit)`方法生成，详见 [OneApi 类](/oneapi/class.md)。Token 在系统内必须唯一，即不同请求者的 token不能相同。Token 相关逻辑详见 [OneApi 访问安全验证](/oneapi/token.md)。
 * `oneapi.access.open` 不需要安全验证也能够访问的接口地址各地址规则，详见 [OneApi 设置安全验证例外](/oneapi/open.md)。
 * `oneapi.access.permit` 配置需要认证接口的访问权限，即使有安全控制，每个接口也不是每个请求者都可以访问，比如有的请求者只能访问服务中的几个接口。这个参数可以对访问进行批量控制，详见 [OneApi 访问安全控制](/oneapi/permit.md)。
-* `oneapi.ajax.settings` 为整个 Cogo 系统设置 Ajax 的请求逻辑，是一个与 root.js 前端组件库相关的属性，详见 [root.js 接口请求全局设置](/root.js/ajax.md)。
+* `oneapi.ajax.settings` 为整个 Cogo 系统设置 Ajax 的请求逻辑，是一个与 root.js 前端标签库相关的属性，详见 [root.js 接口请求全局设置](/root.js/ajax.md)。
 
 如果你的系统中有多个服务，但是期望这些服务使用同样的设置，比如设置项`oneapi.token.list`。有几个办法可以解决这个问题：
 

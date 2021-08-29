@@ -14,6 +14,15 @@
     + [Keeper 启动记录](/master/keeper/starts.md)
     + [Keeper 卡死的任务](/master/keeper/stuck.md)
 
+* Keeper 扩展
+    + [Keeper 节点事件](/master/keeper/node-event.md)
+
+* 用户管理
+    + [所有用户列表](/master/user/users.md)
+    * [用户信息](/master/user/info.md)
+    * [系统角色](/master/user/role.md)
+    * [团队管理](/master/user/team.md)
+
 * 系统设置
     + [数据源配置管理](/master/system/properties.md)
     + [数据连接管理](/master/system/connections.md)

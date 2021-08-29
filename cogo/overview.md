@@ -6,7 +6,7 @@
 
 但是在现有条件下，用积木的方式构建应用，完全不写任何代码，还是一个几乎不可有的任务。于是先退而求次，可以先实现“尽可能少写代码”。但是“不写代码”仍是 Cogo 努力的方向。
 
-**Cogo 的先期目标是创建无 Java、几乎无 Javascript、几乎无 CSS 和少量 HTML 的基于 Markdown 文件格式的交互应用。**
+**Cogo 的先期目标是创建无 Java、几乎无 Javascript、几乎无 CSS 和少量 HTML 的基于 Markdown 文件格式的交互页面和应用。**
 
 ## Cogo 功能特点
 
@@ -42,7 +42,7 @@ Cogo 是整个 Qross 系统各个组件模块的综合运用。Cogo 使用了以
 2. [PQL](/pql/overview.md) 是 Cogo 中使用最多的语言，无论在前端还是后端。
 2. Cogo 后端部分使用 [OneApi](/oneapi/overview.md) 进行接口管理。
 3. Cogo 使用 [Voyager](/voyager/overview.md) 作为模板引擎以方便从后端交换数据。
-4. Cogo 前端部分使用 [root.js 组件库](/oneapi/overview.md)，方便快速构造交互页面。
+4. Cogo 前端部分使用 [root.js 标签库](/oneapi/overview.md)，方便快速构造交互页面。
 5. Cogo 使用 [Marker](/voyager/marker.md) 来转化 Markdown 文档格式。
 
 ---
@@ -51,5 +51,5 @@ Cogo 是整个 Qross 系统各个组件模块的综合运用。Cogo 使用了以
 * [PQL 过程化查询语言](/pql/overview.md)
 * [OneApi 统一接口管理](/oneapi/overview.md)
 * [Voyager 模板引擎](/voyager/overview.md)
-* [root.js 前端组件库](/root.js/overview.md)
+* [root.js 前端标签库](/root.js/overview.md)
 

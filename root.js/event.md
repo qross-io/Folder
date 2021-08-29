@@ -32,20 +32,36 @@
 
 ```html
 <select id="Select1" data="..." onchange-="relaod: #Select2">
-<select id="Select2" data="..." onchange-="reload: #Select3">
-<select id="Select3" data="...">
+<select id="Select2" await="#Select1" data="..." onreload-="reload: #Select3" onchange-="reload: #Select3">
+<select id="Select3" await="#Select2" data="...">
 ```
 
 上例实现了一个 SELECT 扩展标签的三级联动。
 
+## 通用方法`set`
+
+现在所有原生标签和扩展标签上都支持 set 方法，用于在事件触发时重新设置元素属性的值。
+
+```html
+<input id="Score" type="text" value+="@student.score">
+<button id="ReloadButton" onclick-="set-value: #Score">Reload</button>
+```
+或
+```html
+<input id="Password" type="text" value+="~{ $randomPassword() }" set-value-on="click: #GenerateButton">
+<button id="GenerateButton">Genterate</button>
+```
+
+理论上可以使用`set`方法设置任意元素的任意属性，`set`方法的作用就是将属性赋值转化为方法来表述。上面`value+`为增强属性，请参阅[增强属性](/root.js/plus.md)。
+
 ## 反向事件绑定
 
-另一种方式是在目标标签上绑定事件监听，有时逻辑更加清晰。例如上面 SELECT 三级例子，可以这样写：
+另一种方式是在目标标签上绑定事件监听，有时逻辑更加清晰。例如上面 SELECT 三级联动例子，可以这样写：
 
 ```html
 <select id="Select1" data="...">
-<select id="Select2" data="..." reload-on="change: #Select1">
-<select id="Select3" data="..." reload-on="change: #Select2">
+<select id="Select2" await="#Select1" data="..." reload-on="change: #Select1">
+<select id="Select3" await="#Select2" data="..." reload-on="change, reload: #Select2">
 ```
 
 即属性名为方法名称加上`-on`后缀，属性中的表达式方法的位置换成事件名称，可以省略`on`前缀。后面部分与正向的事件表达式相同。每个扩展标签只有少量方法支持这么做，会在相应的标签文档中说明。事件名只支持一个，但是选择器支持多个，使用逗号分隔。更多示例：
@@ -79,7 +95,7 @@
 * `onclick-enabled` 状态事件，当组件切换到`enabled`状态时触发。可以在属性上定义，也可以通过监听绑定。同类事件还有`onchange-checked`。
 * `onclick-disabled` 状态事件，当组件切换到`disabled`状态时触发。可以在属性上定义，也可以通过监听绑定。同类事件还有`onchange-unchecked`。
 
-除了`onclick+`事件外，每个客户端事件都有自己的精简格式，即在每个事件之后加一个减号`-`，也是本文主要介绍的内容，精简格式只能在属性上定义。
+除了服务器端事件`onclick+`外，每个客户端事件都有自己的精简格式，即在每个事件之后加一个减号`-`，也是本文主要介绍的内容，精简格式只能在属性上定义。
 
 * `onclick-`
 * `onclick+success-`

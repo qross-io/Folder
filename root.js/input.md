@@ -1,81 +1,100 @@
 # INPUT 标签扩展
 
-为了更方便的处理表单中的用户输入，组件库对 [INPUT 标签](/root.js/input-native.md)进行了扩展。
+为了更方便的处理表单中的用户输入，标签库对 [INPUT 标签](/root.js/input-native.md)进行了扩展。
 
 ```html
 <input type="text" name="TextBox1" required-text="" invalid-text="" valid-text="" validator="" minlength="0" class="" focus-class="" error-class="" valid-class="" error-text-class="" valid-text-class="" get="" set="" set-value-on="" onchange+="server-event" success-text="" failure-text="" exception-text="" onload="" />
 ```
 
-扩展或新增的属性有：
+## 使用
 
-* `type` 文本框的类型，除扩展了原生类型`text`、`number`和`password`外，还新增了`integer`、`float`、`mobile`、`idcard`和`name`。各扩展类型的应用在下面分别介绍。
-* `autosize` 是否根据输入的字符数自动调整宽度`size`，中文占用两个字符位置，如果设置了这个属性，则`size`属性表示最小宽度。
-* `callout` 如果设置了这个属性，则提醒文字在 Callout 中显示，这个属性可以设置 Callout 的显示位置，可选值有 `leftside`、`rightside`、`upside`、`downside`，默认值为`upside`。如果设置了`callout`属性而没有设置`hint`属性，则只用 Callout 的方式显示提醒；如果没有设置`callout`属性，则使用文本元素显示提醒文字；可以两种方式同时使用。
-* `class` 默认的显示样式，必填项默认值为`input-required-class`，选填项默认值为`input-optional-class`。
-* `enter` 可以设定一个地址，当按下回车键时，自动跳转到指定的地址。如`<input type="search" enter="/search?key=$:[value]" />`。如果不设置值，那么当按下回车时，则失去焦点触发`onblur`或`onchange`事件。
-* `error-class` 当输入不正确时的样式，默认使用系统样式。
-* `error-text-class` 警告文字的样式，默认为红色。
-* `exception-text` 服务器端事件`onchange+`执行失败时的提示文字，一般为接口出错。如果不设置则提示接口的出错信息。
-* `failure-text`  服务器端事件`onchange+`执行成功并且结果验证未通过时的提示文字，如用户名重复等。
-* `focus-class` 当文本框获得焦点时的样式，默认使用系统样式。
-* `getter` 在获取输入值时对值进行加工，返回加工后的值，下面有详细的解释。
-* `hint` 设置显示提醒文字的元素，值使用 CSS 选择器，如`#Message`。如果不设置这个属性，则默认在文本框的后面创建一个 SPAN 元素。使用`error-text-class`和`valid-text-class`设置文字样式。可以多个 INPUT 使用同一个元素标签，比如只想在提交按钮后面显示提醒。
-* `if-empty` 设置一个值，当输入值为空时，自动赋为这个值。如`if-empty="60"`，当输入值为空时，那么自动填充值为`60`。
-* `invalid-text` 当输入值不满足验证要求时的提示文字。
-* `minlength` 最小字符长度，当不满足要求时提示`invalid-text`。小于等于`0`表示不限制最小长度。这个属性是原生属性。
-* `required-text` 当输入值为空时的提示文字。
-* `set-{attr}-on` 指定文本框的值或其他属性的更新条件，其中`{attr}`可以替换成组件支持的属性，例如`set-value-on`，下面有详细的示例。属性值规则见[事件表达式](/root.js/event.md)。
-* `setter` 在设置输入值时对值进行加工，设置输入值为加工后的值，下面有详细的解释。
-* `success-text` 服务器端事件`onchange+`执行成功并且结果验证通过时的提示文字，如检查用户名唯一等。
-* `valid-class` 当输入正确时的样式，默认使用系统样式。
-* `valid-text` 当输入值正确时的提示文字，不设置则不显示。
-* `validator` 正则表达式验证器，区别于原生属性`pattern`，`pattern`是大小写敏感的，`validator`不区分大小写，如`pattern="^[a-z]$"`只允许输入小写英文字母，而`validator="^[a-z]$"`也可以输入大写字母。
-* `valid-text-class` 输入正确时的提醒文字的样式，默认为绿色，需设置`valid-text`才显示。
-
-扩展事件有：
-
-* `onchange+` 服务器端事件，接受一个接口地址或 PQL 查询语句（不一定是 SELECT），检查输入值是否符合预期，如检查用户名是否唯一。详见[服务器端事件](/root.js/server.md)，属性格式见[与数据相关的属性](/root.js/data.md) 和 [Express 字符串](/root.js/express.md)。
-* `onchange-checked` 当改变到选中状态时触发的事件，适用于`switch`和`checkbox`类型。
-* `onchange-unchecked` 当改变到未选中状态时触发的事件，适用于`switch`和`checkbox`类型。
-* `onload` 实现了原生未实现的事件，当文本框加载后触发。
-* `onmodify` 新增的事件，当且仅当用户输入的值改变时触发。
-
-
-以上以`-text`结尾的提醒文本属性均支持 [Express 表达式](/root.js/express.md)。
-
-下面是一些特有 type 类型的属性：
-
-* `max` 原生属性，设置允许的最大值 ，适用于`number`、`integer`和`float`类型。
-* `min` 原生属性，设置允许的最小值 ，适用于`number`、`integer`和`float`类型。
-* `pad` 是否在小数点后不满足精度要求时自动补`0`，如精度为`4`时，值为`1.34`，则会自动修正为`1.3400`，适用于`number`和`float`类型。
-* `positive` 是否为正，适用于`number`、`float`和`integer`类型，设置为`true`或其他可识别为`true`的值时，只允许输入正值。
-* `precision` 小数点的精度，适用于`number`和`float`类型，为`0`时即控制为整数。
-* `strength` 密码复杂度，可选值 `WEAK`、`STRONG`和`COMPLEX`，适用于`password`类型，用于密码强度控制。
-* `fit` 设置一个密码输入框的 id，适用于第二个`password`，用于检查两次输入的密码是否一致。如`#Password`。
-* `options` 仅适用于`checkbox`和`switch`类型，指定复选框或切换按钮在两种状态下的值，例如`yes,no`、`1,0`等
-* `theme` 仅适用于`switch`类型，指定切换按钮的主题，默认值`switch`，可选值`checkbox`和`whether`。
-
-
-
-其他原生属性请参照 [INPUT 标签](/root.js/input-native.md)。
-
-## 文本 type="text"
-
-使用时需要引入：
+相关文件和依赖如下：
 
 ```html
 <script type="text/javascript" src="/root.js"></script>
 <script type="text/javascript" src="/root.input.js"></script>
 ```
 
-如果要使用 Callout 提示，还需要引入：
+如果还要使用 Message 扩展，好么还需要引入`root.popup.js`组件。
 
-```html
-<script type="text/javascript" src="/root.callout.js"></script>
-```
+## 扩展属性
 
-<script type="text/javascript" src="@/root.input.js"></script>
-<script type="text/javascript" src="@/root.callout.js"></script>
+基本扩展或新增的属性有：
+
+* `type` 文本框的类型，除扩展了原生类型`text`、`number`和`password`外，还新增了`integer`、`float`、`mobile`、`idcard`和`name`。各扩展类型的应用在下面分别介绍。
+* `autosize` 是否根据输入的字符数自动调整宽度`size`，中文占用两个字符位置，如果设置了这个属性，则`size`属性表示最小宽度。
+* `disabled` 原生属性，现在值支持更多值，请参照[布尔属性扩展](/root.js/boolean.md)。
+* `enabled` 扩展属性，与`disabled`相对应，但优先级低于`disabled`，请参照[布尔属性扩展](/root.js/boolean.md)查看属性值设置。
+* `enter` 可以设定一个地址，当按下回车键时，自动跳转到指定的地址。如`<input type="search" enter="/search?key=$:[value]" />`。如果不设置值，那么当按下回车时，则失去焦点触发`onblur`或`onchange`事件。
+* `getter` 在获取输入值时对值进行加工，返回加工后的值，下面有详细的解释。
+* `if-empty` 设置一个值，当输入值为空时，自动赋为这个值。如`if-empty="60"`，当输入值为空时，那么自动填充值为`60`。
+* `minlength` 最小字符长度，当不满足要求时提示`invalid-text`。小于等于`0`表示不限制最小长度。这个属性是原生属性。
+* `set-{attr}-on` 指定文本框的值或其他属性的更新条件，其中`{attr}`可以替换成组件支持的属性，例如`set-value-on`，下面有详细的示例。属性值规则见[事件表达式](/root.js/event.md)。
+* `setter` 在设置输入值时对值进行加工，设置输入值为加工后的值，下面有详细的解释。
+* `validator` 正则表达式验证器，区别于原生属性`pattern`，`pattern`是大小写敏感的，`validator`不区分大小写，如`pattern="^[a-z]$"`只允许输入小写英文字母，而`validator="^[a-z]$"`也可以输入大写字母。
+
+与输入框样式相关的属性有：
+
+* `class` 默认的显示样式，必填项默认值为`input-required-class`，选填项默认值为`input-optional-class`。
+* `error-class` 当输入不正确时的样式，默认使用系统样式。
+* `focus-class` 当文本框获得焦点时的样式，默认使用系统样式。
+* `valid-class` 当输入正确时的样式，默认使用系统样式。
+
+与输入和验证提示相关的属性有：
+
+* `callout` 如果设置了这个属性，则提醒文字在 Callout 中显示，这个属性可以设置 Callout 的显示位置，可选值有 `left`、`right`、`up`、`down`，默认值为`up`。如果设置了`callout`属性而没有设置`hint`属性，则只用 Callout 的方式显示提醒；如果没有设置`callout`属性，则使用文本元素显示提醒文字；可以两种方式同时使用。
+* `error-text-class` 警告文字的样式，默认为红色。
+* `exception-text` 服务器端事件`onchange+`执行失败时的提示文字，一般为接口出错。如果不设置则提示接口的出错信息。
+* `failure-text`  服务器端事件`onchange+`执行成功并且结果验证未通过时的提示文字，如用户名重复等。
+* `hint` 设置显示提醒文字的元素，值使用 CSS 选择器，如`#Message`。如果不设置这个属性，则默认在文本框的后面创建一个 SPAN 元素。使用`error-text-class`和`valid-text-class`设置文字样式。可以多个 INPUT 使用同一个元素标签，比如只想在提交按钮后面显示提醒。
+* `invalid-text` 当输入值不满足验证要求时的提示文字。
+* `message` 在 Message 中显示提示信息，Message 会显示在页面上方，这个属性值为数字，表示提示显示几秒，默认值为`0`，表示一直显示直到被点击才消失。
+* `required-text` 当输入值为空时的提示文字。
+* `success-text` 服务器端事件`onchange+`执行成功并且结果验证通过时的提示文字，如检查用户名唯一等。
+* `valid-text` 当输入值正确时的提示文字，不设置则不显示。
+* `valid-text-class` 输入正确时的提醒文字的样式，默认为绿色，需设置`valid-text`才显示。
+
+以上以`-text`结尾的提醒文本属性均支持 [Express 表达式](/root.js/express.md)。
+
+特有 type 类型的属性有：
+
+* `fit` 设置一个密码输入框的 id，适用于第二个`password`，用于检查两次输入的密码是否一致。如`#Password`。
+* `max` 原生属性，设置允许的最大值 ，适用于`number`、`integer`和`float`类型。
+* `min` 原生属性，设置允许的最小值 ，适用于`number`、`integer`和`float`类型。
+* `options` 仅适用于`checkbox`和`switch`类型，指定复选框或切换按钮在两种状态下的值，例如`yes,no`、`1,0`等。
+* `pad` 是否在小数点后不满足精度要求时自动补`0`，如精度为`4`时，值为`1.34`，则会自动修正为`1.3400`，适用于`number`和`float`类型。
+* `positive` 是否为正，适用于`number`、`float`和`integer`类型，设置为`true`或其他可识别为`true`的值时，只允许输入正值。
+* `precision` 小数点的精度，适用于`number`和`float`类型，为`0`时即控制为整数。
+* `strength` 密码复杂度，可选值 `WEAK`、`STRONG`和`COMPLEX`，适用于`password`类型，用于密码强度控制。
+* `theme` 仅适用于`switch`类型，指定切换按钮的主题，默认值`switch`，可选值`checkbox`和`whether`。
+
+其他原生属性请参照 [INPUT 标签](/root.js/input-native.md)。
+
+## 扩展方法
+
+方法可用于[事件表达式](/root.js/event.md)中。
+
+* `copy()` 复制文本框中的值。
+* `set(attr, value)` 设置某个属性`attr`的值为`value`。
+* `update(value)` 更新输入框的值为`value`。
+* `check(checked = true)` 设置复选框的选中或不选中。
+* `uncheck()` 取消选中指定复选框。
+* `incheck()` 半选中复选框，`in`是`indeterminate`的缩写。
+* `tocheck()` 切换复选框的选中状态，`to`是`toggle`的缩写。
+
+## 扩展事件
+
+扩展事件建议像属性一样在标签上定义。
+
+* `onchange+` 服务器端事件，接受一个接口地址或 PQL 查询语句（不一定是 SELECT），检查输入值是否符合预期，如检查用户名是否唯一。详见[服务器端事件](/root.js/server.md)，属性格式见[与数据相关的属性](/root.js/data.md) 和 [Express 字符串](/root.js/express.md)。
+* `onchange-checked` 当改变到选中状态时触发的事件，适用于`switch`和`checkbox`类型。
+* `onchange-unchecked` 当改变到未选中状态时触发的事件，适用于`switch`和`checkbox`类型。
+* `onload` 实现了原生未实现的事件，当文本框加载后触发。
+* `onmodify` 新增的事件，当且仅当用户输入的值改变时触发。类似于`oninput`，但对触发频率做了限制。
+
+所有原生事件依然可用，如`onchange`、`onblur`等。
+
+## 文本 type="text"
 
 以下文本框只能输入英文字符：
 
@@ -100,7 +119,7 @@
 
 ```html
 正整数：<input type="number" positive="yes" precision="0" min="0" max="100" step="10" invalid-text="必须输入 0 到 100 之间的值。" callout />
-精度为4：<input type="number" pad="yes" precision="4" />
+精度为 4：<input type="number" pad="yes" precision="4" />
 ```
 
 运行效果为：
@@ -270,9 +289,11 @@
 * `hintText` 获取或设置提醒文字。
 * `status` 获取文本框的状态，分别有几个枚举值：`-1`输入值无效，`0`输入值为空，`1`输入值有效，`2`空值初始状态，`3`有值初始状态，另外一个不常用值为`-2`表示值有效但是不符合预期。文本框状态在其他组件中使用。
 
+
 ---
 参考链接
 
 * [root.js 基本库](/root.js/root.md)
 * [Button 按钮扩展](/root.js/button.md)
 * [Express 字符串](/root.js/express.md)
+* [精简事件的表达式](/root.js/event.md)

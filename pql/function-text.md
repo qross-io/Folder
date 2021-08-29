@@ -24,7 +24,9 @@ PQL 全局函数提供了与数据库 SQL 中相应的字符串操作功能。�
 ---
 参考链接
 
+* [Sharp 表达式 - 字符串操作](/sharp-text.md)
 * [全局函数 FUNCTION](/pql/global-function.md)
+* [全局函数 - 日期时间操作](/pql/function-datetime.md)
 * [全局函数 - 数字操作](/pql/function-numeric.md)
 * [自定义函数 FUNCTION](/pql/function.md)
 * [函数调用 CALL](/pql/call.md)
