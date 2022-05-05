@@ -147,11 +147,10 @@
 | YellowGreen | #9ACD32 | |
 
 <script type="text/javascript">
-$x('table')
-    .last()
-    .attr('cellSpacing', '2')
-    .select('tr')
-    .objects
+$('table')
+    .last
+    .set('cellSpacing', '2')
+    .$$('tr')
     .forEach(tr => {
         let color = tr.cells[1].textContent.trim();
         if (color.startsWith('#') && color.length == 7) {            

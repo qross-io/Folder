@@ -96,9 +96,14 @@
   SELECT item, COUNT(0) AS amount FROM table1 -> WHERE 'amount > 0';
   ```
 
+## 聚合操作
+
+* `AVG column` 返回指定列的平均值。
+* `COUNT` 获取数据表的行数，返回一个整数。
+* `SUM column` 返回指定列的加和。
+
 ## 其他操作
 
-* **`COUNT`** 获取数据表的行数，返回一个整数。
 * **`FIELDS`** 获得数据表的所有字段名的数组。
 * **`LABELS`** 获得数据表中所有字段名标签的数组。
 * **`HEADERS`** 获得数据表中的所有字段和标签对应表，返回数据行。

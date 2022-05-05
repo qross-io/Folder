@@ -20,7 +20,7 @@ http://localhost:8080/api/example/test?id=1&score=89
 * `protocol`为`HTTP`
 * `domain`和`host`为`localhost`
 * `prot`为`8080`
-* `path`为`/api/exampletest`
+* `path`为`/api/example/test`
 * `queryString`为`id=1&score=89`
 
 ---

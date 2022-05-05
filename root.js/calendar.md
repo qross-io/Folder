@@ -104,22 +104,21 @@ input { font-size: 1rem; }
 <input type="calendar" id="calendar4" size="25" mode="week" months="2" /> &nbsp; &nbsp; 选中的周：<code id="SelectedWeek"></code> &nbsp; 开始日期：<code id="WeekStartDate"></code> &nbsp; 结束日期：<code id="WeekEndDate"></code>
 
 <script type="text/javascript">
-$listen('calendar4').on('WeekSelected', function(year, weekOfYear, startDate, endDate) {
+$('#calendar4').on('WeekSelected', function(year, weekOfYear, startDate, endDate) {
     let input = document.querySelector('#calendar4');
-    $x('#SelectedWeek').html(this.week);
-    $x('#WeekStartDate').html(startDate);
-    $x('#WeekEndDate').html(endDate);
+    $('#SelectedWeek').html = this.week;
+    $('#WeekStartDate').html = startDate;
+    $('#WeekEndDate').html = endDate;
 });
 </script>
 
 可以通过事件参数或Calendar选择器获取选中的周、开始日期和结束日期。如
 
 ```javascript
-$listen('calendar4').on('WeekSelected', function(year, weekOfYear, startDate, endDate) {
-    let input = document.querySelector('#calendar4');
-    $x('#SelectedWeek').html(this.week); //返回选中的年和周，格式 yyyy-ww
-    $x('#WeekStartDate').html(input.getAttribute('start')); //返回选中周的开始日期，格式 yyyy-MM-dd
-    $x('#WeekEndDate').html(endDate); //返回选中周的结束日期，格式 yyyy-MM-dd
+$('#calendar4').on('WeekSelected', function(year, weekOfYear, startDate, endDate) {
+    $('#SelectedWeek').html = this.week; //返回选中的年和周，格式 yyyy-ww
+    $('#WeekStartDate').html = $('#calendar4').get('start'); //返回选中周的开始日期，格式 yyyy-MM-dd
+    $('#WeekEndDate').html = endDate; //返回选中周的结束日期，格式 yyyy-MM-dd
     //以上三种方式都可以得到选中的值，详见下面的属性说明
 });
 ```

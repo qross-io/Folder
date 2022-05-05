@@ -19,9 +19,11 @@ SPAN 标签的事件只能写在标签上，SPAN 扩展标签不提供扩展标�
 
 SPAN 标签的占位符语法规则为 `@:keyOrPath?(defaultValue)`，与 [O 标签](/root.js/o.md)相同。更详细说明请参见[数据占位符](/root.js/holder.md)。
 
-上例中，`data`属性返回一个有两个字段的对象，如可以是`{ "title": "低代码平台简单介绍", "views": 209 }`。`@:title`可以获取`低代码平台简单介绍`，`@:views`可以获取到`209`，最后 SPAN 标题中展示`文章“低代码平台简单介绍”的阅读数是 209!`。`@:views`后面有两个叹号，前一叹号表示占位符结尾，防止字符冲突。可使用`@:/`获取`data`属性的所有数据。
+上例中，`data`属性返回一个有两个字段的对象，如可以是`{ "title": "低代码平台简单介绍", "views": 209 }`。`@:title`可以获取`低代码平台简单介绍`，`@:views`可以获取到`209`，最后 SPAN 标题中展示`文章“低代码平台简单介绍”的阅读数是 209!`。`@:views`后面有两个叹号，前一叹号表示占位符结尾，防止字符冲突。可使用`@:/`获取`data`属性加载的所有数据。
 
 SPAN 标签也可以从 MODEL 中获取数据，这时无需要设置`data`属性的值，但一定要有`data`属性。例如：
+
+SPAN 标签也支持 Javascript 短句占位符，详见 [MODEL 标签](/root.js/model.md)中的说明。
 
 ```html
 <span data>文章“@page.title”的阅读数是 @page.views!!</span>
@@ -41,9 +43,11 @@ SPAN 标签新增扩展方法`copy()`，执行后可复制 SPAN 元素内的数�
 或
 
 ```html
-<span id="Hello" data>Hello World.</span> <!--data属性可以没有-->
+<span id="Hello" copy-text="文字已复制。" data>Hello World.</span> <!--data属性可以没有-->
 <a onclick-="copy: #Hello"><i class="iconfont icon-file-copy"></i></a>
 ```
+
+可以通过`copy-text`标签属性设置复制成功后的提示文字。
 
 ---
 参考链接

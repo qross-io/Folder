@@ -5,12 +5,16 @@
 现有 Chrome 和 Edge 浏览器已支持。
 
 * `static` 静态属性和方法声明前缀。
-* `#` 私有属性和方法声明前缀，在实例外使用时会返回`undefined`。
+* `#` 私有属性和方法声明前缀，在实例外使用时会返回`undefined`。也不能在原型扩展（通过 prototype 扩展）方法中使用。
 
 ```javascript
-class Student() {
+class Student {
     constructor(name) {
         this.name = name;
+        console.log(this.#socre); //调用私有实例属性
+        console.log(Student.#score); //调用私有静态属性
+        this.#test(); //调用私有实例方法
+        Student.#test(); //调用私有静态方法
     }
 
     school = ''; //实例属性
@@ -50,7 +54,7 @@ Student.__test__ = function() {} //私有静态方法，但是还是能访问
 * `BigInt` 大数。`let a = BigInt(123);` 或 `let a = 123n`。
 * `String.prototype.matchAll` 返回所有匹配项。
 * `globalThis` 统一全局对象。
-* 空值合并运算符`??`，比`||`功能少一些，`||`支持`(false,0,"",NaN,null,undefined)`，而`??`只支持`null`和`undefined`。
+* 空值合并运算符`??`，比`||`功能少一些，`||`支持`(false,0,"",NaN,null,undefined)`，而`??`只支持`null`和`undefined`。`??`和`||`在一起时如果出错的话用圆括号。
 * 可选链`?.`。原来的`obj != null && obj.method != null && obj.method()`可修改为 `obj?.method?.()`。还可以`array?.[1]?.attr`或`let a = obj?.attr?.value ?? 'default'`。
 * `Promise.allSettled` 接收一个`Promise`数组，当所有的`Promise`对象完成时触发`then`，不管成功还是失败。
 * 动态导入和聚合导出，浏览器端开发不能用。

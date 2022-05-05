@@ -1,6 +1,6 @@
 # Voyager 支持 Markdown 文件
 
-除了 Html 格式外，Voyager 还支持 Markdown 文档格式的文件，扩展名使用`.md`。Markdown 文件格式是 [Cogo](/cogo/overview.md) 推荐的文件格式。在使用 Markdown 作为页面文件格式时，强烈建议使用[母版页](/voyager/master.md)，以更好的控制整个页面的布局。Voyager 使用 [Marker 类](/voyager/marker.md)将 Markdown 格式转成 HTML 格式，[Marker 类](/voyager/marker.md)也可以在你自己的项目中使用。
+除了 Html 格式外，Voyager 还支持 Markdown 文档格式的文件，扩展名使用`.md`。Markdown 文件格式是 [轻代码](/cogo/overview.md) 推荐的文件格式。在使用 Markdown 作为页面文件格式时，强烈建议使用[母版页](/voyager/master.md)，以更好的控制整个页面的布局。Voyager 使用 [Marker 类](/voyager/marker.md)将 Markdown 格式转成 HTML 格式，[Marker 类](/voyager/marker.md)也可以在你自己的项目中使用。
 
 Marker 不仅可以对标准的 Markdown 文档格式进行转换，还提供了一些扩展，可以让 Markdown 提供更多的样式和功能。本文主要介绍 Markdown 及其扩展语法。
     
@@ -61,7 +61,7 @@ Markdown 本身没有提供对文字字体、颜色、大小和斜体等样式�
 * 字体，首字母大写的字体名称，如`Consolas`
 * 字体大小，是一个大于`0`的整数数字，`16`为默认大小。
 * 字体颜色单词，如`green`、`yellow`等，支持的颜色及对应的编码见下表。
-* 字体颜色编码，如红色对应`#FF0000`，详见[颜色编码表](/root.js/colors.md)。
+* 字体颜色编码，如红色对应`#FF0000`，详见[颜色编码表](/blog/colors.md)。
 * 字体样式字母，支持4个：`b`表示粗体，`i`表示斜体，`u`表示下划线，`s`表示删除线，其中下划线和删除线不能共存。
 * 文字背景色，写在文字内容的后面，如`/黄色背景:yellow/`。
 * 字体行高使用百分比数字表示，如`200%`
@@ -158,9 +158,21 @@ Markdown 中的链接语法可选种类比较多，但也比较简单。
 
 ## 列表
 
-无序列表
+无序列表，星号`*`、加号`+`和减号`-`都可以。
 
-有序列表
+```markdown
+* 列表项1
+* 列表项2
+* 列表项3
+```
+
+有序列表，使用数字加一个点。
+
+```markdown
+1. 列表项1
+2. 列表项2
+3. 列表项3
+```
 
 ## 代码块
 
@@ -219,4 +231,4 @@ window.alert('Hello, World!');
 
 * [Voyager 模板引擎](/voyager/overview.md)
 * [Marker 类](/voyager/marker.md)
-* [颜色编码表](/root.js/colors.md)
+* [颜色编码表](/blog/colors.md)

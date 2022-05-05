@@ -31,12 +31,11 @@ TEMPLATE 标签也可应用到其他自定义组件中，如 [TreeView 标签](/
 TEMPLATE 与其他标签不同的是提供了方法，如：
 
 ```javascript
-$tempalte('name').setData(data).asArray().clear().load(func);
+$('#name').setData(data).asArray().clear().load(func);
 ```
 
 可用方法有：
 
-* `$template` 为固定选择器方法，如`$template('name')`，需要在页面加载完成之后才能使用，见下面的`$finish`全局方法。
 * `setData(data)` 如果要加载和第一次不同的数据，则通过这个方法再次指定。
 * `asArray()` `asList()` `asLoop()` 功能同 `as="array"` 属性。
 * `setContainer(container)` 设定呈现 HTML 的容器元素。
@@ -46,22 +45,21 @@ $tempalte('name').setData(data).asArray().clear().load(func);
 * `clear()` 在重新加载内容时先清空。
 * `load(func)` 将内容添加到页面上, 设置`func`可以指定在添加完成后执行的函数，独立于`onload`事件，即如果同时设置了`onload`并传递了`func`函数，都会执行。
     ```javascript
-    $template('name').load(data).append(func);
+    $('#name').load(data).append(func);
     ```
 
 ## TEMPLATE 事件
 
 * `onload` 第一次加载完成时触发。
 * `onreload` 每次重新加载完成时触发，不包括第一次。
+* `onlazyload` 每次增量加载完成后触发，不包括第一次。
 * `onterminate` 满足自动更新的终止条件时触发。
 * `ondone` 增量加载所有数据完成之后触发，在`onterminate`事件之后大约 3 次`interval`时间。
 
 ```javascript
-$listen('name').on('load', function(data) {
+$('#name').on('load', function(data) {
     // data 是返回的数据集
-});
-
-$template('name').on('lazyload', function(data) {
+}).on('reload', function(data) {
     // ...
 });
 ```

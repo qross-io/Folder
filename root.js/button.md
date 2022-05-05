@@ -29,7 +29,6 @@
     ```html
     <button href="/index.html">返回首页</button>
     ```
-* `options` 切换按钮的选项，这个属性的默认值是`Enabled=yes&Disabled=no`，其中等号前面是文本，后面是值，可以根据需要配置。
 * `text` 获取或设置按钮的文字。
 * `type` 按钮类型，目前支持`switch`和`confirm`属性，用作切换按钮和再次确认按钮。本文最下面有示例。
 * `watch` 用于组件监听，下面在“组件监听”中单独介绍这个属性。
@@ -38,15 +37,19 @@
 
 * `disabled` 是否默认禁用按钮，原生属性，不过属性值支持比原生多，接受可识别为尔值的各种值，如`ok`、`cancel`、`false`、`0`等。
 * `disabled-class` 按钮在禁用状态下的样式，默认值`normal-button optional-button`。
+* `disabled-text` 按钮在禁用状态下的文本，默认值`Disabled`。
+* `disabled-value` 按钮在禁用状态下的值，默认值`no`。
 * `enabled` 是否默认启用按钮，与`disabled`属性相对，两个属性同时使用时优先级低于`disabled`。接受可识别为布尔值的值，如`yes`、`no`、`true`、`1`等。
 * `enabled-class` 启用状态下的样式，默认值`normal-button blue-button`。
+* `enabled-text` 按钮在启用状态下的文本，默认值`Enabled`。
+* `enabled-value` 按钮在启用状态下的值，默认值`yes`。
 
 与提示相关的属性如下，所有以`-text`消息相关属性均支持 [Express 字符串](/root.js/express.md)：
 
-* `hint`设置在其他文本标签中提示操作过程中的各种信息，属性值为 CSS 选择器，如`#Message`。当所有提示方式都没有设置但是又设置了提示文字属性时，默认在按钮右侧创建一个 SPAN 标签用于显示提示文字。
-* `callout` 使用 Callout 提示，属性值用来设置显示的位置，默认在按钮上方显示即`up`。
+* `hint`或`hint-element` 设置在其他文本标签中提示操作过程中的各种信息，属性值为 CSS 选择器，如`#Message`。当所有提示方式都没有设置但是又设置了提示文字属性时，默认在按钮右侧创建一个 SPAN 标签用于显示提示文字。
+* `callout`或`callout-position` 使用 Callout 提示，属性值用来设置显示的位置，默认在按钮上方显示即`up`。
 * `alert` 使用 Alert 对话框进行提示，无属性值。如果引入了 Popup 组件，则会代替原生的 window.alert 对话框。
-* `message` 使用 Message 组件进行提示，属性值为 Message 提示框显示的时间，`0`为一直显示，单位为秒。
+* `message`或`message-duration` 使用 Message 组件进行提示，属性值为 Message 提示框显示的时间，`0`为一直显示，单位为秒。
 * `text-class` 提醒文字的样式，仅适用于 Hint 提示方式。
 * `error-text-class` 错误或异常文字的样式，仅适用于 Hint 提示方式。
 * `valid-txt-class` 正确或成功文字的样式，仅用于 Hint 提示方式。
@@ -73,8 +76,6 @@
 
 * `enabld()` 启用按钮。
 * `disable()` 禁用按钮。
-* `hide()` 隐藏按钮。
-* `show()` 显示按钮。
 
 还有一个通用的`set(attr, value)`扩展方法可以用，原生方法不影响使用，如`click()`方法。
 
@@ -89,7 +90,7 @@
 
 ## 可用的选择器
 
-扩展选择器一般用来定义事件，可用的选择器只有 1 个：`$s('#id')` 其中`id`前面的`#`符号不可省略。一般情况下用不到选择器，只了解选择器的语法即可。
+扩展选择器一般用来定义事件，可用的选择器只有 1 个：`$('#id')`或`$s('#id')`， 其中`id`前面的`#`符号不可省略。一般情况下用不到选择器，只了解选择器的语法即可。
 
 ## 请求成功和失败
 

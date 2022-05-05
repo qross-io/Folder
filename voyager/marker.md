@@ -44,4 +44,4 @@ Marker.markdownToHtml(content);
 
 * [Voyager 模板引擎](/voyager/overview.md)
 * [Voyager 中的 Markdown 文档格式](/voyager/markdown.md)
-* [颜色编码表](/root.js/colors.md)
+* [颜色编码表](/blog/colors.md)

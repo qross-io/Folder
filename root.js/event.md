@@ -8,24 +8,25 @@
 <span id="Span1" data="...">...</span>
 <input id="TextBox1" />
 <button id="Button1" onclick-="reload: #Span1">Button</button>
-<select id="Select1" onchange-="update-value: #TextBox1 -> $(#Select1)">
+<select id="Select1" onchange-="update-value: #TextBox1 <- $(#Select1)">
 ```
 
 上例中的`onclick-`和`onchange-`即为精简事件，其中的减号`-`表示“精简”的意思，以和原生的事件名称区分开来。而且，精简事件只能以属性形式写在标签上。精简事件支持所有客户端事件。
 
 ## 事件表达式
 
-精简事件的值即为事件表达式。上例中`reload: #Span1`和`update-value: #TextBox1 -> $(#Select1)`，与之对应的 Javascript 代码为 `onclick="$s('#Span1').reload()"`和`onchange="$x('#TextBox1').update('value', '$(#Select1)')"`。
+精简事件的值即为事件表达式。上例中`reload: #Span1`和`update-value: #TextBox1 <- $(#Select1)`，与之对应的 Javascript 代码为 `onclick="$('#Span1').reload()"`和`onchange="$('#TextBox1').update('value', $('#Select1').value)"`。
 
-事件表达式格式为`method: selector -> value`，共分三部分：方法名、CSS 选择器和方法参数，其中`method`和`selector`之间使用冒号分隔`:`，`selector`和`value`之间使用箭头号分隔`->`。其中`selector`和`value`可以省略，省略`selector`表示调用对象本身的方法，省略`value`表示调用无参方法。特别说明：方法名各单词之间使用`-`分隔，最后一个`-`之后的值为方法的第一个参数。多个`selector`和`value`之间使用逗号分开，`method`不支持设置多个。多个表达式之间使用分号`;`分隔。`value`参数支持 [Express 表达式](/root.js/express.md)。
+事件表达式格式为`method: selector <- value`，共分三部分：方法名、CSS 选择器和方法参数，其中`method`和`selector`之间使用冒号分隔`:`，`selector`和`value`之间使用左向箭头号分隔`<-`，表示将参数应用到方法上。其中`selector`和`value`可以省略，省略`selector`表示调用对象本身的方法，省略`value`表示调用无参方法。特别说明：方法名各单词之间使用`-`分隔，最后一个`-`之后的值为方法的第一个参数。多个`selector`和`value`之间使用逗号分开，`method`不支持设置多个。多个表达式之间使用分号`;`分隔。`value`参数支持 [Express 表达式](/root.js/express.md)。
 
 以下均为合法的表达式格式。
 
 ```html
 <a onclick-="method">
+<a onclick-="method <- value">
 <input onblur-="method: selector; method: selector1, selector2;">
-<button onclick-="method: selector -> value; method: selector -> value1, value2;">
-<select onchange-="method: selector1, selector2 -> value1, value2, value3;">
+<button onclick-="method: selector <- value; method: selector <- value1, value2;">
+<select onchange-="method: selector1, selector2 <- value1, value2, value3;">
 ```
 
 事件表达式的应用暂时比较少，会慢慢扩展到更多标签上。
@@ -74,9 +75,9 @@
 在[服务器端事件](/root.js/server.md)中，执行完成后会触发几个客户端事件，例如`onclick+`对应的是`onclick+success`、`onclick+failure`、`onclick+exception`和`onclick+completion`。这几个事件也支持精简格式，例如：
 
 ```html
-<button onclick+="update ...." onclick+exception-="html: #ErrorSpan -> {data}">Update Button</button>
+<button onclick+="update ...." onclick+exception-="setHTML: #ErrorSpan <- {data}">Update Button</button>
 <span data="..." reload-on="click+success:#Button1">...</span>
-<input update-value-on="change+success: #Select1 -> $(#Select1)" />
+<input update-value-on="change+success: #Select1 <- $(#Select1)" />
 
 <button id="Button1" onclick+="insert into ...">Button</button>
 <select id="Select1" onchange+="/api/select/options">...</select>

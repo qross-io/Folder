@@ -34,25 +34,17 @@ SEND MAIL "test mail"
     TO "personal<user@domain.com>";
 ```
 
-* 使用`USE TEMPLATE`指定一个HTML模板，`USE`关键词可省略。`USE DEFAULT TEMPLATE`表示使用默认邮件模板，默认模板需要预先保存在 Qross 系统的 Email 模板目录`%QROSS_HOME/templates/email/`下，文件名必须为`default.html`。
+* 使用`USE TEMPLATE`指定一个 HTML 模板，`USE`关键词可省略。`USE DEFAULT TEMPLATE`表示使用默认邮件模板，默认模板需要预先保存在 Qross 系统的 Email 模板目录`%QROSS_HOME/templates/email/`下，文件名必须为`default.html`。
 * 邮件模板`USE TEMPLATE`和邮件内容`SET CONTENT`二选一，邮件模板优先级更高。
 * 使用`WITH SIGNATURE`设置一个邮件签名，签名文件也可以放在`resources`目录下。签名文件的内容会替换模板中的占位符`#{signature}`; 如果模板中未设置占位符，则签名内容自动附在`</body>`标签之前; 如果邮件模板没有`</body>`标签，则签名内容附在整个模板文件之后。也可使用`WITH DEFAULT SIGNATURE`设置默认签名，默认签名需要预先保存在 Qross 系统的 Email 模板目录`%QROSS_HOME/templates/email/`下，文件名必须为`signature.html`。
 * 关于邮件模板和签名的保存位置：模板可以保存在磁盘中，使用完整路径引用；也可以放在项目的`resources`目录下，使用相对路径引用；还可以放在 Qross 系统家目录下，位置`%QROSS_HOME/templates/email/`，使用文件名引用。
 
 ## 邮件内容编辑
 
-无论是使用邮件模板还是手工设置邮件内容，里面的内容都不能是固定的，需要根据计算结果或应用场景生成不同的内容。有几种方式生成或更新邮件内容。
+无论是使用邮件模板还是手工设置邮件内容，里面的内容都不能是固定的，需要根据计算结果或应用场景生成不同的内容。有两种方式生成或更新邮件内容。
 
-* 在邮件模板或内容中使用嵌入式 PQL 代码，可以直接将查询语句写在邮件模板中。详见 [Voyager 模板引擎](/voyager/overview.md)。
-  ```html
-  <div>高三年级期中考试成绩单 <%=@NOW FORMAT 'yyyy年M月d日'%></div>
-  <div>
-    <%=SELECT id, name, score FROM students -> TO HTML TABLE %>
-  </div>
-  ```
-  上例中`<%`和`%>`包围的部分就是嵌入式 PQL 的代码，简单直接。
+* 第一种方式是使用 PQL 的参数占位符，格式为`#{data}`。通过`PLACE DATA`替换邮件内容中的占位符，其中`PLACE`可省略。PQL 代码为：
 
-* 第二种方式是使用 PQL 的参数占位符，格式为`#{data}`。通过`PLACE DATA`替换邮件内容中的占位符，其中`PLACE`可省略。PQL 代码为：
   ```sql
     SET $name := 'Tom';
     SET $score := 89;    
@@ -83,19 +75,31 @@ SEND MAIL "test mail"
     <div>
   </div>
   ```
-  `PLACE DATA`可使用多次。
 
-* 第三种方式是使用`PLACE`和`AT`组合，用数据替换自定义的占位符。
+  `PLACE DATA`支持 Json 格式的数据。例如：
 
   ```sql
-    SEND MAIL "test mail"
-        USE DEFAULT TEMPLATE
-        PLACE ${ @NOW FORMAT 'yyyy年M月d日' } AT '#{date}'
-        PLACE $name AT '#{name}'
-        PLACE $score AT '#{score}'
-        TO "personal<user@domain.com>";
+  SEND MAIL $title
+            USE TEMPLATE "/templates/email.htm"
+            PLACE DATA {
+                "question": $question,
+                "message": $message,
+                "comment":  $comment
+            }
+            TO $address;
   ```
-  `AT`后面的占位符格式可自定义。
+
+* 第二种方式是在邮件模板或内容中使用嵌入式 PQL 代码，可以直接将查询语句写在邮件模板中。详见 [Voyager 模板引擎](/voyager/overview.md)。
+
+  ```html
+  <div>高三年级期中考试成绩单 <%=@NOW FORMAT 'yyyy年M月d日'%></div>
+  <div>
+    <%=SELECT id, name, score FROM students -> TO HTML TABLE %>
+  </div>
+  ```
+  上例中`<%`和`%>`包围的部分就是嵌入式 PQL 的代码，简单直接。
+
+两种方式并不是独立的，而是依次执行，即先执行`PLACE DATA`，再通过 [Voyager 模板引擎](/voyager/overview.md)解析模板内容。
 
 ## 添加附件
 
@@ -129,7 +133,7 @@ SEND EMAIL "test mail"
 * `SET PASSWORD` 设置发件人邮箱密码，`SET`关键词可省略。
 * `SET PERSONAL` 设置发件人署名，`SET`关键词可省略。也可用来修改系统默认设置的署名。
 
-## SEND语句的返回信息
+## SEND 语句的返回信息
 
 SEND 语句是一个有[返回值的语句](/pql/evaluate.md)，执行完成后返回一个数据行，包含以下字段：
 

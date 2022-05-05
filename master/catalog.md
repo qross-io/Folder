@@ -19,9 +19,9 @@
 
 * 用户管理
     + [所有用户列表](/master/user/users.md)
-    * [用户信息](/master/user/info.md)
-    * [系统角色](/master/user/role.md)
-    * [团队管理](/master/user/team.md)
+    + [用户信息](/master/user/info.md)
+    + [系统角色](/master/user/role.md)
+    + [团队管理](/master/user/team.md)
 
 * 系统设置
     + [数据源配置管理](/master/system/properties.md)

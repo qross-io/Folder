@@ -67,4 +67,4 @@ INPUT 标签是最常用的表单组件，用来接收用户输入的信息。
 参考链接
 
 * [INPUT 标签扩展](/root.js/input.md)
-* [HTML 通用属性](/root.js/html.md)
+* [HTML 通用属性](/blog/html.md)

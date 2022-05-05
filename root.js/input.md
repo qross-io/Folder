@@ -15,7 +15,7 @@
 <script type="text/javascript" src="/root.input.js"></script>
 ```
 
-如果还要使用 Message 扩展，好么还需要引入`root.popup.js`组件。
+如果还要使用 Message 扩展，那么还需要引入`root.animation.js`组件。
 
 ## 扩展属性
 
@@ -42,13 +42,13 @@
 
 与输入和验证提示相关的属性有：
 
-* `callout` 如果设置了这个属性，则提醒文字在 Callout 中显示，这个属性可以设置 Callout 的显示位置，可选值有 `left`、`right`、`up`、`down`，默认值为`up`。如果设置了`callout`属性而没有设置`hint`属性，则只用 Callout 的方式显示提醒；如果没有设置`callout`属性，则使用文本元素显示提醒文字；可以两种方式同时使用。
+* `callout-position`或`callout` 如果设置了这个属性，则提醒文字在 Callout 中显示，这个属性可以设置 Callout 的显示位置，可选值有 `left`、`right`、`up`、`down`，默认值为`up`。如果设置了`callout-position`属性而没有设置`hint`属性，则只用 Callout 的方式显示提醒；如果没有设置`callout`属性，则使用文本元素显示提醒文字；可以两种方式同时使用。
 * `error-text-class` 警告文字的样式，默认为红色。
 * `exception-text` 服务器端事件`onchange+`执行失败时的提示文字，一般为接口出错。如果不设置则提示接口的出错信息。
 * `failure-text`  服务器端事件`onchange+`执行成功并且结果验证未通过时的提示文字，如用户名重复等。
-* `hint` 设置显示提醒文字的元素，值使用 CSS 选择器，如`#Message`。如果不设置这个属性，则默认在文本框的后面创建一个 SPAN 元素。使用`error-text-class`和`valid-text-class`设置文字样式。可以多个 INPUT 使用同一个元素标签，比如只想在提交按钮后面显示提醒。
+* `hint`或`hint-element` 设置显示提醒文字的元素，值为 CSS 选择器，如`#Message`。如果不设置这个属性，则默认在文本框的后面创建一个 SPAN 元素。使用`error-text-class`和`valid-text-class`设置文字样式。可以多个 INPUT 使用同一个元素标签，比如只想在提交按钮后面显示提醒。
 * `invalid-text` 当输入值不满足验证要求时的提示文字。
-* `message` 在 Message 中显示提示信息，Message 会显示在页面上方，这个属性值为数字，表示提示显示几秒，默认值为`0`，表示一直显示直到被点击才消失。
+* `message-duration`或`message` 在 Message 中显示提示信息，Message 会显示在页面上方，这个属性值为数字，表示提示显示几秒，默认值为`0`，表示一直显示直到被点击才消失。
 * `required-text` 当输入值为空时的提示文字。
 * `success-text` 服务器端事件`onchange+`执行成功并且结果验证通过时的提示文字，如检查用户名唯一等。
 * `valid-text` 当输入值正确时的提示文字，不设置则不显示。
@@ -68,7 +68,7 @@
 * `strength` 密码复杂度，可选值 `WEAK`、`STRONG`和`COMPLEX`，适用于`password`类型，用于密码强度控制。
 * `theme` 仅适用于`switch`类型，指定切换按钮的主题，默认值`switch`，可选值`checkbox`和`whether`。
 
-其他原生属性请参照 [INPUT 标签](/root.js/input-native.md)。
+其他原生属性请参照 [INPUT 标签](/blog/input-native.md)。
 
 ## 扩展方法
 
@@ -91,6 +91,7 @@
 * `onchange-unchecked` 当改变到未选中状态时触发的事件，适用于`switch`和`checkbox`类型。
 * `onload` 实现了原生未实现的事件，当文本框加载后触发。
 * `onmodify` 新增的事件，当且仅当用户输入的值改变时触发。类似于`oninput`，但对触发频率做了限制。
+* `onkeyenter` 在输入状态下，按下回车键触发。
 
 所有原生事件依然可用，如`onchange`、`onblur`等。
 
@@ -118,13 +119,13 @@
 * 可以通过`min`和`max`属性对输入值进行限制，当输入值不满足要求时，会自动提示`invalid-text`。
 
 ```html
-正整数：<input type="number" positive="yes" precision="0" min="0" max="100" step="10" invalid-text="必须输入 0 到 100 之间的值。" callout />
+正整数：<input type="number" positive="yes" precision="0" min="0" max="100" step="10" invalid-text="必须输入 0 到 100 之间的值。" callout-position="upside" />
 精度为 4：<input type="number" pad="yes" precision="4" />
 ```
 
 运行效果为：
 
-正整数：<input type="number" positive="yes" precision="0" min="0" max="100" step="10" invalid-text="必须输入 0 到 100 之间的值。" style="width: 100px" callout /> -| 20 |-
+正整数：<input type="number" positive="yes" precision="0" min="0" max="100" step="10" invalid-text="必须输入 0 到 100 之间的值。" style="width: 100px" callout-position="upside" /> -| 20 |-
 精度为`4`：<input type="number" pad="yes" precision="4" style="width: 100px" />
 
 `number`类型`maxlength`不可用，所有不能用来限制用户输入的长度，如果希望用`maxlength`来控制用户输入，请使用`integer`或`float`类型。原生属性`step`用来控制箭头按钮的步长。
@@ -218,12 +219,12 @@
 `name`也是扩展类型，至少输入两个字符。
 
 ```html
-<input type="name" size="20" invalid-text="姓名至少有两个字。" callout="rightside" />
+<input type="name" size="20" invalid-text="姓名至少有两个字。" callout-position="rightside" />
 ```
 
 运行效果为：
 
-<input type="name" size="20" invalid-text="姓名至少有两个字。" callout="rightside" />
+<input type="name" size="20" invalid-text="姓名至少有两个字。" callout-position="rightside" />
 
 ## 复选框
 

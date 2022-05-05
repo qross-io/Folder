@@ -9,8 +9,10 @@ root.js 为 HTML 中的所有原生标签增加了一些通用的属性和方法
 扩展的属性有：
 
 * `bottom` 获取或设置元素距文档底部的边距，单位像素。
+* `css` 只读属性，获取元素上已经设置的所有 CSS 样式，与`style`属性类似，但是`css`属性可以获取定义在 CSS 类中的样式。
 * `first` 功能同`firstElementChild`，指向第一个子元素。
-* `height` 获取或设置元素的高度，单位像素。
+* `height` 获取或设置元素的高度，单位像素。INPUT 输入框需要使用原生属性`offsetHeight`。
+* `hidden` 获取或设置的是否隐藏，[布尔属性](/root.js/boolean.md)。本身是原生属性，已重写。现在设置为`false`时同时考虑元素的`display`、`visibility`和`opacity`等影响元素可见性的属性。
 * `html` 功能同`innerHTML`，得到元素内的所有 HTML。
 * `icon` 获取或设置元素的图标，支持 Iconfont 和 图片，图标显示为元素的第一个子节点。
 * `last` 功能同`lastElementChild`，指向最后一个子元素。
@@ -18,15 +20,14 @@ root.js 为 HTML 中的所有原生标签增加了一些通用的属性和方法
 * `next` 功能同`nextElementSibling`，指向下一个同胞元素。
 * `parent` 功能同`parentNode`，指向其父级元素。
 * `right` 获取或设置元素距文档右侧的边距，单位像素，单位像素。
-* `text` 功能同`textContent`，得到元素的文本内容。
+* `text` 功能类似`textContent`，得到元素的文本内容。
 * `top` 获取或设置元素距文档顶部的边距。
 * `visible` [布尔属性](/root.js/boolean.md)，获取或设置元素可见性，与`hidden`属性相对。
-* `width` 获取或设置元素的宽度，单位像素。
+* `width` 获取或设置元素的宽度，单位像素。INPUT 输入框需要使用原生属性`offsetWidth`。
 
 扩展的方法有：
 
-* `bind(eventName, func)` 绑定一个事件到元素上。
-* `on(eventNames, func)` 绑定一个或多个事件到元素上。
+* `on(eventNames, func)` 绑定一个或多个事件到元素上，参数`eventNames`支持多个事件名，由逗号分隔开。
 * `execute(eventName, ...args)` 执行一个自定义扩展事件。
 * `hide()` 隐藏当前元素。
 * `show()` 让当前元素可见。
@@ -35,11 +36,13 @@ root.js 为 HTML 中的所有原生标签增加了一些通用的属性和方法
 * `insertAfterBegin(element)` 在元素开始标签之后插入另一个元素或 HTML。
 * `insertAfterEnd(element)` 在元素结束标签之后插入另一个元素或 HTML。
 * `get(attr)` 获取某一个属性的值。
-* `select(o)` 同`querySelector(o)`，在元素内选择符合指定 CSS 选择器的第一个子元素，找不到则返回`null`。
-* `selectAll(o)` 同`querySelectorAll(o)`，在元素内选择符合指定 CSS 选择器的所有子元素，返回一个数组，找不到则返回一个空数组。
+* `$(o)` 同`querySelector(o)`，在元素内选择符合指定 CSS 选择器的第一个子元素，找不到则返回`null`。
+* `$$(o)` 同`querySelectorAll(o)`，在元素内选择符合指定 CSS 选择器的所有子元素，返回一个数组，找不到则返回一个空数组。
 * `set(attr, value)` 设置某个属性的值，用得比较多。
 * `setBootom(bottom)` 设置底边距，单位像素。
 * `setClass(className)` 设置样式类。
+* `addClass(className)` 在 ClassList 中添加样式类。
+* `removeClass(className)` 从 ClassList 中移除样式类。
 * `setHeight(height)` 设置高度，单位像素。
 * `setHTML(html)` 设置 innerHTML。
 * `setIcon(icon)` 设置图标，见`icon`属性。
@@ -50,7 +53,7 @@ root.js 为 HTML 中的所有原生标签增加了一些通用的属性和方法
 * `setText(text)` 设置`textContent`。
 * `setTop(top)` 设置顶边距，单位像素。
 * `setWidth(width)` 设置宽度，单位像素。
-* `call(message, position = 'up', seconds = 0)` 在当前元素的某个位置`position`显示 Callout，内容为`message`，`seconds`为`0`表示一直显示，直到被点击。请参阅本文下方关于 Callout 的内容。
+* `callout(message, position = 'up', seconds = 0)` 在当前元素的某个位置`position`显示 Callout，内容为`message`，`seconds`为`0`表示一直显示，直到被点击。请参阅本文下方关于 Callout 的内容。
 * `do(func)` 执行一个函数，方便链式操作，见下面示例。
 
 
@@ -101,6 +104,8 @@ root.js 为 Document 增加了三个事件，按照触发顺序依次为：
     });
 ```
 
+三个事件有分别对应的[服务器端事件](/root.js/server.md)，即`onready+`, `onpost+`和`onload+`。这几个服务器端主要用于一次向后端发送数据，写在 BODY 标签上。如果感觉把接口地址或 PQL 语句写在 BODY 标签上有些突兀，可以使用 [IMG 标签](/root.js/image.md)的`onerror+`事件来执行相应的操作。
+
 ## Array 数组扩展
 
 扩展属性有：
@@ -125,14 +130,11 @@ root.js 为 Document 增加了三个事件，按照触发顺序依次为：
 
 ## String 字符串扩展
 
-* `$includes(str, delimiter = ',')`  判断字符串是否包含指定字符，类似于 SQL 中的`in`，如字符串`'1,3,14,15,28'`中是否包含`'4'`，返回`false`，是否包含`14`，返回`true`
-* `$length(min = 0)` 可以把中文字符识别为`2`个位置，`'中文'.$length()`结果为`4`
 * `$p(element)` [Express 字符串](/root.js/express.md)解析方法，可传入当前元素或对象。
-* `$remove(str, delimiter = ',')`  如字符串 `'1,3,14,15,28'` 中移除`14`，返回`'1,3,15,28'`
-* `$replace(sub, rep)` 用`req`替换字符串中的全部特定内容`sub`
-* `$trim(char1, char2)` 移除字符串两端的指定字符，如移除左右括号 `str.$trim('(', ')')`
-* `$union(strOrArray, delimiter)` 用指定内容拼接字符串或数组，返回值为拼接好的字符串
+* `trimPlus(char1, char2)` 移除字符串两端的指定字符，如移除左右括号 `str.$trim('(', ')')`。也可以指定一个参数，表示左右移除相同的内容。不指定参数时可以移除中文空格。
 * `decode()` 进行 HTML 解码。
+* `divide(other)` 使用当前字符串把另一个字符串拆分成数组，`split()`方法的反操作。
+* `do(str => func)` 执行函数`fun`并返回当前字符串，`str`指向当前字符串，方便链式操作。
 * `drop(length)` 从字符串左边开始删除指定长度的内容，如`'abcd'.drop(1)`结果为`'bcd'`。也接受字符串参数，如果字符串以指定参数的字符串开头则删除，如`'onclick'.drop('on')`结果为`click`。
 * `dropRight(length)` 从字符串右边开始删除指定长度的内容，如`'abcd'.dropRight(1) = 'abc'`。也接受字符串参数，从右侧删除指定的字符串。
 * `eval(obj, data)` 对字母串求值，不传递`obj`时功能同全局函数`eval(str)`；传递`obj`时，将会将字符串转成函数并应用到`obj`上，`data`是函数的可选参数。
@@ -140,6 +142,7 @@ root.js 为 Document 增加了三个事件，按照触发顺序依次为：
 * `encodeURIComponent()` 进行 URL 地址编码。
 * `fill(...elements)` 将字符串内容填充到指定元素内。
 * `prefix(str)` 为字符串增加前缀，如`click.prefix('on')`结果为`'onclick'`。
+* `shuffle(digit)` 将字符串重新打乱。如果设置了`digit`，则只返回`digit`位数的字符串。例如`'123'.shuffe()`可能返回`231`，每一位只取一次，不会重复；`'123'.shuffle(2)`可能返回`13`或`22`，可能会重复。
 * `suffix(str)` 为字符串增加后缀。
 * `take(length)` 从原字符串开头开始截取指定长度并返回，如`'abcd'.take(3) = 'abc'`。
 * `takeRight(length)` 获取原字符串从尾部开始到指定长度的内容，如`'abcd'.takeRight(3) = 'bcd'`。
@@ -169,9 +172,21 @@ root.js 为 Document 增加了三个事件，按照触发顺序依次为：
 * `isDateString()` 判断字符串是否为日期。
 * `isDateTimeString()` 判断字符串是否为日期时间。
 * `isEmpty()` 判断字符串是否为空。* `isObjectString()` 判断字符串是否是可转为对象。
+* `isImageURL()` 是否图片地址字符串。
 * `isIntegerString()` 判断字符串是否可转为 Int 类型。
 * `isNumberString()` 判断字符串是否可转为 Number 类型。
 * `isTimeString()` 判断字符串是否为时间。
+
+字符串扩展属性
+
+* `unicodeLength` 可以把中文字符识别为`2`个位置，`'中文'.unicodeLength`结果为`4`
+
+## RegExp 正则表达式扩展
+
+* `findFirstIn(str)` 查找字符串`str`中的第一个匹配字符串，找不到时返回`null`。
+* `findFirstMatchIn(str)` 查找字符串`str`中的第一个匹配，找不到时返回`null`。与`exec()`方法不同，`exec`当有`g`修饰符时多次执行时会继续寻找下一个匹配。`findFirstMathIn`方法永远只找第一个匹配。
+* `findAllIn(str)` 查找字符串`str`中的所有匹配，返回所有匹配字符串的数组。
+* `findAllMathIn(str)` 查找字符中`str`中的所有匹配，返回所有匹配的数组。
 
 ## Number 数字扩展
 
@@ -181,6 +196,9 @@ root.js 为 Document 增加了三个事件，按照触发顺序依次为：
 * `ifPositive(v)` 判断数字是否为正数，为正数则返回`v`。
 * `ifZero(v)` 判断数字是否为`0`，为`0`则返回`v`。
 * `kilo()` 为数字增加千分符，返回字符串。如`12004.kilo()`结果是`'12,004'`
+* `max(other)` 和另一个数字进行比较，返回大的那一个，同`Math.max(this, other)`。
+* `min(other)` 和另一个数字进行比较，返回小的那一个，同`Math.min(this, other)`。
+* `opposite(condition)` 根据条件判断是否返回相对数，如果`condition`为`null`或`true`，则返回数字的相对数，否则返回自身。`condition`支持各种布尔值运算，如字符串`1 == 2`。
 * `percent(digits = 2)` 将数字转换为百分数字符串，默认保留两位小数。如`0.65487.toPercent()`结果是`65.49%`
 * `round(n = 0)` 将数字四舍五入，保留`n`位小数。
 * `toTimeSpan(max)` 将秒单位的数字转成易读的时间间隔值，如`1d24h`。
@@ -189,8 +207,8 @@ root.js 为 Document 增加了三个事件，按照触发顺序依次为：
 
 一些关于文档的全局属性。
 
-* `$lang` 当前浏览器的语言，如中文为`zh`。
-* `$mobile` 当前是否在移动设备上运行，布尔值。反过来就是在 PC 设备上运行。
+* `$root.lang` 当前浏览器的语言，如中文为`zh`。
+* `$root.mobile` 当前是否在移动设备上运行，布尔值。反过来就是在 PC 设备上运行。
 * `$root.scrollTop` 获取或设置滚动条当前的纵向位置。
 * `$root.scrollLeft` 获取或设置滚动条当前的横向位置。
 * `$root.visibleWidth` 获取当前可视范围的宽度，不建议使用。
@@ -218,6 +236,10 @@ Cookie 操作
     + `properties` 属性列表，必须是一个 Object，如`{ "className": "banner", "innerHTML": "Hello World" }`
     + `styles` 样式列表，必须是一个 Object，如`{ "backgroundColor": "#FF0000", "font-size": "2rem" }`
     + `attributes` 自定义属性列表，必须是一个 Object，如`{ "sign": "TEST" }`
+
+全局样式类
+
+* `$root.appendClass(classText)` 为整个页面添加文本样式类，如`classText`可以是 `span { font-size: 14px }`。
 
 全局转化方法：<a id="parse"></a>
 
@@ -253,15 +275,14 @@ Cookie 操作
 
 * `$guid()` 随机生成`guid`，由当前时间和`10`位随机数字和字母构成。
 * `$random(begin, end)` 随机取`begin`到`end`之间的整数。
-* `$size(o)` 尝试得到一个对象的长度，如字符串、数组、Object 等。
 * `$shuffle(digit = 7)` 随机生成`digit`位密码，包含大小写字母和数字。
 
 ## 选择器
 
 可用的选择器如下：
 
-* `$s(o)` 获取符合条件的第一个标签或元素，如`$s('a')`返回页面上的第一个链接。其中`s`表示`single`，这个方法可选择原生标签和自定义标签，且自定义标签会被优先选择。如果只想选择原生标签，可使用原生选择器`$`。
-* `$a(...o)` 获取符合条件的全部标签或元素，支持输入多个参数，如`$a('p', 'div')`返回页面上所有 P 标签和 DIV 标签。其中`a`表示`all`，这个方法可选择原生标签和自定义标签。如果只想选择原生标签，可使用原生选择器`$$`。
+* `$(o)`或`$s(o)` 获取符合条件的第一个标签或元素，如`$s('a')`返回页面上的第一个链接。其中`s`表示`single`，这个方法可选择原生标签和自定义标签，且自定义标签会被优先选择。可通过[全局设置](/root.js/config.md)修改为其他名称。
+* `$$(...o)`或`$a(...o)` 获取符合条件的全部标签或元素，支持输入多个参数，如`$a('p', 'div')`返回页面上所有 P 标签和 DIV 标签。其中`a`表示`all`，这个方法可选择原生标签和自定义标签。可通过[全局设置](/root.js/config.md)修改为其他名称。
 * `$v(o)` 获取符合条件且可见的第一个标签或元素，其中`v`表示`visible`。除限制可见外，其他功能同`$s`。
 * `$t(o)` 选择单个自定义标签，如 TREEVIEW、CALENDAR 等。其中`t`表示`tag`，这个方法只能选择自定义标签。另外每个组件中也提供了选择器方法，如`$tree(name)`。一般用不到。
 
@@ -283,27 +304,25 @@ Ajax 用来从接口调取数据，以下 4 个方法分别对应 4 种不同的
 这 4 个方法中，`url`表示要请示的地址；`params`表示要发送的数据或参数，格式与地址字符串相同；`url`和`params`均支持 [Express 字符串](/root.js/express.md)；`path`表示获取数据成功后解析数据的 JsonPath。
 
 * `sync(enabled)` 设置请求是同步还是异步请求，默认为异步，只有需要设置为同步时才需要使用这个方法。
-* `send(func)` 设置请求发起时的回调方法。
-* `complete(func)` 设置请求完成时调用的回调方法。
-* `error(func)` 设置请求失败时调用的回调方法。
-* `success(func)` 设置请求成功时调用的回调方法。
+* `on('event', func)` 设置请求回调方法，`event`支持`send`、`error`、`success`和`complete`，分别表示发送时、失败时、成功时、完成时。
+* `send()` 执行发送请示。
 
 完整的示例和函数参数如下：
 
 ```javascript
     $POST('/api/user', 'name=Tom&age=18', '/data')
-        .send(function(url, params) {
+        .on('send', function(url, params) {
             //url 和 params 是解析后的值，一般用于调试
         })
-        .error(function(status, statusText) {
+        .on('error', function(status, statusText) {
             //status 是状态码, statusText 是状态文本
         })
-        .complete(function() {
+        .on('complete', function() {
             //无论成功还是失败，都执行这个函数
         })
-        .send(function(data) {
+        .on('send', function(data) {
             //data 表示请求成功后获得的数据
-        });
+        }).send();
 ```
 
 现在已经有了更强大的请求方法：
@@ -379,7 +398,8 @@ $enhance(HTMLButtonElement.prototype)
         'actionText': function(value) {
             return value.toUpperCase();
         }
-    })    
+    })
+    .extend('onclick+', 'onclick-disabled')
     .describe({
         onActionSuccess: null, // function(result) { },
         onActionFailure: null //function(result) { },

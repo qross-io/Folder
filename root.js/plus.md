@@ -29,7 +29,7 @@
 <log id="Logs" terminal="@running > 0"></log>
 ```
 
-因为增强属性在加载时进行一次 Express 字符串运算，Express 运算在 Model 数据运算之后。所以即时没有加载 Model 数据，也可以单独进行 Express 运算。可以理解是对属性值的扩展。
+因为增强属性在加载时进行一次 Express 字符串运算，Express 运算在 Model 数据运算之后。所以即使没有加载 Model 数据，也可以单独进行 Express 运算。可以理解是对属性值的扩展。
 
 ```html
 <a href+="/job/detail?id=&(jobId)">Job Detail</a>

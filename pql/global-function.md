@@ -18,8 +18,11 @@ SELECT * FROM students WHERE initial=${ $name TAKE 1 };
 
 为了照顾不同的数据库 SQL 语言习惯，PQL 中会有不同的函数名称来完成同一个操作。目前系统支持的全局函数比较少，会随着版本更新不断补全。
 
-* [字符串处理函数](/pql/function-text.md)
+* [字符串和正则表达式相关函数](/pql/function-text.md)
 * [数字相关函数](/pql/function-numeric.md)
+* [日期时间相关函数](/pql/function-numeric.md)
+
+除些之外还有一个判断函数`@IFNULL(value, other)`或`@NVL(value, other)`，当指定值`value`为`null`时，则返回另一个值`other`。
 
 ## 自定义系统函数
 

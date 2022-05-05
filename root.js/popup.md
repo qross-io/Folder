@@ -1,20 +1,23 @@
 # Popup 页内弹出框
 
-Popup 提供页面弹出框功能，可以把 DIV 元素转成弹出框。其中`popup`属性必须有。
+Popup 提供页面弹出框功能，是一个自定义元素。Popup 可以理解为是一个浮动 DIV 层，在元素内可以嵌套任何 HTML 元素。标签名 `POP-UP`，中横线必须有，对应的元素类为 HTMLPopupElement。
 
 ```html
-<div id="Popup1" popup>
-    ......
-</div>
+<pop-up>......</pop-up>
 ```
+
+这个组件第一个版本诞生于 2006 年，期间已经过多次演进。
+
+## 属性、方法和事件
 
 Popup 可用的属性如下：
 
-* `popup` 显示模式，可选值有：`window` 窗口模式，`sidebar` 边栏模式，`menu` 菜单模式。显示模式配合`position`属性使用，默认值为`window`。
+* `type` 显示模式，可选值有：`window` 窗口模式，`sidebar` 边栏模式，`menu` 菜单模式。显示模式配合`position`属性使用，默认值为`window`。
 * `modal` 是否使用模态，默认`true`。模态下在 Popup 打开时 Popup 之外的元素不可操作。
-* `position` 显示位置，这个属性稍微复杂。下文详细说明。Popup 通过`position`属性设置的值由 X 轴和 Y 轴两个位置构成，位置之间使用`.`或`,`隔开，如`center.middel`。其中 X 轴可选值有`left`、`center`、`right`、`event`和具体的数字，Y 轴可选值有`top`、`middle`、`bottom`、`event`和具体的数字。其中`event`表示事件触发位置，数字表示页面的像素位置。更详细的信息在下文会提到。
-* `offsetX` 打开时 X 轴的偏移距离，单位为像素。
-* `offsetY` 打开时 Y 轴的偏移距离，单位为像素。
+* `position-x` 指弹出框相对于 X 轴的位置，可选值有`left`、`center`、`right`、`event`和具体的数字。数字表示页面的像素位置。默认值为`center`。更详细的信息在下文会提到。
+* `position-y` 指弹出框相对于 X 轴的位置，可选值有`top`、`middle`、`bottom`、`event`和具体的数字。数字表示页面的像素位置。默认值为`middle`。更详细的信息在下文会提到。
+* `offsetX`或`offset-x` 打开时 X 轴的偏移距离，单位为像素。
+* `offsetY`或`offset-y` 打开时 Y 轴的偏移距离，单位为像素。
 * `open-button` 设置打开按钮的 id 或其他可用的选择器，默认值为`#{popup-id}_OpenButton`，如`#Popup1_OpenButton`。
 * `close-button` 设置关闭按钮的 id 或其他可用的选择器，默认值为`#{popup-id}_CloseButton`，如`#Popup1_CloseButton`。
 * `confirm-button` 设置确认按钮的 id 或其他可用的选择器，默认值为`#{popup-id}_ConfirmButton`，如`#Popup1_ConfirmButton`。
@@ -24,7 +27,6 @@ Popup 可用的属性如下：
 * `disable-scrolling` 打开时是否禁用滚动条，默认为`false`，边栏械下默认为`true`。
 * `mask-color` 模态背景的颜色，默认为`#999999`。
 * `mask-opacity` 模态背景的透明度，可选值`0 ~ 10`，`0`为完全透明，`10`为完全不透明，默认值`3`。
-* `visibility` 弹出框的可见性，默认值为`hidden`，即开始时隐藏弹出框。如果初始设置为`visible`，则进行页面时即弹出。与标签的原生属性`hidden`和扩展属性`visible`逻辑不同。
 
 可用的方法有：
 
@@ -39,23 +41,23 @@ Popup 可用的属性如下：
 * `onclose` 当 Popup 关闭时触发，事件函数参数为当前事件变量`ev`，支持`return false`。
 * `onconfirm` 当 Popup 确定时触发，事件函数参数为当前事件变量`ev`。这个事件最重要，支持`return false`。
 * `oncancel` 当 Popup 取消时触发，事件函数参数为当前事件变量`ev`，支持`return false`。
-* `onshow` 当 Popup 打开后触发。
-* `onhide` 当 Popup 关闭后触发。
+* `onshow` 当 Popup 显示后触发，打开算显示。
+* `onhide` 当 Popup 隐藏后触发，关闭、确认、取消都算隐藏。
 
 示例如下：
 
 ```javascript
-$listen('Popup1').on('confirm', function(ev) {
+$('#Popup1').on('confirm', function(ev) {
     //......
 });
 ```
 
 ## 窗口模式
 
-如果不设置`position`，那么其默认值为`center.middle`。位置针对整个窗口，如`left.top`让整个窗口显示在窗口的左上角。
+属性`position-x`和`position-y`的位置针对整个窗口，如分别设置为`left`和`top`让整个窗口显示在窗口的左上角。
 
 ```html
-<div id="Popup1" popup="window" position="center.top">
+<pop-up id="Popup1" type="window" position-x="center" position-y="top">
     <div>
         这个是一个 Popup。
     </div>
@@ -63,23 +65,23 @@ $listen('Popup1').on('confirm', function(ev) {
         <button id="Popup1_ConfirmButton">OK</button>
         <button id="Popup1_CancelButton">Cancel</button>
     </div>
-</div>
+</pop-up>
 ```
 
 ## 边栏模式
 
-边栏模式下，`position`可以设置为`left`、`right`、`top`和`bottom`。当设置为`left`和`right`时，Y 轴默认值为`middle`；当设置为`top`和`bottom`时，X 轴默认值为`center`。当 X 轴为`center`时，会自动调整 Popup 宽度为整个窗口宽度；当 Y 轴设置为`middle`时，会自动调整 Popup 高度为整个窗口高度。边栏模式下默认禁用滚动条。
+边栏模式下，`position-x`设置为`left`、`right`时为左右边栏，`position-y`设置为`top`和`bottom`时为上下边栏。上下边栏会自动调整 Popup 宽度为整个窗口宽度；左右边栏会自动调整 Popup 高度为整个窗口高度。X 轴设置优先于 Y 轴，即只要 X 轴不是`center`时，Y 轴默认为`middle`，其他设置值无效。边栏模式下默认禁用滚动条。
 
 ```html
-<div id="Popup1" popup="sidebar" position="right"></div>
+<pop-up id="Popup1" type="sidebar" position-x="right"></pop-up>
 ```
 
 ## 菜单模式
 
-菜单模式下，`position`的位置不再相对于窗口，而是`reference`属性设置的参考元素。`left`相对于参考元素左对齐，`center`与参考元素居中对齐，`right`相对于参考元素右对齐，`top`让 Popup 显示在参考元素上方，`bottom`让 Popup 显示在参考元素下方，`middle`设置无效。
+菜单模式下，`position-x`和`position-y`的位置不再相对于窗口，而是`reference`属性设置的参考元素。`left`相对于参考元素左对齐，`center`与参考元素居中对齐，`right`相对于参考元素右对齐，`top`让 Popup 显示在参考元素上方，`bottom`让 Popup 显示在参考元素下方，`middle`设置无效。
 
 ```html
-<div id="Popup1" popup="menu" position="left.bottom"></div>
+<pop-up id="Popup1" type="menu" position-x="left" position-y="bottom"></pop-up>
 ```
 
 ## 对话框

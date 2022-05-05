@@ -31,7 +31,7 @@ porn.xml 依赖配置如下
     <dependency>
         <groupId>io.qross</groupId>
         <artifactId>pql</artifactId>
-        <version>1.8.0</version>
+        <version>2.4.0</version>
     </dependency> 
 </dependencies>
 ```
@@ -40,7 +40,7 @@ porn.xml 依赖配置如下
 
 ```groovy
 dependencies {
-    compile group: 'io.qross', name: 'pql', version: '1.8.0'
+    compile group: 'io.qross', name: 'pql', version: '2.4.0'
 }
 ```
 

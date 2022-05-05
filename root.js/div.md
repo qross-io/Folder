@@ -1,6 +1,6 @@
 # DIV 布局增强
 
-基于 DIV 进行扩展，以方便进行各种页面布局。通过扩展属性`display`来设置不同的模式。
+基于 DIV 进行扩展，以方便进行各种页面布局。通过扩展属性`display`来设置不同的模式。所有布局模式只支持页面第一次加载时应用。
 
 ```html
 <div display="...">...</div>
@@ -28,6 +28,17 @@ Justify 模式可以平均分布 DIV 内的各个元素，各元素横向分布�
     <div class="score">...</div>
     <div class="score">...</div>
     <div class="score">...</div>
+</div>
+```
+
+## Column 模式
+
+Column 模式可以让 DIV 内的子 DIV 元素进行分栏，并且子 DIV 的宽度可以通过`width`属性进行设置，支持表达式运算。
+
+```html
+<div display="column">
+    <div width="45%">...</div>
+    <div width="55% - 10px">...</div>
 </div>
 ```
 

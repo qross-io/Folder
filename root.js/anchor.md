@@ -10,8 +10,8 @@ A 标签扩展对应的 Javascript 文件为 `root.anchor.js`。
 
 A 标签扩展新增的扩展属性有：
 
-* `callout` 如果不设置`alert`属性，则默认使用 Callout 来提示以上各种消息。这个属性可以设置 Callout 的位置，默认为`upside`。
-* `message` 如果设置了这个属性，则使用 Message 提示框（在页面上方弹出）来提示各种消息，属性值为持续时间，单位为秒。
+* `callout`或`callout-position` 默认使用 [Callout](/root.js/root.md) 来提示以上各种消息。这个属性可以设置 Callout 的位置，默认为`upside`。
+* `message`或`message-duration` 如果设置了这个属性，则使用 Message 提示框（在页面上方弹出）来提示各种消息，属性值为持续时间，单位为秒，`0`表示一直显示直到点击才关闭。
 * `confirm-text` 点击链接后的确认对话框文字内容，点击确认后才会执行服务器端事件。
 * `confirm-title` 设置确认对话框的标题文字，对于原生确认对话框无效。
 * `confirm-button-text` 设置弹出对话框确认按钮的文字，默认为`OK`，对于原生确认对话框无效。

@@ -17,14 +17,14 @@ O 标签属于 [Model 数据加载模型](/root.js/model.md)的一部分，引�
 不同点是前者是在客户端实现的异步查询，在页面呈现给用户之后执行；后者是在服务器端实现的查询，是在页面呈现给用户之前。O 标签与[data 属性](/root.js/data.md)实现的逻辑完全相同，也支持接口或跨域接口。
 
 ```html
-<o>/api/page/title?id=#{id} -> /data</o>
+<o>/api/page/title?id=#{id} # /data</o>
 <o>SELECT title FROM table1 WHERE id=$id -> FIRST CELL</o>
 ```
 
 第二种应用方式，从 Model 中加载数据，这种方式必须以`@`符号开头。
 
 ```html
-<model name="page" data="/api/page/title?id=#{id} -> /data"></model>
+<model name="page" data="/api/page/title?id=#{id} # /data"></model>
 
 文章标题：<o>@page.title</o>; 文章浏览：<o>@page.views?(0)</o>
 ```
@@ -32,7 +32,7 @@ O 标签属于 [Model 数据加载模型](/root.js/model.md)的一部分，引�
 第三种应用方式，从`data`属性加载数据。O 标签的数据占位符规则为 `@:keyOrPath?(defaultValue)`。
 
 ```html
-<o data="/api/page/title?id=#{id} -> /data">文章标题：@:title; 文章浏览：@:views?(0)</o>
+<o data="/api/page/title?id=#{id} # /data">文章标题：@:title; 文章浏览：@:views?(0)</o>
 ```
 
 其中的`@:`表示 O 标签从后端加载的数据，请参阅[数据占位符](/root.js/holder.md)获取完整规则信息。

@@ -162,16 +162,12 @@ MODEL 标签可用的事件如下：
 也可以 Javascript 中调用：
 
 ```javascript
-$listen('#name').on('load,reload', function(data) {
+$('#name').on('load,reload', function(data) {
     //每次加载都执行
-});
-
-$model('name').on('reload', function(data) {
+}).on('reload', function(data) {
     //仅刷新后执行
 });
 ```
-
-上例中，`$listen`和`$model`的区别是前者只用于绑定事件，后者可以操作 Model 对象，且只能在加载完成后使用。对于 MODEL 标签来说，`$model`只在程序内部使用。上例中`data`属性是 MODEL 加载的数据。
 
 ## Model 数据的双向绑定
 
@@ -185,12 +181,13 @@ Model 用于加载并为其他组件提供数据，主要用于一次加载且�
 
 上例中，名为`Stat`的 Model 用来从后端加载数据，接口参数依赖于标签`Range`的值，返回数据结构是一个包含列`channelName`和`pageviews`的二维表格；图表`PageviewsChart`从 Model 中加载数据，分别使用数据中的`channelName`列和`pageviews`列作为 X 轴和 Y 轴的数据；当 TAB 标签`Range`的选项切换时，触发`onchange`事件，让 Model 的数据根据`Range`的值重新加载；Model 加载完成后，图表`PageviewsChart`因为引用了 Model 的数据，也会自动被重新加载已展示新的数据。
 
+
 ## 全局事件
 
-与全局方法`$ready`类似，在页面加载完成之后执行函数。区别是`$ready`文档准备好时执行，而`$finish`是在所有 Model 相关的标签解析完成之后再执行给定的函数。`$finish`和`$ready`一样，可使用多次。在执行时按函数的添加顺序执行。
+`Document`新增一个`onpost`事件，表示在 Model 及 Model 相关数据组件加载完数据之后触发，可绑定多个`onpost`事件。
 
 ```javascript
-$finish(function() {
+document.on('post', function() {
     //...
 });
 ```
@@ -237,7 +234,9 @@ $finish(function() {
 </if>
 ```
 
-注意：`@` 符号在 Javascript 占位符表达式中为特殊字符，在必须要在文本内容中输出`@`字符且遇到冲突时，请使用`&#64;`代替。
+注意：`@` 符号在 Javascript 占位符表达式中为特殊字符，在必须要在文本内容中输出`@`字符且遇到冲突时，请使用`&#64;`代替。一般情况下，其中的`~`可以省略。
+
+在 Javascript 短句中，有一个特殊的变量`data`，变量保存从后端取回来的数据。在 MODEL 标签中，表示整个数据。但在 [TEMPLATE 标签](/root.js/template.md)中的循环遍历模式下，还有 [FOR 标签](/root.js/for.md)中，`data`表示每一行的数据。
 
 ## 总结
 
