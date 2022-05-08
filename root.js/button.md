@@ -25,6 +25,8 @@
 
 * `disable-on-click` 当向服务器端发送请求时，是否禁用按钮，可以防止用户多次点击，默认为`true`。
 * `enable-on-success` 当服务器端请求成功后，是否启用按钮，默认为`true`。如果为一次性按钮可设置为`false`。
+* `enable-on-failure` 当服务器端请求结果不符合预期时，是否启用按钮，默认为`true`。如果为一次性按钮可设置为`false`。
+* `enable-on-exception` 当服务器端请求出错时，是否启用按钮，默认为`true`。
 * `href` 请求成功后的跳转 URL 地址，支持 [Express 字符串](/root.js/express.md)。没有服务器端事件时，可以把按钮直接当链接使用。
     ```html
     <button href="/index.html">返回首页</button>

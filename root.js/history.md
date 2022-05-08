@@ -20,7 +20,7 @@
 * [Editor 文本编辑](/root.js/editor.md)组件继续开发，增加 SELECT 类型及大量修正。
 * [Model 数据加载模型](/root.js/model.md) 与[数据占位符](/root.js/holder.md)相关的逻辑已重写并优化。
 * [Model 数据加载模型](/root.js/model.md) 除了 IF 标签外，还增加了`if`属性支持，可以在任意元素上设置。
-* [TABLE 标签扩展](/root.js/tablemd)新增服务器端事件`onrowdblclick+`及相关属性。
+* [TABLE 标签扩展](/root.js/table.md)新增服务器端事件`onrowdblclick+`及相关属性。
 * [布尔或条件表达式类型的属性](/root.js/boolean.md)处理逻辑进行了统一。
 * 新的[[消息组件](/root.js/animation.md)加入，配合其他标签使用。INPUT、BUTTON、SELECT 和 TABLE 都已支持。
 * 原 Layout 布局修改为 [DIV 布局增强](/root.js/div.md)。

@@ -131,6 +131,12 @@ let str = '&(param)-$:[title]'.$p(span);
 <table data="/api/search?keyword=$(#Keyword)%"></table>
 ```
 
+也可以直接对常量进行编码：
+
+```html
+<table data="/api/search?keyword=关键词%"></table>
+```
+
 很少的情况下会遇到字符冲突，例如：
 
 ```html

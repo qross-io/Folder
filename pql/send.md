@@ -96,10 +96,11 @@ SEND MAIL "test mail"
   <div>
     <%=SELECT id, name, score FROM students -> TO HTML TABLE %>
   </div>
+  <div><%=$comment%></div>
   ```
   上例中`<%`和`%>`包围的部分就是嵌入式 PQL 的代码，简单直接。
 
-两种方式并不是独立的，而是依次执行，即先执行`PLACE DATA`，再通过 [Voyager 模板引擎](/voyager/overview.md)解析模板内容。
+两种方式并不是独立的，而是依次执行，即先执行`PLACE DATA`，再通过 [Voyager 模板引擎](/voyager/overview.md)解析模板内容。另外，通过`PLACE DATA`传递的数据都会转成 PQL 变量，可以在模板中使用，如上例中的`$comment`变量通过`PLACE DATA`传递到了模板中。
 
 ## 添加附件
 
@@ -121,7 +122,7 @@ SEND EMAIL "test mail"
 SEND EMAIL "test mail"
     SET SMTP HOST "smtp.domain.com"
     SET PORT 25
-    FROM "personal<sender@domain.com>"
+    FROM "sender@domain.com"
     SET PASSWORD "password"
     SET PERSONAL "name"
     TO "personal<user@domain.com>";
