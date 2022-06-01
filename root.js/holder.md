@@ -62,44 +62,45 @@
     }
     ```
 
-从后端获取的数据多种多样，数据占位符就是用来加载和呈现这些不同结构的数据。数据占位符本质上是一些符号规则，例如`@stat.data`。一个包含多个规则的占位符是这样的`@modelName.propertyName[index]?(defaultValue)`，下面是关于每个符号的解释：
+从后端获取的数据多种多样，数据占位符就是用来加载和呈现这些不同结构的数据。数据占位符本质上是一些符号规则，例如`@stat.data`。一个包含多个规则的占位符是这样的`@modelName.propertyName[index].method()?(defaultValue)`，下面是关于每个符号的解释：
 
 * 数据占位符总是以`@`开头。
-* `modelName`指向某个 MODEL 元素的名字`name`或`id`。
+* `modelName`指向某个 MODEL 元素的名字`name`或`id`，或者一个数据的名字，依据所属标签的不同而不同。
 * 使用点规则`.`获取下一个子属性。
 * 使用中括号`[n]`获取数组索引，如`[0]`。如果`n`为负数，表示倒数，如`-1`表示倒数第一个，依次类推。
 * 也可以使用中括号`[attr]`获取子属性，如`[propertyName]`。特别时属性名中包含非变量字符（英文字母、数字和下划线）时，如中文，必须使用这种方式。
 * 使用`|column|`获取对象数组的列，如`|studentName|`。
+* 使用`.method()`调用方法，如`.avg()`，支持常量参数，如`.substring(0,4)`。字符串参数不需要写引号，布尔类型和数字类型参数类型会自动识别。
 * 使用`?(defaultValue)`设置默认值，即占位符前面的数据为`null`或`undefined`时给一个默认值。
 * 在占位符结尾使用叹号`!`来避免字符冲突。
-* 使用`@:`开头，表示当前元素标签获取的数据。
+* `data`是保留字，一般指当前标签的数据，如`@data.first`。
 
 下面举例说明每一项的作用。 
 
 ```html
 <model name="students" data="select name, age from students order by age asc">
-    <set $="#Youngest">The youngest students is: @:[0][name]!. He/She is only @:[0].age!!</set>
-    <set $="#Oldest">The oldest students is: @:[-1].name!. He/She is only @:[-1][age]!!</set>
+    <set $="#Youngest">The youngest students is: @data[0][name]!. He/She is only @data[0].age!!</set>
+    <set $="#Oldest">The oldest students is: @data[-1].name!. He/She is only @data[-1][age]!!</set>
     <set $="#Avg" value="~{ @students|age|!.avg().round(2) }"></set>
 </model>
 <span id="Youngest"></span>
 <span id="Oldest"></span>
 <input id="Avg" type="text" />
 <for var="student" in="@students">
-    <div>@student.name: @[age]</div>
+    <div>@student.name: @student[age]</div>
 </for>
 ```
 
 这个 MODEL 元素返回一个对象数组，也就是一个二维表格。各个占位符的逻辑说明如下：
 
-* 在 MODEL 内部，使用`@:`指向当向 MODEL 元素获取的整个数据，完整写法是`@students`。
-* `@:[0][name]`表示第一行数据`name`项，与`@:[0].name`等价，`[0]`表示数组的第一项，当前代表返回数据的第一行。
-* 同理，`@:[0].age!`与`@:[0][age]`也等价，如果占位符以英文字母结尾，后面如果跟着有可能冲突的字符如`.`、`!`或英文字母等，则需要加一个叹号`!`表示占位符的结尾，叹号`!`可避免识别错误。
-* `@:[-1].name`中的`[-1]`表示数组最后一项，倒数第二项为`[-2]`，依次类推。
-* `@students|age|!`表示取数据的`age`列，得到一个数组。因为后面跟着一个小数点`.`，所以要加一个叹号`!`表示占位符结尾。例中使用了一个 Javascript 对结果数组进行了再加工，详见 [Express 字符串](/root.js/express.md)。其中`avg()`和`round(2)`是数组和数字的扩展方法，属于 Javascript 的内容。
-* 使用 FOR 标签遍历整个结果数据，`in`属性中使用`@students`调取的是整个 MODEL 元素的值。这里不能使用`@:`，因为已经出了 MODEL 元素的范围。
-* FOR 标签声明了`student`来表示数据的每一行，使用`@student.name`可以得到这一行中`name`项的值，其简写形式为`@[name]`。同理，`@[age]`与`@student.age`等价。
-* 在文本内容中输出`@`的问题，如果冲突时可以使用`&#64;`代替。
+* 在 MODEL 内部，使用`@data`指向当前 MODEL 元素获取的整个数据；在 MODEL 外部使用可以写为是`@students`。
+* `@data[0][name]`表示第一行数据`name`项，与`@data[0].name`等价，`[0]`表示数组的第一项，当前代表返回数据的第一行。
+* 同理，`@data[0].age`与`@data[0][age]`也等价，如果占位符以英文字母结尾，后面如果跟着有可能冲突的字符如`.`、`!`或英文字母等，则需要加一个叹号`!`表示占位符的结尾，叹号`!`可避免识别错误。
+* `@data[-1].name`中的`[-1]`表示数组最后一项，倒数第二项为`[-2]`，依次类推。
+* `@students|age|!`表示取数据的`age`列，得到一个数组。因为后面跟着一个小数点`.`，所以要加一个叹号`!`表示占位符结尾。例中使用了一个 Javascript 对结果数组进行了再加工，详见 [Express 字符串](/root.js/express.md)。其中`avg()`和`round(2)`是数组和数字的扩展方法，属于 Javascript 的内容。当数据加工过程比较复杂时一般会用到 Javascript 短句或表达式，这里可以全部使用占位符，可以写成`value="@data|age|.avg().round(2)"`或`value="@data.avg(age).round(2)"`。
+* 使用 FOR 标签遍历整个结果数据，`in`属性中使用`@students`调取的是整个 MODEL 元素的值。这里不能使用`@data`，因为已经出了 MODEL 元素的范围。
+* FOR 标签声明了`student`来表示数据的每一行，使用`@student.name`可以得到这一行中`name`项的值。`@student[age]`和`@student.age`等价。
+* 在文本内容中输出`@`的问题，如果冲突时可以使用`&#64;`代替，例如电子邮件地址中有`@`字符。
 
 
 ---

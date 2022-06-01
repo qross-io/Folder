@@ -47,4 +47,46 @@
 
 <span id="Final1" copy-text="正则表达式已复制。" class="regex">(?<=(?:=))(.*?)%(?=(?:&|#|$))</span> &nbsp; &nbsp; <button class="small-text-button gray-button" onclick-="copy: #Final1"> 复制</button> <button class="small-text-button gray-button" href="/r?text=$(#Text1)%&regex=$(#Final1)%">试试</button>
 
+## 多个分组和空白字符
+
+有这么一个需要，判断给定字符串是不是 JSON 对象格式的字符串，判断的目的是和 Javascript 语句区分开来。开始分析，一个完整格式的 JSON 对象字符串由大括号`{`和`}`包围，其中有多个项，每个项由键和值构成，键和值之间使用冒号`:`分隔，键名使用双引号`"`引起来，值可以有不同类型，多个项之间使用逗号`,`分隔开。
+
+一步一步来，先实现开始和结束由大括号包围。
+
+<span class="regex">^\s\*\{[^{}]\*?\}\s\*$</span>
+
+挨个解释。
+
+* `^`和`$`表示匹配字符串的开始的结束。
+* `\s*`表示匹配 0 个或多个空白字符，因为字符串的开始和结尾可能包含空格，需不需视情况而定。
+* `\{`和`\}`有示匹配字符`{`和`}`，因为大括号在正则表达式的保留字符，表示重复次数，所以要加转义符号`\`。
+* `[^{}]*?`中的`[^{}]`表示匹配除左右大括号以外的所有字符，保留符号在方括号`[`和`]`中时一般可以不加转义符号，当然加上也没有问题。这里的`^`不再表示字符串的开始，表示`^`后面的字符不再匹配期望之内。星号`*`表示匹配 0 次或多次，星号`*`后面的问题`?`表示非贪婪匹配模式，匹配尽可能少的字符，否则匹配尽可能多的字符，这里其实可以省略。
+
+下面增加项的键名规则，由双引号引用，即
+
+<span class="regex">"[^"]\*"\s\*:</span>
+
+* `"[^"]*"`匹配整个键名，这里用星号`*`而不用加号`+`是因为键名可能为空。
+* `\s*`表示键名和冒号`:`之间可能有空白字符，比如空格。
+
+两个正则表达式合在一起，就可以表示一个不为空的对象字符串。
+
+<span class="regex">^\s*\{\s*"[^"]\*"\s\*:[^{}]*?\}\s\*$</span>
+
+这个表达式没那么严谨，因为不会判断这个对象有多少项，每一项是否都符合规则，可以说只匹配了开头。目的只要和 Javascript 语句区分开来就好。
+
+对象字符串有可能为空，现在要加上这个规则。
+
+<span id="Text2" hidden>{ "key1": 1, "key2": "value2" }</span>
+
+<span id="Final2" copy-text="正则表达式已复制。" class="regex">^\s\*\{\s\*(?:"[^"]*"\s\*:[^{}]\*?|)\}\s\*$</span> &nbsp; &nbsp; <button class="small-text-button gray-button" onclick-="copy: #Final2"> 复制</button> <button class="small-text-button gray-button" href="/r?text=$(#Text2)%&regex=$(#Final2)%">试试</button>
+
+区别就是使用了分组，并且有一个空可选项`|)`，前面的`(?:`，其中`?:`表示非捕获组，即让小括号里的内容不在结果分组中返回，如果无所谓去掉`?:`即可。如果只想匹配一个正确格式的 JSON 对象字符串，到这里已经结束了。在 Javascript 中，JSON 对象的键名支持单引号引用，也支持数字键名，再加上这两个规则。
+
+<span id="Text3" hidden>{ 'key1': 1, 'key2': "value2" }</span>
+
+<span id="Final3" copy-text="正则表达式已复制。" class="regex">^\s*\{\s\*(?:"[^"]\*"\s\*:[^{}]\*?|'[^']'"\s\*:[^{}]\*?|\d+\s\*:[^{}]\*?|)\}\s\*$</span> &nbsp; &nbsp; <button class="small-text-button gray-button" onclick-="copy: #Final3"> 复制</button> <button class="small-text-button gray-button" href="/r?text=$(#Text3)%&regex=$(#Final3)%">试试</button>
+
+好吧，搞这么麻烦，其实在 Javascript 里使用`JSON.parse(str)`或`eval('(' + str + ')')`尝试转换一下就好。只是提供一个解决问题的思路。
+
 （未完待续）

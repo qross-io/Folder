@@ -16,8 +16,7 @@
 
 ## 身份证号
 
-<span id="IDCard" class="regex" copy-text="正则表达式已复制。">^[1-8][1-7][0-9]{4}(19|20)[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[01])[0-9]{2}([0-9])[0-9Xx]$</span> &nbsp; &nbsp; <button class="small-text-button gray-button" onclick-="copy: #IDCard">复制</button>
-<button class="small-text-button gray-button" href="/r?text=612722200803271087&regex=$(#IDCard)%">试试</button>
+<span id="IDCard" class="regex" copy-text="正则表达式已复制。">^[1-8][1-7][0-9]{4}(19|20)[0-9]{2}(0[1-9]|1[0-2])(0[1-9]|1[0-9]|2[0-9]|3[01])[0-9]{2}([0-9])[0-9Xx]$</span> &nbsp; &nbsp; <button class="small-text-button gray-button" onclick-="copy: #IDCard">复制</button> <button class="small-text-button gray-button" href="/r?text=612722200803271087&regex=$(#IDCard)%">试试</button>
 
 -- 20 --
 

@@ -15,7 +15,7 @@
 
 电子邮件 &nbsp; /gray,14:方便的话可以留下您的电子邮件，处理完成后将通过邮件反馈。网站不会发送任何广告邮件。/
 
-<input type="email" id="Email" maxlength="255" style="width: 92%" value+="{ $storage.get('email') }" />
+<input type="email" id="Email" maxlength="255" style="width: 92%" value+="{ $storage.get('email') ?? '' }" />
 
 -- 20 --
 

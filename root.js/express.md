@@ -1,6 +1,6 @@
 # Express 字符串
 
-在日常开发中，经常需要拼接各种各样的字符串，这些字符串的值由页面内容（比如标签（元素）的内容、地址参数等）组成。**Express 字符串** 提供了使用占位符的方法来组成字符串，这是一种非常简单的方法。使用 Express 方法，字符串不需要拼接，只需要简单的设置占位符即可。Express 字符串支持两种格式的占位符，分别是 URL 地址参数占位符和 DOM 操作符。
+在日常开发中，经常需要拼接各种各样的字符串，这些字符串的值由页面内容（比如标签（元素）的内容、地址参数等）组成。**Express 字符串** 提供了使用占位符的方法来组成字符串，这是一种非常简单的方法。使用 Express 方法，字符串不需要拼接，只需要简单的设置占位符即可。Express 字符串支持几种格式的占位符，下面依次介绍。
 
 ## Express 字符串应用范围
 
@@ -32,6 +32,53 @@ Express 字符串应用范围比较多
 ```
 
 区别是前者在客户端浏览器中进行计算，后者在服务器端进行计算。
+
+## 数据占位符
+
+数据占位符的数据来自于 MODEL、TEMPLATE、FOR、SPAN、O 等标签，如增强属性可以调取 MODEL 标签的数据。在 root.js 库中，数据占位符格式是统一的。
+
+数据占位符的标准格式为`@data.property[index]|column|.method()?(defaultValue)!`。
+
+* 占位符以`@`开头，目的是与其他的占位符区分开。
+* `data`指数据对象本身，例如要调取 MODEL 加载的数据，那么这里就可以是 MODEL 标签的名字，如`@ModelName1`。引用的数据可以是任何类型，如对象、数组或基本数据。
+* 使用点规则`.`按名引用属性，也可以和 Javascript 使用方括号规则，如`@data[property]`。
+* 使用方括号规则引用索引，一般用于数组，如`@data[0]`，索引从 0 开始，支持负值，负值表示从后向前，比如`-1`表示最后一项，`-2`表示倒数第二项，以此类推。也可以用`first`或`last`属性获取数组的第一项或最后一项，如`@data.first`或`@data.last`。
+* 使用`|column|`引用列，仅适用于对象数组，其中`column`是列名。这个用得非常少，功能与`objectArray.map(o => o[column])`相同，返回指定列的数组。
+* 使用`.method()`调用方法，方法中支持常量参数，假设`@data`的值为字符串，那么`@data.substring(0,2)`就取这个字符串的前两位。字符串参数不需要写引号，布尔类型和数字类型参数类型会自动识别。
+* 使用`?(defaultValue)`来指定默认值，当前面的值为`null`或`undefined`时才生效。空字符串为`?()`，以小括号内不写任何东西。
+* 在占位符结尾使用`!`防止占位符冲突。
+
+假如有接口返回数据如下，数据名字为`students`。
+
+```json
+{
+    "message": "success",
+    "elapsed": 324,
+    "data": [
+        {
+            "name": "Tom",
+            "age": 15,
+            "score": 87
+        },
+        {
+            "name": "Jerry",
+            "age": 13,
+            "score": 69
+        },
+        ......
+    ]
+}
+```
+
+* 调取整个数据 - `@students`
+* 调取`message` - `@students.message`
+* 调取所有学生的年龄 - `@students.data|age|`
+* 调取第一个学生的名字 - `@students.data[0].name`或`@students.data.first.name`
+* 如果不存在`elapsed`属性或值为`null`，则默认为`0` - `@students.elapsed?(0)`
+* 如果默认值为空字符串，则写为 `@students.message?()`，不建议直接在根上使用默认值，如`@students?(empty)`
+* 计算所以学生的总分和平均分，`@students.data|score|.sum()`和`@students.data.avg(score)`，因为数组的`sum`和`avg`方法都支持指定列，所以这两种写法都可以。
+
+更多可以参阅[数据占位符](/root.js/holder.md)。
 
 ## DOM 操作符
 

@@ -1,7 +1,5 @@
 # TreeNode 类
 
-文档正在完善中...
-
 TreeNode 是构成 TreeView 的基本元素，TreeNode 也可以拥有自己的子节点，子节点还可以有子节点，所有 TreeNode 本身也是一个树。
 
 ## TreeNode 标签属性

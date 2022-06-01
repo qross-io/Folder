@@ -14,5 +14,4 @@
     + [整数、小数、负数](/regex/example-numeric.md)
     + [字母、单词、变量](/regex/example-letter.md)
     + [日期、时间](/regex/example-datetime.md)
-    + [符号、特殊字符](/regex/example-character.md)
     + [高级应用示例](/regex/example-high-grade.md)

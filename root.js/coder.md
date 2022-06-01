@@ -36,6 +36,7 @@ Coder 以 **TEXTAREA** 作为配置标签，并支持所有 CodeMirror 的原有
 * `success-text` 保存成功时的提示文字，默认与`saved-text`相同。
 * `failure-text` 后端验证失败时的提示文字。
 * `exception-text` 后端事件发生错误时的提示文字。
+* `message-duration` 消息框显示时间，单位秒，设置为`0`表示一直显示。必须设置这个属性才能使用 Message 进行提醒。
 * `alternative` 备选的语言代码 mode，主要是告诉 Voyager 引擎该引入哪些相关的 js 库，这个属性不会被前端使用。如`alternative="pql,shell,python"`
 
 以上`-text`结尾的属性显示在代码框的右下角。

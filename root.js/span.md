@@ -5,7 +5,7 @@ SPAN 标签也属于 [Model 数据加载模型](/root.js/model.md)的一部分�
 ## 加载数据
 
 ```html
-<span onload="event" onreload="event" await="" reload-on="click:#Button1" data="SELECT title, views FROM table1 WHERE id=$id -> FIRST ROW">文章“@:title”的阅读数是 @:views!!</span>
+<span onload="event" onreload="event" await="" reload-on="click:#Button1" data="SELECT title, views FROM table1 WHERE id=$id -> FIRST ROW">文章“@data.title”的阅读数是 @data.views!!</span>
 ```
 
 SPAN 扩展标签需要设置`data`属性才能够处理数据，使用一些其他特性如事件表达式也需要设置`data`属性。
@@ -17,13 +17,13 @@ SPAN 扩展标签需要设置`data`属性才能够处理数据，使用一些其
 
 SPAN 标签的事件只能写在标签上，SPAN 扩展标签不提供扩展标签的选择器。SPAN 标签可以使用其他原生属性来做其他操作，比如控制样式。
 
-SPAN 标签的占位符语法规则为 `@:keyOrPath?(defaultValue)`，与 [O 标签](/root.js/o.md)相同。更详细说明请参见[数据占位符](/root.js/holder.md)。
+SPAN 标签的占位符语法规则为 `@data.keyOrPath?(defaultValue)`，其中`data`表示从后端加载的数据，与 [O 标签](/root.js/o.md)相同。更详细说明请参见[数据占位符](/root.js/holder.md)。
 
-上例中，`data`属性返回一个有两个字段的对象，如可以是`{ "title": "低代码平台简单介绍", "views": 209 }`。`@:title`可以获取`低代码平台简单介绍`，`@:views`可以获取到`209`，最后 SPAN 标题中展示`文章“低代码平台简单介绍”的阅读数是 209!`。`@:views`后面有两个叹号，前一叹号表示占位符结尾，防止字符冲突。可使用`@:/`获取`data`属性加载的所有数据。
+上例中，`data`属性返回一个有两个字段的对象，如可以是`{ "title": "低代码平台简单介绍", "views": 209 }`。`@data.title`可以获取`低代码平台简单介绍`，`@data.views`可以获取到`209`，最后 SPAN 标题中展示`文章“低代码平台简单介绍”的阅读数是 209!`。`@data.views`后面有两个叹号，前一叹号表示占位符结尾，防止字符冲突。可使用`@data`加载的所有数据。
 
 SPAN 标签也可以从 MODEL 中获取数据，这时无需要设置`data`属性的值，但一定要有`data`属性。例如：
 
-SPAN 标签也支持 Javascript 短句占位符，详见 [MODEL 标签](/root.js/model.md)中的说明。
+SPAN 标签也支持 Javascript 短句占位符，详见 [Express 表达式](/root.js/express.md)中的说明。
 
 ```html
 <span data>文章“@page.title”的阅读数是 @page.views!!</span>

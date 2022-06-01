@@ -17,7 +17,7 @@ FOR 标签也是 [Model 数据加载模型](/root.js/model.md)的一部分，引
 
 ## 数字区间
 
-数字区间的格式是`m to n`，其中`m`和`n`表示整数数字。可使用`item`保留字获取每个数字，也可以使用`var`或`let`属性声明自己的变量名。
+数字区间的格式是`m to n`，其中`m`和`n`表示整数数字，`m`可以比`n`小。可使用`item`保留字获取每个数字，也可以使用`var`或`let`属性声明自己的变量名。
 
 ```html
 <for in="1 to 10">
@@ -36,7 +36,7 @@ FOR 标签也是 [Model 数据加载模型](/root.js/model.md)的一部分，引
 ## 遍历单值数组
 
 * 建议声明`var`或`let`属性，否则需要使用`item`保留字。
-* 当不声明`var`或`let`属性时，如果单个项是 Object，可以使用`@[key]`调取数据。
+* 当不声明`var`或`let`属性时，如果单个项是 Object，可以使用`@item.key`调取数据。
 * 占位符语法规则 `@var`，其中`var`代表变量名; 在不声明`var`属性时，使用`@item`调取属性的值。末尾使用`!`防止字符冲突。
 
 ```html
@@ -84,9 +84,11 @@ FOR 标签也是 [Model 数据加载模型](/root.js/model.md)的一部分，引
 </for>
 ```
 
+完整的占位符规则参阅[数据占位符](/root.js/holder.md)。
+
 ## 遍历对象数组
 
-* 在不声明 var 属性时，使用`@[name]`可得到数组中某一个对象的一项指定的值，`@[name]`与`@item.name`等价。
+* 在不声明 var 属性时，使用`@item.name`可得到数组中某一个对象的一项指定的值。
 * 在声明 var 属性时，使用 `@var1.name`，其中`var1`为 var 属性的名字。
 
 ```html
@@ -96,20 +98,16 @@ FOR 标签也是 [Model 数据加载模型](/root.js/model.md)的一部分，引
 </for>
 
 <for in="select name, age from students">
-    <div>@[name]! @[age]. </div>
+    <div>@item.name! @item[age]. </div>
 </for>
 
 <for var="student" in="select name, age from students">
     <div>@student.name!! @student.age!. </div> <!--只会输出 1 个叹号-->
 </for>
 
-<!--下面 2 个调取 Model 中的数据-->
-<for in="@children.data">
-    <div>@[name] - @[age]</div>
-</for>
-
-<for var="child" in="@children.data">
-    <div>@child.name! - @child.age!</div>
+<!--调取 Model 中的数据-->
+<for let="child" in="@children.data">
+    <div>@child.name - @child.age</div>
 </for>
 ```
 
@@ -120,6 +118,8 @@ FOR 标签占位符也支持默认值，即`?(defaultValue)`
     <span>@field: @value?(N/A)</span>
 </for>
 ```
+
+完整的占位符规则参阅[数据占位符](/root.js/holder.md)。
 
 ## 特殊情况
 

@@ -20,13 +20,13 @@ IF 标签也是 [Model 数据加载模型](/root.js/model.md)的一部分，引�
 * `onreturnfalse` 事件，所有 IF 或 ELSIF 条件都为`false`时触发。事件只能写在标签上。
 
 ```html
-<for in="select * from students">
+<for var="student" in="select * from students">
     @[name]: 
-    <if test="@[score] > 90">
+    <if test="@student.score > 90">
         Excellent!
-    <else-if test="@[score] > 75">
+    <else-if test="@student.score > 75">
         Good Job!
-    <elsif test="@[score] > 60">
+    <elsif test="@student.score > 60">
         Keep studing.
     <else>
         Are you OK?
@@ -42,7 +42,7 @@ IF 标签也是 [Model 数据加载模型](/root.js/model.md)的一部分，引�
 </if>
 ```
 
-IF 标签内的 HTML 内容支持[嵌入式 Javascript 表达式](/root.js/express.md)。
+IF 标签内的 HTML 内容支持[嵌入式 Javascript 表达式](/root.js/express.md)，可以使用 Javascript 对值进行处理。
 
 ## IF 属性
 
@@ -60,8 +60,8 @@ SELECT 标签的 OPTION 标签和 TABLE 标签的 TR 标签不仅不支持 FOR �
 
 ```html
 <table  data="...">
-    <template>
-        <tr if="@[age] >= 18">
+    <template var="row">
+        <tr if="@row.age >= 18">
             ...
         </tr>
     </template>

@@ -7,7 +7,7 @@ TEMPLATE 标签也可应用到其他自定义组件中，如 [TreeView 标签](/
 ## TEMPLATE 属性
 
 ```html
-<template name="name" var="variable name" data="url|array|object" path="jsonPath" as="array|list|for|loop|collection|object" page="int" increment="primary key" offset="0" auto-refresh="yes|no" interval="ms" terminal="boolean expression">
+<template name="name" var="variable name" data="url|array|object|pql" path="jsonPath" as="array|list|for|loop|collection|object" page="int" increment="primary key" offset="0" auto-refresh="yes|no" interval="ms" terminal="boolean expression">
     html code...
 </template>
 ```
@@ -24,7 +24,7 @@ TEMPLATE 标签也可应用到其他自定义组件中，如 [TreeView 标签](/
 * `interval` 自动更新的间隔时间，单位“毫秒”，默认`2`秒。
 * `terminal` [布尔属性](/root.js/boolean.md)，自动更新的终止条件，可使用`@:`得到当前 TEMPLATE 数据。
 
-占位符语法规则为 `@:keyOrPath?(defaultValue)`，与 MODEL 不同的是, MODEL 必须声明`name`属性, 并需要使用`name`来调取值; TEMPLATE 在调取数据时不使用`name`，而使用`:`，表示当前TEMPLATE，如`@:data[0].name`、`@:data#name`等。使用`@:/`调取TEMPLATE 的所有数据。完整的占位符语法规则见[数据占位符](/root.js/holder.md)。
+占位符语法规则请参见[数据占位符](/root.js/holder.md)。当不设置`as`属性时，保留字`data`表示当前 TEMPLATE 加载的数据。当`as`设置为`array`时，保留字`item`表示本次循环的数据。当`as`设置为`object`时，保留字`key`和`value`表示本次循环的数据。`item`、`key`和`value`可以由属性`var`进行设置替换。
 
 ## TEMPLATE 方法
 
@@ -45,7 +45,7 @@ $('#name').setData(data).asArray().clear().load(func);
 * `clear()` 在重新加载内容时先清空。
 * `load(func)` 将内容添加到页面上, 设置`func`可以指定在添加完成后执行的函数，独立于`onload`事件，即如果同时设置了`onload`并传递了`func`函数，都会执行。
     ```javascript
-    $('#name').load(data).append(func);
+    $('#name').setData(data).load(func);
     ```
 
 ## TEMPLATE 事件
@@ -71,8 +71,8 @@ $('#name').on('load', function(data) {
 ```html
 <tempalte name="students" data="/api/students">
     <div>Scores of all Students</div>
-    <for in="@:data">
-        <div>@[name]: @[score]</div>
+    <for in="@data">
+        <div>@item.name: @item.score</div>
     </for>    
 </tempate>
 ```
@@ -96,41 +96,42 @@ $('#name').on('load', function(data) {
 }
 ```
 
-其中`@:data`指向返回结果的`data`属性项，`@[name]`和`@[score]`指向每数据行的`name`和`score`属性项。
+其中`@:data`指向返回结果的`data`属性项，`@item.name`和`@item.score`指向每数据行的`name`和`score`属性项。
 
-## As Array / List
+## As Array
 
-作为列表使用时，需要在标签上增加`as`属性或使用`asList()`方法。在解析时程序会自动为内容增加`<for in="@:/"> ... </for>`包围，循环体内部必须使用与 FOR 标签相同的占位符语法。上一节的示例可以修改为：
+作为列表使用时，需要在标签上增加`as`属性或使用`asList()`方法。在解析时程序会自动为内容增加`<for in="@data"> ... </for>`包围，上一节的示例可以修改为：
 
 ```html
 <div>Scores of all Students</div>
-<tempalte name="students" as="list" data="/api/students -> data">
-    <div>@[name]: @[score]</div>
+<tempalte name="students" as="array" data="/api/students -> data">
+    <div>@item.name: @item.score</div>
 </tempate>
 ```
+
 
 ## 数据懒加载
 
 TEMPLATE 标签可以很方便的实现数据懒加载，支持移动端。TEMPLATE 标签支持两种懒加载方式：
 
 ```html
-<template as="loop" page="1" lazy-load="yes" data="/api/list?page=$:[page]">
-    <div>@[title]</div>
-    <diV>@[description]</div>
+<template as="array" page="1" lazy-load="yes" data="/api/list?page=$:[page]">
+    <div>@item.title</div>
+    <diV>@item.description</div>
 </template>
 
-<template as="list" lazy-load="yes" data="select title, description from projects limit ~{ $:[page] * 100 }, 100">
-    <div>@[title]</div>
-    <diV>@[description]</div>
+<template var="project" as="array" lazy-load="yes" data="select title, description from projects limit ~{ $:[page] * 100 }, 100">
+    <div>@project.title</div>
+    <diV>@project.description</div>
 </template>
 ```
 
 上面两个示例中，实现逻辑一致，其中`data`属性取数据的方式不同。`as`属性`loop`和`list`效果相同，它们都是`array`的别名。`$:[page]`用来获取当前页码，如果不显式设置`page`属性，则默认值为`0`。
 
 ```html
-<template as="list" lazy-load="yes" increment="id" offset="15434" data="select id, title, description from projects where id>$:[offset] limit 100">
-    <div>@[title]</div>
-    <diV>@[description]</div>
+<template var="project" as="array" lazy-load="yes" increment="id" offset="15434" data="select id, title, description from projects where id>$:[offset] limit 100">
+    <div>@project.title</div>
+    <diV>@project.description</div>
 </template>
 ```
 
@@ -141,9 +142,9 @@ TEMPLATE 标签可以很方便的实现数据懒加载，支持移动端。TEMPL
 TEMPLATE 标签还支持自动刷新操作，见下例：
 
 ```html
-    <template name="abc" as="loop" auto-refresh="yes" interval="2000" clear-on-refresh="no" data="select id, task_time from qross_tasks limit ~{ $random(2, 10) }">
-        <div class="f24">@[id]</div>
-        <diV class="space">@[task_time]</div>
+    <template var="task" name="abc" as="array" auto-refresh="yes" interval="2000" clear-on-refresh="no" data="select id, task_time from qross_tasks limit ~{ Math.randomNext(2, 10) }">
+        <div class="f24">@task.id</div>
+        <diV class="space">@task.task_time</div>
     </template>
 ```
 
