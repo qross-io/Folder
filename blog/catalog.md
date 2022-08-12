@@ -29,7 +29,6 @@
     + [IMG 标签的 onload 和 onerror 事件](/blog/20220426-image.md)
     + [W3C 中关于自定义 HTML 标签相关内容](/blog/20211111-custom-element.md)
     + [HTML 标签自定义事件](/blog/20220503-custom-event.md)
-    + [定义自己的 HTML 标签（一）](/blog/20210814.md)
 
 * SVG
     + [SVG 学习笔记](/blog/svg.md)

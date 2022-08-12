@@ -40,11 +40,16 @@ root.js 为 HTML 中的所有原生标签增加了一些通用的属性和方法
 * `getAttribute(attr)` 重写了原生方法，现在支持检测 Camel 和分隔符两种格式，如`allow-empty`和`allowempty`。
 * `$(o)` 同`querySelector(o)`，在元素内选择符合指定 CSS 选择器的第一个子元素，找不到则返回`null`。
 * `$child(o)` 只选择下一级子元素。
+* `$previous(o)` 选择上一个符合条件的同胞元素。
+* `$next(o)` 选择下一个符合条件的同胞元素。
 * `$$(o)` 同`querySelectorAll(o)`，在元素内选择符合指定 CSS 选择器的所有子元素，返回一个数组，找不到则返回一个空数组。
 * `$$children(o)` 只选择下一级子元素，找不到返回空数组。
-* `set(attr, value)` 设置某个属性的值，用得比较多。
+* `$$previousAll(o, toElement)` 选择当前元素之前的所有符合条件的同胞元素。`toElement`表示终点元素，即取当前元素和终点元素之间符合条件的所有元素，不设置表示取所有符合条件的元素。
+* `$$nextAll(o, toElement)` 选择当前元素之后的所有符合条件的同胞元素。`toElement`表示终点元素，即取当前元素和终点元素之间符合条件的所有元素，不设置表示取所有符合条件的元素。
+* `set(attr, value)` 设置某个属性的值，用得比较多，特别是在[精简事件表达式](/root.js/event.md)中。属性名支持 Camel 和连字符格式，子属性通过分号`:`隔开。例如`input.set('value', 'hello')`或`span.set('style:font-size', '1rem')`。
 * `setBootom(bottom)` 设置底边距，单位像素。
 * `setClass(className)` 设置样式类。
+* `setIf(test, attr, value)` 当属性`attr`的值为`test`参数指定的值时才设置`attr`属性的值为`value`。
 * `addClass(...classNames)` 在 ClassList 中添加样式类，支持一次添加多个类。
 * `removeClass(...classNames)` 从 ClassList 中移除样式类，支持移除多个类。
 * `setHeight(height)` 设置高度，单位像素。
@@ -258,7 +263,7 @@ Cookie 操作
     + `tag` 标签名，如`DIV`
     + `properties` 属性列表，必须是一个 Object，如`{ "className": "banner", "innerHTML": "Hello World" }`
     + `styles` 样式列表，必须是一个 Object，如`{ "backgroundColor": "#FF0000", "font-size": "2rem" }`
-    + `attributes` 自定义属性列表，必须是一个 Object，如`{ "sign": "TEST" }`
+    + `attributes` 自定义属性列表，可以是一个 Object，如`{ "sign": "TEST" }`。也可以是一个元素，即将元素的所有属性复制给要创建的元素。
 
 全局样式类
 

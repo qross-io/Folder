@@ -1,6 +1,6 @@
 # TreeNode 类
 
-TreeNode 是构成 TreeView 的基本元素，TreeNode 也可以拥有自己的子节点，子节点还可以有子节点，所有 TreeNode 本身也是一个树。
+TreeNode 是构成 TreeView 的基本元素，TreeNode 也可以拥有自己的子节点，子节点还可以有子节点，所以 TreeNode 本身也是一个树。
 
 ## TreeNode 标签属性
 
@@ -57,6 +57,19 @@ TreeNode 是构成 TreeView 的基本元素，TreeNode 也可以拥有自己的�
 * `expanded` 节点是否在第一次加载时展开。
 * `selected` 节点是否默认被选择。
 * `checked` 节点是否默认被选中。
+
+## text 属性的三种形态
+
+```html
+<treeview>
+    <treenode text="节点文本"></treenode> <!--简单文字建议使用这种方式-->
+    <treenode>节点文本</treenode> <!--要求不能有其他子节点，只能放置简单文本-->
+    <treenode> <!--当节点文本比较复杂时，比如是HTML标签，放在 <text> 标签中-->
+        <icon>icon-folder</icon>
+        <text><b>节点文本</b></text>
+    </treenode>
+</treeeview>
+```
 
 ## TreeNode 状态属性
 

@@ -8,7 +8,7 @@ TreeView 目录的主要功能有：
 
 * 支持设置节点的文本、值、提示文字及各种自定义属性，理论上支持任意的节点内容。
 * 支持将图片、Iconfont 和任意 HTML 代码作为节点图标。
-* 支持三态复杂框。
+* 支持三态复选框。
 * 支持节点文本编辑。
 * 支持节点复制、剪切和粘贴，用键盘就可以操作。
 * 支持节点拖拽，可以设置将节点拖放到任意地方，如不同 TreeView 之间的拖拽，将节点拖放到其他元素上。
@@ -58,20 +58,9 @@ TreeView 目录的主要功能有：
 
 ## TreeView 标签属性
 
-标签属性在 TREEVIEW 元素上定义，用于树形目录的初始化。标签属性也可以在 Javascript 中调用，但需要改成 Camel 命名规则，而且标签属性都是只读的。例如属性`lines-visible`，在 Javascript 中使用时需要改成`linesVisible`。
+标签属性在 TREEVIEW 元素上定义，用于树形目录的初始化。标签属性也可以在 Javascript 中调用，但需要改成 Camel 命名规则，而且标签属性一般是只读的。例如属性`lines-visible`，在 Javascript 中使用时需要改成`linesVisible`。
 
-* `id`或`name` TreeView 唯一标识。
-
-节点链接相关属性：
-
-* `linkStyle` 节点链接的样式，可选`text`和`node`，默认`text`。`text`表示使用默认的链接样式，即将节点文本转成 A 标签，`node`表示点击节点时跳转。
-* `target` 链接的默认目标。
-
-数据相关属性：
-
-* `data` 根节点的数据源，一般为接口地址，请参见[数据相关属性](/root.js/data.md)。
-* `await` 等待其他组件加载完成再加载 TreeView，请参见[数据相关属性](/root.js/data.md)。
-* `template` 根节点模板的名字，请参见“数据模板”一节。
+* `id` TreeView 唯一标识，可通过选择器引用，如`$('#TreeView1')`。
 
 TreeView 中的构成元素相关设置：
 
@@ -87,6 +76,18 @@ TreeView 中的构成元素相关设置：
 * `nodePadding` 节点内对象（如文本、图标）与节点外框之间的距离，默认值为`2`，单位像素。
 * `nodeSpacing` 两个同级节点之间的间距，默认值为`0`，单位像素。
 * `childrenPadding` 父节点与子节点之间的距离，默认值为`0`，单位像素。
+
+数据相关属性：
+
+* `data` 根节点的数据源，一般为接口地址，请参见[数据相关属性](/root.js/data.md)。
+* `await` 等待其他组件加载完成再加载 TreeView，请参见[数据相关属性](/root.js/data.md)。
+* `template` 根节点模板的名字，请参见“数据模板”一节。
+
+节点链接相关属性：
+
+* `linkStyle` 节点链接的样式，可选`text`和`node`，默认`text`。`text`表示使用默认的链接样式，即将节点文本转成 A 标签，`node`表示点击节点时跳转。
+* `target` 链接的默认目标。
+
 
 操作和预设选项：
 
@@ -216,7 +217,7 @@ TreeView 使用到一些图片，这些图片存放在源码库的`images`目录
 
 ## 选择器
 
-可使用通用选择器`$s`通过 ID 得到指定的 TreeView，如`$s('#TreeView1')`，TreeView 的类型为`HTMLTreeViewNode`。
+可使用通用选择器`$`得到指定的 TreeView，如`$('#TreeView1')`，TreeView 的元素类型为`HTMLTreeViewElement`。
 
 ## 拖放操作
 

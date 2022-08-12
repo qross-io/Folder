@@ -61,4 +61,3 @@ sentence = sb.toString()
 
 （本文完）
 
-

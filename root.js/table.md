@@ -173,11 +173,11 @@ TABLE 标签的原生属性不在这里赘述。
 ```html
 <table id="Actors" width="92%" cellpadding="6" cellspacing="0" auto-refresh="yes" meet="this.querySelector('td.green') == null" onmeet-="fadeOut: #LoadingHint, #RestartButtonDiv" onmiss-="fadeIn: #RestartButtonDiv" interval="2000" data="/api/keeper/beats?node_address=<%=$node.node_address%>">
     <colgroup>
-        <col name="Actor" class="bold l180" template="@[actor_name]" map='{ "Keeper": "# actor-keeper-title #", "Inspector": "# actor-inspector-title #", "TaskProducer": "# actor-task-producer-title #", "TaskStarter": "# actor-task-starter-title #", "TaskChecker": "# actor-task-checker-title #", "TaskExecutor": "# actor-task-executor-title #", "TaskLogger": "# actor-task-logger-title #", "NoteProcessor": "# actor-note-processor-title #", "NoteQuerier": "# actor-note-querier-title #", "Repeater": "# actor-repeater-title #" }'>
-        <col name="Status" class="~{ '@[status]' == 'running' ? 'green' : 'red' }" template="@[status]" map="{ 'rest': '# status-rest #', 'running': '# status-running #' }">
-        <col name="StartTime" template="@[start_time]">
-        <col name="QuitTime" template="@[quit_time]?(N/A)">
-        <col name="LastBeatTime" template="@[last_beat_time]">
+        <col name="Actor" class="bold l180" data-format="@[actor_name]" map='{ "Keeper": "# actor-keeper-title #", "Inspector": "# actor-inspector-title #", "TaskProducer": "# actor-task-producer-title #", "TaskStarter": "# actor-task-starter-title #", "TaskChecker": "# actor-task-checker-title #", "TaskExecutor": "# actor-task-executor-title #", "TaskLogger": "# actor-task-logger-title #", "NoteProcessor": "# actor-note-processor-title #", "NoteQuerier": "# actor-note-querier-title #", "Repeater": "# actor-repeater-title #" }'>
+        <col name="Status" class="~{ '@[status]' == 'running' ? 'green' : 'red' }" data-format="@[status]" map="{ 'rest': '# status-rest #', 'running': '# status-running #' }">
+        <col name="StartTime" data-format="@[start_time]">
+        <col name="QuitTime" data-format="@[quit_time]?(N/A)">
+        <col name="LastBeatTime" data-format="@[last_beat_time]">
     </colgroup>
     <thead>
         <tr>

@@ -56,11 +56,20 @@ PQL 是 Cogo 支持的后端交互方式，但仅支持一条 PQL 语句。
 
 ## 提醒文字
 
-当判断结果是否符合预期时，如果设置了提醒文字属性`success-text`或`failure-text`，则在成功或失败时提醒相应的文字，提醒文字显示位置和方式与标签或组件的设置有关，当不设置这些属性时，则不会进行提醒。当请求接口发生错误时，提醒`exception-text`，如果不设置，则提醒出错信息。这几个属性均支持 Express 字符串，如：
+当判断结果是否符合预期时，如果设置了提醒文字属性`success-text`或`failure-text`，则在成功或失败时提醒相应的文字，提醒文字显示位置和方式与标签或组件的设置有关，当不设置这些属性时，则不会进行提醒。当请求接口发生错误时，提醒`exception-text`，如果不设置，则提醒出错信息。这几个属性均支持 [Express 字符串](/root.js/express.md)，如：
 
 ```html
 <button exception-text="Error: {data.message}">
 ```
+
+## 提醒文字的显示方式
+
+一般支持服务器端事件的组件都支持以下几种方式显示提醒文字。
+
+* HintElement 基本都支持，如果不设置任何显示方式，则这种方式为默认。一般在组件右侧会创建一个 SPAN 标签。也可以通用`hint-element`或`hint`属性进行设置，属性值为选择器，如`hint="#Message"`。
+* Callout 基本都支持，需要通过属性`callout-position`或`callout`进行设置，属性值可选`up`、`down`、`left`、`right`等，详见[基础库](/root.js/root.md)中 Callout 相关的说明。
+* Message 基本都支持，需要引入动画库，也要通过属性`message-duration`或`message`设置消息框的显示持续时间，属性值为数字，单位为“秒”，设置为`0`表示一直显示。说见[动画库](/root.js/animation.md)中关于 Message 的说明。
+* Alert 除非特别说明的外（如 BUTTON 按钮），一般都不支持，这种显示提示文字的方式很不友好，一般不建议使用。
 
 ## 事件监听
 

@@ -65,6 +65,14 @@ Select 组件的相关依赖库和组件列表如下：
 * `onchange+exception` 当服务器端事件执行异常时触发的客户端事件。
 * `onchange+completion` 当服务器端事件执行完成时触发的客户端事件。
 
+和其他组件一样，有几个与[服务器端事件](/root.js/server.md)相关的属性：
+
+* `success-text` 请求成功后的提示文字。
+* `failure-text` 请示失败后的提示文字。
+* `exception-text` 请求异常时的提示文字，一般指接口出错。
+* `message-duration`或`message` 提示消息的持续时间，单位为“秒”，设置为`0`表示表示一直显示。
+* `callout-position`或`callout` 弹出文字的位置，默认为`up`。
+
 除支持所有原生属性外，OPTION 标签增加的扩展属性如下：
 
 * `class` 选项的默认样式，不同模式下框体选项的标签元素不同。
@@ -72,11 +80,13 @@ Select 组件的相关依赖库和组件列表如下：
 * `disabled-class` 选项在禁用状态时的样式。
 * `enabled` 是否启用选项，与`disabled`相对，优先级低于`disabled`，处理逻辑请参见[布尔类型的属性](/root.js/boolean.md)。
 * `hide` 当前选项被选中时，需要隐藏的元素，这里的值也是选择器，如`hide='span.hint'`。一般与`show`属性同时设置，`hide`先与`show`执行。
+* `selected` 当前选项是否默认被选中。
 * `selected-class` 选项在被选中时的样式。
 * `show` 当前选项被选中时，需要显示的元素，这里输入选择器，如`show="#A,#B"`。
 * `title` 在鼠标划过选项时的提示文字。
 
 除了以上提到的属性外，不同的模式下还可能有自己的特有属性，将在各模式的说明里介绍。
+
 
 ## 按钮模式
 

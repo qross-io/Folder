@@ -2,7 +2,7 @@
 
 OneApi 安全控制主要通过 **Token** 来实现，Token 分为两种，第一种是静态 Token，第二种是动态 Token。相对于来说，动态 Token 更安全一些。另外一种通过登录用户来控制权限，详见 [OneApi 登录用户](/oneapi/signin.md)。
 
-基于文件的接口管理方式中，Token 在配置文件中设置，且 Token 的应用范围仅限当前项目; 基于数据库的接口管理方式中，Token 在数据为中设置，应用范围是由数据库管理的所有项目。
+基于文件的接口管理方式中，Token 在配置文件中设置，且 Token 的应用范围仅限当前项目; 基于数据库的接口管理方式中，Token 在数据表中设置，应用范围是由数据库管理的所有项目。
 
 ### 使用静态 Token
 
@@ -24,7 +24,7 @@ http://localhost:8080/api/example/test?token=npeiwxl
 http://localhost:8080/oneapi/secret?token=npeiwxl
 ```
 
-这个接口需要自己实现，调用方法`OneApi.getSecretKey(String token)`即可，示例如下：
+这个接口需要自己在微服务中实现，调用方法`OneApi.getSecretKey(String token)`即可，示例如下：
 
 ```java
 @RequestMapping("/oneapi/secret")
@@ -54,7 +54,7 @@ redis.qross.database=0
 与动态 Token 相关的设置项有两个：
 
 * `oneapi.secret.key.ttl` 可以设置动态Token的过期时间，默认时间为`3600`秒。
-* `oneapi.secret.key.digit` 动态Token的位数，默认值是`16`位。
+* `oneapi.secret.key.digit` 动态 Token 的位数，默认值是`16`位。
 
 请求接口时 OneApi 会验证请求者名称和 Token 是否匹配，判断请求者能不能访问这个服务，但是请求者是否有访问此接口的权限，还需要进行安全控制。就像用户系统一样，用户登录了系统，但是用户能够使用哪些功能还需要设置相应的权限。详见 [OneApi 接口安全控制](/oneapi/permit.md)。
 

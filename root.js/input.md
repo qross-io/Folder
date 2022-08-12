@@ -25,13 +25,14 @@
 * `autosize` 是否根据输入的字符数自动调整宽度`size`，中文占用两个字符位置，如果设置了这个属性，则`size`属性表示最小宽度。
 * `disabled` 原生属性，现在值支持更多值，请参照[布尔属性扩展](/root.js/boolean.md)。
 * `enabled` 扩展属性，与`disabled`相对应，但优先级低于`disabled`，请参照[布尔属性扩展](/root.js/boolean.md)查看属性值设置。
-* `enter` 可以设定一个地址，当按下回车键时，自动跳转到指定的地址。如`<input type="search" enter="/search?key=$:[value]" />`。如果不设置值，那么当按下回车时，则失去焦点触发`onblur`或`onchange`事件。
+* `enter` 可以设定一个地址，当按下回车键时，自动跳转到指定的地址。如`<input type="search" enter="/search?key=$:[value]" />`。如果只设置属性但不设置值，那么当按下回车时，则失去焦点触发`onblur`或`onchange`事件。
 * `getter` 在获取输入值时对值进行加工，返回加工后的值，下面有详细的解释。
 * `if-empty` 设置一个值，当输入值为空时，自动赋为这个值。如`if-empty="60"`，当输入值为空时，那么自动填充值为`60`。
 * `minlength` 最小字符长度，当不满足要求时提示`invalid-text`。小于等于`0`表示不限制最小长度。这个属性是原生属性。
 * `set-{attr}-on` 指定文本框的值或其他属性的更新条件，其中`{attr}`可以替换成组件支持的属性，例如`set-value-on`，下面有详细的示例。属性值规则见[事件表达式](/root.js/event.md)。
 * `setter` 在设置输入值时对值进行加工，设置输入值为加工后的值，下面有详细的解释。
-* `validator` 正则表达式验证器，区别于原生属性`pattern`，`pattern`是大小写敏感的，`validator`不区分大小写，如`pattern="^[a-z]$"`只允许输入小写英文字母，而`validator="^[a-z]$"`也可以输入大写字母。
+* `patternIgnoreCase` 正则表达式验证器，区别于原生属性`pattern`，`pattern`是大小写敏感的，`patternIgnoreCase`不区分大小写，如`pattern="^[a-z]$"`只允许输入小写英文字母，而`patternIgnoreCase="^[a-z]$"`也可以输入大写字母。
+* `validator` 验证表达式，如`validator="value != 'hello'"`。支持关键字`value`，也可以使用`this`关键字，表示当前文本框。
 
 与输入框样式相关的属性有：
 
@@ -63,7 +64,7 @@
 * `min` 原生属性，设置允许的最小值 ，适用于`number`、`integer`和`float`类型。
 * `options` 仅适用于`checkbox`和`switch`类型，指定复选框或切换按钮在两种状态下的值，例如`yes,no`、`1,0`等。
 * `pad` 是否在小数点后不满足精度要求时自动补`0`，如精度为`4`时，值为`1.34`，则会自动修正为`1.3400`，适用于`number`和`float`类型。
-* `positive` 是否为正，适用于`number`、`float`和`integer`类型，设置为`true`或其他可识别为`true`的值时，只允许输入正值。
+* `positive` 是否只允许输入正值，适用于`number`、`float`和`integer`类型，设置为`true`或其他可识别为`true`的值时，只允许输入正值。
 * `precision` 小数点的精度，适用于`number`和`float`类型，为`0`时即控制为整数。
 * `strength` 密码复杂度，可选值 `WEAK`、`STRONG`和`COMPLEX`，适用于`password`类型，用于密码强度控制。
 * `theme` 仅适用于`switch`类型，指定切换按钮的主题，默认值`switch`，可选值`checkbox`和`whether`。

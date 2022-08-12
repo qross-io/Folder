@@ -2,6 +2,22 @@
 
 **root.js** 库一般跟随 [Qross Master](/master/overview.md) 项目的功能进行更新。
 
+## v2.5.0 (2022.7.6)
+
+本月共 27 项更新，重写了多个组件，并继续上个版本未完成的工作。
+
+* [TreeView 树形目录](/root.js/treeview.md)重写完成，基本功能已可用，文档待整理。
+* [Select 选择列表扩展](/root.js/select.md)重写完成。
+* [Tab 标签视图](/root.js/tab.md)重写完成。
+* [Editor 文本编辑](/root.js/editor.md)重写完成，去掉了多个功能。文档待整理。
+* [Express 字符串](/root.js/express.md)中的[数据占位符](/root.js/holder.md)现在支持“方法”，“方法”中支持常量字符串。
+* [基础库](/root.js/root.md)
+    + HTMLELement 扩展方法新增`$previous(o)`和`$next(o)`，用于选择符合条件的第一个同胞元素。
+    + HTMLELement 扩展方法新增`$$previousAll(o)`和`$$nextAll(o)`，用于选择符合条件的所有同胞元素。
+    + HTMLElement 扩展方法新增`setIf(test, attr, value)`。
+* [Input 输入框扩展](/root.js/input.md)属性`validator`功能变更为验证表达式，原功能由新属性`patternIgnoreCase`代替。
+
+
 ## v2.5.0 (2022.5.31)
 
 大版本，共 86 项更新，主要是底层优化，多个组件重写。本月所有更新全部为 [TREEVIEW 树形目录](/root.js/treeview.md)版本升级做准备。
