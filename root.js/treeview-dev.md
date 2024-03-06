@@ -194,6 +194,3 @@ nodeCellStyle 为`text`时，不建议设置 textClass 样式。实际为叠加�
 
 `<treenode text-class="...">`和`<text class="...">`优先前者，后者设置无效。如果前者不设置，则使用后者。其他样式逻辑相同。
 
-
-### Template 逻辑
-

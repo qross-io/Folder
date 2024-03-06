@@ -22,6 +22,8 @@ LET $row SET column1=1, column2=2, column3=3  REMOVE column1;
 
 上例中对数据行变量`$row`进行了两次编辑，添加了 3 个字段然后移除了 1 个字段。
 
+注：LET 语句不能编辑全局变量。
+
 ---
 参考链接
 

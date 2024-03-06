@@ -69,14 +69,15 @@ new DateTime(value);
 ## 静态方法
 
 * `of(year, month, dayOfMonth, hour, minute, second, milli)` 使用数字构造时间，返回一个DateTime对象。如`DateTime.of(2020, 9, 17)`
-* `now()` 获取当前日期时间，返回DateTime对象。如`DateTime.now()`
-* `today()` 获取当前日期，返回DateTime对象。如`DateTime.today `()`
+* `now()` 获取当前日期时间，返回 DateTime 对象。如`DateTime.now()`
+* `today()` 获取当前日期，返回 DateTime 对象。如`DateTime.today `()`
 
 * `getCalendar(year, month, firstDay = 'MON')` 获取指定年月的月历，结果是一个`6`行`7`列的二维数组，可通过`fristDay`指定每周的第一天是周几
 
 ## 实例方法
 
 * `get(format = 'yyyy-MM-dd HH:mm:ss')` 按指定格式返回日期时间字符串，如`DateTime.now().get('yyyy年H月d日')`，返回`2020年9月18日`
+
 * `getYear()` 返回年份，值为整数
 * `getMonth()` 返回整数月份
 * `getDayOfMonth()` 返回整数日期

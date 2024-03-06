@@ -42,7 +42,7 @@ PARSE 语句和 [SELECT 语句](/pql/sql.md)一样的意义和用法，所以 PA
 ```sql
 GET # PARSE $path AS TABLE -> INSERT IF EMPTY { "name": "Ted", "age": 19 };
 VAR $result := PARSE $path AS $date_type!;
-FOR $name IN (PARSE "path" AS ARRAY) LOOP
+FOR $name IN (PARSE "/path" AS ARRAY) LOOP
     PRINT $name;
 END LOOP;
 ```

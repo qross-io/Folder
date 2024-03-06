@@ -12,7 +12,9 @@ OneApi 安全控制主要通过 **Token** 来实现，Token 分为两种，第�
 http://localhost:8080/api/example/test?token=npeiwxl
 ```
 
-基于文件管理的接口方式 Token 在设置项`oneapi.token.list`中设置，参见 [OneApi 设置](/oneapi/setup.md)。`oneapi.token.list`设置项的格式为`requester1=token1&requester2=token2&requester3=token3`，字符与字符之间不能有空格，且 Token 必须唯一，即不同请求者的 Token 也不能一样。例如`teacher=npeiwxl&monitor=xequtnb`。
+基于文件管理的接口方式 Token 在设置项`oneapi.token.list`中设置，参见 [OneApi 设置](/oneapi/setup.md)。`oneapi.token.list`设置项的格式为`requester1=token1&requester2=token2&requester3=token3`，字符与字符之间不能有空格，且 Token 必须唯一，即不同请求者的 Token 不能一样。例如`teacher=npeiwxl&monitor=xequtnb`。
+
+Token 可以附加在地址参数中，也可以保存在 Header 中。名称为`Authorization`，值以`Bearer `开头，例如`Bearer Xay876cadNw`。
 
 ### 使用动态 Token
 
@@ -40,6 +42,8 @@ public String OneApiSecret(@RequestParam(value = "token") String token) {
 ```
 http://localhost:8080/api/example/test?secret=xnjmiqt
 ```
+
+动态 Token 也可以保存在 Header 中进行传递，名称和值和 Token 验证相同。
 
 建议使用 Redis 保存动态 Token，特别是在负载均衡模式下，只需在配置文件中配置名称为`qross`的 Redis 数据源连接即可，可参见 [PQL 数据源配置](/pql/properties.md)。例如
 

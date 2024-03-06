@@ -257,19 +257,17 @@ TreeView 使用到一些图片，这些图片存放在源码库的`images`目录
     <treenode name="records" visible="false" text="# operating-records #">
         <icon><i class="iconfont icon-sousuo"></i></icon>
     </treenode>
-    <template name="departments">
-        <for in="@:/">
-            <treenode name="department_@[id]" value="@[department]" link="/user/users?department=@[department]">
-                <icon><i class="iconfont icon-addteam"></i></icon>
-                <text>@[department]</text>
-                <tip class="gray f12">(@[amount])</tip>
-            </treenode>
-        </for>
-    </template>
-    <template name="teams" as="list">                    
-        <treenode name="team_@[id]" value="@[id]" text="@[team_name]" link="/user/member?id=@[id]">
+    <template name="departments" as="list" var="dept">
+        <treenode name="department_@dept.id" value="@dept.department" link="/user/users?department=@dept.department">
             <icon><i class="iconfont icon-addteam"></i></icon>
-            <tip class="gray f12">(@[members])</tip>
+            <text>@dept.department</text>
+            <tip class="gray f12">(@dept.amount)</tip>
+        </treenode>
+    </template>
+    <template name="teams" as="list" var="team">                    
+        <treenode name="team_@team.id" value="@team.id" text="@team.team_name" link="/user/member?id=@team.id">
+            <icon><i class="iconfont icon-addteam"></i></icon>
+            <tip class="gray f12">(@team.members)</tip>
         </treenode>                    
     </template>
 </treeview>

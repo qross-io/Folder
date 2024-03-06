@@ -10,8 +10,8 @@ TAB 的使用非常简单，只有几个属性和事件。
 
 ```html
 <table id="Languages" cellpadding="10" cellspacing="20" border="0" tab bindings="TD" default-class="language" selected-class="language-focus"
-         onchange="$cookie.set('language', this.value)"
-         onchange+="put:/api/personal/language?language={value}" success-text="{text}" exception-text="Exception: {error}">
+         ontabchange="$cookie.set('language', this.tab.value)"
+         ontabchange+="put:/api/personal/language?language={value}" success-text="{text}" exception-text="Exception: {error}">
     <tr>
         <td selected="<%= IF @cookies.language == 'chinese' THEN 'yes' ELSE 'no' END %>" value="chinese" text="语言设置已更改，刷新页面将会切换到中文界面。" to-show="#ChineseCurrent" to-hide="#EnglishCurrent">简体中文<br/><span id="ChineseCurrent">(当前语言)</span></td>
         <td selected="<%= IF @cookies.language == 'english' THEN 'yes' ELSE 'no' END %>" value="english" text="Your setting is changed. Please refresh page to enable it." to-show="#EnglishCurrent" to-hide="#ChineseCurrent">English<br/><span id="EnglishCurrent">(Current Language)</span></td>
@@ -22,17 +22,16 @@ TAB 的使用非常简单，只有几个属性和事件。
 以上为 Master 项目中设置语言的逻辑，这里以此为例说明一下 TAB 组件的属性和事件。
 
 * `tab` 关键属性，必须有，表示这个元素支持标签”。一般设置在 TABLE、DIV 等父级元素上。属性值任意或不设置。
-* `bindings` 选项的选择器，决定了这个标签有多少个选项。上例绑定到`TD`上，即只能两个选项。
+* `bindings` 选项的选择器，决定了这个标签有多少个选项。上例绑定到`TD`上，即只有两个选项。
 * `excludings` 当`bindings`的选择结果中有不想绑定的元素时，可以使用这个属性排除，可以设置索引序号（从`0`开始），也支持奇数`odd`、偶数`even`、最后一个`-1`、倒数倒数第二个`-2`等，多个值之间使用逗号`,`分隔。
 * `defaultClass` 选项在非选择状态下的样式。
 * `selectedClass` 选项在选中状态下的样式。
-* `ontabchange` 客户端事件，当选项改变时触发。上例用于将新值保存到 Cookie 中。
-* `ontabchange+` [服务器端事件](/root.js/server.md)，当选项改变后触发。上例用于请求后端接口。
 * `successText` 服务器端执行符合预期后的提醒文字。
 * `failureText` 服务器端执行符合不预期后的提醒文字。
 * `exceptionText` 服务器端执行出错时的提醒文字。
 * `message`或`messageDuration`，使用 Message 方式显示提醒文字，值为 Message 的显示时间，`0`为一直显示。需要引入动画组件`root.animation.js`。
 * `callout`或`calloutPosition`，使用 Callout 方式显示提醒文字，值为 Callout 的显示位置，可选`up`、`down`、`left`和`right`。
+* `selectedElement` 被选中的元素。
 * `value` 被选中项的值，需要先在选项上进行设置。
 * `text` 被选中项的文本，需要先在选项上进行设置。
 
@@ -50,6 +49,11 @@ TAB 的使用非常简单，只有几个属性和事件。
 * `{value}` 表示标签当前选中项的值，在选项元素上定义。如上例中`value="chinese"`和`value="english"`，`language={value}`中的`{value}`指向这个属性。
 * `{text}` 表示标签当前选中项的文本文字，在选项元素上定义。如上例中`text="Your setting is changed. Please refresh page to enable it."`，`success-text="{text}"`中的`{text}`指向这个属性。
 * `{data}` 这个不是属性，表示请求后端返回的结果，`success`和`failure`状态下为接口返回接口，`exception`状态下为异常文字。上例中`exception-text="Exception: {data}"`中的`{data}`指向这个属性，这里的`data`也可以用`error`代替。
+
+事件有两个，但是会定义在使用`tab`属性的元素上，而不是 TAB 上。
+
+* `ontabchange` 客户端事件，当选项改变时触发。上例用于将新值保存到 Cookie 中。
+* `ontabchange+` [服务器端事件](/root.js/server.md)，当选项改变后触发。上例用于请求后端接口。
 
 TAB 组件与 SELECT 逻辑有些像，区别在于 SELECT 会生成生成相关的子元素，但 TAB 只是绑定到现有的元素上。
 

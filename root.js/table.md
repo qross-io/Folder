@@ -152,14 +152,14 @@ TABLE 标签的原生属性不在这里赘述。
         </tr>
     </thead>
     <tbody>
-    <template>
+    <template var="prop">
         <tr>
             <td><input type="switch" value="@[enabled]" onchange+="UPDATE qross_properties SET enabled='{value}', mender=@userid WHERE id=@[id]" /></td>
-            <td sign="id">@[id]</td>
-            <td><a href="/system/property?id=@[id]">@[title]</a></td>
-            <td>@[property_source]</td>
-            <td>@[property_format]</td>
-            <td>@[property_path]?(&nbsp;)</td>
+            <td sign="id">@prop.id</td>
+            <td><a href="/system/property?id=@[id]">@prop.title</a></td>
+            <td>@prop.property_source</td>
+            <td>@prop.property_format</td>
+            <td>@prop.property_path?(&nbsp;)</td>
         </tr>
     </template>
     </tbody>
@@ -169,6 +169,8 @@ TABLE 标签的原生属性不在这里赘述。
 ## 加载数据方式二
 
 也可以不使用 TEMPLATE 标签加载数据，不过这种方式不如 TEMPLATE 灵活，但支持表格数据的自动无感刷新。这种方式不要设置 TEMPLATE 标签，而是在 COL 标签中设置`template`属性，如下列中所示。下例中所有两个`#`包含的内容为多语言符号，如`# actor-name #`，理解为文本即可。
+
+(数据占位符格式有变化，暂时不可用)
 
 ```html
 <table id="Actors" width="92%" cellpadding="6" cellspacing="0" auto-refresh="yes" meet="this.querySelector('td.green') == null" onmeet-="fadeOut: #LoadingHint, #RestartButtonDiv" onmiss-="fadeIn: #RestartButtonDiv" interval="2000" data="/api/keeper/beats?node_address=<%=$node.node_address%>">
@@ -231,10 +233,10 @@ TABLE 标签的原生属性不在这里赘述。
         </thead>
         <tbody>
             <template>
-                <tr user="@[id]">
-                    <td>@[fullname]</td>
-                    <td>@[email]</td>
-                    <td>@[role]</td>
+                <tr user="@item.id">
+                    <td>@item.fullname</td>
+                    <td>@item.email</td>
+                    <td>@item.role</td>
                 </tr>
             </template>
         </tbody>
@@ -250,7 +252,7 @@ TABLE 标签的原生属性不在这里赘述。
 * 在文本框内输入文字后敲击回车提交筛选，如果`reload-on-filter-or-sorting`为`false`，则在客户端过滤数据。
 * 如果`reload-on-filter-or-sorting`为`true`，则清空所有数据并向后端提交请求，重新加载`data`中的数据。
 * 提交筛选后，会自动在 TABLE 标签上设置对应列名的属性`fullname`和`email`，并将输入值保存在这个属性中，上例中是`fullname=""`。
-* `data`属性可以获取这两个属性的值，例中是`@:[fullname]`和`@:[email]`，`@:`表示当前标签即 TABLE，更多语法请参阅 [Express 字符串](/root.js/express.md)。
+* `data`属性可以获取这两个属性的值，例中是`$:[fullname]`和`$:[email]`，`$:`表示当前标签即 TABLE，更多语法请参阅 [Express 字符串](/root.js/express.md)。
 * 再次从`data`获取的数据会重新呈现在表格中。
 
 所以说，表格的列名非常重要，不只为列添加区分标识，也在筛选过程中起传递数据的作用。

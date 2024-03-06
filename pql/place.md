@@ -56,9 +56,9 @@
 
    格式为一个问号`?`，如`UPDATE table1 SET name=? WHERE id=?`，需按数量和顺序进行传值。一般用于 [PUT 语句](/pql/put.md)和 [BATCH 语句](/pql/batch.md)中。
 
-11. **[PASS 语句](/pql/pass.md)/ [PUT 语句](/pql/put.md)/ [PROCESS 语句](/pql/process.md)/ [BATCH 语句](/pql/batch.md) 中的传值符号**
+11. **[PASS 语句](/pql/pass.md)/[PUT 语句](/pql/put.md)/[TRANS 语句](/pql/trans.md)/[PROCESS 语句](/pql/process.md)/[BATCH 语句](/pql/batch.md) 中的传值符号**
 
-   * 格式`#name`或`#{name}`，不判断数据类型；
+   * 格式`#name`或`#(name)`，不判断数据类型；
    * 格式`&name`或`&(name)`，判断数据类型决定是否加引号。
 
 上述占位符中，比较常用的是第`3`、`5`和`10`项。

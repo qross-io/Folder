@@ -31,7 +31,7 @@ porn.xml 依赖配置如下
     <dependency>
         <groupId>io.qross</groupId>
         <artifactId>pql</artifactId>
-        <version>2.4.0</version>
+        <version>2.5.0</version>
     </dependency> 
 </dependencies>
 ```
@@ -40,7 +40,7 @@ porn.xml 依赖配置如下
 
 ```groovy
 dependencies {
-    compile group: 'io.qross', name: 'pql', version: '2.4.0'
+    compile group: 'io.qross', name: 'pql', version: '2.5.0'
 }
 ```
 
@@ -48,6 +48,40 @@ dependencies {
 
 ```java
 io.qross.pql.PQL.run("PRINT 'HELLO WORLD!'");
+```
+
+## 最新版本
+
+因`qross.io`域名在国内无法备案，已弃用。当前最新版本`4.3.0`在阿里云私有仓库，因功能已经相对完善，相对于中央仓库的`2.5`更新并不多，详见[版本更新](/pql/version.md)。
+
+Gradle 引用方式如下：
+
+```groovy
+allprojects {
+    repositories {
+        maven {
+            url 'https://maven.aliyun.com/repository/public'
+        }
+        maven {
+            credentials {
+                username 'PtbpNI'
+                password 'kwCz3C0wHx'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2011186-release-Aa5YmC/'
+        }
+        maven {
+            credentials {
+                username 'PtbpNI'
+                password 'kwCz3C0wHx'
+            }
+            url 'https://packages.aliyun.com/maven/repository/2011186-snapshot-FSoDsK/'
+        }
+    }
+}
+
+dependencies {
+    implementation 'cn.qross:pql:4.3.0'
+}
 ```
 
 ## 配置数据源

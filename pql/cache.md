@@ -41,13 +41,13 @@ SAVE AS mysql.school;
         SAVE TO CACHE;
             PUT # DELETE FROM students WHERE score<60; 
     ```
-* 可通过 SAVE 语句为缓存表创建索引字段。使用 CACHE 语句创建的缓存表默认是没有主键索引的，可以通过 ALTER 或 CREATE 语句手工添加，比较麻烦。PQL 提供了一种简单的方式为缓存表创建索引字段。
+* 可通过 SAVE 语句为缓存表创建索引字段。使用 CACHE 语句创建的缓存表默认主键名称为`_pk_id`。PQL 提供了一种简单的方式为缓存表创建自定义索引字段。
     ```sql
         OPEN mysql.school;
             GET # SELECT name, age FROM students;
         SAVE AS CACHE TABLE 'students' PRIMARY KEY 'id';
     ```
-上例中通过`SAVE AS CACHE TABLE`语句创建了`students`表并创建了名为`id`的递增主键索引字段。
+上例中通过`SAVE AS CACHE TABLE`语句创建了`students`表并创建了名为`id`的递增主键索引字段。注：SVAE AS CACHE TABLE 不切换目的数据源。
 
 ---
 参考链接

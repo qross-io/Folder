@@ -21,7 +21,9 @@
 * 数据流转
     + [PQL 中极致简单的数据流转操作](/pql/dataflow.md)
     + [跨数据源数据流转 SAVE](/pql/save.md)
-    + [将数据保存在缓冲区 GET](/pql/get.md)    
+    + [将数据保存在缓冲区 GET](/pql/get.md)
+    + [对缓冲区的数据进行转换 TRANS](/pql/trans.md)
+    + [对缓冲区的数据进行简单编辑 SHIFT](/pql/shift.md)
     + [将缓冲区的数据保存到数据库 PUT](/pql/put.md)
     + [在目标数据源执行非查询操作 PREP](/pql/prep.md)
     + [使用缓冲区数据再查询 PASS](/pql/pass.md)

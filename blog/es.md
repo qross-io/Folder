@@ -1,8 +1,32 @@
 # ECMAScript 新版本特性
 
+## ES 14 (2023)
+
+主要是`TypedArray`方法，操作返回新数组。
+
+* 数组的`toSorted`方法，不同于`sort`方法，`toSorted`创建一个新数组，，且支持对象数组排序。
+    ```javascript
+    const objects = [{ name: "John", age: 30 }, { name: "Jane", age: 25 }, { name: "Bill", age: 40 }, { name: "Mary", age: 20 }];
+    const sortedObjects = objects.toSorted((a, b) => {
+        return a.name.localeCompare(b.name); 
+    });
+    ```
+* `toReversed`方法是`reverse`方法的新数组版本。
+* `with`方法，根据索引修改数组中某项的值，返回新数组，方便链式操作。
+    ```javascript
+    [1, 2, 3].with(1, 4); //返回值是 [1, 4, 3]
+    ```
+* `findLast`和`findLastIndex`，根据条件查找元素，前者返回元素或`undefined`，后者返回索引或`-1`。
+    ```javascript
+    const lastEvenIndex = arr.findLast((element) => {
+        return element % 2 === 0;
+    });
+    ```
+* `toSplice(startIndex, deletedCount, ...items)` 切割并添加新元素。
+
 ## ES 13 (2022)
 
-现有 Chrome 和 Edge 浏览器已支持。
+主要是类功能的扩展。
 
 * `static` 静态属性和方法声明前缀。
 * `#` 私有属性和方法声明前缀，在实例外使用时会返回`undefined`。也不能在原型扩展（通过 prototype 扩展）方法中使用。

@@ -6,7 +6,7 @@
 SELECT * FROM students WHERE initial=@LEFT($name, 1);
 ```
 
-上例效果与下列 [Sharp 表达式操作](/pql/sharp-text.md)相同。
+上例效果与下列 [Sharp 表达式操作](/pql/sharp-text.md)效果相同。
 
 ```sql
 SELECT * FROM students WHERE initial=${ $name TAKE 1 };
@@ -16,7 +16,7 @@ SELECT * FROM students WHERE initial=${ $name TAKE 1 };
 
 函数与其他嵌入式操作的优先级顺序为：**用户变量** 优先于 **系统变量** 优先于 **自定义或全局函数** 优先于 **Sharp 表达式**，所以可以在函数中把变量当作函数的参数，也可以在 Sharp 表达式运算过程中使用函数。
 
-为了照顾不同的数据库 SQL 语言习惯，PQL 中会有不同的函数名称来完成同一个操作。目前系统支持的全局函数比较少，会随着版本更新不断补全。
+为了照顾不同的数据库 SQL 语言习惯，PQL 中会有不同的函数名称来完成同一个操作。
 
 * [字符串和正则表达式相关函数](/pql/function-text.md)
 * [数字相关函数](/pql/function-numeric.md)

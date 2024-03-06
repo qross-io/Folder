@@ -68,8 +68,9 @@ Editor 不是独立的组件，可以理解为是为其他标签提供的附加�
 ## 事件
 
 * `onedit` 开始编辑时触发，支持`return`。
-* `oncancel` 取消编辑时触发，支持`return`。
-* `onchange` 当文本值修改时触发更新，支持`return`。对应的[服务器端事件](/root.js/server.md)`onchange+`，用来向后端提交修改。
+* `oneditcancel` 取消编辑时触发，支持`return`。
+* `oneditconfirm` 编辑完成时确认提交前触发，支持`return`
+* `ontextchange` 当文本值修改时触发更新，支持`return`。对应的[服务器端事件](/root.js/server.md)`ontextchange+`，用来向后端提交修改。
 
 
 ---

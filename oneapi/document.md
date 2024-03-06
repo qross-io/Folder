@@ -48,7 +48,6 @@ DELETE FROM qross_functions WHERE id=#{id} AND owner=#{owner};
 
 目前在 OneApi 示例项目中有两个页面：`index.html`和`detail.html`，对应的 Controller 设置在`DocumentController.java`文件中。可以在自己的项目中添加这两个文件用于查阅文档，也可以直接运行 OneApi 示例项目来查阅接口文档，访问地址为`http://localhost:7070/oneapi/docs`。
 
-作者会在 Master 项目中提供接口管理的所有功能，当然也包含文档查阅。
 
 ---
 参考链接

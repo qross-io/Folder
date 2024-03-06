@@ -89,7 +89,7 @@ pql -file /usr/qross/pql/test.sql
 
 操作步骤如下：
 
-1. 创建名为`pql.sh`的文件，Qross系统中已经有这个文件。
+1. 创建名为`pql.sh`的文件，Qross 系统中已经有这个文件。
 
     ```sh
     vim pql.sh

@@ -75,6 +75,8 @@
 
 方法可用于[事件表达式](/root.js/event.md)中。
 
+* `reset()` 重置为默认值。
+* `empty()` 清空。
 * `copy()` 复制文本框中的值。
 * `set(attr, value)` 设置某个属性`attr`的值为`value`。
 * `update(value)` 更新输入框的值为`value`。

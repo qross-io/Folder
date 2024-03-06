@@ -1,6 +1,28 @@
 # 版本和更新
 
-作者会一个月发布一个稳定版本。PQL 的最新稳定版本为 **v2.5.0**，发布时间 **2022-5-31**。
+不定期发布版本，当前最新版本 **4.3.0**，发布时间 **2024-3-6**。
+
+## 2024 年累计更新
+
+* [OneApi 应用](/oneapi/overview.md)性能优化：接口返回值示例功能关闭，流量统计功能弃用。(2024.3.6)
+* [TRANS 语句](/pql/trans.md)及多个[数据表操作相关的 Sharp 表达式](/pql/sharp-table.md)如`WHERE`、`DELETE`、`SELECT`、`DISTINCT`当返回值为空时保留原表的数据结构。(2024.2.25)
+* [CACHE 语句](/pql/cache.md)现在创建默认自增主键`_pk_id`。(2024.1.21)
+
+## 2023 年累计更新
+
+* 包名由`io.qross`改为`cn.qross`。(2023.12.31)
+* 新增全局变量`@YEAR`, `@MONTH`, `@DAY`, `@HOUR`, `@MINUTE`, `@SECOND`, `@MILLISECOND`, `@MICROSECOND` 获取当前日期时间的各部分，均返回整数。(2023.12.23)
+* [Sharp 表达式](/pql/sharp.md)中的 [SELECT](/pql/sharp-table.md) 现在支持五种常用聚合函数。（2023.12.22）
+* [Sharp 表达式](/pql/sharp.md)新增 [DISTINCT](/pql/sharp-table.md) 操作，用于对指定列进行排重，并返回新的数据表。(2023.12.17)
+* 新增 [SHIFT](/pql/trans.md)语句，用于对缓存数据表执行 SHARP 表达式。(2023.12.17)
+* 新增 [TRANS](/pql/trans.md)语句，用于将数据表转换为指定的格式。(2023.12.17)
+* 优化项：不启用 DEBUG 模式也提示未赋值的变量。(2023.11.10)
+* PQL 函数嵌套逻辑 bug 修复，现在可以嵌套多个函数。(2023.9.2)
+* PQL 全局函数增加`@PROPERTIES(key)`用于获取 properties 文件中的配置信息。(2023.9.2)
+* [OneApi](/oneapi/overview.md) 的 token 现在支持 Header 和地址参数双重验证。(2023.5.26)
+* [Voyager](/voyager/overview.md)静态站点和图片站点引用现在由处理`@`和`%`开始，变为`@/`和`%/`以防止冲突。(2023.2.16)
+* Javascript 执行引擎修改为`Graalvm.js`，高版本 Java 中将移除`ScriptEngine` (2023.2.1)
+
 
 ## v2.6.0 (2022.6.30)
 

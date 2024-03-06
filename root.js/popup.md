@@ -24,7 +24,7 @@ Popup 可用的属性如下：
 * `cancel-button` 设置确认按钮的 id 或其他可用的选择器，默认值为`#{popup-id}_CancelButton`，如`#Popup1_CancelButton`。
 * `reference` 菜单模式下的参考元素。
 * `hidings` 打开时需要隐藏的元素，使用选择器设置，支持多个元素。
-* `disable-scrolling` 打开时是否禁用滚动条，默认为`false`，边栏械下默认为`true`。
+* `disable-scrolling` 打开时是否禁用滚动条，默认为`false`，边栏模式下默认为`true`。
 * `mask-color` 模态背景的颜色，默认为`#999999`。
 * `mask-opacity` 模态背景的透明度，可选值`0 ~ 10`，`0`为完全透明，`10`为完全不透明，默认值`3`。
 

@@ -36,6 +36,10 @@
   ```sql
   SELECT item, COUNT(0) AS amount FROM table1 -> DELETE 'amount = 0';
   ```
+* **`DISTINCT`** 选择字段并排重，返回一个新的数据表，可以理解为 SQL 语句中的`SELECT DISTINCT ...`。
+  ```sql
+  SELECT item1, item2, item3 FROM table1 -> DISTINCT item1, item2
+  ```
 * **`INSERT row`** 在数据表中插入一行。还用上面的例子，
   ```sql
   SELECT * FROM table1 -> INSERT { "name": "Tom", "age": 18 };
@@ -53,6 +57,10 @@
   $table SELECT name, age AS years -- 选择其中两列，并重命名其中一列
   $table SELECT * -- 选择全部列，生成的数据表和原数据相同，无意义
   $table SELECT *, name AS title -- 选择全有的全部列，并将其中一列另存为新列。因为数据表中不能存在重名的列，所以新列必须用`AS`重新命名。
+  ```
+  `SELECT`支持常用的五种简单的聚合操作，分别为`SUM/COUNT/MAX/MIN/AVG`，必须使用`AS`指定新的字段名，其中`SUM/MAX/MIN/AVG`只支持单字段，函数内不支持字段运算。`COUNT`中为空或数字表示仅计数，`COUNT`内支持一个或多个字段，表示分组排重，注意其中多个字段时使用加号`+`分隔而不是逗号`,`。除聚合函数以外的字段均为分组依据，即省略了`GROUP BY`，可以没有分组字段，那么结果只会有一行数据。
+  ```sql
+  $table SELECT grade, SUM(score) AS total, COUNT(name) AS students, COUNT(name+subject) AS cns, COUNT() AS all, MAX(score) as masc, MIN(score) AS misc, AVG(score) AS avsc
   ```
 * **`TO GROUPS`** 将数据表按照其中某一个字段的值分组成多个子表格。
   ```sql
@@ -96,11 +104,17 @@
   SELECT item, COUNT(0) AS amount FROM table1 -> WHERE 'amount > 0';
   ```
 
+更复杂的表操作可以使用将数据保存到 SQLite 支持的内存数据库，见[CACHE 语句](/pql/cache.md) 和 [SAVE 语句](/pql/save.md)中的相关内容。
+
 ## 聚合操作
+
+待优化或移除。
 
 * `AVG column` 返回指定列的平均值。
 * `COUNT` 获取数据表的行数，返回一个整数。
 * `SUM column` 返回指定列的加和。
+
+表内聚合操作可使用`SELECT`。
 
 ## 其他操作
 

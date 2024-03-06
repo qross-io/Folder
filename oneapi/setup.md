@@ -7,7 +7,7 @@ oneapi.service.name=example
 oneapi.management.key=1234567
 oneapi.resources.dirs=/api/
 oneapi.security.mode=none
-oneapi.token.list=name1=token1&name2=token2&name3=token3
+oneapi.token.list=name1=token1;name2=token2;name3=token3
 oneapi.access.open=
 oneapi.access.permit=*=*
 oneapi.secret.key.ttl=3600

@@ -208,7 +208,7 @@ BUTTON 模式下 SELECT 标签的专有属性只有一个
 </select>
 
 <select data='[{"lang": "Java", "id": "1"}, {"lang": "Scala", "id": "2"}, {"lang": "Python", "id": "3"}]'>
-    <option value="@[id]">@[lang]</option>
+    <option value="@item.id">@item.lang</option>
 </select>
 
 <select data='{"Java": "1", "Scala": "2", "Python": "3"}'>
@@ -216,7 +216,7 @@ BUTTON 模式下 SELECT 标签的专有属性只有一个
 </select>
 
 <select data="/api/languages">
-    <option value="@[id]">@[lang]</option>
+    <option value="@item.id">@item.lang</option>
 </select>
 ```
 

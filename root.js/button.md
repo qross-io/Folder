@@ -32,7 +32,7 @@
     <button href="/index.html">返回首页</button>
     ```
 * `text` 获取或设置按钮的文字。
-* `type` 按钮类型，目前支持`switch`和`confirm`属性，用作切换按钮和再次确认按钮。本文最下面有示例。
+* `type` 按钮类型，目前支持`switch`和`twice`属性，用作切换按钮和再次确认按钮。本文最下面有示例。
 * `watch` 用于组件监听，下面在“组件监听”中单独介绍这个属性。
 
 与启用禁用相关的属性有：
@@ -86,7 +86,7 @@
 按钮新增一个[服务器端事件](/root.js/server.md)`onclick+`，是按钮扩展的关键属性。属性值为按钮要执行的 PQL 语句或要请求的 API 接口，属性值格式详见[服务器端事件](/root.js/server.md)和[与数据相关的属性](/root.js/data.md)。客户端事件`onclick`依然可以使用。
 
 为了配合`switch`按钮类型，新增两个客户端事件`onclick-enabled`和`onclick-disabled`，分别当按钮切换到相应的状态下触发。  
-为了配合`confirm`按钮类型，新增两个客户羰事件`onclick-confirm`和`onclick-cancel`，分别当按钮确认和取消按钮时触发。
+为了配合`twice`按钮类型，新增两个客户羰事件`onclick-confirm`和`onclick-cancel`，分别当按钮确认和取消按钮时触发。
 
 客户端事件可配合其他组件使用，比如需要监听按钮的动作，参见[精简事件和表达式](/root.js/event.md)。
 
@@ -169,17 +169,17 @@ Button 一般情况下会配合其他表单组件使用，如文本框等。Butt
 当`type`属性设置为`switch`时，可以把按钮做为切换按钮使用。
 
 ```html
-<button id="EnableButton" type="switch" options="已启用=yes&已禁用=no" value="<%= $job.enabled %>" onclick="return <%=$job.dags%> > 0;" invalid-text="至少先设置一个工作流命令才能启用调用。" onclick+="put:/api/job/switch?id=&(jobId)&enabled={value}" />
+<button id="EnableButton" type="switch" enabled-text="已启用" enabled-value="yes" disabled-text="已禁用" disabled-value="no" value="<%= $job.enabled %>" onclick="return <%=$job.dags%> > 0;" invalid-text="至少先设置一个工作流命令才能启用调用。" onclick+="put:/api/job/switch?id=&(jobId)&enabled={value}" />
 ```
 
 这个示例来自于 Master 项目后台启停用调度的按钮，主要逻辑为：只有先设置了工作流之后才能启用按钮，由`onchange`事件来判断，如果不满足启用条件，则提示文字`invalid-text`；`options`用来设置不同状态下按钮的显示文字和值；`value`属性必须设置值；`onclick+`事件用于请求后端接口，完成数据库更新。
 
-## 确认按钮示例
+## 二次确认按钮示例
 
-当`type`设置为`confirm`时，当点击按钮时会划出“确认”和“取消”按钮进行再次确认，在用户体验上这种方式比弹出框更友好一些。
+当`type`设置为`twice`时，当点击按钮时会划出“确认”和“取消”按钮进行再次确认，在用户体验上这种方式比弹出框更友好一些。
 
 ```html
-<button id="RestartButton" type="confirm" class="task-failed-badge normal-button w150" confirm-button-text="# confirm-restart #" onclick+="put:/api/keeper/quit-on-next-beat?node_address=<%=$node.node_address%>" onclick+success-="start: #Logs; fadeIn: #LoadingHint" exception-text="Exception: {data}" callout cancel-button-text="# cancel-restart #" enable-on-success="false"># restart-button #</button>
+<button id="RestartButton" type="twice" class="task-failed-badge normal-button w150" confirm-button-text="# confirm-restart #" onclick+="put:/api/keeper/quit-on-next-beat?node_address=<%=$node.node_address%>" onclick+success-="start: #Logs; fadeIn: #LoadingHint" exception-text="Exception: {data}" callout cancel-button-text="# cancel-restart #" enable-on-success="false"># restart-button #</button>
 ```
 
 这个示例来自于 Master 项目后台重启 Keeper 的按钮，主要逻辑为，当点击按钮时，按钮会向下划出（fadeOut），同时“确认”和“取消”两个按钮会从左右两方划入（fadeIn）；再次点击“确认”按钮才会继续执行。使用`confirm-button-text`和`cancel-button-text`属性可以设置“确认”和“取消”按钮的文字，`enable-on-success`属性表示点击成功后不再恢复。
