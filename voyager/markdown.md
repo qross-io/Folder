@@ -83,7 +83,7 @@ Markdown 中的链接语法可选种类比较多，但也比较简单。
 2. [链接文字](/path/page.html "提示文字")
 3. [链接文字](http://www.qross.cn "新窗口打开")!
 4. <http://www.qross.cn/oneapi/markdown>!
-5. <wu@qross.io>
+5. <wuguo@live.cn>
 6. [链接文字][1]
 7. [链接文字][2]
 8. [链接文字][3]!

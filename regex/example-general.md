@@ -68,7 +68,7 @@
 ## 邮箱
 
 <span id="Email" class="regex" copy-text="正则表达式已复制。">^[a-z0-9_.-]+@([a-z0-9-]+\\.)+[a-z]{2,}$</span> &nbsp; &nbsp; <button class="small-text-button gray-button" onclick-="copy: #Email">复制</button>
-<button class="small-text-button gray-button" href="/r?text=wu@qross.io&regex=$(#Email)%">试试</button>
+<button class="small-text-button gray-button" href="/r?text=wuguo@live.cn&regex=$(#Email)%">试试</button>
 
 -- 20 --
 

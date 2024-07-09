@@ -41,7 +41,7 @@ PRINT @NOW; -- 打印当前时间，如 '2020-08-04 09:31:22'
 * `@COUNT_OF_LAST_GET` `@COUNT`的完整写法 
 * `@TOTAL` 最近一组所有`GET`语句获取的数据的总行数
 * `@TOTAL_COUNT_OF_RECENT_GET` `@TOTAL`的完整写法
-* `@BUFFER` 使用`GET`语句后，缓冲区会保存记录，这个变量可以访问缓冲区，是一个二维数据表格
+* `@BUFFER` 使用`GET`语句后，缓冲区会保存记录，这个变量可以访问缓冲区，是一个二维数据表格。在整个 PQL 过程运行完成后会被清空，所以这个变量不能作为返回值，如 `OUTPUT @BUFFER;`只能得到一个空表格。
 * `@AFFECTED_ROWS_OF_LAST_PUT` 最后一个`PUT`语句影响数据库的行数
 * `@TOTAL_AFFECTED_ROWS_OF_RECENT_PUT` 最近一组所有`PUT`语句影响数据库的行数
 * `@AFFECTED_ROWS_OF_LAST_PREP` 最后一条PREP语句影响数据库的行数

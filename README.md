@@ -82,4 +82,4 @@ OneApi 的页面管理功能正在开发中，可更方便直观的管理项目�
 技术支持
 
 官方网站 [www.qross.cn](http://www.qross.cn)  
-联系作者 <wu@qross.io>
+联系作者 <wuguo@live.cn>

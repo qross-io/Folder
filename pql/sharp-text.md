@@ -42,6 +42,8 @@ Sharp 表达式为处理字符串提供了大量丰富且灵活的操作方法�
 
 ## 字符串扩展
 
+* **`BRACKET 'str'`** 将字符串用字符串`str`包围起来。`'hello' BRACKET '#'` 结果为 `'#hello#'`。
+* **`BRACKET 'str1' AND 'str2'`** 将字符串用字符`str1`和字符串`str2`包围起来。`'hello' BARCKET '[' AND ']'`结果为`'[hello]'`。
 * **`CONCAT 'str'`** 连接两个字符串，效果同字符串连接符号`+`，如`'a' + 'b'`，但`CONCAT`的优先级比加号连接低，`'a' CONCAT 'b' + 'c'`中先执行`'b' + 'c'`。
 * **`PREFIX 'str'`** 如果字符串不是以`str`开头，则把`str`加在字符串前面。如`'click' PREFIX 'on'`结果是`onclick`，`'onclick' PREFIX 'on'`结果还是`onclick`。
 * **`QUOTE`** 无参数，将字符串用单引号引起来。`"hello" QUOTE`结果为`"'hello'"`。
@@ -52,8 +54,6 @@ Sharp 表达式为处理字符串提供了大量丰富且灵活的操作方法�
 
 ## 字符串判断
 
-* **`BRACKET 'str'`** 将字符串用字符串`str`包围起来。`'hello' BRACKET '#'` 结果为 `'#hello#'`。
-* **`BRACKET 'str1' AND 'str2'`** 将字符串用字符`str1`和字符串`str2`包围起来。`'hello' BARCKET '[' AND ']'`结果为`'[hello]'`。
 * **`BRACKETS WITH 'str'`** 判断字符串是否使用字符串`str`包围。`'#hello#' BRACKETS WITH '#'`结果为`true` 。
 * **`BRACKETS WITH 'a' AND 'b'`** 判断字符串是否使用字符串`a`和`b`包围。`'hello' BRACKETS WITH '[' AND ']'`结果为`false`。
 * **`CONTAINS 'str'`** 判断字符串是否包含子字符串'str'。`'hello' CONTAINS 'e'`结果是`true`。
